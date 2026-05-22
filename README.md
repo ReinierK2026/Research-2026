@@ -1,0 +1,169 @@
+# Research-2026: GRI and Materiality Related Research
+
+A live research dashboard tracking regulatory updates, NLP pipeline development, and empirical analysis of sustainability reporting standards adoption in the semiconductor industry.
+
+## 🎯 Project Overview
+
+This repository contains:
+- **Live research log**: `data/research_log.json` (updated daily via Claude Routine)
+- **Interactive dashboard**: `website/` (hosted on GitHub Pages)
+- **Research findings**: Documentation of agents, methodologies, and key discoveries
+- **Data pipeline**: TWSE sustainability reporting corpus with 7,765 company-year observations
+
+## 📊 Current Status
+
+- **Project Phase**: Data Collection (48% complete)
+- **Target Completion**: Q3 2026
+- **Reports Processed**: 3,180 TWSE sustainability reports
+- **GRI Code Instances**: 194,168 (2021–2024)
+- **Semiconductor Companies**: 276 company-years (~290 target)
+
+## 🚀 Live Dashboard
+
+**Access the live dashboard**: https://ReinierK2026.github.io/Research-2026/
+
+The dashboard auto-updates every 30 seconds with the latest research session data from `data/research_log.json`.
+
+## 📁 Repository Structure
+
+```
+Research-2026/
+├── data/
+│   └── research_log.json          # Live research session log
+├── website/
+│   ├── index.html                 # Dashboard homepage
+│   ├── style.css                  # Responsive styling
+│   └── script.js                  # Dynamic data rendering
+├── findings/                      # Research outputs and documentation
+├── gaps/                          # Gap analysis reports
+└── README.md                      # This file
+```
+
+## 📝 How to Update the Dashboard
+
+### Using Claude Routine (Automated)
+
+1. **In Claude Code**, after completing a research session, create/update `research_log.json`:
+
+```python
+import json
+from datetime import datetime
+
+new_session = {
+    "session_date": datetime.now().strftime("%Y-%m-%d"),
+    "pass": 1,
+    "agent": "web-researcher",
+    "topic_slug": "your-topic-slug",
+    "status": "completed",
+    "key_findings": ["Finding 1", "Finding 2"],
+    "output_file": "findings/your-output.md"
+}
+
+# Load existing log
+with open('research_log.json', 'r') as f:
+    log = json.load(f)
+
+# Append new session
+log.append(new_session)
+
+# Save updated log
+with open('research_log.json', 'w') as f:
+    json.dump(log, f, indent=2)
+```
+
+2. **Use Claude Routine** to push the updated file to GitHub:
+
+```bash
+git add data/research_log.json
+git commit -m "Update research log: [session description]"
+git push
+```
+
+3. **Dashboard auto-updates** (via GitHub Pages) within seconds ✅
+
+### Manual Update
+
+Or push files directly via GitHub web interface:
+1. Go to `data/research_log.json`
+2. Click ✏️ Edit
+3. Update the JSON
+4. Commit changes
+
+## 📋 Research Log Schema
+
+Each session entry should include:
+
+```json
+{
+  "session_date": "2026-05-22",
+  "pass": 1,
+  "agent": "web-researcher|academic-researcher|data-analyst|technical-researcher|research-gap-analysis|research-coordinator|hypothesis-generation",
+  "topic_slug": "kebab-case-topic",
+  "status": "completed|in-progress|plan-issued",
+  "key_findings": ["Finding 1", "Finding 2", "..."],
+  "sections_updated": ["S1", "S2"],
+  "output_file": "findings/output-filename.md",
+  "sources_consulted": ["Source 1", "Source 2"],
+  "notes": "Optional context"
+}
+```
+
+## 🎬 Agent Types
+
+The dashboard recognizes these research agents:
+
+| Agent | Emoji | Role |
+|-------|-------|------|
+| web-researcher | 🌐 | Regulatory updates, standards tracking |
+| academic-researcher | 🎓 | Literature review, methods |
+| data-analyst | 📊 | Data extraction, variable creation |
+| technical-researcher | ⚙️ | NLP pipeline, model selection |
+| research-gap-analysis | 🔍 | Gap identification, prioritization |
+| research-coordinator | 📋 | Project coordination, task planning |
+| hypothesis-generation | 💡 | Hypothesis development, estimation strategy |
+
+## 🔧 GitHub Pages Setup
+
+To enable the live dashboard:
+
+1. Go to **Settings → Pages**
+2. Source: `Deploy from a branch`
+3. Branch: `main` | Folder: `/website`
+4. Click **Save**
+
+Your dashboard will be live at: `https://ReinierK2026.github.io/Research-2026/`
+
+## 📊 Dashboard Features
+
+- ✅ **Real-time updates**: Auto-refreshes every 30 seconds
+- ✅ **Project status tracking**: Progress bar and phase indicators
+- ✅ **Key metrics**: Reports processed, GRI codes extracted, etc.
+- ✅ **Recent sessions**: Last 6 unique research sessions with findings
+- ✅ **Agent activity**: Counts by research agent
+- ✅ **Upcoming milestones**: Q2–Q1 2027 timeline
+- ✅ **Responsive design**: Works on desktop, tablet, mobile
+- ✅ **Dark mode support**: Auto-detects system preference
+
+## 🔒 Data Privacy
+
+- Repository is **private** (visible to owner only)
+- Research log contains public research findings only
+- Sensitive data (raw reports, credentials) excluded
+- Dashboard accessible only via direct URL
+
+## 📞 Support
+
+For issues or questions:
+1. Check existing GitHub Issues
+2. Review `findings/` for detailed documentation
+3. Consult the original research notebooks
+
+## 📄 License
+
+Research findings are provided as-is. See individual output files for specific licensing.
+
+---
+
+**Last Updated**: 2026-05-22  
+**Maintained by**: ReinierK2026  
+**Repository**: https://github.com/ReinierK2026/Research-2026
