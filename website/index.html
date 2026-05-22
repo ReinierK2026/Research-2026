@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research-2026: GRI & Materiality Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div>
+                    <h1>📊 Research-2026</h1>
+                    <p class="subtitle">GRI and Materiality Related Research — Live Dashboard</p>
+                </div>
+                <div class="last-updated">
+                    Last updated: <span id="lastUpdated">--</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Project Status Section -->
+        <section class="card project-status">
+            <h2>§ PROJECT STATUS</h2>
+            <div class="status-phases">
+                <div class="phase completed">
+                    <div class="phase-dot"></div>
+                    <span>Scoping</span>
+                </div>
+                <div class="phase completed">
+                    <div class="phase-dot"></div>
+                    <span>Pipeline build</span>
+                </div>
+                <div class="phase active">
+                    <div class="phase-dot"></div>
+                    <span>Data collection</span>
+                </div>
+                <div class="phase">
+                    <div class="phase-dot"></div>
+                    <span>Analysis</span>
+                </div>
+                <div class="phase">
+                    <div class="phase-dot"></div>
+                    <span>Writing</span>
+                </div>
+                <div class="phase">
+                    <div class="phase-dot"></div>
+                    <span>Submission</span>
+                </div>
+            </div>
+
+            <p class="status-text">The project is presently in its <strong>data collection phase</strong>. Approximately <strong>48% of the planned workload</strong> is complete; the corpus is on track for full assembly by <strong>Q3 2026</strong>, after which analysis can begin in earnest.</p>
+
+            <div class="progress-wrapper">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 48%"></div>
+                </div>
+                <span class="progress-text">48% Complete</span>
+            </div>
+        </section>
+
+        <!-- Key Metrics -->
+        <section class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-number" id="metric-reports">3,180</div>
+                <div class="metric-label">Reports Processed</div>
+                <div class="metric-sublabel">TWSE universe</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-number" id="metric-gri">194,168</div>
+                <div class="metric-label">GRI Code Instances</div>
+                <div class="metric-sublabel">2021–2024</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-number" id="metric-semiconductor">276</div>
+                <div class="metric-label">Semiconductor Company-Years</div>
+                <div class="metric-sublabel">~290 target</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-number" id="metric-sessions">8</div>
+                <div class="metric-label">Research Sessions</div>
+                <div class="metric-sublabel">Completed</div>
+            </div>
+        </section>
+
+        <!-- Agent Activity -->
+        <section class="card">
+            <h2>🤖 Agent Activity</h2>
+            <div id="agentActivity" class="agent-activity"></div>
+        </section>
+
+        <!-- Recent Sessions -->
+        <section class="card">
+            <h2>📋 Recent Research Sessions</h2>
+            <div id="sessionsList" class="sessions-list"></div>
+        </section>
+
+        <!-- Key Findings -->
+        <section class="card">
+            <h2>🎯 Latest Key Findings</h2>
+            <div id="keyFindings" class="findings-list"></div>
+        </section>
+
+        <!-- Upcoming Milestones -->
+        <section class="card milestones">
+            <h2>🏁 Upcoming Milestones</h2>
+            <div class="milestone">
+                <div class="milestone-date">Jun 2026</div>
+                <div class="milestone-content">
+                    <strong>Block C extraction</strong> across 2021–2023 cohorts (extract_block_c.py)
+                </div>
+            </div>
+            <div class="milestone">
+                <div class="milestone-date">Jul 2026</div>
+                <div class="milestone-content">
+                    <strong>Block D pipeline</strong>: FinBERT-ESG + XLM-RoBERTa zero-shot on 3,180 reports
+                </div>
+            </div>
+            <div class="milestone">
+                <div class="milestone-date">Sep 2026</div>
+                <div class="milestone-content">
+                    <strong>Inter-coder reliability</strong> on 20% subsample (target κ ≥ 0.80)
+                </div>
+            </div>
+            <div class="milestone">
+                <div class="milestone-date">Oct 2026</div>
+                <div class="milestone-content">
+                    <strong>Global peer PDF collection</strong> from IR pages (~40 priority reports)
+                </div>
+            </div>
+            <div class="milestone">
+                <div class="milestone-date">Dec 2026</div>
+                <div class="milestone-content">
+                    <strong>Goodman-Bacon decomposition</strong>; primary CS21 estimation
+                </div>
+            </div>
+            <div class="milestone">
+                <div class="milestone-date">Mar 2027</div>
+                <div class="milestone-content">
+                    <strong>Working paper v1</strong> — internal seminar
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Research-2026 © 2026 | <a href="https://github.com/ReinierK2026/Research-2026" target="_blank">GitHub Repository</a></p>
+            <p style="font-size: 0.85rem; opacity: 0.7;">Dashboard auto-refreshes every 30 seconds</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
