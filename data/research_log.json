@@ -1,0 +1,138 @@
+[
+  {
+    "session_date": "2026-05-18",
+    "pass": 1,
+    "agent": "web-researcher",
+    "topic_slug": "regulatory-nlp-updates",
+    "status": "completed",
+    "sources_consulted": [
+      "FSC Press Release Aug 2023 (IFRS S1/S2 phased mandate)",
+      "IFRS Foundation Chinese Taipei Profile",
+      "GRI 101: Biodiversity 2024 standard page",
+      "GRI 102: Climate Change 2025 standard page",
+      "GRI 103: Energy 2025 standard page",
+      "GRI–ESRS Interoperability Index Nov 2024",
+      "IAASB ISSA 5000 publication page",
+      "HuggingFace Qwen3-Embedding model card",
+      "Qwen3-Embedding technical paper arXiv:2506.05176",
+      "BGE-M3 HuggingFace model card",
+      "ESGLens arXiv:2604.19779",
+      "ReportParse IJCAI 2024",
+      "GitHub: jonathandroth/staggered",
+      "GitHub: evanjflack/bacondecomp"
+    ],
+    "key_findings": [
+      "TWSE universal mandate effective 2025 filing cycle (1,883 companies total)",
+      "IFRS S1/S2 Phase 1 (>NT$10B) = FY2026; Phase 2 (NT$5B–NT$10B) = FY2027; Phase 3 (all) = FY2028",
+      "GRI 101: Biodiversity effective Jan 2026; replaces GRI 304; canonical code E09 updated",
+      "GRI 102 (Climate) and GRI 103 (Energy) effective Jan 2027",
+      "ISSA 5000 approved Nov 2024; effective Dec 15 2026 engagements",
+      "Qwen3-Embedding-8B recommended; highest MTEB score; replaces multilingual-e5-large-instruct",
+      "BGE-M3 confirmed as alternative multilingual embedding model",
+      "ESGLens (MIT, Mar 2026) released with code — RAG framework for GRI extraction",
+      "ReportParse active (IJCAI 2024)"
+    ],
+    "sections_updated": [
+      "S1",
+      "S2",
+      "S7",
+      "S8",
+      "S13",
+      "S14"
+    ],
+    "output_file": "findings/web-researcher_regulatory-nlp-updates_2026-05-18.md"
+  },
+  {
+    "session_date": "2026-05-18",
+    "pass": 1,
+    "agent": "academic-researcher",
+    "topic_slug": "methods-gaps",
+    "status": "completed",
+    "sources_consulted": [
+      "Roth & Sant'Anna (2023) staggered package — arXiv:2102.01291",
+      "CRAN staggered package README",
+      "GitHub: jonathandroth/staggered",
+      "Young et al. (2015) Journal of Marriage and Family — IPW for missing longitudinal data",
+      "Beske et al. (2020) — Poisson for topic count data",
+      "Padilla-Garrido et al. (2024) — Poisson for GRI topic data",
+      "OSF preregistration guide",
+      "AsPredicted platform",
+      "Harvard Dataverse",
+      "Zenodo",
+      "Social Sciences Data Editor replication standards",
+      "Göttsche et al. (2025) RAS Vol.30 pp.3596–3639",
+      "Oll, Spandel, Schiemann & Akkermann (2025) SAMPJ Vol.16 No.2",
+      "Khan, Serafeim & Yoon (2016) The Accounting Review Vol.91",
+      "Baumüller & Sopp (2022) JAAR Vol.23 No.1",
+      "Garst, Maas & Suijs (2022) California Management Review Vol.65 No.1"
+    ],
+    "key_findings": [
+      "staggered package provides proxy power assessment; 80% power for ATT ≥ 1.5 topics with 50–80 treated firms",
+      "IPW recommended for attrition correlated with firm size; ipw::ipwpoint() code documented",
+      "Hurdle Poisson preferred over standard ZIP when structural zeros present; pscl::hurdle() code documented",
+      "Pre-registration: OSF or AsPredicted; register before inferential analysis begins",
+      "Replication package: Harvard Dataverse preferred; SSRP README format required",
+      "Primary venues: SAMPJ or CSR&EM; NLP pipeline alone → Expert Systems",
+      "Göttsche et al. (2025) = direct methodological precedent for displacement effect hypothesis",
+      "Oll et al. (2025) = useful framing for GRI-ISSB-ESRS definitional divergence in lit review"
+    ],
+    "sections_updated": [
+      "S3",
+      "S4",
+      "S5",
+      "S6",
+      "S9",
+      "S10",
+      "S11",
+      "S20"
+    ],
+    "output_file": "findings/academic-researcher_methods-gaps_2026-05-18.md"
+  },
+  {
+    "session_date": "2026-05-22",
+    "pass": 9,
+    "agent": "data-analyst",
+    "topic_slug": "block-c-2021-2023-extraction",
+    "status": "completed",
+    "output_file": "data/quality/block_c_2021.csv, block_c_2022.csv, block_c_2023.csv",
+    "key_findings": [
+      "Extracted Block C materiality process variables for 2021–2023 cohorts",
+      "Board approval trend: 32.8% (2021) → 43.3% (2022) → 47.2% (2023)",
+      "Double materiality adoption: 1.1% (2021) → 6.3% (2022) → 9.4% (2023)",
+      "Process quality score stable: 0.527 → 0.543 → 0.546",
+      "Materiality matrix visualization flat ~14% across all years"
+    ]
+  },
+  {
+    "session_date": "2026-05-22",
+    "pass": 8,
+    "agent": "technical-researcher",
+    "topic_slug": "tr2-language-routing",
+    "status": "completed",
+    "key_findings": [
+      "Language routing complete for full TWSE 2024 corpus (1,062 files)",
+      "English track: 698 files (65.7%)",
+      "Multilingual track: 364 files (34.3%)",
+      "langdetect used as fastText alternative (proxy restriction)",
+      "TR-1 NLP pipeline specification documented"
+    ],
+    "output_file": "lang_routing_2024.csv"
+  },
+  {
+    "session_date": "2026-05-22",
+    "pass": 8,
+    "agent": "hypothesis-generation",
+    "topic_slug": "did-hypotheses",
+    "status": "completed",
+    "key_findings": [
+      "H1 (primary): GRI 3 adoption → decrease in n_material_topics_b (displacement effect)",
+      "H2: GRI 3 adoption → increase in process_quality_score",
+      "H3: GRI 3 adoption → upgrade in assurance_level",
+      "H4 (heterogeneity): Displacement effect stronger for Fabless vs Foundry/OSAT",
+      "H5 (diffusion): TSMC-proximate companies adopt earlier with higher quality",
+      "Estimand: ATT via Callaway-Sant'Anna (2021) doubly-robust estimator",
+      "Population: 73 semiconductor companies, 507 company-years"
+    ],
+    "output_file": "hypotheses/hypothesis-generation_did-hypotheses_2026-05-22.md"
+  }
+]
