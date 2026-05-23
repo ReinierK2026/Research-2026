@@ -11,7 +11,7 @@
       "GRI 101: Biodiversity 2024 standard page",
       "GRI 102: Climate Change 2025 standard page",
       "GRI 103: Energy 2025 standard page",
-      "GRI–ESRS Interoperability Index Nov 2024",
+      "GRI\u2013ESRS Interoperability Index Nov 2024",
       "IAASB ISSA 5000 publication page",
       "HuggingFace Qwen3-Embedding model card",
       "Qwen3-Embedding technical paper arXiv:2506.05176",
@@ -23,13 +23,13 @@
     ],
     "key_findings": [
       "TWSE universal mandate effective 2025 filing cycle (1,883 companies total)",
-      "IFRS S1/S2 Phase 1 (>NT$10B) = FY2026; Phase 2 (NT$5B–NT$10B) = FY2027; Phase 3 (all) = FY2028",
+      "IFRS S1/S2 Phase 1 (>NT$10B) = FY2026; Phase 2 (NT$5B\u2013NT$10B) = FY2027; Phase 3 (all) = FY2028",
       "GRI 101: Biodiversity effective Jan 2026; replaces GRI 304; canonical code E09 updated",
       "GRI 102 (Climate) and GRI 103 (Energy) effective Jan 2027",
       "ISSA 5000 approved Nov 2024; effective Dec 15 2026 engagements",
       "Qwen3-Embedding-8B recommended; highest MTEB score; replaces multilingual-e5-large-instruct",
       "BGE-M3 confirmed as alternative multilingual embedding model",
-      "ESGLens (MIT, Mar 2026) released with code — RAG framework for GRI extraction",
+      "ESGLens (MIT, Mar 2026) released with code \u2014 RAG framework for GRI extraction",
       "ReportParse active (IJCAI 2024)"
     ],
     "sections_updated": [
@@ -49,31 +49,31 @@
     "topic_slug": "methods-gaps",
     "status": "completed",
     "sources_consulted": [
-      "Roth & Sant'Anna (2023) staggered package — arXiv:2102.01291",
+      "Roth & Sant'Anna (2023) staggered package \u2014 arXiv:2102.01291",
       "CRAN staggered package README",
       "GitHub: jonathandroth/staggered",
-      "Young et al. (2015) Journal of Marriage and Family — IPW for missing longitudinal data",
-      "Beske et al. (2020) — Poisson for topic count data",
-      "Padilla-Garrido et al. (2024) — Poisson for GRI topic data",
+      "Young et al. (2015) Journal of Marriage and Family \u2014 IPW for missing longitudinal data",
+      "Beske et al. (2020) \u2014 Poisson for topic count data",
+      "Padilla-Garrido et al. (2024) \u2014 Poisson for GRI topic data",
       "OSF preregistration guide",
       "AsPredicted platform",
       "Harvard Dataverse",
       "Zenodo",
       "Social Sciences Data Editor replication standards",
-      "Göttsche et al. (2025) RAS Vol.30 pp.3596–3639",
+      "G\u00f6ttsche et al. (2025) RAS Vol.30 pp.3596\u20133639",
       "Oll, Spandel, Schiemann & Akkermann (2025) SAMPJ Vol.16 No.2",
       "Khan, Serafeim & Yoon (2016) The Accounting Review Vol.91",
-      "Baumüller & Sopp (2022) JAAR Vol.23 No.1",
+      "Baum\u00fcller & Sopp (2022) JAAR Vol.23 No.1",
       "Garst, Maas & Suijs (2022) California Management Review Vol.65 No.1"
     ],
     "key_findings": [
-      "staggered package provides proxy power assessment; 80% power for ATT ≥ 1.5 topics with 50–80 treated firms",
+      "staggered package provides proxy power assessment; 80% power for ATT \u2265 1.5 topics with 50\u201380 treated firms",
       "IPW recommended for attrition correlated with firm size; ipw::ipwpoint() code documented",
       "Hurdle Poisson preferred over standard ZIP when structural zeros present; pscl::hurdle() code documented",
       "Pre-registration: OSF or AsPredicted; register before inferential analysis begins",
       "Replication package: Harvard Dataverse preferred; SSRP README format required",
-      "Primary venues: SAMPJ or CSR&EM; NLP pipeline alone → Expert Systems",
-      "Göttsche et al. (2025) = direct methodological precedent for displacement effect hypothesis",
+      "Primary venues: SAMPJ or CSR&EM; NLP pipeline alone \u2192 Expert Systems",
+      "G\u00f6ttsche et al. (2025) = direct methodological precedent for displacement effect hypothesis",
       "Oll et al. (2025) = useful framing for GRI-ISSB-ESRS definitional divergence in lit review"
     ],
     "sections_updated": [
@@ -89,19 +89,321 @@
     "output_file": "findings/academic-researcher_methods-gaps_2026-05-18.md"
   },
   {
-    "session_date": "2026-05-22",
-    "pass": 9,
-    "agent": "data-analyst",
-    "topic_slug": "block-c-2021-2023-extraction",
+    "session_date": "2026-05-18",
+    "pass": 2,
+    "agent": "web-researcher",
+    "topic_slug": "trends-report-integration",
     "status": "completed",
-    "output_file": "data/quality/block_c_2021.csv, block_c_2022.csv, block_c_2023.csv",
+    "sources_consulted": [
+      "Sustainability_Reporting_Materiality_Trends_2026.md (user-uploaded companion document)",
+      "EU Council press release Feb 2026 (Omnibus I adoption)",
+      "ESMA Final Report on Greenwashing June 2024",
+      "ESMA Guidelines on Enforcement of Sustainability Information July 2024",
+      "KPMG Survey of Sustainability Reporting 2024",
+      "WBCSD Double Materiality Survey 2024",
+      "Horv\u00e1th / CSR Tools 2024 (visualization format analysis)",
+      "TWSE ESGgenplus platform",
+      "TWSE Material Topics Guidance Oct 2024",
+      "TSMC Materiality Analysis page (esg.tsmc.com)",
+      "TSMC 2023 Materiality Report PDF",
+      "Deloitte / DRSC IRO count analysis",
+      "KEY ESG IRO count analysis"
+    ],
     "key_findings": [
-      "Extracted Block C materiality process variables for 2021–2023 cohorts",
-      "Board approval trend: 32.8% (2021) → 43.3% (2022) → 47.2% (2023)",
-      "Double materiality adoption: 1.1% (2021) → 6.3% (2022) → 9.4% (2023)",
-      "Process quality score stable: 0.527 → 0.543 → 0.546",
-      "Materiality matrix visualization flat ~14% across all years"
+      "Only ~20% of companies still use traditional materiality matrix (down significantly from prior years)",
+      "Double materiality adoption: 77% globally (up from 55% in 2023); 42% of G250",
+      "Replacement visualization formats: scatter plots, butterfly charts, IRO heatmaps, IRO tables, dynamic viz",
+      "EU Omnibus I adopted Feb 2026: CSRD scope reduced from 50,000 to ~5,000 companies (>1,000 employees AND >\u20ac450M revenue)",
+      "ASML, Infineon, STMicro, NXP all remain mandatory CSRD reporters",
+      "ESMA found only 61.7% of first CSRD IRO disclosures met objectives (from 91 EU issuers)",
+      "Taiwan 100% GRI adoption globally (unique); 1,883 total TWSE/TPEx filers",
+      "ESGgenplus platform: full PDFs for all 1,883 filers; no XBRL tagging",
+      "ESG InfoHub indicator discontinuity: 29 \u2192 97\u2013100 indicators in 2025 (not backfilled)",
+      "TSMC TDDM: 3-dimension framework; 14 confirmed material issues; standalone materiality report",
+      "ISSA 5000 effective Dec 2026; replaces ISAE 3000 for new engagements",
+      "AI platforms (Datamaran, Deloitte AI-DMA, Solidflow, Workiva) now widely used",
+      "Average IRO count across early CSRD reporters: 39\u201342 (range 5\u2013118)",
+      "TWSE assurance rate: 64.4% of 722 reporters (2023 filing cycle)"
+    ],
+    "sections_updated": [
+      "S12 (correction to S1)",
+      "S15",
+      "S16",
+      "S17",
+      "S18",
+      "S19",
+      "S21"
+    ],
+    "output_file": "findings/web-researcher_trends-report-integration_2026-05-18.md"
+  },
+  {
+    "session_date": "2026-05-18",
+    "pass": 2,
+    "agent": "data-analyst",
+    "topic_slug": "definitions-update",
+    "status": "completed",
+    "new_variables_count": 21,
+    "taxonomy_updates_count": 4,
+    "blocks_updated": {
+      "Block_A": 1,
+      "Block_B": 7,
+      "Block_C": 13
+    },
+    "new_variables": [
+      "gri_101_applied",
+      "gri_new_climate_energy_adopted",
+      "ifrs_s1_adopted",
+      "issb_s2_adopted",
+      "assurance_standard",
+      "issa5000_early_adopted",
+      "fsc_sector_metrics_disclosed",
+      "double_materiality_methodology_disclosed",
+      "standalone_mat_report",
+      "visualization_format",
+      "visualization_format_n",
+      "iro_table_shown",
+      "butterfly_chart_shown",
+      "scatter_plot_shown",
+      "iro_heatmap_shown",
+      "dynamic_viz_shown",
+      "ai_tool_disclosed",
+      "ai_tool_name",
+      "csrd_mandatory_reporter"
+    ],
+    "taxonomy_updates": [
+      {
+        "code": "E01",
+        "old_mapping": "GRI 302 (Energy 2016)",
+        "new_mapping": "GRI 103: Energy 2025",
+        "effective": "Jan 2027"
+      },
+      {
+        "code": "E02",
+        "old_mapping": "GRI 305 (Emissions 2016)",
+        "new_mapping": "GRI 102: Climate Change 2025",
+        "effective": "Jan 2027"
+      },
+      {
+        "code": "E09",
+        "old_mapping": "GRI 304 (Biodiversity 2016)",
+        "new_mapping": "GRI 101: Biodiversity 2024",
+        "effective": "Jan 2026"
+      },
+      {
+        "code": "E10",
+        "old_mapping": "GRI 201-2 / TCFD",
+        "new_mapping": "GRI 102: Transition plan provisions (absorbed)",
+        "effective": "Jan 2027"
+      }
+    ],
+    "output_file": "findings/data-analyst_definitions-update_2026-05-18.md",
+    "definitions_docx_updated": true
+  },
+  {
+    "session_date": "2026-05-18",
+    "pass": 2,
+    "agent": "research-gap-analysis",
+    "topic_slug": "semiconductor-materiality",
+    "status": "completed",
+    "gaps_identified": 7,
+    "priority_gaps": [
+      "Gap 2: CS21 handling of always-taker new entrants (small/mid-cap post-2025 mandate)",
+      "Gap 5: Korea/Japan peer reporting framework differences (K-ESG, SSBJ)",
+      "Gap 3: TDDM diffusion scan \u2014 institutional mimicry in TWSE semiconductor peers"
+    ],
+    "novel_contribution_gap": "Gap 7: Displacement effect under GRI 3 impact materiality in semiconductor-specific context",
+    "output_file": "gaps/research-gap-analysis_semiconductor-materiality_2026-05-18.md"
+  },
+  {
+    "session_date": "2026-05-20",
+    "pass": 3,
+    "agent": "data-analyst",
+    "topic_slug": "block-b-text-extraction",
+    "status": "completed",
+    "fiscal_year": 2024,
+    "rows_updated": 73,
+    "text_files_found": 49,
+    "bilingual_companies": 9,
+    "no_file_companies": 24,
+    "gri_universal_2021_rate": "100%",
+    "gri_101_early_adopters": 0,
+    "new_columns_populated": [
+      "report_language",
+      "bilingual_report",
+      "word_count_total",
+      "page_count",
+      "gri_101_applied",
+      "gri_new_climate_energy_adopted"
+    ],
+    "sources_used": [
+      "Text extraction/extracted_text/2024_processed/ (1,064 files)",
+      "gri_codes_summary_2024.csv (1,014 rows)"
+    ],
+    "output_file": "findings/data-analyst_block-b-text-extraction_2026-05-20.md",
+    "next_priorities": [
+      "Extract text for 2016\u20132023 years (earlier processed directories)",
+      "Supplementary 2024 extraction for 24 missing companies",
+      "Code gri_adoption_year per company (first GRI Universal 2021 year)"
     ]
+  },
+  {
+    "session_date": "2026-05-20",
+    "pass": 4,
+    "agent": "data-analyst",
+    "topic_slug": "twse-full-universe-build",
+    "status": "completed",
+    "output_file": "twse-research-database.csv",
+    "rows": 7779,
+    "unique_companies": 2091,
+    "columns": 66,
+    "year_range": "2016-2024",
+    "semiconductor_sub_cohort": {
+      "rows": 507,
+      "companies": 73
+    },
+    "block_f_coverage": "3325/7779 rows (2016-2021 TEJ master; 2022-2024 empty)",
+    "assurance_rate": "52.4%",
+    "gri_universal_2021_rows": 4079,
+    "gri_standards_2016_rows": 3700,
+    "sources": [
+      "TEJ CSR Disclosure.xlsx (7779 company-year scaffold)",
+      "TEJ_TSE_Combined_Master_Universe_STATA.xlsx (Block F financials 2016-2021)",
+      "semiconductor-research-database.csv (Block B text fields for semiconductor 2024 rows)"
+    ],
+    "next_priorities": [
+      "TEJ financial data 2022-2024 pull for Block F completeness",
+      "Extend text extraction to pre-2024 years",
+      "Code gri_adoption_year for DiD treatment variable"
+    ]
+  },
+  {
+    "session_date": "2026-05-20",
+    "pass": 5,
+    "agent": "research-coordinator",
+    "topic_slug": "nlp-pipeline-plan",
+    "status": "plan-issued",
+    "output_file": "findings/research-coordinator_pass5-nlp-plan_2026-05-20.md",
+    "quality_audit_updated": "text_extraction_quality_audit_2024.md \u2014 Next Steps section added",
+    "tasks_issued": {
+      "data-analyst": [
+        "DA-1 gri_adoption_year coding",
+        "DA-2 Block B 2022-2023 extension",
+        "DA-3 post-NLP Block C/D/G population"
+      ],
+      "technical-researcher": [
+        "TR-1 NLP pipeline design",
+        "TR-2 fastText language routing",
+        "TR-3 Block C regex extraction"
+      ],
+      "hypothesis-generation": [
+        "HG-1 DiD hypotheses (3-5)"
+      ]
+    },
+    "critical_path": "gri_adoption_year (DA-1) must complete before DiD analysis can begin",
+    "immediate_starts": [
+      "DA-1",
+      "TR-3",
+      "TR-2",
+      "HG-1",
+      "DA-2"
+    ],
+    "blocked_on": {
+      "DA-3": "TR-1 NLP pipeline execution",
+      "full NLP": "TR-2 language routing"
+    }
+  },
+  {
+    "session_date": "2026-05-21",
+    "pass": 6,
+    "agent": "data-analyst",
+    "topic_slug": "block-b-2022-extraction",
+    "status": "completed",
+    "fiscal_year": 2022,
+    "text_dir": "extracted_text/2022/",
+    "total_files_in_dir": 615,
+    "semiconductor_tickers_with_files": 60,
+    "bilingual_companies": 0,
+    "rows_updated": 16,
+    "missing_no_file": 19,
+    "new_columns_populated": [
+      "word_count_total",
+      "page_count",
+      "report_language",
+      "bilingual_report"
+    ],
+    "gri_adoption_year_fix": {
+      "corrected_companies": 4,
+      "before": {
+        "2021": 3,
+        "2022": 65,
+        "2023": 0,
+        "2024": 6
+      },
+      "after": {
+        "2021": 3,
+        "2022": 65,
+        "2023": 4,
+        "2024": 2
+      },
+      "moved_2024_to_2023": [
+        "3006",
+        "3227",
+        "6573",
+        "8110"
+      ],
+      "retained_2024": [
+        "3588",
+        "6684"
+      ]
+    },
+    "output_file": "findings/data-analyst_block-b-2022-extraction_2026-05-21.md",
+    "notes": [
+      "No gri_codes_summary_2022.csv exists; gri_standard_version for 2022 rows retained from TEJ CSR Disclosure (already correct)",
+      "gri_adoption_year re-derived from corrected database state; DiD treatment variable now fully valid",
+      "2022 files named without _processed suffix; identical format to 2023_processed (PAGE markers present)"
+    ]
+  },
+  {
+    "session_date": "2026-05-22",
+    "pass": 7,
+    "agent": "data-analyst",
+    "topic_slug": "block-ab-completion",
+    "status": "completed",
+    "output_file": "findings/data-analyst_block-ab-completion_2026-05-22.md",
+    "actions": [
+      "Re-encoded twse-research-database.csv with utf-8-sig BOM (Chinese encoding fix)",
+      "Cleared zero-placeholder word_count/page_count for 2016-2020 (no text files available)",
+      "Filled word_count_total, page_count for 44/67 semiconductor tickers in 2021 from 2021_processed/",
+      "Filled report_language from _E filename suffix for 2021-2024 where text files exist",
+      "Filled company_name_en from semiconductor-research-database.csv (73 tickers, 100%)",
+      "Filled 6271 (\u540c\u6b23\u96fb / Tong Hsing Electronic) company_name_en from filename evidence"
+    ],
+    "block_a_status": {
+      "completeness": "100% all fields all years",
+      "exception": "None"
+    },
+    "block_b_status": {
+      "gri_standard_version": "100% all years",
+      "gri_adoption_year": "100% all years",
+      "bilingual_report": "100% all years",
+      "word_count_total": "0% 2016-2020 (no text files); 65-68% 2021-2024 (23-24 tickers not in ESGgenplus corpus)",
+      "page_count": "same as word_count_total",
+      "report_language": "same as word_count_total",
+      "assurance_level": "48-72% (TEJ data completeness limit)",
+      "report_url": "100% except 4 tickers in 2017"
+    },
+    "gri_code_summaries_confirmed": {
+      "2021": "488 rows \u2014 gri_codes_summary_2021.csv",
+      "2022": "609 rows \u2014 gri_codes_summary_2022.csv",
+      "2023": "649 rows \u2014 gri_codes_summary_2023.csv",
+      "2024": "1014 rows \u2014 gri_codes_summary_2024.csv"
+    },
+    "structural_gaps_documented": [
+      "2016-2020: no text files \u2014 word_count/page_count/report_language permanently unavailable",
+      "23-24 tickers per year not in ESGgenplus corpus \u2014 Block B partial for those rows",
+      "Assurance fields: TEJ data completeness ceiling"
+    ],
+    "notes": "NLP pipeline (TR-1/TR-2/TR-3, HG-1, Block D/G) awaiting Reinier go-ahead. Database encoding fixed."
   },
   {
     "session_date": "2026-05-22",
@@ -109,14 +411,76 @@
     "agent": "technical-researcher",
     "topic_slug": "tr2-language-routing",
     "status": "completed",
-    "key_findings": [
-      "Language routing complete for full TWSE 2024 corpus (1,062 files)",
-      "English track: 698 files (65.7%)",
-      "Multilingual track: 364 files (34.3%)",
-      "langdetect used as fastText alternative (proxy restriction)",
-      "TR-1 NLP pipeline specification documented"
+    "scope": "full TWSE 2024 corpus (1,062 files)",
+    "output_file": "lang_routing_2024.csv",
+    "actions": [
+      "Attempted fastText lid.176.bin download \u2014 blocked by proxy (HTTP 403)",
+      "Installed langdetect (pip) as alternative language detector",
+      "Routed all 1,062 2024_processed files from full TWSE corpus (excl. 2 near-empty): 698 English (65.7%), 364 Multilingual (34.3%)",
+      "English routing: 680 via _E suffix (pre-validated) + 18 via langdetect confidence >= 0.90",
+      "Saved lang_routing_2024.csv with columns: file, lang_primary, confidence, track, method"
     ],
-    "output_file": "lang_routing_2024.csv"
+    "routing_summary": {
+      "total_files": 1062,
+      "english_track": 698,
+      "multilingual_track": 364,
+      "excluded_near_empty": [
+        "2461_2024",
+        "6776_2024"
+      ],
+      "method_note": "langdetect replaces fastText due to proxy restriction; _E suffix provides high-confidence routing for 64% of files"
+    },
+    "notes": "TR-1 NLP pipeline spec documented in findings/technical-researcher_nlp-pipeline-design_2026-05-22.md. English track: FinBERT-ESG-9 + ClimateBERT + GRI regex. Multilingual: Qwen3-Embedding-8B (or BGE-M3 fallback) + XLM-RoBERTa-XNLI. All 1,062 files are from the full TWSE universe."
+  },
+  {
+    "session_date": "2026-05-22",
+    "pass": 8,
+    "agent": "data-analyst",
+    "topic_slug": "block-bcdg-population-full-twse",
+    "status": "completed",
+    "scope": "ALL TWSE companies, all available years",
+    "output_file": "twse-research-database.csv",
+    "actions": [
+      "Expanded all population scripts from semiconductor subsample (73 rows) to full TWSE universe",
+      "Block B: indexed 2021\u20132024 text directories; populated word_count_total, page_count, report_language, bilingual_report for 2,027 DB rows",
+      "Block C basic (2024): merged block_c_2024.csv (1,042 rows); populated mat_section_found, process_quality_score and all C basic columns for 1,027/1,983 2024 rows",
+      "Block C extended (2024): merged block_c_extended_2024.csv (1,042 rows); populated dm_methodology_disclosed, visualization_format, ai_tool_disclosed and extended C columns",
+      "Block D n_material_topics_a: populated for all 4 years from gri_codes_summary_{year}.csv (2021\u20132024)",
+      "Block D n_material_topics_b: populated for 2024 only from gri_tables_2024/ GRI 3-3 row counts",
+      "Block G gri_content_index_completeness: computed n_gri2_codes/34 for all 4 years from gri_codes_summary files",
+      "Block G mda_index: computed 10-item binary index for all 2024 companies with Block C data",
+      "Added block label header row to DB (Row 1: block labels A/B/C/D/F/G; Row 2: column names)",
+      "DB: 90 columns \u00d7 7,765 data rows + 2 header rows; saved utf-8-sig BOM"
+    ],
+    "block_b_coverage": {
+      "2021": "479/835",
+      "2022": "617/981",
+      "2023": "727/1186",
+      "2024": "1042/1983"
+    },
+    "block_c_coverage_2024": {
+      "mat_section_found": "1027/1983",
+      "process_quality_score": "1027/1983",
+      "mda_index": "1042/1983",
+      "dm_methodology_disclosed": "170/1983",
+      "visualization_format_non_empty": "398/1983",
+      "ai_tool_disclosed": "287/1983"
+    },
+    "block_d_coverage": {
+      "n_material_topics_a_2021": "339/835",
+      "n_material_topics_a_2022": "525/981",
+      "n_material_topics_a_2023": "576/1186",
+      "n_material_topics_a_2024": "925/1983",
+      "n_material_topics_b_2024": "526/1983"
+    },
+    "block_g_coverage": {
+      "gri_content_index_completeness_2021": "341/835",
+      "gri_content_index_completeness_2022": "531/981",
+      "gri_content_index_completeness_2023": "583/1186",
+      "gri_content_index_completeness_2024": "927/1983",
+      "mda_index_2024": "1042/1983"
+    },
+    "notes": "Coverage gaps are structural: companies not in ESGgenplus bulk download cannot be populated without targeted re-download. Semiconductor subsample (73 companies) is fully contained and available for DiD analysis."
   },
   {
     "session_date": "2026-05-22",
@@ -124,15 +488,424 @@
     "agent": "hypothesis-generation",
     "topic_slug": "did-hypotheses",
     "status": "completed",
-    "key_findings": [
-      "H1 (primary): GRI 3 adoption → decrease in n_material_topics_b (displacement effect)",
-      "H2: GRI 3 adoption → increase in process_quality_score",
-      "H3: GRI 3 adoption → upgrade in assurance_level",
-      "H4 (heterogeneity): Displacement effect stronger for Fabless vs Foundry/OSAT",
-      "H5 (diffusion): TSMC-proximate companies adopt earlier with higher quality",
-      "Estimand: ATT via Callaway-Sant'Anna (2021) doubly-robust estimator",
-      "Population: 73 semiconductor companies, 507 company-years"
+    "output_file": "hypotheses/hypothesis-generation_did-hypotheses_2026-05-22.md",
+    "actions": [
+      "Generated H1\u2013H5 falsifiable DiD hypotheses using Callaway-Sant'Anna (2021) estimator",
+      "H1 (primary): GRI 3 adoption \u2192 decrease in n_material_topics_b (displacement effect); expected ATT negative",
+      "H2: GRI 3 adoption \u2192 increase in process_quality_score; expected ATT positive",
+      "H3: GRI 3 adoption \u2192 upgrade in assurance_level (ordinal: None \u2192 Limited \u2192 Reasonable)",
+      "H4 (heterogeneity): Displacement effect stronger for Fabless vs Foundry/OSAT subsectors",
+      "H5 (diffusion): TSMC-proximate companies adopt earlier and show higher process_quality_score post-adoption"
     ],
-    "output_file": "hypotheses/hypothesis-generation_did-hypotheses_2026-05-22.md"
+    "estimand": "ATT (Average Treatment Effect on the Treated)",
+    "estimator": "Callaway-Sant'Anna (2021) via R did package att_gt()",
+    "population_note": "Hypotheses apply to semiconductor subsample (73 companies, 507 company-years 2016\u20132024); full TWSE population available for robustness and comparison analyses",
+    "gri_adoption_year_status": "73/73 semiconductor companies fully coded \u2014 H1\u2013H4 estimable immediately after OSF pre-registration",
+    "critical_path_note": "H5 requires TSMC tier-1 supplier coding (external data \u2014 estimated 1\u20132 days manual lookup).",
+    "notes": "Pre-registration on OSF required before any inferential tests. Robustness checks planned: Rambachan-Roth sensitivity analysis, nevertreated control group alternative, Bacon-Goodman decomposition."
+  },
+  {
+    "session_date": "2026-05-22",
+    "pass": 9,
+    "agent": "data-analyst",
+    "topic_slug": "block-c-2021-2023-extraction",
+    "status": "completed",
+    "output_file": "data/quality/block_c_2021.csv, block_c_2022.csv, block_c_2023.csv",
+    "scripts_created": [
+      "scripts/extract_block_c_multi.py",
+      "scripts/merge_block_c_multi.py"
+    ],
+    "actions": [
+      "Generalised extract_block_c.py (v2 section-based) to handle 2021, 2022, 2023 year directories",
+      "Fixed block-label header row handling in DB reader (Row 1 = label, Row 2 = col names)",
+      "Used 2021_processed/ (495 files), 2022_processed/ (877 files), 2023_processed/ (744 files)",
+      "Preferred _E (English) file per ticker; fell back to bilingual/Chinese where _E absent",
+      "Merged all three years into twse-research-database.csv without touching 2024 Block C data"
+    ],
+    "block_c_coverage": {
+      "2021": {
+        "extracted": 476,
+        "db_rows": 835,
+        "no_file": 359,
+        "section_heading_found": 442,
+        "fallback": 34
+      },
+      "2022": {
+        "extracted": 619,
+        "db_rows": 981,
+        "no_file": 362,
+        "section_heading_found": 575,
+        "fallback": 44
+      },
+      "2023": {
+        "extracted": 727,
+        "db_rows": 1186,
+        "no_file": 459,
+        "section_heading_found": 691,
+        "fallback": 36
+      }
+    },
+    "summary_stats": {
+      "2021": {
+        "mat_process_disclosed_pct": 75.4,
+        "matrix_shown_pct": 15.3,
+        "board_approved_pct": 32.8,
+        "double_materiality_pct": 1.1,
+        "avg_pqs": 0.527
+      },
+      "2022": {
+        "mat_process_disclosed_pct": 74.3,
+        "matrix_shown_pct": 13.9,
+        "board_approved_pct": 43.3,
+        "double_materiality_pct": 6.3,
+        "avg_pqs": 0.543
+      },
+      "2023": {
+        "mat_process_disclosed_pct": 71.5,
+        "matrix_shown_pct": 13.9,
+        "board_approved_pct": 47.2,
+        "double_materiality_pct": 9.4,
+        "avg_pqs": 0.546
+      }
+    },
+    "notable_trends": [
+      "board_approved rises sharply: 32.8% (2021) \u2192 43.3% (2022) \u2192 47.2% (2023) \u2014 governance tightening pre-GRI 3",
+      "double_materiality_mentioned grows: 1.1% \u2192 6.3% \u2192 9.4% \u2014 CSRD awareness diffusing into TWSE",
+      "process_quality_score stable: 0.527 \u2192 0.543 \u2192 0.546 \u2014 gradual quality improvement pre-GRI 3 adoption",
+      "matrix_shown flat ~14% \u2014 materiality matrix visualization unchanged across pre-treatment years"
+    ],
+    "db_status": "twse-research-database.csv: 90 columns \u00d7 7765 rows, utf-8-sig BOM, block-label header row preserved",
+    "notes": "Blocker 1 cleared. Block C now populated for 2021\u20132024. 2025 and pre-2021 years have no text files. No-file rows are structural gaps (companies not in ESGgenplus corpus)."
+  },
+  {
+    "session_date": "2026-05-23",
+    "pass": 10,
+    "agent": "data-analyst + technical-researcher",
+    "topic_slug": "block-d-topic-panel",
+    "status": "completed",
+    "scripts_created": [
+      "scripts/build_block_d_esg_counts.py",
+      "scripts/extract_topic_panel.py",
+      "scripts/merge_block_d.py"
+    ],
+    "actions": [
+      "Built GRI standard code \u2192 35-topic canonical taxonomy lookup (11E + 12S + 12G + SASB TC-SC flags)",
+      "Applied lookup to gri_codes_summary_202[1-4].csv \u2192 block_d_esg_{year}.csv (E/S/G topic counts)",
+      "Extracted GRI 3-3 topic label rows from gri_tables_2023/ (68 companies) and gri_tables_2024/ (267 companies)",
+      "Mapped labels to canonical taxonomy: Stage 1 GRI-code lookup (gri_standard column), Stage 2 rapidfuzz token_sort_ratio \u226580",
+      "Produced topic_panel_{year}.csv for 2023-2024 (150 and 566 rows respectively)",
+      "Merged Block D E/S/G counts into twse-research-database.csv (2,293 rows updated across 4 years)",
+      "DB expanded: 90 \u2192 99 columns"
+    ],
+    "block_d_esg_coverage": {
+      "2021": {
+        "rows_updated": 305,
+        "db_rows": 835,
+        "avg_total": 14.8,
+        "avg_env": 4.8,
+        "avg_soc": 6.4,
+        "avg_gov": 3.6
+      },
+      "2022": {
+        "rows_updated": 513,
+        "db_rows": 981,
+        "avg_total": 15.6,
+        "avg_env": 5.5,
+        "avg_soc": 6.2,
+        "avg_gov": 3.8
+      },
+      "2023": {
+        "rows_updated": 569,
+        "db_rows": 1186,
+        "avg_total": 16.1,
+        "avg_env": 5.8,
+        "avg_soc": 6.4,
+        "avg_gov": 3.9
+      },
+      "2024": {
+        "rows_updated": 906,
+        "db_rows": 1983,
+        "avg_total": 17.5,
+        "avg_env": 6.2,
+        "avg_soc": 6.9,
+        "avg_gov": 4.4
+      }
+    },
+    "topic_panel_coverage": {
+      "2023": {
+        "companies": 68,
+        "topic_rows": 150,
+        "gri_code_matched": 52,
+        "fuzzy_high": 7,
+        "fuzzy_mid": 1,
+        "unmatched": 90
+      },
+      "2024": {
+        "companies": 267,
+        "topic_rows": 566,
+        "gri_code_matched": 214,
+        "fuzzy_high": 23,
+        "fuzzy_mid": 4,
+        "unmatched": 325
+      }
+    },
+    "notable_trends": [
+      "topics_total_n rises monotonically: 14.8 (2021) \u2192 15.6 (2022) \u2192 16.1 (2023) \u2192 17.5 (2024)",
+      "Environmental topics growing fastest: 4.8 \u2192 6.2 (+29% over panel period) \u2014 consistent with climate disclosure push",
+      "Social topics largest share but slowest growth: 6.4 \u2192 6.9",
+      "Governance topics growing: 3.6 \u2192 4.4 (+22%) \u2014 regulatory governance requirements increasing",
+      "avg SASB TC-SC topics: 7.3 \u2192 8.5 \u2014 semiconductors increasingly aligning with SASB financially material topics"
+    ],
+    "residual_unmatched_notes": "325 unmatched 2024 labels = ~57% boilerplate ('Management of material topics'), ~43% genuine topic labels needing Stage 3 manual concordance. Priority: 'Climate Change Response', 'GHG Emissions and Reduction', 'Innovation R&D', 'Regulatory Compliance' (~15-20 labels). Two-coder protocol required per methodology.",
+    "db_status": "twse-research-database.csv: 99 columns \u00d7 7765 rows, utf-8-sig BOM, block-label row preserved",
+    "next_steps": [
+      "Stage 3 manual concordance for ~60-80 genuine unmatched topic labels (2023-2024 panel)",
+      "Extend topic-label extraction to 2021-2022 via text-based regex (no gri_tables for those years)",
+      "TEJ Block F pull for 2022-2024 (external \u2014 requires TEJ subscription)",
+      "OSF pre-registration (H1-H5 ready) before any inferential tests"
+    ]
+  },
+  {
+    "session_date": "2026-05-23",
+    "pass": 11,
+    "agent": "data-analyst",
+    "topic_slug": "topic-panel-binary-block-e",
+    "status": "completed",
+    "scripts_created": [
+      "scripts/build_topic_panel_binary.py"
+    ],
+    "design_decision": "Did NOT extend topic panel via text extraction for 2021-2022. Reason: 2021-2022 companies use GRI Standards 2016 (no GRI 3-3 construct); mixing text-regex (2021-2022) with GRI-table extraction (2023-2024) would introduce method-source confound at treatment boundary. Instead, built binary panel from canonical_codes_str using identical GRI-code methodology across all 4 years.",
+    "outputs": {
+      "topic_panel_binary_all_years.csv": "80,255 rows (2,293 company-years \u00d7 35 canonical topics); binary disclosed 0/1",
+      "block_e_topic_dynamics.csv": "1,230 year-over-year transitions; Jaccard similarity, churn rate, added/dropped topic codes"
+    },
+    "block_e_dynamics": {
+      "2021_to_2022": {
+        "n_transitions": 259,
+        "avg_jaccard": 0.631,
+        "avg_churn": 0.555,
+        "avg_added": 3.4,
+        "avg_dropped": 3.2
+      },
+      "2022_to_2023": {
+        "n_transitions": 434,
+        "avg_jaccard": 0.785,
+        "avg_churn": 0.329,
+        "avg_added": 2.0,
+        "avg_dropped": 1.5
+      },
+      "2023_to_2024": {
+        "n_transitions": 537,
+        "avg_jaccard": 0.78,
+        "avg_churn": 0.33,
+        "avg_added": 2.8,
+        "avg_dropped": 1.0
+      }
+    },
+    "notable_findings": [
+      "Jaccard 2021\u21922022 = 0.631 vs 0.785 in later years: elevated churn during GRI Standards 2016\u2192Universal 2021 transition \u2014 expected from standard-switch mechanics, not GRI 3 treatment effect",
+      "Jaccard stable at ~0.78 in 2022\u21922023 and 2023\u21922024: topic set composition solidifying post-adoption",
+      "net_topic_change positive across all years: avg_added > avg_dropped consistently \u2014 overall topic expansion, not compression, pre-H1 test",
+      "2024 top disclosed topics (>85%): S05 Talent (91.7%), E02 GHG (91.5%), G08 Economic Performance (91.1%), S01 OHS (87.9%), E01 Energy (86.9%) \u2014 universal disclosures, low DiD variation",
+      "Topics with most variation for Test 4.5 (30-70% range): E03 Scope 3 (65.2%), E08 Air Quality (44.3%), S07 Human Rights (45.6%), G05 IP Protection (51.0%), E09 Biodiversity (21%)"
+    ],
+    "notes": "Block E (topic dynamics) is now fully populated for 2021-2024. Binary panel ready for Test 4.5 (conditional logit per canonical topic). Pre-registration should flag the 2021\u21922022 Jaccard drop as a pre-treatment placebo check covariate."
+  },
+  {
+    "pass": 12,
+    "timestamp": "2026-05-23T05:17:48.456894Z",
+    "action": "Block F \u2014 TEJ balance sheet merge",
+    "script": "scripts/merge_block_f_balance_sheet.py",
+    "source": "TEJ Balance Sheet data.xlsx",
+    "description": "Merged all balance sheet variables from TEJ into twse-research-database.csv. Filtered TEJ to December fiscal year-end quarters (YYYY/12). 22 raw columns added/updated + 5 derived columns. DB expanded from 99 \u2192 124 columns. 4,365 rows updated across 2016-2024. Accounting identity (assets = liabilities + equity) verified: 0 mismatches.",
+    "columns_added": [
+      "total_current_assets_ntd_thou",
+      "total_non_current_assets_ntd_thou",
+      "total_liabilities_ntd_thou",
+      "total_current_liabilities_ntd_thou",
+      "total_non_current_liabilities_ntd_thou",
+      "total_equity_ntd_thou",
+      "equity_parent_ntd_thou",
+      "non_controlling_interest_ntd_thou",
+      "short_term_debt_ntd_thou",
+      "bonds_payable_ntd_thou",
+      "long_term_loans_ntd_thou",
+      "paid_in_capital_ntd_thou",
+      "retained_earnings_ntd_thou",
+      "treasury_shares_ntd_thou",
+      "ppe_ntd_thou",
+      "goodwill_intangibles_ntd_thou",
+      "cash_ntd_thou",
+      "inventories_ntd_thou",
+      "accounts_receivable_ntd_thou",
+      "accounts_payable_ntd_thou",
+      "right_of_use_assets_ntd_thou",
+      "total_debt_ntd_thou",
+      "debt_ratio",
+      "current_ratio",
+      "working_capital_ntd_thou"
+    ],
+    "columns_updated": [
+      "total_assets_ntd_thou",
+      "ln_total_assets",
+      "leverage"
+    ],
+    "coverage_by_year": {
+      "2016": "309/483",
+      "2017": "327/512",
+      "2018": "350/550",
+      "2019": "374/580",
+      "2020": "395/655",
+      "2021": "457/835",
+      "2022": "584/981",
+      "2023": "659/1186",
+      "2024": "910/1983"
+    },
+    "db_state": {
+      "columns": 124,
+      "rows": 7765,
+      "total_rows_with_balance_sheet": 4365
+    },
+    "validation": "Accounting identity (TA = TL + TE) verified across all rows; 0 mismatches"
+  },
+  {
+    "pass": 13,
+    "timestamp": "2026-05-23T05:45:58.091839Z",
+    "action": "Block F \u2014 TEJ income statement merge",
+    "script": "scripts/merge_block_f_income_statement.py",
+    "source": "TEJ Income Statement.xlsx",
+    "description": "Merged income statement variables from TEJ (December fiscal year-end). 12 raw columns + 3 derived margin columns added. Updated roa, rd_intensity, revenue_growth stubs. DB expanded from 124 \u2192 139 columns. 4,365 rows updated.",
+    "columns_added": [
+      "revenue_ntd_thou",
+      "gross_profit_ntd_thou",
+      "rd_expense_ntd_thou",
+      "operating_income_ntd_thou",
+      "profit_before_tax_ntd_thou",
+      "net_income_ntd_thou",
+      "net_income_parent_ntd_thou",
+      "eps_basic",
+      "eps_diluted",
+      "ebit_ntd_thou",
+      "ebitda_ntd_thou",
+      "finance_costs_ntd_thou",
+      "gross_margin",
+      "operating_margin",
+      "net_profit_margin"
+    ],
+    "columns_updated": [
+      "roa",
+      "rd_intensity",
+      "revenue_growth"
+    ],
+    "rows_updated": 4365,
+    "db_state": {
+      "columns": 139,
+      "rows": 7765
+    }
+  },
+  {
+    "pass": 14,
+    "timestamp": "2026-05-23T05:45:58.091839Z",
+    "action": "Block G \u2014 TEJ governance merge",
+    "script": "scripts/merge_block_g_governance.py",
+    "source": "TEJ Governance.xlsx",
+    "description": "Merged governance variables from TEJ (December fiscal year-end snapshots, monthly data). Updated board_seats stub. 6 new governance columns added. DB expanded from 139 \u2192 146 columns. 7,670 rows updated (~98-100% coverage per year). TSMC 2024 verified: 10 board seats, 10 directors, 6.52% insider ownership.",
+    "columns_added": [
+      "board_directors_n",
+      "board_supervisors_n",
+      "board_ownership_pct",
+      "director_ownership_pct",
+      "board_pledged_pct",
+      "main_shareholders_pct",
+      "liability_insurance_yn"
+    ],
+    "columns_updated": [
+      "board_seats"
+    ],
+    "rows_updated": 7670,
+    "db_state": {
+      "columns": 146,
+      "rows": 7765
+    },
+    "note": "independent_director_ratio not available in this TEJ file; remains stub"
+  },
+  {
+    "pass": 15,
+    "timestamp": "2026-05-23T06:10:32.886841Z",
+    "action": "Block F \u2014 TEJ Equity merge (market cap, valuation ratios)",
+    "script": "scripts/merge_equity_valuation.py",
+    "source": "TEJ Equty.xlsx",
+    "description": "Merged equity/valuation data from TEJ (December fiscal year-end). Updated market_cap_ntd_thou and tobins_q (P/B ratio proxy) stubs. 7 new columns added. DB expanded 146 \u2192 153 columns. 4,895 rows updated.",
+    "columns_added": [
+      "shares_outstanding_thou",
+      "pe_ratio_tej",
+      "pb_ratio_tej",
+      "price_sales_ratio",
+      "dividend_yield_pct",
+      "annual_stock_return_pct",
+      "market_segment"
+    ],
+    "columns_updated": [
+      "market_cap_ntd_thou",
+      "tobins_q"
+    ],
+    "rows_updated": 4895,
+    "db_state": {
+      "columns": 153,
+      "rows": 7765
+    },
+    "note": "tobins_q = P/B-TEJ (standard proxy in ESG-finance literature)"
+  },
+  {
+    "pass": 16,
+    "timestamp": "2026-05-23T06:10:32.886841Z",
+    "action": "Block F/G \u2014 TEJ ESG scores + CSR Disclosure flags merge",
+    "script": "scripts/merge_esg_scores_csr_disclosure.py",
+    "source": [
+      "TEJ ESG score.xlsx",
+      "TEJ CSR Disclosure.xlsx"
+    ],
+    "description": "Merged TESG rating/score and E/S/G sub-scores (2016\u20132022 only; TEJ file ends at 2022). Updated tesg_score stub; added tesg_rating, tesg_env_score, tesg_soc_score, tesg_gov_score. Merged CSR Disclosure file: filled tse_mandatory_reporter (100% coverage), and backfilled ref_sasb/tcfd/tnfd/sdgs/ir where blank. DB expanded 153 \u2192 157 columns. ESG: 4,428 rows; CSR: 7,750 rows updated.",
+    "columns_added": [
+      "tesg_rating",
+      "tesg_env_score",
+      "tesg_soc_score",
+      "tesg_gov_score"
+    ],
+    "columns_updated": [
+      "tesg_score",
+      "tse_mandatory_reporter",
+      "ref_sasb",
+      "ref_tcfd",
+      "ref_tnfd",
+      "ref_sdgs",
+      "ref_ir"
+    ],
+    "rows_updated": {
+      "esg": 4428,
+      "csr_disclosure": 7750
+    },
+    "db_state": {
+      "columns": 157,
+      "rows": 7765
+    },
+    "coverage_notes": {
+      "tesg_score": "2016-2022 only; TEJ file does not contain 2023-2024 data",
+      "tse_mandatory_reporter": "100% coverage 2016-2024",
+      "firm_age": "1913/1983 filled in 2024 (96.5%). No TEJ file contains listing dates \u2014 cannot calculate remaining 70 rows without inference. Left as-is."
+    }
+  },
+  {
+    "pass": 17,
+    "timestamp": "2026-05-23T06:17:48.433203Z",
+    "action": "firm_age \u2014 inferred listing year from TEJ Governance first appearance",
+    "description": "Inferred listing year for TWSE-all companies from first appearance in TEJ Governance file. Only companies with first governance entry AFTER 2014/01 used (n=32) \u2014 earlier entries cannot distinguish actual listing year from data-start cutoff. Filled 50 additional firm_age rows. TWSE-semicon study sample: 100% firm_age coverage (unchanged). Remaining 147 missing: 112 pre-2014 establishments + 30 special securities/preferred shares not in TEJ Governance.",
+    "rows_filled": 50,
+    "db_state": {
+      "columns": 157,
+      "rows": 7765,
+      "firm_age_filled": 7333,
+      "firm_age_total": 7765
+    }
   }
 ]
