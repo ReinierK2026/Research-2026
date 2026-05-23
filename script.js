@@ -1987,6 +1987,26 @@ function ReferencesA({ theme, d, fonts }) {
 
 // ─── Page: Research log ────────────────────────────────────────────────────
 function ResearchLogA({ theme, d, fonts }) {
+  const [liveSessions, setLiveSessions] = React.useState(null);
+
+  React.useEffect(() => {
+    fetch('data/research_log.json')
+      .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(data => {
+        setLiveSessions(data.map(s => ({
+          d:      s.session_date,
+          pass:   s.pass,
+          agent:  s.agent,
+          topic:  s.topic_slug,
+          status: s.status === 'completed' ? 'complete' : s.status,
+          k:      s.key_findings || [],
+        })));
+      })
+      .catch(() => {}); // falls back to baked-in RESEARCH_LOG.sessions
+  }, []);
+
+  const sessions = liveSessions || RESEARCH_LOG.sessions;
+
   const statusColor = (st) => {
     if (st === "complete")    return theme.accent;
     if (st === "partial")     return theme.inkSoft;
@@ -2094,9 +2114,9 @@ function ResearchLogA({ theme, d, fonts }) {
         </tbody>
       </table>
 
-      <h4 style={{ marginBottom: d.gap }}>Session log · passes 1 – 8</h4>
+      <h4 style={{ marginBottom: d.gap }}>Session log · {sessions.length} passes</h4>
       <ol style={{ listStyle: "none", padding: 0, margin: 0 }}>
-        {RESEARCH_LOG.sessions.map((s, i) => (
+        {sessions.map((s, i) => (
           <li key={i} style={{ display: "grid", gridTemplateColumns: "92px 60px 1fr", gap: d.gap, padding: `${d.gap * 0.6}px 0`, borderBottom: `0.5px solid ${theme.rule}` }}>
             <div>
               <div className="sans num" style={{ fontSize: d.size * 0.85, color: theme.accent }}>{s.d}</div>
