@@ -1374,7 +1374,52 @@ Object.assign(window, {
 // Restrained, journal-like single-column typesetting. Serif body, small-caps
 // section heads, hairline rules, marginalia in the gutter on wide pages.
 
-function DirectionA({ tweak, page, setPage }) {
+// ── Live-data helpers ────────────────────────────────────────────────────────
+
+// Split a markdown document on ## headings → { 'Section Name': 'content…' }
+function parseSections(text) {
+  const body = text.replace(/^---[\s\S]*?---\n/, ''); // strip YAML frontmatter
+  const sections = {};
+  body.split(/^## /m).slice(1).forEach(chunk => {
+    const nl = chunk.indexOf('\n');
+    const heading = chunk.slice(0, nl).trim().replace(/^──\s*|\s*──$/g, '').trim();
+    sections[heading] = chunk.slice(nl + 1).trim();
+  });
+  return sections;
+}
+
+// Fetch all three research files once on mount; fall back gracefully if offline.
+function useLiveData() {
+  const [live, setLive] = React.useState({ summary: null, methodology: null, log: null });
+  React.useEffect(() => {
+    Promise.allSettled([
+      fetch('data/research-summary_twse-materiality.md').then(r => { if (!r.ok) throw r; return r.text(); }),
+      fetch('data/Materiality_Research_Methodology.md').then(r => { if (!r.ok) throw r; return r.text(); }),
+      fetch('data/research_log.json').then(r => { if (!r.ok) throw r; return r.json(); }),
+    ]).then(([summaryRes, methRes, logRes]) => {
+      setLive({
+        summary:     summaryRes.status     === 'fulfilled' ? parseSections(summaryRes.value) : null,
+        methodology: methRes.status        === 'fulfilled' ? parseSections(methRes.value)    : null,
+        log:         logRes.status         === 'fulfilled' ? logRes.value                    : null,
+      });
+    });
+  }, []);
+  return live;
+}
+
+// Render a live markdown section inside the existing .pa typography context.
+function MdSection({ md, theme, d }) {
+  if (!md || typeof marked === 'undefined') return null;
+  const html = marked.parse(md);
+  return (
+    <div className="md-content"
+         style={{ color: theme.ink, fontSize: d.size, lineHeight: d.line }}
+         dangerouslySetInnerHTML={{ __html: html }} />
+  );
+}
+
+// ── Direction A ──────────────────────────────────────────────────────────────
+function DirectionA({ tweak, page, setPage, live }) {
   const theme = PALETTES[tweak.palette];
   const fonts = FONT_PAIRINGS[tweak.fonts];
   const d = DENSITY_SCALE[tweak.density];
@@ -1464,10 +1509,10 @@ function DirectionA({ tweak, page, setPage }) {
 
       {/* ── Page bodies ─────────────────────────────────────── */}
       <main style={PAD}>
-        {page === "overview" && <OverviewA theme={theme} d={d} fonts={fonts} tweak={tweak} />}
-        {page === "status" && <StatusA theme={theme} d={d} fonts={fonts} tweak={tweak} />}
-        {page === "methods" && <MethodsA theme={theme} d={d} fonts={fonts} />}
-        {page === "findings" && <FindingsA theme={theme} d={d} fonts={fonts} />}
+        {page === "overview"    && <OverviewA  theme={theme} d={d} fonts={fonts} tweak={tweak} live={live} />}
+        {page === "status"      && <StatusA    theme={theme} d={d} fonts={fonts} tweak={tweak} live={live} />}
+        {page === "methods"     && <MethodsA   theme={theme} d={d} fonts={fonts} live={live} />}
+        {page === "findings"    && <FindingsA  theme={theme} d={d} fonts={fonts} live={live} />}
         {page === "publications" && <PublicationsA theme={theme} d={d} fonts={fonts} />}
         {page === "people" && <PeopleA theme={theme} d={d} fonts={fonts} />}
         {page === "data" && <DataA theme={theme} d={d} fonts={fonts} />}
@@ -1475,7 +1520,7 @@ function DirectionA({ tweak, page, setPage }) {
         {page === "data2022" && <DataAuditA theme={theme} d={d} fonts={fonts} audit={AUDIT_2022} />}
         {page === "data2023" && <DataAuditA theme={theme} d={d} fonts={fonts} audit={AUDIT_2023} />}
         {page === "data2024" && <DataAuditA theme={theme} d={d} fonts={fonts} audit={AUDIT_2024} />}
-        {page === "researchlog" && <ResearchLogA theme={theme} d={d} fonts={fonts} />}
+        {page === "researchlog" && <ResearchLogA theme={theme} d={d} fonts={fonts} live={live} />}
         {page === "references" && <ReferencesA theme={theme} d={d} fonts={fonts} />}
       </main>
 
@@ -1504,7 +1549,8 @@ function DirectionA({ tweak, page, setPage }) {
 }
 
 // ─── Page: Overview ────────────────────────────────────────────────────────
-function OverviewA({ theme, d, fonts, tweak }) {
+function OverviewA({ theme, d, fonts, tweak, live }) {
+  const liveRQ = live && live.summary && live.summary['Research Question'];
   return (
     <article style={{ display: "grid", gridTemplateColumns: "180px 1fr", gap: d.gap * 2.4 }}>
       <aside style={{ fontSize: d.size * 0.78, color: theme.inkSoft, fontStyle: "italic", borderRight: `0.5px solid ${theme.rule}`, paddingRight: d.gap }}>
@@ -1512,9 +1558,12 @@ function OverviewA({ theme, d, fonts, tweak }) {
         <div>A staggered-DiD text-mining account of how GRI 3 (effective Jan 2023) reshaped material-topic selection in TWSE and global peers.</div>
       </aside>
       <div style={{ maxWidth: "62ch" }}>
-        {CONTENT.abstract.map((para, i) =>
-        <p key={i} style={{ marginBottom: i < CONTENT.abstract.length - 1 ? d.gap * 0.6 : 0 }}>{para}</p>
-        )}
+        {liveRQ
+          ? <MdSection md={liveRQ} theme={theme} d={d} />
+          : CONTENT.abstract.map((para, i) =>
+              <p key={i} style={{ marginBottom: i < CONTENT.abstract.length - 1 ? d.gap * 0.6 : 0 }}>{para}</p>
+            )
+        }
 
         <div style={{ marginTop: d.gap * 2, padding: `${d.gap}px ${d.gap * 1.2}px`, background: theme.paperAlt, borderLeft: `2px solid ${theme.accent}` }}>
           <div className="sans smcaps" style={{ fontSize: d.size * 0.7, color: theme.inkSoft, letterSpacing: ".12em", marginBottom: 8 }}>
@@ -1576,28 +1625,42 @@ function StatusA({ theme, d, fonts, tweak }) {
 }
 
 // ─── Page: Methods ─────────────────────────────────────────────────────────
-function MethodsA({ theme, d, fonts }) {
+function MethodsA({ theme, d, fonts, live }) {
+  const liveMethod  = live && live.summary     && live.summary['Methodology'];
+  const liveDashboard = live && live.methodology && live.methodology['RESEARCH STATUS DASHBOARD'];
   return (
-    <article style={{ maxWidth: "62ch", margin: "0 auto" }}>
+    <article style={{ maxWidth: "72ch", margin: "0 auto" }}>
       <h2 style={{ marginBottom: d.gap }}>§ Methods</h2>
-      <p style={{ marginBottom: d.gap * 1.6, fontStyle: "italic", color: theme.inkSoft }}>
-        The pipeline is built for legibility before throughput. Each stage is documented in a corresponding notebook in the project repository and produces inspectable artefacts.
-      </p>
-      {CONTENT.methods.map((m, i) =>
-      <section key={i} style={{ marginBottom: d.gap * 1.6 }}>
-          <h3 style={{ marginBottom: 6 }}>
-            <span className="smcaps sans" style={{ fontStyle: "normal", color: theme.accent, marginRight: 10, fontSize: d.size * 0.78, fontWeight: 600 }}>{String(i + 1).padStart(2, "0")}</span>
-            {m.h}
-          </h3>
-          <p>{m.p}</p>
-        </section>
+      {liveMethod
+        ? <MdSection md={liveMethod} theme={theme} d={d} />
+        : <>
+            <p style={{ marginBottom: d.gap * 1.6, fontStyle: "italic", color: theme.inkSoft }}>
+              The pipeline is built for legibility before throughput. Each stage is documented in a corresponding notebook in the project repository and produces inspectable artefacts.
+            </p>
+            {CONTENT.methods.map((m, i) =>
+              <section key={i} style={{ marginBottom: d.gap * 1.6 }}>
+                <h3 style={{ marginBottom: 6 }}>
+                  <span className="smcaps sans" style={{ fontStyle: "normal", color: theme.accent, marginRight: 10, fontSize: d.size * 0.78, fontWeight: 600 }}>{String(i + 1).padStart(2, "0")}</span>
+                  {m.h}
+                </h3>
+                <p>{m.p}</p>
+              </section>
+            )}
+          </>
+      }
+      {liveDashboard && (
+        <>
+          <hr style={{ border: 0, borderTop: `0.5px solid ${theme.rule}`, margin: `${d.gap * 1.8}px 0` }} />
+          <h2 style={{ marginBottom: d.gap }}>§ Pipeline status</h2>
+          <MdSection md={liveDashboard} theme={theme} d={d} />
+        </>
       )}
     </article>);
-
 }
 
 // ─── Page: Findings ────────────────────────────────────────────────────────
-function FindingsA({ theme, d, fonts }) {
+function FindingsA({ theme, d, fonts, live }) {
+  const liveFindings = live && live.summary && live.summary['Key Findings'];
   return (
     <article style={{ maxWidth: "78ch", margin: "0 auto" }}>
       <h2 style={{ marginBottom: d.gap }}>§ Findings — preliminary</h2>
@@ -1605,15 +1668,18 @@ function FindingsA({ theme, d, fonts }) {
         Reported against the working subset of {CONTENT.status.counts[1].v} processed reports. Numbers will firm up as the remaining corpus is processed.
       </p>
 
-      {CONTENT.findings.map((f, i) =>
-      <section key={f.n} style={{ display: "grid", gridTemplateColumns: "72px 1fr", gap: d.gap, marginBottom: d.gap * 1.8 }}>
-          <div className="num sans" style={{ fontSize: d.size * 1.8, color: theme.accent, lineHeight: 1, paddingTop: 4 }}>{f.n}</div>
-          <div>
-            <h3 style={{ marginBottom: 6 }}>{f.h}</h3>
-            <p>{f.p}</p>
-          </div>
-        </section>
-      )}
+      {liveFindings
+        ? <MdSection md={liveFindings} theme={theme} d={d} />
+        : CONTENT.findings.map((f, i) =>
+            <section key={f.n} style={{ display: "grid", gridTemplateColumns: "72px 1fr", gap: d.gap, marginBottom: d.gap * 1.8 }}>
+              <div className="num sans" style={{ fontSize: d.size * 1.8, color: theme.accent, lineHeight: 1, paddingTop: 4 }}>{f.n}</div>
+              <div>
+                <h3 style={{ marginBottom: 6 }}>{f.h}</h3>
+                <p>{f.p}</p>
+              </div>
+            </section>
+          )
+      }
 
       <hr className="rule" style={{ margin: `${d.gap * 1.4}px 0` }} />
       <h4 style={{ marginBottom: d.gap }}>Figures</h4>
@@ -1986,26 +2052,21 @@ function ReferencesA({ theme, d, fonts }) {
 }
 
 // ─── Page: Research log ────────────────────────────────────────────────────
-function ResearchLogA({ theme, d, fonts }) {
-  const [liveSessions, setLiveSessions] = React.useState(null);
-
-  React.useEffect(() => {
-    fetch('data/research_log.json')
-      .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
-      .then(data => {
-        setLiveSessions(data.map(s => ({
-          d:      s.session_date,
-          pass:   s.pass,
-          agent:  s.agent,
-          topic:  s.topic_slug,
-          status: s.status === 'completed' ? 'complete' : s.status,
-          k:      s.key_findings || [],
-        })));
-      })
-      .catch(() => {}); // falls back to baked-in RESEARCH_LOG.sessions
-  }, []);
-
-  const sessions = liveSessions || RESEARCH_LOG.sessions;
+function ResearchLogA({ theme, d, fonts, live }) {
+  // live.log is fetched centrally by useLiveData() in App — no duplicate fetch needed.
+  const sessions = React.useMemo(() => {
+    if (live && live.log) {
+      return live.log.map(s => ({
+        d:      s.session_date,
+        pass:   s.pass,
+        agent:  s.agent,
+        topic:  s.topic_slug,
+        status: s.status === 'completed' ? 'complete' : s.status,
+        k:      s.key_findings || [],
+      }));
+    }
+    return RESEARCH_LOG.sessions;
+  }, [live]);
 
   const statusColor = (st) => {
     if (st === "complete")    return theme.accent;
@@ -2182,6 +2243,7 @@ function App() {
   const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
   const [page, setPage] = React.useState("overview");
   const [tweaksOpen, setTweaksOpen] = React.useState(false);
+  const live = useLiveData(); // fetch all three research files once on mount
 
   // Pre-load all font pairings so swaps are instant
   React.useEffect(() => {
@@ -2197,7 +2259,7 @@ function App() {
   return (
     <React.Fragment>
       <div style={{ minHeight: "100vh" }}>
-        <DirectionA tweak={t} page={page} setPage={setPage} />
+        <DirectionA tweak={t} page={page} setPage={setPage} live={live} />
       </div>
 
       {/* Toggle button */}

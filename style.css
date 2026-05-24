@@ -41,6 +41,33 @@ body {
   background: rgba(0, 0, 0, 0.3);
 }
 
+/* ── Live markdown content (.md-content) ─────────────────────────────────── */
+/* Inherits font/color from the .pa theme class set by the React component.   */
+.md-content { line-height: inherit; }
+.md-content p { margin: 0 0 0.7em; }
+.md-content p + p { text-indent: 0; }
+.md-content h1,.md-content h2,.md-content h3,.md-content h4 { margin: 1.4em 0 0.4em; font-weight: 500; }
+.md-content h3 { font-style: italic; font-weight: 400; }
+.md-content h4 { font-size: 0.78em; letter-spacing: .08em; text-transform: uppercase; }
+.md-content ul,.md-content ol { margin: 0.5em 0 0.9em 1.4em; padding: 0; }
+.md-content li { margin-bottom: 0.3em; }
+.md-content table { width: 100%; border-collapse: collapse; margin: 1em 0 1.4em; font-size: 0.88em; }
+.md-content th { text-align: left; padding: 5px 8px; font-weight: 600; font-size: 0.78em;
+                 letter-spacing: .08em; text-transform: uppercase; border-bottom: 1.5px solid currentColor; }
+.md-content td { padding: 5px 8px; border-bottom: 0.5px solid rgba(0,0,0,0.1); vertical-align: top; }
+.md-content code { font-family: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+                   font-size: 0.88em; padding: 1px 5px; border-radius: 3px;
+                   background: rgba(0,0,0,0.06); }
+.md-content pre { background: rgba(0,0,0,0.05); border-radius: 6px; padding: 12px 16px;
+                  overflow-x: auto; margin: 1em 0; }
+.md-content pre code { background: none; padding: 0; }
+.md-content blockquote { margin: 1em 0; padding: 0.5em 0 0.5em 1em;
+                         border-left: 2px solid currentColor; opacity: 0.7; }
+.md-content hr { border: 0; border-top: 0.5px solid rgba(0,0,0,0.15); margin: 1.4em 0; }
+.md-content strong { font-weight: 600; }
+.md-content em { font-style: italic; }
+.md-content a { color: inherit; border-bottom: 0.5px solid currentColor; text-decoration: none; }
+
 /* ── Print ────────────────────────────────────────────────────────────────── */
 @media print {
   /* Hide the tweaks toggle button when printing */
