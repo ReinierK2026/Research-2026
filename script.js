@@ -1390,17 +1390,27 @@ function parseSections(text) {
 
 // Fetch all three research files once on mount; fall back gracefully if offline.
 function useLiveData() {
-  const [live, setLive] = React.useState({ summary: null, methodology: null, log: null });
+  const [live, setLive] = React.useState({ summary: null, methodology: null, log: null, audits: null });
   React.useEffect(() => {
     Promise.allSettled([
       fetch('data/research-summary_twse-materiality.md').then(r => { if (!r.ok) throw r; return r.text(); }),
       fetch('data/Materiality_Research_Methodology.md').then(r => { if (!r.ok) throw r; return r.text(); }),
       fetch('data/research_log.json').then(r => { if (!r.ok) throw r; return r.json(); }),
-    ]).then(([summaryRes, methRes, logRes]) => {
+      fetch('data/audits/text_extraction_quality_audit_2021.md').then(r => { if (!r.ok) throw r; return r.text(); }),
+      fetch('data/audits/text_extraction_quality_audit_2022.md').then(r => { if (!r.ok) throw r; return r.text(); }),
+      fetch('data/audits/text_extraction_quality_audit_2023.md').then(r => { if (!r.ok) throw r; return r.text(); }),
+      fetch('data/audits/text_extraction_quality_audit_2024.md').then(r => { if (!r.ok) throw r; return r.text(); }),
+    ]).then(([summaryRes, methRes, logRes, a21Res, a22Res, a23Res, a24Res]) => {
       setLive({
-        summary:     summaryRes.status     === 'fulfilled' ? parseSections(summaryRes.value) : null,
-        methodology: methRes.status        === 'fulfilled' ? parseSections(methRes.value)    : null,
-        log:         logRes.status         === 'fulfilled' ? logRes.value                    : null,
+        summary:     summaryRes.status === 'fulfilled' ? parseSections(summaryRes.value) : null,
+        methodology: methRes.status    === 'fulfilled' ? parseSections(methRes.value)    : null,
+        log:         logRes.status     === 'fulfilled' ? logRes.value                    : null,
+        audits: {
+          "2021": a21Res.status === 'fulfilled' ? a21Res.value : null,
+          "2022": a22Res.status === 'fulfilled' ? a22Res.value : null,
+          "2023": a23Res.status === 'fulfilled' ? a23Res.value : null,
+          "2024": a24Res.status === 'fulfilled' ? a24Res.value : null,
+        },
       });
     });
   }, []);
@@ -1516,10 +1526,10 @@ function DirectionA({ tweak, page, setPage, live }) {
         {page === "publications" && <PublicationsA theme={theme} d={d} fonts={fonts} />}
         {page === "people" && <PeopleA theme={theme} d={d} fonts={fonts} />}
         {page === "data" && <DataA theme={theme} d={d} fonts={fonts} />}
-        {page === "data2021" && <DataAuditA theme={theme} d={d} fonts={fonts} audit={AUDIT_2021} />}
-        {page === "data2022" && <DataAuditA theme={theme} d={d} fonts={fonts} audit={AUDIT_2022} />}
-        {page === "data2023" && <DataAuditA theme={theme} d={d} fonts={fonts} audit={AUDIT_2023} />}
-        {page === "data2024" && <DataAuditA theme={theme} d={d} fonts={fonts} audit={AUDIT_2024} />}
+        {page === "data2021" && <DataAuditA theme={theme} d={d} fonts={fonts} audit={AUDIT_2021} live={live} />}
+        {page === "data2022" && <DataAuditA theme={theme} d={d} fonts={fonts} audit={AUDIT_2022} live={live} />}
+        {page === "data2023" && <DataAuditA theme={theme} d={d} fonts={fonts} audit={AUDIT_2023} live={live} />}
+        {page === "data2024" && <DataAuditA theme={theme} d={d} fonts={fonts} audit={AUDIT_2024} live={live} />}
         {page === "researchlog" && <ResearchLogA theme={theme} d={d} fonts={fonts} live={live} />}
         {page === "references" && <ReferencesA theme={theme} d={d} fonts={fonts} />}
       </main>
@@ -1866,9 +1876,19 @@ function DataA({ theme, d, fonts }) {
 
 }
 
-// ─── Page: 2024 Data (audit deep-dive) ─────────────────────────────────────
-function DataAuditA({ theme, d, fonts, audit }) {
+// ─── Page: Data audit (per cohort) ──────────────────────────────────────────
+function DataAuditA({ theme, d, fonts, audit, live }) {
   const a = audit;
+  // Prefer live markdown fetched from GitHub; fall back to hardcoded constants.
+  const liveMd = live?.audits?.[String(a.year)];
+  if (liveMd) {
+    return (
+      <article style={{ maxWidth: "82ch", margin: "0 auto" }}>
+        <MdSection md={liveMd} theme={theme} d={d} />
+      </article>
+    );
+  }
+  // ── Fallback: structured static data ────────────────────────────────────
   return (
     <article style={{ maxWidth: "82ch", margin: "0 auto" }}>
       <h2 style={{ marginBottom: d.gap }}>§ {a.title}</h2>
@@ -1968,8 +1988,8 @@ function DataAuditA({ theme, d, fonts, audit }) {
           </li>
         )}
       </ul>
-    </article>);
-
+    </article>
+  ); // end fallback return
 }
 
 // ─── Page: References (full bibliography) ──────────────────────────────────
