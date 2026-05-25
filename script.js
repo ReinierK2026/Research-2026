@@ -1525,7 +1525,7 @@ function DirectionA({ tweak, page, setPage, live }) {
         {page === "findings"    && <FindingsA  theme={theme} d={d} fonts={fonts} live={live} />}
         {page === "publications" && <PublicationsA theme={theme} d={d} fonts={fonts} />}
         {page === "people" && <PeopleA theme={theme} d={d} fonts={fonts} />}
-        {page === "data" && <DataA theme={theme} d={d} fonts={fonts} />}
+        {page === "data" && <DataA theme={theme} d={d} fonts={fonts} live={live} />}
         {page === "data2021" && <DataAuditA theme={theme} d={d} fonts={fonts} audit={AUDIT_2021} live={live} />}
         {page === "data2022" && <DataAuditA theme={theme} d={d} fonts={fonts} audit={AUDIT_2022} live={live} />}
         {page === "data2023" && <DataAuditA theme={theme} d={d} fonts={fonts} audit={AUDIT_2023} live={live} />}
@@ -1597,7 +1597,9 @@ function OverviewA({ theme, d, fonts, tweak, live }) {
 }
 
 // ─── Page: Status ──────────────────────────────────────────────────────────
-function StatusA({ theme, d, fonts, tweak }) {
+function StatusA({ theme, d, fonts, tweak, live }) {
+  const livePending = live?.summary?.['Pending Work (Prioritised)'];
+  const liveGaps    = live?.summary?.['Research Gaps (Top 3, from research-gap-analysis 2026-05-18)'];
   return (
     <article style={{ maxWidth: "72ch", margin: "0 auto" }}>
       <h2 style={{ marginBottom: d.gap }}>§ Project status</h2>
@@ -1605,33 +1607,41 @@ function StatusA({ theme, d, fonts, tweak }) {
         <StatusIndicator style="milestone" status={CONTENT.status} theme={theme} />
       </div>
 
-      <p style={{ marginBottom: d.gap * 1.2 }}>
-        The project is presently in its <em>data collection</em> phase. Approximately {CONTENT.status.pct}% of the planned workload is complete; the corpus is on track for full assembly by Q3 2026, after which analysis can begin in earnest.
-      </p>
-
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: `${d.gap * 0.6}px ${d.gap * 2}px`, marginBottom: d.gap * 2 }}>
-        {CONTENT.status.counts.map((c) =>
-        <div key={c.k} style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", borderBottom: `0.5px solid ${theme.rule}`, padding: "10px 0" }}>
-            <span className="sans" style={{ fontSize: d.size * 0.85 }}>{c.k}</span>
-            <span style={{ textAlign: "right" }}>
-              <span className="num" style={{ fontSize: d.size * 1.15 }}>{c.v}</span>
-              {c.of && <span className="sans soft" style={{ fontSize: d.size * 0.72, marginLeft: 6 }}>· {c.of}</span>}
-            </span>
-          </div>
-        )}
-      </div>
-
-      <h4 style={{ marginBottom: d.gap }}>Upcoming milestones</h4>
-      <ol style={{ listStyle: "none", padding: 0, margin: 0 }}>
-        {CONTENT.status.next.map((m, i) =>
-        <li key={i} style={{ display: "grid", gridTemplateColumns: "100px 1fr", gap: d.gap, padding: `${d.gap * 0.5}px 0`, borderBottom: i < CONTENT.status.next.length - 1 ? `0.5px solid ${theme.rule}` : "none" }}>
-            <span className="sans num" style={{ fontSize: d.size * 0.85, color: theme.accent, letterSpacing: ".02em" }}>{m.d}</span>
-            <span style={{ fontStyle: "italic" }}>{m.t}</span>
-          </li>
-        )}
-      </ol>
+      {(livePending || liveGaps)
+        ? <>
+            {livePending && <MdSection md={livePending} theme={theme} d={d} />}
+            {liveGaps && <>
+              <hr style={{ border: 0, borderTop: `0.5px solid ${theme.rule}`, margin: `${d.gap * 1.4}px 0` }} />
+              <MdSection md={liveGaps} theme={theme} d={d} />
+            </>}
+          </>
+        : <>
+            <p style={{ marginBottom: d.gap * 1.2 }}>
+              The project is presently in its <em>data collection</em> phase. Approximately {CONTENT.status.pct}% of the planned workload is complete; the corpus is on track for full assembly by Q3 2026, after which analysis can begin in earnest.
+            </p>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: `${d.gap * 0.6}px ${d.gap * 2}px`, marginBottom: d.gap * 2 }}>
+              {CONTENT.status.counts.map((c) =>
+              <div key={c.k} style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", borderBottom: `0.5px solid ${theme.rule}`, padding: "10px 0" }}>
+                  <span className="sans" style={{ fontSize: d.size * 0.85 }}>{c.k}</span>
+                  <span style={{ textAlign: "right" }}>
+                    <span className="num" style={{ fontSize: d.size * 1.15 }}>{c.v}</span>
+                    {c.of && <span className="sans soft" style={{ fontSize: d.size * 0.72, marginLeft: 6 }}>· {c.of}</span>}
+                  </span>
+                </div>
+              )}
+            </div>
+            <h4 style={{ marginBottom: d.gap }}>Upcoming milestones</h4>
+            <ol style={{ listStyle: "none", padding: 0, margin: 0 }}>
+              {CONTENT.status.next.map((m, i) =>
+              <li key={i} style={{ display: "grid", gridTemplateColumns: "100px 1fr", gap: d.gap, padding: `${d.gap * 0.5}px 0`, borderBottom: i < CONTENT.status.next.length - 1 ? `0.5px solid ${theme.rule}` : "none" }}>
+                  <span className="sans num" style={{ fontSize: d.size * 0.85, color: theme.accent, letterSpacing: ".02em" }}>{m.d}</span>
+                  <span style={{ fontStyle: "italic" }}>{m.t}</span>
+                </li>
+              )}
+            </ol>
+          </>
+      }
     </article>);
-
 }
 
 // ─── Page: Methods ─────────────────────────────────────────────────────────
@@ -1670,7 +1680,9 @@ function MethodsA({ theme, d, fonts, live }) {
 
 // ─── Page: Findings ────────────────────────────────────────────────────────
 function FindingsA({ theme, d, fonts, live }) {
-  const liveFindings = live && live.summary && live.summary['Key Findings'];
+  const liveFindings    = live?.summary?.['Key Findings'];
+  const liveHypotheses  = live?.summary?.['Hypotheses'];
+  const liveComparisons = live?.summary?.['Comparisons & Metrics'];
   return (
     <article style={{ maxWidth: "78ch", margin: "0 auto" }}>
       <h2 style={{ marginBottom: d.gap }}>§ Findings — preliminary</h2>
@@ -1690,6 +1702,16 @@ function FindingsA({ theme, d, fonts, live }) {
             </section>
           )
       }
+
+      {liveHypotheses && <>
+        <hr style={{ border: 0, borderTop: `0.5px solid ${theme.rule}`, margin: `${d.gap * 1.4}px 0` }} />
+        <MdSection md={liveHypotheses} theme={theme} d={d} />
+      </>}
+
+      {liveComparisons && <>
+        <hr style={{ border: 0, borderTop: `0.5px solid ${theme.rule}`, margin: `${d.gap * 1.4}px 0` }} />
+        <MdSection md={liveComparisons} theme={theme} d={d} />
+      </>}
 
       <hr className="rule" style={{ margin: `${d.gap * 1.4}px 0` }} />
       <h4 style={{ marginBottom: d.gap }}>Figures</h4>
@@ -1768,7 +1790,22 @@ function PeopleA({ theme, d, fonts }) {
 }
 
 // ─── Page: Data & Code ─────────────────────────────────────────────────────
-function DataA({ theme, d, fonts }) {
+function DataA({ theme, d, fonts, live }) {
+  const liveDataQuality  = live?.summary?.['Data Quality'];
+  const liveVarRegistry  = live?.summary?.['Variable Registry Changes (All Sessions)'];
+  if (liveDataQuality || liveVarRegistry) {
+    return (
+      <article style={{ maxWidth: "78ch", margin: "0 auto" }}>
+        <h2 style={{ marginBottom: d.gap }}>§ Data &amp; code</h2>
+        {liveDataQuality && <MdSection md={liveDataQuality} theme={theme} d={d} />}
+        {liveVarRegistry && <>
+          <hr style={{ border: 0, borderTop: `0.5px solid ${theme.rule}`, margin: `${d.gap * 1.4}px 0` }} />
+          <MdSection md={liveVarRegistry} theme={theme} d={d} />
+        </>}
+      </article>
+    );
+  }
+  // ── Fallback: structured static data ──────────────────────────────────────
   return (
     <article style={{ maxWidth: "78ch", margin: "0 auto" }} data-comment-anchor="ee9667fd6b-article-322-5">
       <h2 style={{ marginBottom: d.gap }}>§ Data &amp; code</h2>
@@ -1872,8 +1909,8 @@ function DataA({ theme, d, fonts }) {
       <p style={{ marginTop: d.gap * 1.4, fontStyle: "italic", color: theme.inkSoft, fontSize: d.size * 0.88 }}>
         Detailed walkthrough of the largest cohort (2024 · 1,064 files) lives in the <em>2024 Data</em> section. Academic literature underpinning the extraction and coding choices is collected in <em>References</em>.
       </p>
-    </article>);
-
+    </article>
+  ); // end fallback return
 }
 
 // ─── Page: Data audit (per cohort) ──────────────────────────────────────────
