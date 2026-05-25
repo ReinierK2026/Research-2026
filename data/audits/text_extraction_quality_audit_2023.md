@@ -1,6 +1,6 @@
 # Text Extraction Quality Audit — 2023 Cohort
 **Audit date:** 2026-05-21  
-**Last updated:** 2026-05-22 (Pass 7: Block B word_count/page_count/report_language populated for 49/72 subsample rows; gri_codes_summary_2023.csv confirmed; encoding fix applied to main DB)  
+**Last updated:** 2026-05-25 (Pass 7: Block B word_count/page_count/report_language populated for 49/72 subsample rows; gri_codes_summary_2023.csv confirmed; encoding fix applied to main DB)  
 **Corpus (raw):** `/Text extraction/extracted_text/2023/`  
 **Corpus (processed):** `/Text extraction/extracted_text/2023_processed/`  
 **Total files:** 744  (English `_E`: 526 / 71% · Other: 218 / 29%)  

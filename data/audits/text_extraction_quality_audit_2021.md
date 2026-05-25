@@ -1,5 +1,6 @@
 # Text Extraction Quality Audit — 2021 Cohort
 **Date:** 2026-05-22
+**Last updated:** 2026-05-25  
 **Raw corpus:** `/Text extraction/extracted_text/2021/` — 4 files (0 `_E`, 4 other)
 **Processed corpus:** `/Text extraction/extracted_text/2021_processed/` — 495 files (307 `_E` / 62%, 188 other / 38%)
 **PDFs scanned for GRI:** 488 (4 OCR files excluded)

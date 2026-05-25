@@ -1,6 +1,6 @@
 # Text Extraction Quality Audit — 2024 Cohort
 **Audit date:** 2026-05-19  
-**Last updated:** 2026-05-22 (Pass 7: Block A/B completion, encoding fix, GRI code summaries confirmed for all years)  
+**Last updated:** 2026-05-25 (Pass 7: Block A/B completion, encoding fix, GRI code summaries confirmed for all years)  
 **Corpus (raw):** `/Text extraction/extracted_text/2024/`  
 **Corpus (processed):** `/Text extraction/extracted_text/2024_processed/`  
 **Total files:** 1,064  (English `_E`: 680 / 64% · Other: 384 / 36%)  
