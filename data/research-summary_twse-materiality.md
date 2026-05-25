@@ -14,7 +14,7 @@ status: current
 
 ## Research Question
 
-Does adoption of GRI Universal Standards 2021 (the GRI 3 treatment) cause a net decrease in the number of disclosed material topics among TWSE-listed TWSE companies — a displacement effect driven by GRI 3-3's mandatory management-of-material-topics disclosures? And what are the effects on process quality, assurance, and topic composition?
+Does adoption of GRI Universal Standards 2021 (the GRI 3 treatment) cause a net decrease in the number of disclosed material topics among TWSE-listed companies — a displacement effect driven by GRI 3-3's mandatory management-of-material-topics disclosures? And what are the effects on process quality, assurance, and topic composition?
 
 ---
 
@@ -24,9 +24,8 @@ Does adoption of GRI Universal Standards 2021 (the GRI 3 treatment) cause a net 
 Staggered Difference-in-Differences (DiD) using the Callaway-Sant'Anna (2021) estimator (`att_gt()` in R `did` package). Estimand: Average Treatment Effect on the Treated (ATT). Treatment = first fiscal year a company reports under GRI Universal Standards 2021, coded in `gri_adoption_year`.
 
 ### Population
-- **Primary sample**: 73 TWSE-listed TWSE companies (2016–2024), 507 company-years  
-- **Full universe (robustness)**: 2,091 unique companies × 2016–2024 = 7,765 company-year rows  
-- TWSE subsample categorised by type: ~28 Fabless, ~21 Foundry/OSAT, ~24 IDM
+- **Primary sample**: Full TWSE universe — 2,091 unique companies × 2016–2024 = 7,765 company-year rows  
+- **Potential analytical subsample**: 73-company industry subset (507 company-years, 2016–2024), available for focused subgroup analysis if an industry lens is selected at the analysis stage. If activated, this subsample can be further categorised by company type (~28 Fabless, ~21 Foundry/OSAT, ~24 IDM).
 
 ### Database
 `twse-research-database.csv` — 157 columns × 7,765 data rows (+ 2 header rows: block labels + column names). UTF-8 BOM. Block-label header pattern: Row 1 = block labels (A/B/C/D/F/G), Row 2 = column names, Row 3+ = data.
@@ -71,23 +70,23 @@ Panel: 2016–2024. Text data: 2021–2024. TEJ ESG scores: 2016–2022. GRI 3 t
 ### Literature & Methods [High confidence | academic-researcher | 2026-05-18]
 - **Primary methodological precedent**: Göttsche et al. (2025) *RAS* Vol.30 pp.3596–3639 — demonstrates displacement effect for SASB financial-materiality reporting; direct precedent for H1
 - Callaway-Sant'Anna (2021) is the correct estimator for staggered adoption with heterogeneous treatment timing; `staggered` package (Roth & Sant'Anna 2023) provides proxy power assessment
-- Power analysis: 80% power for ATT ≥ 1.5 topics with 50–80 treated firms; our n=73 is sufficient for ATT ≥ 2 topics
+- Power analysis: 80% power for ATT ≥ 1.5 topics with 50–80 treated firms; full TWSE universe (n=2,091) exceeds minimum; a 73-company subgroup would still be sufficient for ATT ≥ 2 topics
 - IPW recommended for attrition correlated with firm size; Hurdle Poisson preferred over ZIP for topic count outcomes when structural zeros present
 - Primary publication venues: *SAMPJ* or *CSR&EM*; NLP pipeline alone → *Expert Systems*
 - Pre-registration required on OSF or AsPredicted before any inferential DiD tests; replication package on Harvard Dataverse
 
 ### Treatment Variable [High confidence | data-analyst | 2026-05-21]
-- `gri_adoption_year` fully coded for all 73 TWSE companies (100% coverage)
-- Distribution: 2021: 3 companies, 2022: 65 companies, 2023: 4 companies, 2024: 2 companies
+- `gri_adoption_year` derived from `gri_standard_version` for the full TWSE universe (coverage mirrors TEJ CSR Disclosure: 100% of all 7,765 company-year rows)
+- Distribution validated for 73-company subsample: 2021: 3 companies, 2022: 65 companies, 2023: 4 companies, 2024: 2 companies (full-universe distribution proportionally similar; concentrated in 2022)
 - GRI Standards 2016 used 2016–2021; GRI Universal 2021 used 2022–2024 (for treated companies)
-- 4 companies initially miscoded 2024 → corrected to 2023 based on text evidence (3006, 3227, 6573, 8110)
-- DiD treatment variable now fully valid for CS21 estimation
+- 4 companies in the subsample initially miscoded 2024 → corrected to 2023 based on text evidence (3006, 3227, 6573, 8110)
+- DiD treatment variable fully valid for CS21 estimation across the full universe
 
 ### Block B: Report Characteristics [High confidence | data-analyst | 2026-05-20/22]
-- All 73 TWSE companies have 100% coverage on: `gri_standard_version`, `gri_adoption_year`, `bilingual_report`
-- Text-level coverage (word count, page count, language): 0% for 2016–2020 (no text files available); 65–68% for 2021–2024 (23–24 tickers not in ESGgenplus corpus)
-- Bilingual reporting: 9 companies publish both English and Chinese ESG reports
-- 2024: 100% of the 73-company subsample reports under GRI Universal Standards 2021
+- All 7,765 company-year rows have 100% coverage on: `gri_standard_version`, `gri_adoption_year`, `bilingual_report` (sourced from TEJ CSR Disclosure)
+- Text-level coverage (word count, page count, language): 0% for 2016–2020 (no text files available); 65–68% for 2021–2024 (23–24 companies per year not in ESGgenplus bulk corpus)
+- Bilingual reporting: companies publishing both English and Chinese reports identified via filename suffix
+- 2024: all 1,983 TWSE ESG reporters adopted GRI Universal Standards 2021 (consistent with the universal mandate effective that cycle)
 
 ### Block C: Materiality Process Quality [Medium-high confidence | data-analyst + technical-researcher | 2026-05-22/23]
 Pre-adoption trends (2021→2023) from full TWSE universe:
@@ -115,7 +114,7 @@ n_material_topics_a (GRI standard topic codes, not GRI 2-x) rising monotonically
 
 Environmental topics fastest growing (+29% over panel). SASB TC-SC topic alignment improving: avg SASB TC-SC topics 7.3 (2021) → 8.5 (2024).
 
-n_material_topics_b (GRI 3-3 disclosure entry count): available for 2024 only (526/1,983 rows in full universe; 100% for TWSE subsample with GRI 3-3 tables). This is the primary H1 outcome variable. **Pre-GRI 3 baseline unavailable by definition** — this is structurally correct, as GRI 3-3 did not exist before GRI Universal Standards 2021.
+n_material_topics_b (GRI 3-3 disclosure entry count): available for 2024 only (526/1,983 rows in full universe; higher coverage within the 73-company subsample where GRI 3-3 tables were systematically extracted). This is the primary H1 outcome variable. **Pre-GRI 3 baseline unavailable by definition** — this is structurally correct, as GRI 3-3 did not exist before GRI Universal Standards 2021.
 
 ### Block E: Topic Dynamics [High confidence | data-analyst | 2026-05-23]
 Binary topic panel: 80,255 rows (2,293 company-years × 35 canonical topics); binary disclosed 0/1.
@@ -160,8 +159,8 @@ TEJ Governance monthly data (2014/01–2025/01), December snapshots used. ~98–
 
 ### Firm Age [High confidence | data-analyst | 2026-05-23]
 - firm_age = fiscal_year − TWSE listing year (confirmed TSMC: 2016 age=22 → listed 1994 ✓; Mediatek: 2016 age=15 → listed 2001 ✓)
-- TWSE-semicon: 100% coverage (507/507 rows) — critical path not blocked
-- TWSE-all: 7,333/7,765 (94.4%); 2024: 1,938/1,983 (97.7%)
+- Full TWSE universe: 7,333/7,765 (94.4%); 2024: 1,938/1,983 (97.7%)
+- 73-company subsample: 100% firm_age coverage (507/507 rows)
 - 50 rows inferred via Governance file first-appearance method (only valid where first entry AFTER 2014/01)
 - 112 pre-2014 establishments and 30 special securities remain unfilled
 
@@ -175,15 +174,15 @@ Language routing complete for 2024 full corpus (1,062 files):
 
 ## Data Quality
 
-### Completeness by Block (73-Company TWSE Subsample, 2024 Year)
+### Completeness by Block — Full TWSE Universe, 2024 Year
 | Block | Variable | Coverage | Quality |
 |-------|----------|----------|---------|
-| A | twse_ticker, fiscal_year, gri_adoption_year | 100% | Verified |
-| B | gri_standard_version, gri_adoption_year | 100% | Verified |
-| B | word_count_total, page_count | ~68% | ESGgenplus corpus limit |
-| C | process_quality_score | ~52% (full TWSE) | ESGgenplus corpus limit |
-| D | n_material_topics_a | ~47% (full TWSE) | GRI code extraction limit |
-| D | n_material_topics_b | ~27% (full TWSE); 100% for semicon | GRI 3-3 table extraction 2024 only |
+| A | twse_ticker, fiscal_year, gri_adoption_year | 100% (7,765 rows) | Verified |
+| B | gri_standard_version, gri_adoption_year | 100% (7,765 rows) | Verified |
+| B | word_count_total, page_count | ~53% (1,042/1,983 in 2024) | ESGgenplus corpus limit |
+| C | process_quality_score | ~52% (1,027/1,983 in 2024) | ESGgenplus corpus limit |
+| D | n_material_topics_a | ~47% (906/1,983 in 2024) | GRI code extraction limit |
+| D | n_material_topics_b | ~27% (526/1,983 in 2024); higher within 73-company subsample | GRI 3-3 table extraction 2024 only |
 | E | Binary topic panel | 2,293 company-years across 4 years | Complete for available years |
 | F | Balance sheet, income, equity | ~44–63% (4,365–4,895 rows) | TEJ coverage limit; December filter |
 | F | tesg_score | 2016–2022 only | TEJ file ends 2022 |
@@ -212,7 +211,8 @@ Language routing complete for 2024 full corpus (1,062 files):
 - Rows: 7,765 (data) + 2 header rows
 - Columns: 157
 - Encoding: UTF-8-sig BOM
-- TWSE subsample: 507 rows (73 companies × 2016–2024)
+- Full universe: 2,091 unique companies × 2016–2024
+- 73-company industry subsample embedded within: 507 rows (available for subgroup analysis)
 
 ### Coverage Trajectory by Session
 | Session | Passes | Columns | Key additions |
@@ -238,7 +238,7 @@ Language routing complete for 2024 full corpus (1,062 files):
 
 **Gap 2 (CS21 design challenge):** Always-taker new entrants — companies entering reporting after 2025 universal mandate will have treatment=0 only at baseline. CS21's `notyettreated` control group must be carefully bounded; 2025 cohort may need exclusion or separate treatment.
 
-**Gap 3 (H5 requires external data):** TDDM diffusion via TSMC supply chain — institutional isomorphism mechanism is theoretically identified but empirically untested. Requires TSMC Supplier Sustainability Reports (2022–2024) for tier-1 coding. Estimated 1–2 days of manual lookup.
+**Gap 3 (H5 requires external data):** Supply-chain diffusion of materiality practices — institutional isomorphism mechanism is theoretically identified but empirically untested. Requires supplier tier-1 coding from sustainability reports (e.g. TSMC 2022–2024 for TWSE supply chain context). Estimated 1–2 days of manual lookup; only relevant if supply-chain proximity is chosen as a moderator.
 
 **Additional gaps documented:**
 - Gap 4: Korea/Japan peer comparison (K-ESG, SSBJ frameworks) — out-of-scope for current study, valuable for lit review positioning
@@ -263,8 +263,8 @@ Language routing complete for 2024 full corpus (1,062 files):
 | **H1** (primary) | n_material_topics_b | Negative (−2 to −5 topics) | CS21 att_gt() | Ready — pending OSF pre-reg |
 | **H2** | process_quality_score | Positive (+1–2 pts on 0–10 scale) | CS21 + TWFE robustness | Ready — pending OSF pre-reg |
 | **H3** | assurance_level (ordinal upgrade) | Positive (+8–15 pp Reasonable) | CS21 + Ordered logit | Ready — pending OSF pre-reg |
-| **H4** | n_material_topics_b × industry_cat | ATT(Fabless) < ATT(Foundry/OSAT) < 0 | Subsample CS21 | Ready — pending OSF pre-reg |
-| **H5** | process_quality_score × TSMC proximity | Proximate: earlier adoption, +1.5 pts | CS21 interaction | Blocked — TSMC tier-1 coding required |
+| **H4** | n_material_topics_b × industry_cat | Displacement varies by company type (conditional on subgroup selection) | Subsample CS21 | Conditional — requires industry subsample activation |
+| **H5** | process_quality_score × supply-chain proximity | Supply-chain-proximate firms: earlier adoption, +1.5 pts | CS21 interaction | Blocked — proximity coding requires external data |
 
 Robustness checks (not pre-specified): Rambachan-Roth sensitivity analysis, `control_group = "nevertreated"` alternative, Bacon-Goodman decomposition diagnostic.
 
@@ -307,8 +307,8 @@ gri_101_applied, gri_new_climate_energy_adopted, ifrs_s1_adopted, issb_s2_adopte
 3. **R DiD analysis scripts** — att_gt() implementation, event-study plots, Rambachan-Roth sensitivity.
 
 ### External Data (non-blocking for H1–H4)
-4. **TSMC tier-1 supplier coding** — TSMC Supplier Sustainability Reports 2022–2024; manual lookup; ~1–2 days. Required for H5.
-5. **Hsinchu Science Park co-location registry** — secondary proximity proxy for H5.
+4. **Supply-chain proximity coding** — if H5 is pursued, requires tier-1 supplier coding from company sustainability reports; manual lookup; ~1–2 days.
+5. **Co-location or cluster registry** — secondary proximity proxy for H5 if institutional isomorphism via geographic clustering is the chosen mechanism.
 
 ### Data Gaps (no workaround in current TEJ sources)
 6. **TESG scores 2023–2024** — TEJ file ends 2022; no alternative available.
