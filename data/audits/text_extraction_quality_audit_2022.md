@@ -40,16 +40,11 @@ Quality verification confirms the processed corpus is fit for NLP use with three
 
 | | 2022 | 2023 (next year) | 2021 (prior year) |
 |---|---|---|---|
-| Total processed files | **877** | 744 | 495 |
-| Unique companies | **621** | — | — |
-| English `_E` files | **389 (44% of files)** | 526 (71%) | 307 (62%) |
-| Companies with English file | **389 / 621 = 62.6%** | — | — |
-| Chinese / bilingual files | **488 (56% of files)** | 218 (29%) | 188 (38%) |
-| Bilingual companies (both EN + ZH txt) | **255** | — | — |
+| Total processed files | **623** (deduplicated) | 744 | 495 |
+| English `_E` files | **389 (62.4%)** | 526 (71%) | 307 (62%) |
+| Chinese-only files | **234 (37.6%)** | 218 (29%) | 188 (38%) |
 
-**Note on the 44% vs 62.6% discrepancy:** The 44% figure counts files, not companies. 255 companies have both a Chinese and an English `.txt` in `2022_processed/` — each contributing two files. At the company level, 389/621 = **62.6% of companies have an English file available**, which matches the raw PDF rate (388/620 = 62.6%) exactly. The 44% file-level figure is not a sign of low English availability — it is a counting artefact of the bilingual dual-file structure. For NLP routing and language coverage purposes, the correct figure to cite is **62.6%**.
-
-The processed corpus is larger (877 files) than the raw PDF corpus (620 files) because 255 bilingual companies generated two text files each, and 6 companies appear in the processed directory without a corresponding raw PDF (text-only files sourced from the platform).
+**Deduplication note (2026-05-26):** The pre-deduplication corpus had 877 files for 621 unique companies — 255 companies held both a Chinese `.txt` and an English `_E.txt`. The 256 Chinese duplicates were removed, retaining the English version in every case. The current corpus has one file per company: English preferred, Chinese-only where no English version existed. The 62.4% English rate now matches the raw PDF rate (388/620 = 62.6%) at the file level.
 
 ---
 
