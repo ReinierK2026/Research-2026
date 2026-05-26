@@ -1388,18 +1388,22 @@ function parseSections(text) {
   return sections;
 }
 
-// Fetch all three research files once on mount; fall back gracefully if offline.
+// Fetch all research files on mount and re-fetch every 3 minutes so the site
+// stays current after the LaunchAgent pushes updates to GitHub Pages.
+const LIVE_POLL_MS = 3 * 60 * 1000; // 3 minutes
+
 function useLiveData() {
   const [live, setLive] = React.useState({ summary: null, methodology: null, log: null, audits: null });
-  React.useEffect(() => {
+
+  function fetchAll() {
     Promise.allSettled([
-      fetch('data/research-summary_twse-materiality.md').then(r => { if (!r.ok) throw r; return r.text(); }),
-      fetch('data/Materiality_Research_Methodology.md').then(r => { if (!r.ok) throw r; return r.text(); }),
-      fetch('data/research_log.json').then(r => { if (!r.ok) throw r; return r.json(); }),
-      fetch('data/audits/text_extraction_quality_audit_2021.md').then(r => { if (!r.ok) throw r; return r.text(); }),
-      fetch('data/audits/text_extraction_quality_audit_2022.md').then(r => { if (!r.ok) throw r; return r.text(); }),
-      fetch('data/audits/text_extraction_quality_audit_2023.md').then(r => { if (!r.ok) throw r; return r.text(); }),
-      fetch('data/audits/text_extraction_quality_audit_2024.md').then(r => { if (!r.ok) throw r; return r.text(); }),
+      fetch('data/research-summary_twse-materiality.md?v=' + Date.now()).then(r => { if (!r.ok) throw r; return r.text(); }),
+      fetch('data/Materiality_Research_Methodology.md?v='  + Date.now()).then(r => { if (!r.ok) throw r; return r.text(); }),
+      fetch('data/research_log.json?v='                    + Date.now()).then(r => { if (!r.ok) throw r; return r.json(); }),
+      fetch('data/audits/text_extraction_quality_audit_2021.md?v=' + Date.now()).then(r => { if (!r.ok) throw r; return r.text(); }),
+      fetch('data/audits/text_extraction_quality_audit_2022.md?v=' + Date.now()).then(r => { if (!r.ok) throw r; return r.text(); }),
+      fetch('data/audits/text_extraction_quality_audit_2023.md?v=' + Date.now()).then(r => { if (!r.ok) throw r; return r.text(); }),
+      fetch('data/audits/text_extraction_quality_audit_2024.md?v=' + Date.now()).then(r => { if (!r.ok) throw r; return r.text(); }),
     ]).then(([summaryRes, methRes, logRes, a21Res, a22Res, a23Res, a24Res]) => {
       setLive({
         summary:     summaryRes.status === 'fulfilled' ? parseSections(summaryRes.value) : null,
@@ -1413,7 +1417,14 @@ function useLiveData() {
         },
       });
     });
+  }
+
+  React.useEffect(() => {
+    fetchAll();
+    const id = setInterval(fetchAll, LIVE_POLL_MS);
+    return () => clearInterval(id);
   }, []);
+
   return live;
 }
 
