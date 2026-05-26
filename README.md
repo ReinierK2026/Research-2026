@@ -1,14 +1,14 @@
 # Research-2026: GRI and Materiality Related Research
 
-A live research dashboard tracking regulatory updates, NLP pipeline development, and empirical analysis of sustainability reporting standards adoption in the semiconductor industry.
+A live research dashboard tracking regulatory updates, NLP pipeline development, and empirical analysis of sustainability reporting standards adoption in TWSE.
 
 ## 🎯 Project Overview
 
 This repository contains:
-- **Live research log**: `data/research_log.json` (updated daily via Claude Routine)
+- **Live research log**: `data/research_log.json` (updated automatically via Claude Scripts)
 - **Interactive dashboard**: `website/` (hosted on GitHub Pages)
 - **Research findings**: Documentation of agents, methodologies, and key discoveries
-- **Data pipeline**: TWSE sustainability reporting corpus with 7,765 company-year observations
+- **Data pipeline**: TWSE sustainability reporting corpus with an extensive number of company-year observations
 
 ## 📊 Current Status
 
@@ -22,21 +22,25 @@ This repository contains:
 
 **Access the live dashboard**: https://ReinierK2026.github.io/Research-2026/
 
-The dashboard auto-updates every 30 seconds with the latest research session data from `data/research_log.json`.
+The dashboard auto-updates everytime any of the files in teh 'Data' folder is updated. 
 
 ## 📁 Repository Structure
 
 ```
 Research-2026/
 ├── data/
-│   └── research_log.json          # Live research session log
+│   └── research_log.json                        # Live research session log
+|   └── text_extraction_quality_audit_2021.md    # Audit quality assessment of the 2021 data
+|   └── text_extraction_quality_audit_2022.md    # Audit quality assessment of the 2022 data
+|   └── text_extraction_quality_audit_2023.md    # Audit quality assessment of the 2023 data
+|   └── text_extraction_quality_audit_2024.md    # Audit quality assessment of the 2024 data
 ├── website/
-│   ├── index.html                 # Dashboard homepage
-│   ├── style.css                  # Responsive styling
-│   └── script.js                  # Dynamic data rendering
-├── findings/                      # Research outputs and documentation
-├── gaps/                          # Gap analysis reports
-└── README.md                      # This file
+│   ├── index.html                               # Dashboard homepage
+│   ├── style.css                                # Responsive styling
+│   └── script.js                                # Dynamic data rendering
+├── findings/                                    # Research outputs and documentation
+├── gaps/                                        # Gap analysis reports
+└── README.md                                    # This file
 ```
 
 ## 📝 How to Update the Dashboard
@@ -119,7 +123,7 @@ The dashboard recognizes these research agents:
 | data-analyst | 📊 | Data extraction, variable creation |
 | technical-researcher | ⚙️ | NLP pipeline, model selection |
 | research-gap-analysis | 🔍 | Gap identification, prioritization |
-| research-coordinator | 📋 | Project coordination, task planning |
+| research-coordinator | 📋 | Project coordination, task planning, research summation |
 | hypothesis-generation | 💡 | Hypothesis development, estimation strategy |
 
 ## 🔧 GitHub Pages Setup
@@ -146,7 +150,7 @@ Your dashboard will be live at: `https://ReinierK2026.github.io/Research-2026/`
 
 ## 🔒 Data Privacy
 
-- Repository is **private** (visible to owner only)
+- Repository is **public** (visible to all)
 - Research log contains public research findings only
 - Sensitive data (raw reports, credentials) excluded
 - Dashboard accessible only via direct URL
