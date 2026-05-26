@@ -12,7 +12,7 @@
 
 ## Executive Summary
 
-The 2022 cohort has been fully processed through the same five-stage pipeline used for 2023 and 2024: OCR recovery (11 scanned files), coordinate-aware PyMuPDF re-extraction (609 PDFs), text-only preprocessing (258 files with no PDF), GRI content-index extraction (535/609 PDFs with codes), and three-way quality verification. The processed corpus covers **877 files across 621 unique companies** — larger than the raw 615-file baseline because 255 bilingual companies generated both a Chinese and an English `.txt` file. At the company level, **62.6% of companies (389/621) have an English file** — consistent with the raw PDF rate (388/620). The 44% English file-share figure in some tables counts files, not companies, and understates true English coverage.
+The 2022 cohort has been fully processed through the same five-stage pipeline used for 2023 and 2024: OCR recovery (11 scanned files), coordinate-aware PyMuPDF re-extraction (609 PDFs), text-only preprocessing (258 files with no PDF), GRI content-index extraction (535/609 PDFs with codes), and three-way quality verification. The processed corpus was deduplicated on 2026-05-26: 256 Chinese `.txt` files were removed for companies where an English `_E.txt` already existed. The current corpus is **623 files** — 389 English `_E` (62.4%) and 234 Chinese-only (37.6%) — one file per company, with English preferred where both versions existed.
 
 Four structural issues carry over from the raw extraction and are unchanged in kind, though substantially mitigated by the coordinate-aware pipeline: pervasive sidebar/column fragmentation (100% of raw files), GRI content-index table loss (95% of raw files), bilingual line interleaving (75% of raw files), and 11 fully scanned PDFs recovered via OCR. Two additional files (1795_2022, 3704_2022) were partially scanned and lack a corresponding PDF; their text is sparse and should be excluded from text-based analyses.
 
@@ -30,7 +30,7 @@ Quality verification confirms the processed corpus is fit for NLP use with three
 | `.txt` files with no PDF | 258 | text-only preprocessing only |
 | OCR-recovered (scanned PDFs) | 11 | Tesseract `chi_tra+eng` / `eng` |
 | Cannot recover (scanned, no PDF) | 2 | 1795_2022, 3704_2022 — exclude from analysis |
-| **Total in `2022_processed/`** | **877** | 621 unique companies; 389 `_E` files (44% of files); 255 companies have both Chinese + English `.txt` (bilingual) |
+| **Total in `2022_processed/`** | **623** (deduplicated 2026-05-26) | 389 `_E` (62.4%), 234 Chinese-only (37.6%); 256 Chinese duplicates removed |
 | Near-empty processed files (<1 KB) | 5 | 1440_2022, 2409_2022, 3062_2022_E, 4720_2022_E, 9917_2022 |
 | Effectively unusable | 7 | 5 near-empty + 2 no-PDF scanned |
 
