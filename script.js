@@ -1948,7 +1948,17 @@ function processAudit2024(text) {
   const trimmedVerif = cutAt > 0 ? rawVerif.slice(0, cutAt).trim() : rawVerif;
 
   const verification = trimmedVerif.split(/(?=^### )/m).map(chunk => {
-    if (!/^### Check [ABC]/.test(chunk)) return chunk; // keep intro + Acceptance Summary as-is
+    if (!/^### Check [ABC]/.test(chunk)) {
+      // Acceptance Summary: inject spacers before Verdict / Script / Outputs / Run date
+      if (/^### Acceptance Summary/.test(chunk)) {
+        return chunk
+          .replace(/^(\*\*Verdict:)/m,  '\n<div style="margin-top:2em"></div>\n\n$1')
+          .replace(/^(\*\*Script:)/m,   '\n<div style="margin-top:1.6em"></div>\n\n$1')
+          .replace(/^(\*\*Outputs:)/m,  '\n<div style="margin-top:0.8em"></div>\n\n$1')
+          .replace(/^(\*\*Run date:)/m, '\n<div style="margin-top:1.6em"></div>\n\n$1');
+      }
+      return chunk;
+    }
     const nl = chunk.indexOf('\n');
     const heading = chunk.slice(0, nl + 1);
     const body = chunk.slice(nl + 1);
@@ -1997,7 +2007,7 @@ function DataAudit2024A({ theme, d, md }) {
   if (!parsed) return null;
   const sep = <hr style={{ border: 0, borderTop: `0.5px solid ${theme.rule}`, margin: `${d.gap * 1.4}px 0` }} />;
   return (
-    <article style={{ maxWidth: "82ch", margin: "0 auto" }}>
+    <article style={{ maxWidth: "min(92vw, 1300px)", margin: "0 auto" }}>
 
       {/* 1 · Key infometrics */}
       <MdSection md={parsed.header} theme={theme} d={d} />
@@ -2032,7 +2042,9 @@ function DataAudit2024A({ theme, d, md }) {
       {parsed.verification && <>
         {sep}
         <h2 style={{ marginBottom: d.gap }}>§ Extraction quality verification protocol</h2>
-        <MdSection md={parsed.verification} theme={theme} d={d} />
+        <div className="audit-verif">
+          <MdSection md={parsed.verification} theme={theme} d={d} />
+        </div>
       </>}
 
     </article>

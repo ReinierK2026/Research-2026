@@ -68,6 +68,10 @@ body {
 .md-content em { font-style: italic; }
 .md-content a { color: inherit; border-bottom: 0.5px solid currentColor; text-decoration: none; }
 
+/* ── 2024 audit tab — verification section spacing ────────────────────────── */
+/* Increases gap before each ### Check heading (Check B, C, Acceptance Summary) */
+.audit-verif .md-content h3 { margin-top: 3em; }
+
 /* ── Print ────────────────────────────────────────────────────────────────── */
 @media print {
   /* Hide the tweaks toggle button when printing */
