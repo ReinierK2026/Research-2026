@@ -1943,7 +1943,43 @@ function processAuditCohort(text, year) {
     sections[chunk.slice(3, nl).trim()] = chunk.slice(nl + 1).trim();
   });
 
-  // Issue prevalence — section key varies; strip baseline+Δ cols for 2023/2024
+  // ── Corpus statistics ────────────────────────────────────────────────────
+  // Top-level section that contains the file/corpus count table
+  const corpusStatsKey = {
+    '2021': 'Corpus Overview',
+    '2022': 'Corpus Overview',
+    '2023': 'Corpus Composition',
+    '2024': 'Corpus Composition Change: 2022 → 2024',
+  }[y] || '';
+  // Strip trailing horizontal rule that the file may include before the next section
+  const corpusBase = (sections[corpusStatsKey] || '').replace(/\n---\s*$/, '').trim();
+
+  // GRI extraction results table — embedded in different nested locations per year
+  let griTable = '';
+  if (y === '2022') {
+    // Sits inside Stage 4 of ## Processing Pipeline Applied
+    const pipeline = sections['Processing Pipeline Applied'] || '';
+    const s4 = pipeline.split(/(?=### Stage \d)/m).find(p => /### Stage 4/.test(p)) || '';
+    const m = s4.match(/((?:\|[^\n]+\n){2,})/);
+    if (m) griTable = '**GRI extraction**\n\n' + m[1].trim();
+  } else if (['2023', '2024'].includes(y)) {
+    // Sits inside Entry 6 of ## Processing Log
+    const log = sections['Processing Log'] || '';
+    const parts = log.split(/\n(?=### Entry \d)/);
+    const e6 = parts.find(p => /^### Entry 6[\s—]/.test(p.trimStart())) || '';
+    if (e6) {
+      const ri = e6.indexOf('**Results:**');
+      if (ri >= 0) {
+        const after = e6.slice(ri + 12);
+        const m = after.match(/((?:\|[^\n]+\n){2,})/);
+        if (m) griTable = '**GRI extraction**\n\n' + m[1].trim();
+      }
+    }
+  }
+
+  const corpusStats = [corpusBase, griTable].filter(Boolean).join('\n\n');
+
+  // ── Issue prevalence ─────────────────────────────────────────────────────
   const issueKey = {
     '2021': 'Raw Corpus — Issue Prevalence',
     '2022': 'Raw Corpus Issue Prevalence',
@@ -1951,23 +1987,36 @@ function processAuditCohort(text, year) {
     '2024': 'Issue Prevalence: 2024 vs 2022 Baseline',
   }[y] || '';
   const rawIssue = sections[issueKey] || '';
-  const issuePrevalence = ['2023', '2024'].includes(y)
-    ? rawIssue.split('\n').map(line => {
-        if (!line.startsWith('|')) return line;
-        const cells = line.split('|');
-        return [...cells.slice(0, 6), cells[cells.length - 1]].join('|');
-      }).join('\n')
-    : rawIssue;
+  let issuePrevalence;
+  if (['2023', '2024'].includes(y)) {
+    // Strip baseline + Δ columns so the table shows only the current year
+    issuePrevalence = rawIssue.split('\n').map(line => {
+      if (!line.startsWith('|')) return line;
+      const cells = line.split('|');
+      return [...cells.slice(0, 6), cells[cells.length - 1]].join('|');
+    }).join('\n');
+  } else if (y === '2021') {
+    // Trim off the cross-cohort comparison table appended after the main table
+    issuePrevalence = rawIssue.split(/\n+\*\*Comparison across cohorts:/)[0].trim();
+  } else if (y === '2022') {
+    // Trim off the cross-cohort comparison table appended after the main table
+    issuePrevalence = rawIssue.split(/\n+\*\*Cross-cohort comparison/)[0].trim();
+  } else {
+    issuePrevalence = rawIssue;
+  }
 
-  // Preprocessing / pipeline — section key varies
+  // ── Preprocessing pipeline ───────────────────────────────────────────────
+  // 2021/2022: use the compact Methodology Alignment Notes table (same visual
+  // weight as 2023/2024 preprocessing status tables) instead of the verbose
+  // four-stage pipeline section.
   const pipelineKey = {
-    '2021': 'Processing Pipeline Applied',
-    '2022': 'Processing Pipeline Applied',
+    '2021': 'Methodology Alignment Notes',
+    '2022': 'Methodology Alignment Notes',
     '2023': 'Preprocessing Status: What Has Been Done',
     '2024': 'Updated Preprocessing Priority Order (2024)',
   }[y] || '';
 
-  // Verification — section key varies; 2024 has separate Result sub-sections to cut
+  // ── Verification protocol ────────────────────────────────────────────────
   const verifKey = {
     '2021': 'Quality Verification — Processed Corpus',
     '2022': 'Quality Verification — Processed Corpus',
@@ -1975,6 +2024,7 @@ function processAuditCohort(text, year) {
     '2024': 'Extraction Quality Verification Protocol',
   }[y] || '';
   const rawVerif = sections[verifKey] || '';
+  // 2024 has "Check X Results" sub-sections after the protocol — trim them
   const cutAt = y === '2024' ? rawVerif.search(/^### Check [ABC] Results/m) : -1;
   const trimmedVerif = cutAt > 0 ? rawVerif.slice(0, cutAt).trim() : rawVerif;
 
@@ -2005,107 +2055,20 @@ function processAuditCohort(text, year) {
   return {
     header,
     executiveSummary:    sections['Executive Summary'] || '',
+    corpusStats,
     issuePrevalence,
     preprocessingOrder:  sections[pipelineKey] || '',
     verification,
   };
 }
 
-// ─── Per-cohort summary statistics tables (from /explore-data) ───────────────
-const AUDIT_STATS = {
-  '2021': `| Metric | Value | Notes |
-|---|---|---|
-| **Corpus size** | | |
-| Total processed files | 495 | Raw corpus had only 4 .txt files; 492 PDFs extracted |
-| English (\`_E\`) files | 307 · 62% | — |
-| Other files | 188 · 38% | — |
-| **Preprocessing** | | |
-| Files OCR'd | 4 | Fully scanned PDFs; Tesseract LSTM |
-| Hidden partially-scanned | 3 | Body pages empty; no OCR applied |
-| Excluded / unusable files | 5 · 1.0% | Encoding failure + corrupt PDF + hidden partial scans |
-| **GRI extraction** | | |
-| PDFs scanned for GRI | 488 | 4 OCR files excluded |
-| Files with ≥1 GRI code | 342 · 70.1% | Standards + G4 supplementary regex pass |
-| Total GRI code instances | 12,818 | Standards; + 116 G4 sector-supplement instances |
-| G4-coded files | 8 | G4/Standards transition cohort |
-| **Quality verification** | | |
-| Check A — chars/page | 15% raw; 0.8% genuine failures | ✅ PASS adjusted — calibration artifact |
-| Check B — linguistic plausibility | 61% raw; ~5% recalibrated | ✅ PASS adjusted — calibration artifact |
-| Check C — GRI code recovery | Median 0.772 · 46.8% below 0.75 | ⚠️ Structural (sidebar filter + G4 transition) |`,
-
-  '2022': `| Metric | Value | Notes |
-|---|---|---|
-| **Corpus size** | | |
-| Total processed files | 877 | 621 unique companies; 255 bilingual (EN + ZH .txt) |
-| English (\`_E\`) files | 389 · 44% of files (62.6% of companies) | — |
-| Chinese / bilingual files | 488 · 56% | — |
-| **Preprocessing** | | |
-| Files OCR'd | 11 | Fully scanned PDFs; Tesseract LSTM |
-| Unrecoverable files | 2 | Scanned, no PDF — exclude from text analysis |
-| Near-empty files (<1 KB) | 5 | Effectively unusable |
-| **GRI extraction** | | |
-| PDFs scanned for GRI | 609 | 11 OCR files excluded |
-| Files with ≥1 GRI code | 535 · 87.9% | — |
-| Total GRI code instances | 35,972 | Corpus-wide |
-| Avg codes per file (with codes) | 67.2 | — |
-| **Quality verification** | | |
-| Check A — chars/page | 10% raw; 0.3% genuine | ✅ PASS adjusted — calibration artifact |
-| Check B — linguistic plausibility | 68% raw; ~5% recalibrated | ✅ PASS adjusted — calibration artifact |
-| Check C — GRI code recovery | Median 0.909 · 37.5% below 0.75 | ⚠️ Structural — use \`gri_codes_summary_2022.csv\` |`,
-
-  '2023': `| Metric | Value | Notes |
-|---|---|---|
-| **Corpus size** | | |
-| Total files | 744 | 2023 cohort |
-| English (\`_E\`) files | 526 · 71% | — |
-| Chinese / bilingual files | 218 · 29% | — |
-| **Preprocessing** | | |
-| Native PDFs re-extracted | 708 | PyMuPDF coordinate-aware |
-| Files OCR'd | 19 | 16 fully + 3 partially scanned; Tesseract LSTM |
-| Header / footer lines removed | 450,679 | All 725 non-scanned files |
-| Line-break hyphens joined | 29,754 | 517 English files; compound-prefix guard |
-| Figure caption lines removed | 428 | All files |
-| **GRI extraction** | | |
-| Non-OCR PDFs processed | 709 | — |
-| Files with ≥1 GRI code | 597 · 84.2% | fitz regex extraction |
-| Total GRI code instances | 42,044 | Corpus-wide |
-| Avg codes per file (with codes) | 70.4 | — |
-| **Quality verification** | | |
-| Check A — chars/page | 5.8% flagged · 43 / 744 | ⚠️ BORDERLINE — image-heavy reports (structural) |
-| Check B — linguistic plausibility | 1.0% flagged · 1 / 100 | ✅ PASS |
-| Check C — GRI code recovery | Structural filter — use CSV | ⚠️ STRUCTURAL NOTE |`,
-
-  '2024': `| Metric | Value | Notes |
-|---|---|---|
-| **Corpus size** | | |
-| Total files | 1,064 | 2024 cohort, raw |
-| English (\`_E\`) files | 680 · 64% | Up from ~2% in 2022 (+53 pp) |
-| Chinese / bilingual files | 384 · 36% | — |
-| **Preprocessing** | | |
-| Header / footer lines removed | 858,891 | Repetition + coordinate filter; all 1,049 native PDFs |
-| Line-break hyphens joined | 38,430 | English \`_E\` files only; compound-prefix guard applied |
-| Figure caption lines removed | 2,811 | All files |
-| Files OCR'd | 18 | 15 fully scanned + 3 partially scanned |
-| Characters recovered via OCR | 2,668,367 | Tesseract 4 LSTM |
-| **GRI extraction** | | |
-| Non-OCR files processed | 1,028 | — |
-| Files with ≥1 GRI code | 948 · 92.2% | pdfplumber primary + regex fallback |
-| Total GRI code instances | 74,108 | Corpus-wide |
-| Avg codes per file (with codes) | 78.2 | — |
-| Avg GRI standards per file | 19.7 | — |
-| Structured per-file CSVs produced | 540 | \`gri_tables_2024/\` |
-| **Quality verification** | | |
-| Check A — chars/page consistency | 2.2% flagged · 23 / 1,064 | ✅ PASS (threshold < 5%) |
-| Check B — linguistic plausibility | 2.0% flagged · 2 / 100 | ✅ PASS (threshold < 10%) |
-| Check C — GRI code recovery | Median 1.000 · 6.1% below 0.75 | ✅ PASS (threshold < 10%) |`,
-};
 
 // ─── Page: Data audit — curated layout (all cohorts) ─────────────────────────
 function DataAuditCohortA({ theme, d, md, year }) {
   const parsed = React.useMemo(() => processAuditCohort(md, year), [md, year]);
   if (!parsed) return null;
   const y = String(year);
-  const statsmd = AUDIT_STATS[y] || '';
+  const statsmd = parsed.corpusStats || '';
   const sep = <hr style={{ border: 0, borderTop: `0.5px solid ${theme.rule}`, margin: `${d.gap * 1.4}px 0` }} />;
   return (
     <article style={{ maxWidth: "min(92vw, 1300px)", margin: "0 auto" }}>
