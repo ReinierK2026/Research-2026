@@ -1913,71 +1913,158 @@ function DataA({ theme, d, fonts, live }) {
   ); // end fallback return
 }
 
-// ─── 2024 audit parser ───────────────────────────────────────────────────────
-// Extracts curated sections from the live markdown and strips the 2022 baseline
-// columns from the issue prevalence table.
-function processAudit2024(text) {
+// ─── Generalised audit parser (all cohorts) ──────────────────────────────────
+// Section names, baseline columns, and check heading format differ by year.
+function processAuditCohort(text, year) {
   if (!text) return null;
+  const y = String(year);
 
   // Header block = everything before the first ## heading
   const firstH2 = text.search(/^## /m);
   const header = firstH2 > 0 ? text.slice(0, firstH2).trim() : '';
 
-  // Split into named ## sections (content only, heading excluded)
+  // Split into named ## sections
   const sections = {};
   text.split(/(?=^## )/m).forEach(chunk => {
     if (!chunk.startsWith('## ')) return;
     const nl = chunk.indexOf('\n');
     if (nl < 0) return;
-    const heading = chunk.slice(3, nl).trim();
-    sections[heading] = chunk.slice(nl + 1).trim();
+    sections[chunk.slice(3, nl).trim()] = chunk.slice(nl + 1).trim();
   });
 
-  // Strip "2022 Baseline" and "Δ" columns (cols 6 & 7) from issue prevalence table
-  const rawIssue = sections['Issue Prevalence: 2024 vs 2022 Baseline'] || '';
-  const issuePrevalence = rawIssue.split('\n').map(line => {
-    if (!line.startsWith('|')) return line;
-    const cells = line.split('|'); // ['', c1, c2, ..., '']
-    return [...cells.slice(0, 6), cells[cells.length - 1]].join('|');
-  }).join('\n');
+  // Issue prevalence — section key varies; strip baseline+Δ cols for 2023/2024
+  const issueKey = {
+    '2021': 'Raw Corpus — Issue Prevalence',
+    '2022': 'Raw Corpus Issue Prevalence',
+    '2023': 'Issue Prevalence: 2023 vs 2024 Baseline',
+    '2024': 'Issue Prevalence: 2024 vs 2022 Baseline',
+  }[y] || '';
+  const rawIssue = sections[issueKey] || '';
+  const issuePrevalence = ['2023', '2024'].includes(y)
+    ? rawIssue.split('\n').map(line => {
+        if (!line.startsWith('|')) return line;
+        const cells = line.split('|');
+        return [...cells.slice(0, 6), cells[cells.length - 1]].join('|');
+      }).join('\n')
+    : rawIssue;
 
-  // Keep verification protocol up to (not including) the per-check result sections,
-  // then within each ### Check section keep only "What it tests" + "Acceptance criterion".
-  const rawVerif = sections['Extraction Quality Verification Protocol'] || '';
-  const cutAt = rawVerif.search(/^### Check [ABC] Results/m);
+  // Preprocessing / pipeline — section key varies
+  const pipelineKey = {
+    '2021': 'Processing Pipeline Applied',
+    '2022': 'Processing Pipeline Applied',
+    '2023': 'Preprocessing Status: What Has Been Done',
+    '2024': 'Updated Preprocessing Priority Order (2024)',
+  }[y] || '';
+
+  // Verification — section key varies; 2024 has separate Result sub-sections to cut
+  const verifKey = {
+    '2021': 'Quality Verification — Processed Corpus',
+    '2022': 'Quality Verification — Processed Corpus',
+    '2023': 'Extraction Quality Verification Protocol',
+    '2024': 'Extraction Quality Verification Protocol',
+  }[y] || '';
+  const rawVerif = sections[verifKey] || '';
+  const cutAt = y === '2024' ? rawVerif.search(/^### Check [ABC] Results/m) : -1;
   const trimmedVerif = cutAt > 0 ? rawVerif.slice(0, cutAt).trim() : rawVerif;
 
+  // Within each ### Check section keep only "What it tests"
+  // (+ "Acceptance criterion" for 2024). Inject spacers in Acceptance Summary.
   const verification = trimmedVerif.split(/(?=^### )/m).map(chunk => {
     if (!/^### Check [ABC]/.test(chunk)) {
-      // Acceptance Summary: inject spacers before Verdict / Script / Outputs / Run date
       if (/^### Acceptance Summary/.test(chunk)) {
         return chunk
-          .replace(/^(\*\*Verdict:)/m,  '\n<div style="margin-top:2em"></div>\n\n$1')
-          .replace(/^(\*\*Script:)/m,   '\n<div style="margin-top:1.6em"></div>\n\n$1')
-          .replace(/^(\*\*Outputs:)/m,  '\n<div style="margin-top:0.8em"></div>\n\n$1')
-          .replace(/^(\*\*Run date:)/m, '\n<div style="margin-top:1.6em"></div>\n\n$1');
+          .replace(/^(\*\*Verdict:)/m,          '\n<div style="margin-top:2em"></div>\n\n$1')
+          .replace(/^(\*\*Overall verdict:)/m,   '\n<div style="margin-top:2em"></div>\n\n$1')
+          .replace(/^(\*\*Decision rule:)/m,     '\n<div style="margin-top:1.4em"></div>\n\n$1')
+          .replace(/^(\*\*Script:)/m,            '\n<div style="margin-top:1.6em"></div>\n\n$1')
+          .replace(/^(\*\*Outputs:)/m,           '\n<div style="margin-top:0.8em"></div>\n\n$1')
+          .replace(/^(\*\*Run date:)/m,          '\n<div style="margin-top:1.6em"></div>\n\n$1');
       }
       return chunk;
     }
     const nl = chunk.indexOf('\n');
     const heading = chunk.slice(0, nl + 1);
-    const body = chunk.slice(nl + 1);
-    const whatItTests  = (body.match(/\*\*What it tests:\*\*[^\n]*/) || [''])[0];
-    const acceptance   = (body.match(/\*\*Acceptance criterion:\*\*[^\n]*/) || [''])[0];
-    return heading + (whatItTests ? whatItTests + '\n\n' : '') + (acceptance ? acceptance + '\n\n' : '');
+    const body    = chunk.slice(nl + 1);
+    const what       = (body.match(/\*\*What it tests:\*\*[^\n]*/) || [''])[0];
+    const acceptance = y === '2024'
+      ? (body.match(/\*\*Acceptance criterion:\*\*[^\n]*/) || [''])[0] : '';
+    return heading + (what ? what + '\n\n' : '') + (acceptance ? acceptance + '\n\n' : '');
   }).join('');
 
   return {
     header,
-    executiveSummary: sections['Executive Summary'] || '',
+    executiveSummary:    sections['Executive Summary'] || '',
     issuePrevalence,
-    preprocessingOrder: sections['Updated Preprocessing Priority Order (2024)'] || '',
+    preprocessingOrder:  sections[pipelineKey] || '',
     verification,
   };
 }
 
-// Summary statistics table — derived from audit data via /explore-data
-const AUDIT_2024_STATS_MD = `| Metric | Value | Notes |
+// ─── Per-cohort summary statistics tables (from /explore-data) ───────────────
+const AUDIT_STATS = {
+  '2021': `| Metric | Value | Notes |
+|---|---|---|
+| **Corpus size** | | |
+| Total processed files | 495 | Raw corpus had only 4 .txt files; 492 PDFs extracted |
+| English (\`_E\`) files | 307 · 62% | — |
+| Other files | 188 · 38% | — |
+| **Preprocessing** | | |
+| Files OCR'd | 4 | Fully scanned PDFs; Tesseract LSTM |
+| Hidden partially-scanned | 3 | Body pages empty; no OCR applied |
+| Excluded / unusable files | 5 · 1.0% | Encoding failure + corrupt PDF + hidden partial scans |
+| **GRI extraction** | | |
+| PDFs scanned for GRI | 488 | 4 OCR files excluded |
+| Files with ≥1 GRI code | 342 · 70.1% | Standards + G4 supplementary regex pass |
+| Total GRI code instances | 12,818 | Standards; + 116 G4 sector-supplement instances |
+| G4-coded files | 8 | G4/Standards transition cohort |
+| **Quality verification** | | |
+| Check A — chars/page | 15% raw; 0.8% genuine failures | ✅ PASS adjusted — calibration artifact |
+| Check B — linguistic plausibility | 61% raw; ~5% recalibrated | ✅ PASS adjusted — calibration artifact |
+| Check C — GRI code recovery | Median 0.772 · 46.8% below 0.75 | ⚠️ Structural (sidebar filter + G4 transition) |`,
+
+  '2022': `| Metric | Value | Notes |
+|---|---|---|
+| **Corpus size** | | |
+| Total processed files | 877 | 621 unique companies; 255 bilingual (EN + ZH .txt) |
+| English (\`_E\`) files | 389 · 44% of files (62.6% of companies) | — |
+| Chinese / bilingual files | 488 · 56% | — |
+| **Preprocessing** | | |
+| Files OCR'd | 11 | Fully scanned PDFs; Tesseract LSTM |
+| Unrecoverable files | 2 | Scanned, no PDF — exclude from text analysis |
+| Near-empty files (<1 KB) | 5 | Effectively unusable |
+| **GRI extraction** | | |
+| PDFs scanned for GRI | 609 | 11 OCR files excluded |
+| Files with ≥1 GRI code | 535 · 87.9% | — |
+| Total GRI code instances | 35,972 | Corpus-wide |
+| Avg codes per file (with codes) | 67.2 | — |
+| **Quality verification** | | |
+| Check A — chars/page | 10% raw; 0.3% genuine | ✅ PASS adjusted — calibration artifact |
+| Check B — linguistic plausibility | 68% raw; ~5% recalibrated | ✅ PASS adjusted — calibration artifact |
+| Check C — GRI code recovery | Median 0.909 · 37.5% below 0.75 | ⚠️ Structural — use \`gri_codes_summary_2022.csv\` |`,
+
+  '2023': `| Metric | Value | Notes |
+|---|---|---|
+| **Corpus size** | | |
+| Total files | 744 | 2023 cohort |
+| English (\`_E\`) files | 526 · 71% | — |
+| Chinese / bilingual files | 218 · 29% | — |
+| **Preprocessing** | | |
+| Native PDFs re-extracted | 708 | PyMuPDF coordinate-aware |
+| Files OCR'd | 19 | 16 fully + 3 partially scanned; Tesseract LSTM |
+| Header / footer lines removed | 450,679 | All 725 non-scanned files |
+| Line-break hyphens joined | 29,754 | 517 English files; compound-prefix guard |
+| Figure caption lines removed | 428 | All files |
+| **GRI extraction** | | |
+| Non-OCR PDFs processed | 709 | — |
+| Files with ≥1 GRI code | 597 · 84.2% | fitz regex extraction |
+| Total GRI code instances | 42,044 | Corpus-wide |
+| Avg codes per file (with codes) | 70.4 | — |
+| **Quality verification** | | |
+| Check A — chars/page | 5.8% flagged · 43 / 744 | ⚠️ BORDERLINE — image-heavy reports (structural) |
+| Check B — linguistic plausibility | 1.0% flagged · 1 / 100 | ✅ PASS |
+| Check C — GRI code recovery | Structural filter — use CSV | ⚠️ STRUCTURAL NOTE |`,
+
+  '2024': `| Metric | Value | Notes |
 |---|---|---|
 | **Corpus size** | | |
 | Total files | 1,064 | 2024 cohort, raw |
@@ -1999,12 +2086,15 @@ const AUDIT_2024_STATS_MD = `| Metric | Value | Notes |
 | **Quality verification** | | |
 | Check A — chars/page consistency | 2.2% flagged · 23 / 1,064 | ✅ PASS (threshold < 5%) |
 | Check B — linguistic plausibility | 2.0% flagged · 2 / 100 | ✅ PASS (threshold < 10%) |
-| Check C — GRI code recovery | Median 1.000 · 6.1% below 0.75 | ✅ PASS (threshold < 10%) |`;
+| Check C — GRI code recovery | Median 1.000 · 6.1% below 0.75 | ✅ PASS (threshold < 10%) |`,
+};
 
-// ─── Page: 2024 Data (curated layout) ────────────────────────────────────────
-function DataAudit2024A({ theme, d, md }) {
-  const parsed = React.useMemo(() => processAudit2024(md), [md]);
+// ─── Page: Data audit — curated layout (all cohorts) ─────────────────────────
+function DataAuditCohortA({ theme, d, md, year }) {
+  const parsed = React.useMemo(() => processAuditCohort(md, year), [md, year]);
   if (!parsed) return null;
+  const y = String(year);
+  const statsmd = AUDIT_STATS[y] || '';
   const sep = <hr style={{ border: 0, borderTop: `0.5px solid ${theme.rule}`, margin: `${d.gap * 1.4}px 0` }} />;
   return (
     <article style={{ maxWidth: "min(92vw, 1300px)", margin: "0 auto" }}>
@@ -2020,25 +2110,27 @@ function DataAudit2024A({ theme, d, md }) {
       </>}
 
       {/* 3 · Summary statistics table */}
-      {sep}
-      <h2 style={{ marginBottom: d.gap }}>§ Corpus statistics — 2024</h2>
-      <MdSection md={AUDIT_2024_STATS_MD} theme={theme} d={d} />
+      {statsmd && <>
+        {sep}
+        <h2 style={{ marginBottom: d.gap }}>§ Corpus statistics — {y}</h2>
+        <MdSection md={statsmd} theme={theme} d={d} />
+      </>}
 
-      {/* 4 · Issue prevalence (2024 only, 2022 baseline removed) */}
+      {/* 4 · Issue prevalence */}
       {parsed.issuePrevalence && <>
         {sep}
-        <h2 style={{ marginBottom: d.gap }}>§ Issue prevalence — 2024</h2>
+        <h2 style={{ marginBottom: d.gap }}>§ Issue prevalence — {y}</h2>
         <MdSection md={parsed.issuePrevalence} theme={theme} d={d} />
       </>}
 
-      {/* 5 · Updated preprocessing priority order */}
+      {/* 5 · Processing pipeline / priority order */}
       {parsed.preprocessingOrder && <>
         {sep}
-        <h2 style={{ marginBottom: d.gap }}>§ Updated preprocessing priority order</h2>
+        <h2 style={{ marginBottom: d.gap }}>§ Processing pipeline — {y}</h2>
         <MdSection md={parsed.preprocessingOrder} theme={theme} d={d} />
       </>}
 
-      {/* 6 · Extraction quality verification protocol (acceptance summary + verdict only) */}
+      {/* 6 · Extraction quality verification protocol */}
       {parsed.verification && <>
         {sep}
         <h2 style={{ marginBottom: d.gap }}>§ Extraction quality verification protocol</h2>
@@ -2057,15 +2149,7 @@ function DataAuditA({ theme, d, fonts, audit, live }) {
   // Prefer live markdown fetched from GitHub; fall back to hardcoded constants.
   const liveMd = live?.audits?.[String(a.year)];
   if (liveMd) {
-    // 2024 gets a curated layout; other years render the full audit markdown.
-    if (String(a.year) === '2024') {
-      return <DataAudit2024A md={liveMd} theme={theme} d={d} />;
-    }
-    return (
-      <article style={{ maxWidth: "82ch", margin: "0 auto" }}>
-        <MdSection md={liveMd} theme={theme} d={d} />
-      </article>
-    );
+    return <DataAuditCohortA md={liveMd} year={a.year} theme={theme} d={d} />;
   }
   // ── Fallback: structured static data ────────────────────────────────────
   return (
