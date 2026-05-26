@@ -1941,10 +1941,21 @@ function processAudit2024(text) {
     return [...cells.slice(0, 6), cells[cells.length - 1]].join('|');
   }).join('\n');
 
-  // Keep verification protocol up to (not including) the per-check result sections
+  // Keep verification protocol up to (not including) the per-check result sections,
+  // then within each ### Check section keep only "What it tests" + "Acceptance criterion".
   const rawVerif = sections['Extraction Quality Verification Protocol'] || '';
   const cutAt = rawVerif.search(/^### Check [ABC] Results/m);
-  const verification = cutAt > 0 ? rawVerif.slice(0, cutAt).trim() : rawVerif;
+  const trimmedVerif = cutAt > 0 ? rawVerif.slice(0, cutAt).trim() : rawVerif;
+
+  const verification = trimmedVerif.split(/(?=^### )/m).map(chunk => {
+    if (!/^### Check [ABC]/.test(chunk)) return chunk; // keep intro + Acceptance Summary as-is
+    const nl = chunk.indexOf('\n');
+    const heading = chunk.slice(0, nl + 1);
+    const body = chunk.slice(nl + 1);
+    const whatItTests  = (body.match(/\*\*What it tests:\*\*[^\n]*/) || [''])[0];
+    const acceptance   = (body.match(/\*\*Acceptance criterion:\*\*[^\n]*/) || [''])[0];
+    return heading + (whatItTests ? whatItTests + '\n\n' : '') + (acceptance ? acceptance + '\n\n' : '');
+  }).join('');
 
   return {
     header,
