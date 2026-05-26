@@ -1,8 +1,8 @@
 # Text Extraction Quality Audit — 2022 Cohort
 **Date:** 2026-05-22 (replaces preliminary audit of 2026-05-19)
-**Last updated:** 2026-05-25  
+**Last updated:** 2026-05-26 (deduplicated — Chinese duplicates removed)
 **Raw corpus:** `/Text extraction/extracted_text/2022/` — 615 files (134 `_E`, 481 other)
-**Processed corpus:** `/Text extraction/extracted_text/2022_processed/` — 877 files across 621 unique companies (389 `_E` files / 44% of files; but 389/621 = **62.6% of companies** have an English file — 255 bilingual companies contribute both a Chinese and English `.txt`, inflating the file count)
+**Processed corpus:** `/Text extraction/extracted_text/2022_processed/` — **623 files** (389 `_E` / **62.4%**, 234 Chinese-only / 37.6%) — deduplicated 2026-05-26; 256 Chinese duplicate files removed where an English version existed for the same company
 **PDFs scanned for GRI:** 609 (11 OCR files excluded)
 **Subsample tested (Checks A–C):** 100 files (50 `_E` + 50 other; seed = 42)
 **Methodology:** Independent five-stage pipeline (OCR → PyMuPDF re-extraction → text preprocessing → GRI extraction → quality verification)
