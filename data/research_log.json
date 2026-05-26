@@ -1044,7 +1044,29 @@
     "status": "completed",
     "description": "Produced canonical research summary document covering all 21 prior passes across 6 sessions (2026-05-18 through 2026-05-23). Summary includes: full methodology, key findings by block (A–G), data quality assessment, topic dynamics, hypothesis registry (H1–H5), variable registry changes, and prioritised pending work.",
     "output_file": "reports/research-summary_twse-materiality.md",
-    "passes_synthesised": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21],
+    "passes_synthesised": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21
+    ],
     "db_state_at_synthesis": {
       "columns": 157,
       "rows": 7765,
@@ -1065,6 +1087,41 @@
       "Stage 3 manual concordance (~60-80 unmatched GRI 3-3 topic labels, two-coder protocol)",
       "R DiD analysis scripts (att_gt(), event-study plots, Rambachan-Roth sensitivity)",
       "TSMC tier-1 supplier coding (H5, external data, ~1-2 days)"
+    ]
+  },
+  {
+    "pass": 22,
+    "timestamp": "2026-05-26T03:09:15.423024Z",
+    "session_date": "2026-05-26",
+    "agent": "data-analyst",
+    "topic_slug": "2022-processed-deduplication",
+    "status": "completed",
+    "trigger": "User confirmed deletion via deduplicate_2022_processed.py",
+    "actions": [
+      "Ran scripts/deduplicate_2022_processed.py on 2022_processed/ directory",
+      "Identified 255 tickers with both Chinese .txt and English _E.txt versions",
+      "Deleted 256 Chinese duplicate files (kept English _E.txt for all 255 bilingual companies)",
+      "Updated text_extraction_quality_audit_2022.md: header, corpus overview table, composition table, executive summary"
+    ],
+    "corpus_state_before": {
+      "total_files": 877,
+      "unique_companies": 621,
+      "english_E_files": 389,
+      "english_pct_files": "44.4%",
+      "chinese_files": 488,
+      "bilingual_companies": 255
+    },
+    "corpus_state_after": {
+      "total_files": 623,
+      "english_E_files": 389,
+      "english_pct": "62.4%",
+      "chinese_only_files": 234,
+      "files_deleted": 256,
+      "note": "One file per company — English preferred, Chinese-only where no English version existed"
+    },
+    "files_updated": [
+      "audits/text_extraction_quality_audit_2022.md",
+      "scripts/deduplicate_2022_processed.py (script created in pass 21, executed this pass)"
     ]
   }
 ]
