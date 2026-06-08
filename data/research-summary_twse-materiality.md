@@ -343,7 +343,6 @@ gri_101_applied, gri_new_climate_energy_adopted, ifrs_s1_adopted, issb_s2_adopte
 ## Pending Work (Prioritised)
 
 ### Critical Path (blocks analysis)
-0. **Populate `gri_adoption_year` for full universe** — derive from `gri_standard_version` panel for all 2,011 Universal adopters. Flag 792 new-entrant companies (2024-only, no prior rows). **This is a prerequisite for DiD estimation.** (Pass 30)
 1. **OSF pre-registration** (H1–H4) — must precede any inferential CS21 estimates. Document: treatment definition, estimand, estimator, controls, expected sign, power calculation, robustness checks.
 2. **Stage 3 manual concordance** (~60–80 genuine unmatched GRI 3-3 topic labels, 2023–2024 panel) — two-coder protocol; ~1–2 days.
 3. **R DiD analysis scripts** — att_gt() implementation, event-study plots, Rambachan-Roth sensitivity.
