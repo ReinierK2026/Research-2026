@@ -112,12 +112,13 @@ Block C variables are extracted from ESG report text. Coverage expressed against
 
 | Metric | 2021 | 2022 | 2023 | 2024 |
 |--------|------|------|------|------|
-| mat_section_found | 75.4% | 74.3% | 71.5% | 100%* |
-| board_approved | 32.8% | 43.3% | 47.2% | 100%* |
+| **NLP corpus (N=)** | **479** | **617** | **727** | **1,042** |
+| mat_section_found | 75.4% | 74.3% | 71.5% | 100%† |
+| board_approved | 32.8% | 43.3% | 47.2% | 100%† |
 | double_materiality_mentioned | 1.1% | 6.3% | 9.4% | n/a |
-| avg process_quality_score | 0.527 | 0.543 | 0.546 | 0.554* |
+| avg process_quality_score | 0.527 | 0.543 | 0.546 | 0.554† |
 
-*2024 figures: 1,042/1,042 companies in NLP corpus (100% coverage within corpus). Expressed as % of TEJ universe (1,983): 52.5%.
+†2024 figures: 1,042/1,042 companies in NLP corpus (100% coverage within corpus). Expressed as % of TEJ universe (1,983): 52.5%. All percentages for 2021–2023 are expressed against the respective year's NLP corpus, not the full TEJ universe.
 
 Key trends: board_approved rising sharply pre-GRI 3 (governance tightening); double materiality awareness spreading (CSRD diffusion into TWSE); process quality improving gradually pre-treatment (pre-trend validation needed for H2).
 
