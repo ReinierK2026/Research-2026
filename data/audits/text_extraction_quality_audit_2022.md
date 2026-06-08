@@ -296,9 +296,9 @@ Run order: **Step 1.4 first** (sandbox), then **1.3**, then **1.1**, then **1.2*
 | Step | Script | Status | Key results |
 |---|---|---|---|
 | 1.4 Block C | `phase1_block_c_english_2022.py` (run inline) | ✅ Done 2026-06-08 | mat_section_found 95.1%, board_approved 53.5%, dm_methodology_disclosed 82.8%, visualization_format 10.0%, ai_tool_disclosed 0.8% |
-| 1.3 ESGLens | `phase1_step1_3_esglens_2022.py` | ⬜ Pending | Install: `pip install sentence-transformers torch` |
-| 1.1 FinBERT | `phase1_step1_1_finbert_2022.py` | ⬜ Pending | Install: `pip install transformers torch sentencepiece` |
-| 1.2 ClimateBERT | `phase1_step1_2_climatebert_2022.py` | ⬜ Pending | Run ALONE after FinBERT completes |
+| 1.3 ESGLens | `phase1_step1_3_esglens_2022.py` | ✅ Done 2026-06-08 | Top1: SDG Alignment (94), GRI Alignment (51), TCFD/ISSB (40), Stakeholder Engagement (39) |
+| 1.1 FinBERT | `phase1_step1_1_finbert_2022.py` | ✅ Done 2026-06-08 | gov=150 (39%), soc=149 (38%), env=60 (15%), other=29 (7%) |
+| 1.2 ClimateBERT | `phase1_step1_2_climatebert_2022.py` | ✅ Done 2026-06-08 | mean_pct=0.485; 179/388 above 0.5 |
 
 **Run order for local scripts:**
 ```
@@ -310,7 +310,7 @@ python3 phase1_step1_2_climatebert_2022.py  # third (wait for FinBERT to finish)
 ### Phase 3 — Cross-cohort analysis
 | Step | Status |
 |---|---|
-| 3.1 NLP parity with 2023/2024 cohorts | 🔄 In progress — pending local NLP script execution |
+| 3.1 NLP parity with 2023/2024 cohorts | ✅ Done 2026-06-08 — all 4 steps complete; 388/389 _E files |
 
 ---
 
