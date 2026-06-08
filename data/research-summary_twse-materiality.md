@@ -195,12 +195,29 @@ TEJ Governance monthly data (2014/01–2025/01), December snapshots used. ~98–
 - 50 rows inferred via Governance file first-appearance method (only valid where first entry AFTER 2014/01)
 - 112 pre-2014 establishments and 30 special securities remain unfilled
 
-### NLP Pipeline [Medium confidence — designed but not executed | technical-researcher | 2026-05-22]
-Language routing complete for 2024 full corpus (1,064 files / 1,042 unique companies):
-- English track: 680 files (63.9%) — FinBERT-ESG-9 + ClimateBERT + GRI regex
-- Multilingual track: 384 files (36.1%) — Qwen3-Embedding-8B (BGE-M3 fallback) + XLM-RoBERTa-XNLI
-- Routing method: `_E` filename suffix (primary); 22 companies have paired English+Chinese versions
-- Source PDFs on disk: 1,043; extracted text files: 1,064 (21 extra from ESGgenplus with no local PDF)
+### NLP Pipeline — English Track [Pass 32, 2026-06-08]
+Language routing complete for 2024 full corpus (1,043 files / 1,042 unique companies post-deduplication):
+- **English track: 680 files (65.2%)** — Phase 1 complete (steps 1.3 and 1.4 done; 1.1/1.2 need re-run)
+- **Multilingual track: 361 files (34.6%)** — Phase 2 not yet started
+- Routing method: `_E` filename suffix (primary); Unicode CJK density heuristic (fallback)
+- Source PDFs on disk: 1,022 (after deduplication); extracted text files: 1,043
+
+**Phase 1 results (English track, N=680, 2024 cohort):**
+
+| Step | Model / Method | Status | Key Findings |
+|------|---------------|--------|-------------|
+| 1.4 Block C | Regex extractor | ✅ Done | mat_section_found: 99.0%; board_approved: 57.1%; visualization_format: 56.9%; ai_tool_disclosed: 40.4%; dm_methodology_disclosed: 32.1%; double_materiality_mentioned: 10.3%; scoring_method_disclosed: 2.2% |
+| 1.3 ESGLens | SBERT all-MiniLM-L6 | ✅ Done | Top corpus topics: Stakeholder Engagement, GHG Emissions, TCFD/ISSB Alignment. Full 30-topic similarity matrix in `esglens_2024_matches.jsonl` (680 entries). Env affinity median 0.3; soc 0.1; gov 0.1 |
+| 1.1 FinBERT | FinBERT-ESG-9-Categories | ⚠️ Re-run needed | Ran locally (all 680 done); DB write corrupted — 8 new col slots exist in DB, values empty |
+| 1.2 ClimateBERT | distilroberta-base-climate-detector | ⚠️ Re-run needed | Same as 1.1 — 3 col slots exist in DB, values empty |
+
+**Notable Block C findings (2024 English track):**
+- AI tool disclosure at 40.4% is high — ChatGPT the dominant named tool
+- `scoring_method_disclosed` at 2.2% reflects genuine scarcity of named quantitative scoring (TDDM/DEMATEL/AHP) in English filings; may be higher in Chinese-track reports
+- `dm_methodology_disclosed` improved from ~16% (prior passes) to 32.1% with richer pattern sets covering GRI 2021, AA1000, EFRAG, ESRS, ISSB, TCFD, SASB
+- `visualization_format` improved from ~38% to 56.9%: matrix, scatter plot, butterfly chart, IRO table all captured
+
+**DB schema after Phase 1:** 175 columns (157 original + 18 NLP). Backup: `twse-research-database_pre-nlp-repair.csv`.
 
 ---
 
