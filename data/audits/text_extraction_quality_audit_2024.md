@@ -721,7 +721,7 @@ These are likely reports that: (a) embed their GRI index as a scanned image rath
 ## Next Steps — NLP Analysis Pipeline
 
 **Status legend:** ⬜ Pending · 🔄 In Progress · ✅ Done  
-**Updated:** 2026-06-08 (step 0.2 done: language detection complete; Phase 0 fully resolved)  
+**Updated:** 2026-06-08 (Phase 1 English Track: steps 1.3 and 1.4 complete; steps 1.1 and 1.2 ran locally, data needs re-merge into DB)  
 **Prerequisite satisfied:** All three quality checks pass — corpus is ready for NLP.
 
 ---
@@ -741,10 +741,10 @@ These are likely reports that: (a) embed their GRI index as a scanned image rath
 
 | # | Step | Owner | Status | Notes |
 |---|---|---|---|---|
-| 1.1 | Run FinBERT-ESG-9-Categories on `_E` files → ESG topic classification per passage | technical-researcher | ⬜ Pending | Validated for English sustainability text; outputs 9-class ESG label per sentence. |
-| 1.2 | Run ClimateBERT on `_E` files → climate-related disclosure detection | technical-researcher | ⬜ Pending | Binary climate-relevance flag per paragraph; useful for Block D E01/E02 topic depth. |
-| 1.3 | Apply ESGLens RAG framework (MIT, Mar 2026) for GRI disclosure mapping | technical-researcher | ⬜ Pending | RAG retrieval against GRI standard text; links passages to specific GRI disclosures. Code at github.com/ESGLens. |
-| 1.4 | Detect materiality process section + extract Block C indicators (English) | technical-researcher | ⬜ Pending | Regex + sentence classifier: `mat_process_disclosed`, `double_materiality_methodology_disclosed`, `standalone_mat_report`, `ai_tool_disclosed`, `visualization_format`. |
+| 1.1 | Run FinBERT-ESG-9-Categories on `_E` files → ESG topic classification per passage | technical-researcher | ⚠️ Re-run needed | Ran locally 2026-06-08 (all 680 files, progress JSON confirmed). Data lost in DB header-corruption incident. Updated script (`phase1_step1_1_finbert.py` v2 with `db_utils.py`) ready in `scripts/phase1_nlp_local/`. New DB cols: `finbert_env_pct`, `finbert_soc_pct`, `finbert_gov_pct`, `finbert_econ_pct`, `finbert_human_pct`, `finbert_other_pct`, `finbert_esg_sentences_n`, `finbert_dominant_factor`. |
+| 1.2 | Run ClimateBERT on `_E` files → climate-related disclosure detection | technical-researcher | ⚠️ Re-run needed | Same as 1.1 — ran locally, data lost. New DB cols: `climatebert_climate_pct`, `climatebert_climate_sentences_n`, `climatebert_total_sentences_n`. |
+| 1.3 | Apply ESGLens semantic topic matcher (SBERT all-MiniLM-L6) for GRI topic affinity | technical-researcher | ✅ Done | Ran locally 2026-06-08. All 680 companies processed. Results in `scripts/phase1_nlp_local/esglens_2024_matches.jsonl` (680 lines, full similarity matrix per company). DB updated: `esglens_top1_topic`, `esglens_top1_sim`, `esglens_top3_topics`, `esglens_mean_sim`, `esglens_env_affinity`, `esglens_soc_affinity`, `esglens_gov_affinity`. Top topics across corpus: Stakeholder Engagement, GHG Emissions, TCFD/ISSB Alignment. |
+| 1.4 | Detect materiality process section + extract Block C indicators (English) | technical-researcher | ✅ Done | Ran in sandbox 2026-06-08. 680 files processed. Coverage: mat_section_found 99.0%, board_approved 57.1%, visualization_format 56.9%, ai_tool_disclosed 40.4%, dm_methodology_disclosed 32.1%, double_materiality_mentioned 10.3%, scoring_method_disclosed 2.2%. `process_quality_score` filled 99.9%. |
 
 ---
 
