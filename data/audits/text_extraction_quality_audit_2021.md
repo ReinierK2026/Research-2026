@@ -328,3 +328,29 @@ Block B text metrics extracted from `2021_processed/` for subsample rows:
 **Structural gap (23 tickers):** Same 23 as in 2022–2024 cohorts — companies not in the ESGgenplus bulk download. Confirmed: all have `report_url` entries; several have files in 2022+ corpora (e.g., 2329 appears in 2022).
 
 **gri_codes_summary_2021.csv confirmed:** 488 rows (fitz extraction; 340 files with ≥1 GRI code). Used as authoritative source for Block D pre-treatment coding.
+
+---
+
+### Entry 10 — PDF Completeness Check & macOS Duplicate Fix (Pass 36)
+**Date:** 2026-06-08  
+**Scope:** 2021 English Track pre-NLP verification
+
+Cross-referenced `2021_processed/` (495 files: 307 `_E`, 188 other) against DB 2021 ticker list (492 tickers). Identified `6202_2021_E.txt` missing — only `6202_2021_E (1).txt` (225KB macOS duplicate) existed. Copied to clean name; glob now finds 308 `_E` files.
+
+Identified 2 additional near-empty `_E` files (6472: 1299 bytes; 8341: 1853 bytes — both image-only body pages). Added to Known Limitations table alongside existing 3 (4720, 9904, 9938). Total hard exclusions: 7.
+
+---
+
+### Entry 11 — Phase 1 NLP Scripts Execution (Pass 37)
+**Date:** 2026-06-08  
+**Scope:** All 307 _E tickers in 2021 English Track
+
+All three NLP scripts executed sequentially (ESGLens → FinBERT → ClimateBERT):
+
+| Model | Filled | Key results |
+|---|---|---|
+| ESGLens (all-MiniLM-L6-v2) | 307 / 307 | Top1: SDG(77), GRI(55), SE(40), SupplierEnv(20), TCFD(19), OHS(13). Mean sim=0.642. Gov-affinity dominant (0.57) |
+| FinBERT-ESG-9 | 307 / 307 | Dominant: soc=143 (46.6%), gov=106 (34.5%), env=37 (12.1%), other=21 (6.8%). Mean: soc=0.351, gov=0.313, env=0.198 |
+| ClimateBERT | 307 / 307 | Mean climate_pct=0.4493; 120/307 above 0.5; 0 zero-sentence files |
+
+Phase 1 English Track complete for 2021 cohort. All 16 Block C + 16 NLP columns populated across 307 _E tickers.
