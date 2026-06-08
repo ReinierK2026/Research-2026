@@ -763,7 +763,7 @@ These are likely reports that: (a) embed their GRI index as a scanned image rath
 
 | # | Step | Owner | Status | Notes |
 |---|---|---|---|---|
-| 3.1 | Populate Block C in `twse-research-database.csv` from NLP output | data-analyst | ⬜ Pending | Add columns: `double_materiality_methodology_disclosed`, `visualization_format`, `visualization_format_n`, `iro_table_shown`, `butterfly_chart_shown`, `scatter_plot_shown`, `ai_tool_disclosed`, `ai_tool_name`, `process_quality_score`. |
+| 3.1 | Populate Block C in `twse-research-database.csv` from NLP output | data-analyst | ✅ Done (English) | All Block C variables written for 680 English 2024 files via step 1.4. ESGLens affinity scores written for same 680 files. FinBERT and ClimateBERT cols exist in schema (175 cols total) but empty — will fill on re-run of 1.1/1.2. DB backup at `twse-research-database_pre-nlp-repair.csv`. |
 | 3.2 | Populate Block D (material topics listed) from GRI tables CSVs | data-analyst | ⬜ Pending | Source: `gri_tables_2024/` (540 per-file CSVs); encode as topic×company matrix. Key DiD outcome variable: topic count (`n_material_topics`). |
 | 3.3 | Compute `mda_index` (Block G) per Padilla-Garrido et al. (2024) coding scheme | data-analyst | ⬜ Pending | 10-item binary index; majority can be coded from Block C/D NLP output. |
 | 3.4 | Compute `topic_depth_score` (Block G) from NLP passage counts per topic | data-analyst | ⬜ Pending | Word count / sentence count attributable to each material topic. |
