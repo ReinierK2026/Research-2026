@@ -195,9 +195,9 @@ TEJ Governance monthly data (2014/01–2025/01), December snapshots used. ~98–
 - 50 rows inferred via Governance file first-appearance method (only valid where first entry AFTER 2014/01)
 - 112 pre-2014 establishments and 30 special securities remain unfilled
 
-### NLP Pipeline — English Track [Passes 32–34, 2026-06-08]
+### NLP Pipeline — English Track [Passes 32–35, 2026-06-08]
 
-Phase 1 English Track NLP is now complete for both the **2024** and **2023** cohorts. Both used identical scripts, models, and DB column slots (175 cols shared across all cohort years).
+Phase 1 English Track NLP is complete for the **2022**, **2023**, and **2024** cohorts. All three used identical scripts, models, and DB column slots (175 cols shared across all cohort years).
 
 **2024 cohort — 680 English files, all steps complete:**
 
@@ -217,12 +217,22 @@ Phase 1 English Track NLP is now complete for both the **2024** and **2023** coh
 | 1.1 FinBERT | FinBERT-ESG-9-Categories | ✅ Done | gov=224 (43%), soc=189 (36%), env=77 (15%), other=36 (7%). |
 | 1.2 ClimateBERT | distilroberta-base-climate-detector | ✅ Done | Mean climate_pct=0.484; 230/526 above 0.5; 6 companies with 0 climate sentences. |
 
-**Cross-cohort NLP signal (2023 → 2024 shifts):**
-- **ESGLens framing pivot**: SDG/GRI Alignment dominant in 2023 → TCFD/ISSB/Circular Economy dominant in 2024. Direct fingerprint of IFRS S1/S2 phased mandate announcement effects.
-- **ClimateBERT intensity**: slight increase (0.484 → 0.502 mean climate_pct; 230 → 324 companies above 0.5) — gradual climate-content ramp-up ahead of IFRS S2.
-- **FinBERT pillar**: gov remains plurality both years (43% → 51%); env share stable (15% → 12%); soc declines (36% → 28%) — governance framing intensified in 2024.
-- **Visualization disclosure**: dramatic jump (8.4% → 56.9%) — materiality matrix/bubble chart presentation became near-universal in 2024.
-- **AI tool disclosure**: near-zero in 2023 (4.4%) → 40.4% in 2024 — entirely a 2024 phenomenon.
+**2022 cohort — 389 English files, all steps complete (388 processed; 3062_2022_E is 0-byte exclusion):**
+
+| Step | Model / Method | Status | Key Findings |
+|------|---------------|--------|-------------|
+| 1.4 Block C | Regex extractor | ✅ Done | mat_section_found 95.1%; board_approved 53.5%; dm_methodology_disclosed 82.8%; visualization_format 10.0%; ai_tool_disclosed 0.8%; double_materiality_mentioned 6.7% |
+| 1.3 ESGLens | SBERT all-MiniLM-L6 | ✅ Done | Top topics: SDG Alignment (94), GRI Alignment (51), TCFD/ISSB Alignment (40), Stakeholder Engagement (39). JSONL: `eslens_2022_matches.jsonl`. |
+| 1.1 FinBERT | FinBERT-ESG-9-Categories | ✅ Done | gov=150 (39%), soc=149 (38%), env=60 (15%), other=29 (7%). |
+| 1.2 ClimateBERT | distilroberta-base-climate-detector | ✅ Done | Mean climate_pct=0.485; 179/388 above 0.5; 0 companies with 0 climate sentences. |
+
+**Cross-cohort NLP signal (2022 → 2023 → 2024 trends):**
+- **ESGLens framing trajectory**: SDG/GRI Alignment dominant in 2022–2023 → TCFD/ISSB/Circular Economy dominant in 2024. The 2022→2023 framing is near-identical (same top-2 topics), while 2024 shows a sharp pivot — direct fingerprint of IFRS S1/S2 phased mandate announcement.
+- **ClimateBERT intensity ramp**: 0.485 (2022) → 0.484 (2023) → 0.502 (2024). Flat pre-IFRS, then a step up in 2024. Companies above 0.5: 179 → 230 → 324.
+- **FinBERT pillar shift**: gov plurality emerges and grows (39% → 43% → 51%); soc holds in 2022 (38%) then declines (36% → 28%); env stable (15% → 15% → 12%).
+- **Visualization disclosure**: low and stable pre-2024 (10.0% → 8.4%) → explosion in 2024 (56.9%). Near-universal adoption happened in a single year.
+- **AI tool disclosure**: essentially zero in 2022 (0.8%) and 2023 (4.4%) → 40.4% in 2024. Entirely a 2024 GenAI adoption phenomenon.
+- **Double materiality**: 6.7% (2022) → 9.9% (2023) → 10.3% (2024). Gradual increase — consistent with ESRS awareness building but limited TWSE uptake through 2024.
 
 **DB schema:** 175 columns (157 original + 18 NLP). NLP cols shared across all cohort years. Backup: `twse-research-database_pre-nlp-repair.csv`.
 
