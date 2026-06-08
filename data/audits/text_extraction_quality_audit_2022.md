@@ -278,6 +278,42 @@ Top GRI standards detected across the 2022 cohort (by code family): GRI 2 (unive
 
 ---
 
+## Next Steps — NLP Analysis Pipeline
+
+Phase 1 English Track NLP targets the 389 `_E` files in `2022_processed/`.
+
+### Phase 0 — Completed (earlier sessions)
+| Step | Status | Notes |
+|---|---|---|
+| Text extraction & preprocessing | ✅ Done | PyMuPDF + OCR; 623 files in 2022_processed |
+| Quality audit | ✅ Done | Checks A/B/C; corpus fit for NLP |
+| GRI extraction | ✅ Done | 535/609 with codes; gri_codes_summary_2022.csv |
+
+### Phase 1 — English Track NLP (2022)
+
+Run order: **Step 1.4 first** (sandbox), then **1.3**, then **1.1**, then **1.2** (locally, sequential).
+
+| Step | Script | Status | Key results |
+|---|---|---|---|
+| 1.4 Block C | `phase1_block_c_english_2022.py` (run inline) | ✅ Done 2026-06-08 | mat_section_found 95.1%, board_approved 53.5%, dm_methodology_disclosed 82.8%, visualization_format 10.0%, ai_tool_disclosed 0.8% |
+| 1.3 ESGLens | `phase1_step1_3_esglens_2022.py` | ⬜ Pending | Install: `pip install sentence-transformers torch` |
+| 1.1 FinBERT | `phase1_step1_1_finbert_2022.py` | ⬜ Pending | Install: `pip install transformers torch sentencepiece` |
+| 1.2 ClimateBERT | `phase1_step1_2_climatebert_2022.py` | ⬜ Pending | Run ALONE after FinBERT completes |
+
+**Run order for local scripts:**
+```
+python3 phase1_step1_3_esglens_2022.py   # first
+python3 phase1_step1_1_finbert_2022.py   # second (wait for ESGLens to finish)
+python3 phase1_step1_2_climatebert_2022.py  # third (wait for FinBERT to finish)
+```
+
+### Phase 3 — Cross-cohort analysis
+| Step | Status |
+|---|---|
+| 3.1 NLP parity with 2023/2024 cohorts | 🔄 In progress — pending local NLP script execution |
+
+---
+
 ## Processing Log
 
 | # | Date | Action | Result |
@@ -289,6 +325,7 @@ Top GRI standards detected across the 2022 cohort (by code family): GRI 2 (unive
 | 5 | 2026-05-22 | GRI extraction — 609 PDFs | 535 with codes; 35,972 instances; gri_codes_summary_2022.csv |
 | 6 | 2026-05-22 | Quality verification Checks A/B/C | A: 3 genuine failures; B: calibration artifact; C: structural note |
 | 7 | 2026-05-22 | Audit document written | Replaces preliminary 2026-05-19 audit |
+| 8 | 2026-06-08 | Phase 1 Step 1.4 Block C — full column re-run (389 _E files) | mat_section_found 370/389 (95.1%), board_approved 208/389 (53.5%), double_materiality_mentioned 26/389 (6.7%), dm_methodology_disclosed 322/389 (82.8%), visualization_format 39/389 (10.0%), ai_tool_disclosed 3/389 (0.8%) |
 
 ---
 
