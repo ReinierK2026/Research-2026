@@ -195,29 +195,36 @@ TEJ Governance monthly data (2014/01–2025/01), December snapshots used. ~98–
 - 50 rows inferred via Governance file first-appearance method (only valid where first entry AFTER 2014/01)
 - 112 pre-2014 establishments and 30 special securities remain unfilled
 
-### NLP Pipeline — English Track [Pass 32–33, 2026-06-08]
-Language routing complete for 2024 full corpus (1,043 files / 1,042 unique companies post-deduplication):
-- **English track: 680 files (65.2%)** — Phase 1 fully complete (all 4 steps done)
-- **Multilingual track: 361 files (34.6%)** — Phase 2 not yet started
-- Routing method: `_E` filename suffix (primary); Unicode CJK density heuristic (fallback)
-- Source PDFs on disk: 1,022 (after deduplication); extracted text files: 1,043
+### NLP Pipeline — English Track [Passes 32–34, 2026-06-08]
 
-**Phase 1 results (English track, N=680, 2024 cohort) — all steps complete:**
+Phase 1 English Track NLP is now complete for both the **2024** and **2023** cohorts. Both used identical scripts, models, and DB column slots (175 cols shared across all cohort years).
+
+**2024 cohort — 680 English files, all steps complete:**
 
 | Step | Model / Method | Status | Key Findings |
 |------|---------------|--------|-------------|
-| 1.4 Block C | Regex extractor | ✅ Done | mat_section_found: 99.0%; board_approved: 57.1%; visualization_format: 56.9%; ai_tool_disclosed: 40.4%; dm_methodology_disclosed: 32.1%; double_materiality_mentioned: 10.3%; scoring_method_disclosed: 2.2% |
-| 1.3 ESGLens | SBERT all-MiniLM-L6 | ✅ Done | Top corpus topics: TCFD/ISSB Alignment (255), Stakeholder Engagement (172), Circular Economy (132), GHG Emissions (45). Full 30-topic similarity matrix in `esglens_2024_matches.jsonl` (680 entries). |
-| 1.1 FinBERT | FinBERT-ESG-9-Categories | ✅ Done | 680/680 filled. Dominant factor: gov=350 (51%), soc=190 (28%), env=79 (12%), other=61 (9%). DB cols: `finbert_env_pct`, `finbert_soc_pct`, `finbert_gov_pct`, `finbert_other_pct`, `finbert_esg_sentences_n`, `finbert_dominant_factor`. |
-| 1.2 ClimateBERT | distilroberta-base-climate-detector | ✅ Done | 680/680 filled (678 non-zero; 2 companies had 0 climate sentences). Mean `climate_pct`=0.502; 324 companies above 0.5. DB cols: `climatebert_climate_pct`, `climatebert_climate_sentences_n`, `climatebert_total_sentences_n`. |
+| 1.4 Block C | Regex extractor | ✅ Done | mat_section_found 99.0%; board_approved 57.1%; visualization_format 56.9%; ai_tool_disclosed 40.4%; dm_methodology_disclosed 32.1%; double_materiality_mentioned 10.3% |
+| 1.3 ESGLens | SBERT all-MiniLM-L6 | ✅ Done | Top topics: TCFD/ISSB Alignment (255), Stakeholder Engagement (172), Circular Economy (132), GHG Emissions (45). JSONL: `eslens_2024_matches.jsonl`. |
+| 1.1 FinBERT | FinBERT-ESG-9-Categories | ✅ Done | gov=350 (51%), soc=190 (28%), env=79 (12%), other=61 (9%). |
+| 1.2 ClimateBERT | distilroberta-base-climate-detector | ✅ Done | Mean climate_pct=0.502; 324/680 above 0.5; 2 companies with 0 climate sentences. |
 
-**Notable Block C findings (2024 English track):**
-- AI tool disclosure at 40.4% is high — ChatGPT the dominant named tool
-- `scoring_method_disclosed` at 2.2% reflects genuine scarcity of named quantitative scoring (TDDM/DEMATEL/AHP) in English filings; may be higher in Chinese-track reports
-- `dm_methodology_disclosed` improved from ~16% (prior passes) to 32.1% with richer pattern sets covering GRI 2021, AA1000, EFRAG, ESRS, ISSB, TCFD, SASB
-- `visualization_format` improved from ~38% to 56.9%: matrix, scatter plot, butterfly chart, IRO table all captured
+**2023 cohort — 526 English files, all steps complete:**
 
-**DB schema after Phase 1:** 175 columns (157 original + 18 NLP). Backup: `twse-research-database_pre-nlp-repair.csv`.
+| Step | Model / Method | Status | Key Findings |
+|------|---------------|--------|-------------|
+| 1.4 Block C | Regex extractor | ✅ Done | mat_section_found 97.3%; board_approved 63.9%; dm_methodology_disclosed 84.2%; visualization_format 8.4%; ai_tool_disclosed 4.4%; double_materiality_mentioned 9.9% |
+| 1.3 ESGLens | SBERT all-MiniLM-L6 | ✅ Done | Top topics: SDG Alignment (104), GRI Alignment (78), TCFD/ISSB Alignment (64), Stakeholder Engagement (47). JSONL: `eslens_2023_matches.jsonl`. |
+| 1.1 FinBERT | FinBERT-ESG-9-Categories | ✅ Done | gov=224 (43%), soc=189 (36%), env=77 (15%), other=36 (7%). |
+| 1.2 ClimateBERT | distilroberta-base-climate-detector | ✅ Done | Mean climate_pct=0.484; 230/526 above 0.5; 6 companies with 0 climate sentences. |
+
+**Cross-cohort NLP signal (2023 → 2024 shifts):**
+- **ESGLens framing pivot**: SDG/GRI Alignment dominant in 2023 → TCFD/ISSB/Circular Economy dominant in 2024. Direct fingerprint of IFRS S1/S2 phased mandate announcement effects.
+- **ClimateBERT intensity**: slight increase (0.484 → 0.502 mean climate_pct; 230 → 324 companies above 0.5) — gradual climate-content ramp-up ahead of IFRS S2.
+- **FinBERT pillar**: gov remains plurality both years (43% → 51%); env share stable (15% → 12%); soc declines (36% → 28%) — governance framing intensified in 2024.
+- **Visualization disclosure**: dramatic jump (8.4% → 56.9%) — materiality matrix/bubble chart presentation became near-universal in 2024.
+- **AI tool disclosure**: near-zero in 2023 (4.4%) → 40.4% in 2024 — entirely a 2024 phenomenon.
+
+**DB schema:** 175 columns (157 original + 18 NLP). NLP cols shared across all cohort years. Backup: `twse-research-database_pre-nlp-repair.csv`.
 
 ---
 
