@@ -1,6 +1,6 @@
 # Text Extraction Quality Audit — 2024 Cohort
 **Audit date:** 2026-05-19  
-**Last updated:** 2026-06-08 (Phase 1 English Track NLP complete: steps 1.3 and 1.4 done; steps 1.1 and 1.2 need re-run to merge DB; DB repaired after header corruption)  
+**Last updated:** 2026-06-08 (Phase 1 English Track NLP fully complete: all 4 steps done for 2024 — FinBERT 680/680, ClimateBERT 680/680, ESGLens 680/680, Block C 680/680)  
 **Corpus (raw):** `/Text extraction/extracted_text/2024/`  
 **Corpus (processed):** `/Text extraction/extracted_text/2024_processed/`  
 **Source PDFs on disk:** 1,022  (after removal of 21 duplicate `_b`/non-`_E` English PDFs)  
