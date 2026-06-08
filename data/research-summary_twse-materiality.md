@@ -108,7 +108,7 @@ Panel: 2016–2024. Text data: 2021–2024. TEJ ESG scores: 2016–2022. GRI 3 t
 - **NLP corpus vs TEJ universe gap**: 2021: 479/835 (57.4%); 2022: 617/981 (62.9%); 2023: 727/1,186 (61.3%); 2024: 1,042/1,983 (52.5%) — companies with no extractable report text have TEJ scaffold data but are excluded from Block B/C/D NLP analysis
 
 ### Block C: Materiality Process Quality [Medium-high confidence | data-analyst + technical-researcher | 2026-05-22/23]
-Pre-adoption trends (2021→2023) from full TWSE universe:
+Block C variables are extracted from ESG report text. Coverage expressed against the per-year NLP corpus (word_count_total > 0). Pre-adoption trends (2021→2023) from full TWSE universe:
 
 | Metric | 2021 | 2022 | 2023 | 2024 |
 |--------|------|------|------|------|
