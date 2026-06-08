@@ -640,13 +640,13 @@ Run order: **Step 1.4 first** (sandbox — already done), then **1.3**, then **1
 
 ---
 
-### Phase 2 — NLP Pipeline: Multilingual Track (Chinese/bilingual files, 188 files)
+### Phase 2 — NLP Pipeline: Multilingual Track (Chinese/bilingual files, 172 files)
 
 | # | Step | Status | Notes |
 |---|---|---|---|
-| 2.1 | Run Qwen3-Embedding-8B (or BGE-M3 fallback) for semantic chunking | ⬜ Pending | Mirror Phase 2 from 2022–2024. |
-| 2.2 | Run XLM-RoBERTa-XNLI for zero-shot topic classification | ⬜ Pending | Candidate labels = GRI material topic taxonomy. |
-| 2.3 | Extract Block C indicators (Chinese/bilingual) | ⬜ Pending | Key terms in Traditional Chinese. |
+| 2.1 | BGE-M3 multilingual semantic topic matcher | 🟡 Ready to run | Script: `phase2_step2_1_bge_2021.py`. Excl: 3669 (corrupt PDF). Output: `bge_2021_matches.jsonl` + 7 DB cols. |
+| 2.2 | XLM-RoBERTa-XNLI zero-shot ESG classifier | 🟡 Ready to run | Script: `phase2_step2_2_xlmr_2021.py`. Model: mDeBERTa-v3-base-mnli-xnli. Excl: 3669. 6 DB cols. |
+| 2.3 | Block C indicators (Chinese/bilingual) | 🟡 Ready to run | Script: `phase2_block_c_chinese_2021.py`. Excl: 3669. Bilingual regex + full-text fallback. |
 
 ---
 
