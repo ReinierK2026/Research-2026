@@ -721,7 +721,7 @@ These are likely reports that: (a) embed their GRI index as a scanned image rath
 ## Next Steps — NLP Analysis Pipeline
 
 **Status legend:** ⬜ Pending · 🔄 In Progress · ✅ Done  
-**Updated:** 2026-06-08 (Phase 1 English Track: steps 1.3 and 1.4 complete; steps 1.1 and 1.2 ran locally, data needs re-merge into DB)  
+**Updated:** 2026-06-08 (Phase 1 English Track 2024: all steps complete — FinBERT 680/680, ClimateBERT 680/680, ESGLens 680/680, Block C 680/680)  
 **Prerequisite satisfied:** All three quality checks pass — corpus is ready for NLP.
 
 ---
