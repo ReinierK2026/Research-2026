@@ -16,7 +16,6 @@ This repository contains:
 - **Target Completion**: Q3 2026
 - **Reports Processed**: 3,180 TWSE sustainability reports
 - **GRI Code Instances**: 194,168 (2021–2024)
-- **Semiconductor Companies**: 276 company-years (~290 target)
 
 ## 🚀 Live Dashboard
 
@@ -29,8 +28,8 @@ The dashboard auto-updates everytime any of the files in the 'Data' folder is up
 ```
 Research-2026/
 ├── data/
-│ └──data/audit
 │   └── research_log.json                        # Live research session log
+│ └──data/audit
 |   └── text_extraction_quality_audit_2021.md    # Audit quality assessment of the 2021 data
 |   └── text_extraction_quality_audit_2022.md    # Audit quality assessment of the 2022 data
 |   └── text_extraction_quality_audit_2023.md    # Audit quality assessment of the 2023 data
