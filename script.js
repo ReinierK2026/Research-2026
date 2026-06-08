@@ -385,9 +385,9 @@ const AUDIT_2023 = {
     fullScan: "744 / 744 for scanned/empty pages",
   },
   composition: [
-    ["Total files", "2022: 877", "2023: 744", "−15%"],
-    ["English `_E` files", "2022: 389 (44%)", "2023: 526 (71%)", "+27 pp"],
-    ["Chinese / bilingual", "2022: 488 (56%)", "2023: 218 (29%)", "−27 pp"],
+    ["Total files", "2023: 744"],
+    ["English files", "2023: 526 (71%)"],
+    ["Chinese / bilingual", ""2023: 218 (29%)"],
   ],
   issues: [
     { n: 1, h: "Multi-column / sidebar fragmentation", pct: "98%", _E: "98.6%", _O: "96.7%", baseline: "100%", fixed: "PyMuPDF coordinate-aware re-extraction + sidebar suppression" },
