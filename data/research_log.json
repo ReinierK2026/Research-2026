@@ -1590,5 +1590,29 @@
     "output_file": "scripts/phase2_nlp_local/phase2_block_c_chinese_2024.py",
     "variables_added": [],
     "notes": "361 files processed (363 non-_E minus 2461, 6776 near-empty exclusions). Writes to existing Block C columns — no new columns. DB results: mat_section_found=354/361 (98.1%), board_approved=289/361 (80.1%), double_materiality_mentioned=52/361 (14.4%), scoring_method_disclosed=29/361 (8.0%), dm_methodology_disclosed=341/361 (94.5%), engagement_methods_n mean=3.14 (356/361 nonzero), stakeholder_groups_n mean=7.03 (358/361), process_steps_n=333/361 (92.2%) mean=2.02, visualization_format=70/361 (19.4%), iro_table_shown=24/361 (6.6%), ai_tool_disclosed=16/361 (4.4%), process_quality_score mean=0.426 (358/361 nonzero). Higher board_approved and process_steps_n reflect merge with pre-existing values from earlier extract_block_c pass (update rule: only overwrite if strictly better). Bilingual regex (zh+en); engagement and scoring fall back to full-text search when window returns zero."
+  },
+  {
+    "task_id": "phase2-step2-1-bge-2024",
+    "date": "2026-06-09",
+    "pass": 39,
+    "agent": "coordinator-scripts",
+    "topic": "Phase 2 Step 2.1 BGE-M3 multilingual semantic topic matcher — 2024 Chinese/bilingual track",
+    "status": "completed",
+    "output_file": "scripts/phase2_nlp_local/phase2_step2_1_bge_2024.py",
+    "variables_added": ["bge_top1_topic", "bge_top1_sim", "bge_top3_topics", "bge_mean_sim",
+                        "bge_env_affinity", "bge_soc_affinity", "bge_gov_affinity"],
+    "notes": "361/361 files processed (100%). Model: BAAI/bge-m3. 33 bilingual GRI topic descriptors (zh+en). bge_top1_sim mean=0.690; bge_mean_sim=0.660. Top topics: GRI Alignment (122/361=34%), Stakeholder Engagement (56), Training & Education (25), TCFD/ISSB Alignment (20), Economic Performance (17), Climate Adaptation (15). Affinities: gov=0.353, soc=0.295, env=0.173. Secondary output: bge_2024_matches.jsonl. DB schema now 188 cols. Key finding: Chinese-track is GRI-Alignment dominant vs English-track TCFD/ISSB dominant — reflects slower IFRS S1/S2 adoption framing among Chinese reporters."
+  },
+  {
+    "task_id": "phase2-step2-2-xlmr-2024",
+    "date": "2026-06-09",
+    "pass": 39,
+    "agent": "coordinator-scripts",
+    "topic": "Phase 2 Step 2.2 XLM-RoBERTa-XNLI zero-shot ESG classifier — 2024 Chinese/bilingual track",
+    "status": "completed",
+    "output_file": "scripts/phase2_nlp_local/phase2_step2_2_xlmr_2024.py",
+    "variables_added": ["xlmr_env_pct", "xlmr_soc_pct", "xlmr_gov_pct", "xlmr_other_pct",
+                        "xlmr_esg_sentences_n", "xlmr_dominant_factor"],
+    "notes": "361/361 files processed (100%). Model: MoritzLaurer/mDeBERTa-v3-base-mnli-xnli. Mean sentences=43.9. dominant_factor: soc=294 (81.4%), other=44 (12.2%), gov=14 (3.9%), env=9 (2.5%). Mean pcts: soc=0.449, gov=0.204, other=0.213, env=0.164. Key finding: Chinese-track is strongly soc-dominant (81.4%) vs English-track gov-dominant (FinBERT: gov=51.5%, soc=28%). Parallels Phase 1 2021 English cohort which was also soc-dominant (47%) before shifting to gov by 2024. Suggests Chinese reporters lag English reporters by ~3 years in governance-focus trajectory."
   }
 ]
