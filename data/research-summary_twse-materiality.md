@@ -199,6 +199,9 @@ Coverage is shown two ways: **NLP corpus** (1,042 companies with extracted text)
 | D | n_material_topics_b | **100% (1,042/1,042)** | 52.5% (1,042/1,983) | 633 non-zero / 409 zero; 526 from gri_tables + 516 txt-extracted (Pass 26) |
 | E | Binary topic panel | 2,293 company-years across 4 years | — | Complete for available years |
 | F | Balance sheet, income, equity | 87.0% (907/1,042) | ~44–63% (4,365–4,895 rows) | TEJ coverage; December filter |
+| F | insider_ownership_pct | 98.8% (7,670/7,765) | 98.8% | Filled from board_ownership_pct (Pass 27) |
+| F | firm_size_quintile | 70.5% (5,478/7,765) | 70.5% | Per-year quintile of ln_total_assets; bounded by TEJ financial coverage (Pass 27) |
+| F | firm_age_quintile | 94.4% (7,333/7,765) | 94.4% | Per-year quintile of firm_age (Pass 27) |
 | F | tesg_score | 2016–2022 only | 2016–2022 only | TEJ file ends 2022 |
 | G | Governance | 98.5% (1,026/1,042) | ~99% (7,670/7,765 rows) | Excellent TEJ coverage |
 | G | independent_director_ratio | 0% | 0% | Not in TEJ files; stub |
