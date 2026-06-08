@@ -754,7 +754,7 @@ These are likely reports that: (a) embed their GRI index as a scanned image rath
 |---|---|---|---|---|
 | 2.1 | Run Qwen3-Embedding-8B (or BGE-M3 fallback) for semantic chunking | technical-researcher | ⬜ Pending | Best MTEB multilingual score as of May 2026. GPU recommended; fallback: BGE-M3 on CPU. |
 | 2.2 | Run XLM-RoBERTa-XNLI for zero-shot topic classification (Chinese files) | technical-researcher | ⬜ Pending | Candidate labels = GRI material topic taxonomy. Threshold ≥ 0.6 for positive hit. |
-| 2.3 | Extract Block C indicators (Chinese/bilingual) | technical-researcher | 🟡 Ready to run | Script: `scripts/phase2_nlp_local/phase2_block_c_chinese_2024.py`. Bilingual regex (zh+en), 361 files (excl. 2461, 6776). Dry-run: mat_section=354/361 (98.1%), dm_methodology=341/361 (94.5%), engagement_methods mean=3.10 (356/361), board_approved=176/361 (48.8%), double_mat=20/361 (5.5%), scoring=17/361 (4.7%). process_quality_score mean=0.423. Run: `python3 phase2_block_c_chinese_2024.py` |
+| 2.3 | Extract Block C indicators (Chinese/bilingual) | technical-researcher | ✅ Done (2026-06-08) | Script: `scripts/phase2_nlp_local/phase2_block_c_chinese_2024.py`. 361 files (excl. 2461, 6776). DB: mat_section=354/361 (98.1%), board_approved=289/361 (80.1%), double_mat=52/361 (14.4%), scoring=29/361 (8.0%), dm_methodology=341/361 (94.5%), engagement mean=3.14 (356/361), stakeholders mean=7.03, process_steps=333/361 (92.2%), viz_format=70/361 (19.4%), ai_tool=16/361 (4.4%), process_quality mean=0.426. Bilingual regex (zh+en); engagement+scoring fall back to full-text. |
 | 2.4 | Handle 2 near-empty files (`2461_2024`, `6776_2024`) | data-analyst | ⬜ Pending | Flag for NLP exclusion or confidence down-weighting per Check B findings. Document in manifest. |
 
 ---
