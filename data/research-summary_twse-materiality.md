@@ -125,7 +125,7 @@ n_material_topics_a (GRI standard topic codes, not GRI 2-x) rising monotonically
 
 Environmental topics fastest growing (+29% over panel). SASB TC-SC topic alignment improving: avg SASB TC-SC topics 7.3 (2021) → 8.5 (2024).
 
-n_material_topics_b (GRI 3-3 disclosure entry count): available for 2024 only (526/1,983 rows in full universe; higher coverage within the 73-company subsample where GRI 3-3 tables were systematically extracted). This is the primary H1 outcome variable. **Pre-GRI 3 baseline unavailable by definition** — this is structurally correct, as GRI 3-3 did not exist before GRI Universal Standards 2021.
+n_material_topics_b (GRI 3-3 disclosure entry count): 526/1,042 companies in NLP corpus (50.5%); 925/1,042 for n_material_topics_a (88.8%). This is the primary H1 outcome variable. **Pre-GRI 3 baseline unavailable by definition** — this is structurally correct, as GRI 3-3 did not exist before GRI Universal Standards 2021.
 
 ### Block E: Topic Dynamics [High confidence | data-analyst | 2026-05-23]
 Binary topic panel: 80,255 rows (2,293 company-years × 35 canonical topics); binary disclosed 0/1.
