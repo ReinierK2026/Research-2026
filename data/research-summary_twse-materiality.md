@@ -226,10 +226,19 @@ Phase 1 English Track NLP is complete for all four text cohorts: **2021**, **202
 | 1.1 FinBERT | FinBERT-ESG-9-Categories | ✅ Done | gov=150 (39%), soc=149 (38%), env=60 (15%), other=29 (7%). |
 | 1.2 ClimateBERT | distilroberta-base-climate-detector | ✅ Done | Mean climate_pct=0.485; 179/388 above 0.5; 0 companies with 0 climate sentences. |
 
-**Cross-cohort NLP signal (2022 → 2023 → 2024 trends):**
-- **ESGLens framing trajectory**: SDG/GRI Alignment dominant in 2022–2023 → TCFD/ISSB/Circular Economy dominant in 2024. The 2022→2023 framing is near-identical (same top-2 topics), while 2024 shows a sharp pivot — direct fingerprint of IFRS S1/S2 phased mandate announcement.
-- **ClimateBERT intensity ramp**: 0.485 (2022) → 0.484 (2023) → 0.502 (2024). Flat pre-IFRS, then a step up in 2024. Companies above 0.5: 179 → 230 → 324.
-- **FinBERT pillar shift**: gov plurality emerges and grows (39% → 43% → 51%); soc holds in 2022 (38%) then declines (36% → 28%); env stable (15% → 15% → 12%).
+**2021 cohort — 307 English files, all steps complete (5 near-empty exclusions; 6202 copied from macOS duplicate):**
+
+| Step | Model / Method | Status | Key Findings |
+|------|---------------|--------|-------------|
+| 1.4 Block C | Regex extractor (16 cols) | ✅ Done | mat_section_found 94.5%, board_approved 44.6%, dm_methodology_disclosed 74.3%, visualization_format 11.4%, ai_tool_disclosed 0.7%, double_materiality_mentioned 1.6% |
+| 1.3 ESGLens | all-MiniLM-L6-v2 (30 GRI topics) | ✅ Done | Top1: SDG(77), GRI(55), SE(40), SupplierEnv(20), TCFD(19). Mean sim=0.642. Affinity: gov=0.57, env=0.29, soc=0.14 |
+| 1.1 FinBERT | FinBERT-ESG-9-Categories | ✅ Done | soc=143 (46.6%), gov=106 (34.5%), env=37 (12.1%), other=21 (6.8%). |
+| 1.2 ClimateBERT | distilroberta-base-climate-detector | ✅ Done | Mean climate_pct=0.449; 120/307 above 0.5; 0 companies with 0 climate sentences. |
+
+**Cross-cohort NLP signal (2021 → 2022 → 2023 → 2024 trends):**
+- **ESGLens framing trajectory**: SDG/GRI Alignment dominant in 2021–2023 → TCFD/ISSB/Circular Economy dominant in 2024. The 2021→2022→2023 framing is stable (same top-2 topics each year), while 2024 shows a sharp pivot — direct fingerprint of IFRS S1/S2 phased mandate announcement.
+- **ClimateBERT intensity trajectory**: 0.449 (2021) → 0.485 (2022) → 0.484 (2023) → 0.502 (2024). Gradual pre-IFRS drift, then a step up in 2024. Companies above 0.5: 120 → 179 → 230 → 324.
+- **FinBERT pillar evolution**: 2021 is distinctly soc-dominant (47%), unlike 2022–2024 where gov climbs to plurality. Gov grows consistently (35% → 39% → 43% → 51%); soc declines from 2021 peak (47% → 38% → 36% → 28%); env relatively stable (12% → 15% → 15% → 12%).
 - **Visualization disclosure**: low and stable pre-2024 (10.0% → 8.4%) → explosion in 2024 (56.9%). Near-universal adoption happened in a single year.
 - **AI tool disclosure**: essentially zero in 2022 (0.8%) and 2023 (4.4%) → 40.4% in 2024. Entirely a 2024 GenAI adoption phenomenon.
 - **Double materiality**: 6.7% (2022) → 9.9% (2023) → 10.3% (2024). Gradual increase — consistent with ESRS awareness building but limited TWSE uptake through 2024.
