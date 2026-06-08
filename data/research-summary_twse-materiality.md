@@ -400,6 +400,6 @@ gri_101_applied, gri_new_climate_energy_adopted, ifrs_s1_adopted, issb_s2_adopte
 
 ---
 
-*Last updated by: research-coordinator | Pass 32 | 2026-06-08*  
-*Covers: Passes 1–32 across 8 sessions (2026-05-18 through 2026-06-08)*  
+*Last updated by: research-coordinator | Pass 33 | 2026-06-08*  
+*Covers: Passes 1–33 across 9 sessions (2026-05-18 through 2026-06-08)*  
 *Next coordinator session trigger: after OSF pre-registration or Stage 3 manual concordance completion*
