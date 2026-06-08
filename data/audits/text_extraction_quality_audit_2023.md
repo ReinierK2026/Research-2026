@@ -583,3 +583,33 @@ Block B text metrics extracted from `2023_processed/` for subsample rows:
 **Structural gap (23 tickers):** These companies publish reports on their own websites and were not included in the bulk ESGgenplus download. All 23 have valid `report_url` entries; reports exist but were not downloaded. No remediation possible without re-downloading.
 
 **gri_codes_summary_2023.csv confirmed:** 649 rows; used as authoritative source for GRI code coverage (not processed text — see Check C note).
+
+---
+
+### Entry 9 — Phase 1 Step 1.4: Block C English-Track Extraction (Pass 33)
+**Date:** 2026-06-08  
+**Tool:** `phase1_block_c_english_2023.py`  
+**Input:** `2023_processed/*_2023_E.txt` (526 files)  
+**DB target:** `twse-research-database.csv` (2023 rows, 175 cols)  
+**Update rule:** Overwrite only if new value is non-zero and existing is zero/empty (or always for `process_quality_score`).
+
+**Results — 526/526 files processed, 0 not in DB:**
+
+| Variable | Filled / 526 | Rate |
+|---|---|---|
+| mat_section_found | 512 | 97.3% |
+| board_approved | 336 | 63.9% |
+| double_materiality_mentioned | 52 | 9.9% |
+| scoring_method_disclosed | 16 | 3.0% |
+| dm_methodology_disclosed | 443 | 84.2% |
+| visualization_format | 44 | 8.4% |
+| ai_tool_disclosed | 23 | 4.4% |
+| process_quality_score | 522 | 99.2% |
+
+**Cross-cohort notes:**
+- `dm_methodology_disclosed` 84.2% in 2023 vs 32.1% in 2024: SDGs, TCFD, and GHG Protocol were near-universally cited in 2023 materiality sections; the 2024 figure is lower because ISSB/ESRS references partially displaced these older frameworks.
+- `visualization_format` 8.4% vs 56.9%: materiality matrix/bubble chart disclosure practices expanded dramatically with IFRS-era reporting in 2024.
+- `ai_tool_disclosed` 4.4% vs 40.4%: AI tool disclosure is essentially a 2024-onwards phenomenon.
+- `double_materiality_mentioned` near-identical (9.9% vs 10.3%): double materiality awareness was already present in 2023 but has not grown substantially.
+
+**Progress file:** `phase1_block_c_2023_progress.json` (526 tickers marked done)
