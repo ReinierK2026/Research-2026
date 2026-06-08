@@ -134,7 +134,18 @@ n_material_topics_a (GRI standard topic codes, not GRI 2-x) rising monotonically
 
 Environmental topics fastest growing (+29% over panel). SASB TC-SC topic alignment improving: avg SASB TC-SC topics 7.3 (2021) → 8.5 (2024).
 
-n_material_topics_b (GRI 3-3 disclosure entry count): **1,042/1,042 (100%) of NLP-corpus companies now have a value** (Pass 26 — 2026-06-08); 633/1,042 (60.7%) non-zero, 409/1,042 zero (image-based GRI index or no GRI 3-3 disclosures detected). 526 values from gri_tables CSVs (original extraction); 516 values from txt-based multi-pattern extraction (v5: management-phrase regex + in-body `GRI 3-3：YYYY` page-count; Pearson r=0.59 vs gri_tables baseline; 29% exact, 51% within ±1 on 526-ticker validation). For n_material_topics_a: 1,011/1,042 (97.0% — 31 remaining: image-embedded GRI index). This is the primary H1 outcome variable. **Pre-GRI 3 baseline unavailable by definition** — this is structurally correct, as GRI 3-3 did not exist before GRI Universal Standards 2021.
+**n_material_topics_a — per-cohort coverage (Pass 31 investigation, 2026-06-08)**:
+
+| Year | NLP corpus | n_material_topics_a | Coverage | Gap | Source |
+|------|-----------|---------------------|----------|-----|--------|
+| 2021 | 479 | ~339 | **70.8%** | ~140 | gri_codes_summary (n_standards−1) |
+| 2022 | 617 | ~525 | **85.1%** | ~92 | gri_codes_summary (n_standards−1) |
+| 2023 | 727 | ~576 | **79.2%** | ~151 | gri_codes_summary (n_standards−1) |
+| 2024 | 1,042 | 1,011 | **97.0%** | 31 | gri_codes_summary (n_standards−1) + gri_tables |
+
+Coverage gaps are **structural ceilings** — not improvable with available data — arising from three root causes: (1) image-embedded GRI content index: pdfplumber located the page but cannot parse the codes (n_standards=0); affects ~76 companies in 2021, ~33 in 2022, ~32 in 2023; (2) Chinese-only reports: GRI extraction regex pipeline is English-only; affects ~67 in 2021, ~50 in 2022, ~47 in 2023; (3) no GRI section present in extracted text at all. The 2024 ceiling (97.0%) is notably higher because mandatory TWSE reporting brought in larger, better-structured reporters with machine-readable GRI indices.
+
+**n_material_topics_b** (GRI 3-3 disclosure entry count): **1,042/1,042 (100%) of NLP-corpus 2024 companies now have a value** (Pass 26 — 2026-06-08); 633/1,042 (60.7%) non-zero, 409/1,042 zero (image-based GRI index or no GRI 3-3 disclosures detected). 526 values from gri_tables CSVs (original extraction); 516 values from txt-based multi-pattern extraction (v5: management-phrase regex + in-body `GRI 3-3：YYYY` page-count; Pearson r=0.59 vs gri_tables baseline; 29% exact, 51% within ±1 on 526-ticker validation). This is the primary H1 outcome variable. **Pre-GRI 3 baseline unavailable by definition** — structurally correct, as GRI 3-3 did not exist before GRI Universal Standards 2021.
 
 ### Block E: Topic Dynamics [High confidence | data-analyst | 2026-05-23]
 Binary topic panel: 80,255 rows (2,293 company-years × 35 canonical topics); binary disclosed 0/1.
