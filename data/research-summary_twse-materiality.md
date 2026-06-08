@@ -30,16 +30,20 @@ Staggered Difference-in-Differences (DiD) using the Callaway-Sant'Anna (2021) es
 ### Database
 `twse-research-database.csv` — 157 columns × 7,765 data rows (+ 2 header rows: block labels + column names). UTF-8 BOM. Block-label header pattern: Row 1 = block labels (A/B/C/D/F/G), Row 2 = column names, Row 3+ = data.
 
-### 2024 Cohort Reconciliation
-| Stage | Count | Notes |
-|-------|-------|-------|
-| TEJ CSR Disclosure rows (2024) | 1,983 | All TWSE companies with ESG filings per TEJ — database scaffold |
-| Source PDFs on disk (`twse_esg_reports/2024/`) | 1,043 | 662 English (`_E`) + 381 non-English |
-| Extracted `.txt` files (`extracted_text/2024_processed/`) | 1,064 | 680 English + 384 non-English; 21 extra from ESGgenplus (no local PDF) |
-| **Unique companies in NLP corpus** | **1,042** | 22 tickers have paired English+Chinese versions → 1,064 files, 1,042 companies |
-| TEJ rows with no report in corpus | 941 | Have TEJ scaffold data but no extractable ESG report text |
+### Cohort Reconciliation (all years, Pass 29 — 2026-06-08)
 
-All coverage percentages for NLP-based blocks (B, C, D) are expressed against **1,042** (unique companies with extracted text).
+| Year | DB rows (TEJ) | PDFs on disk | Extracted txt (NLP corpus) | ESGgenplus-only | DB-scaffold only (no text) |
+|------|--------------|-------------|---------------------------|-----------------|--------------------------|
+| 2021 | 835 | 490 | **479** | 0 | 356 |
+| 2022 | 981 | 615 | **617** | 6 | 364 |
+| 2023 | 1,186 | 711 | **727** | 16 | 459 |
+| 2024 | 1,983 | 1,022 | **1,042** | 20 | 941 |
+
+NLP corpus = unique companies with word_count_total > 0 (text successfully extracted from report). This is the denominator for all Blocks B, C, D.
+
+**Note — 2024 bilingual pairs**: 14 companies have both `_E.pdf` and a Chinese PDF → 1,022 PDF tickers but 1,042 txt tickers (20 extra from ESGgenplus platform, no local PDF).
+
+All coverage percentages for NLP-based blocks (B, C, D) use the year-specific NLP corpus as denominator.
 
 ### Agents Deployed (cumulative across all sessions)
 - **web-researcher**: Regulatory/industry intelligence (2 passes)
@@ -208,6 +212,8 @@ Coverage is shown two ways: **NLP corpus** (1,042 companies with extracted text)
 | G | independent_director_ratio | 0% | 0% | Not in TEJ files; stub |
 
 ### Known Reliability Issues
+
+- **`gri_adoption_year` — CRITICAL GAP (Pass 29)**: Only 74 of 2,011 Universal adopters have `gri_adoption_year` populated (3.7%). This column is the DiD treatment variable. Derivable for all companies from `gri_standard_version` panel: 2021 cohort: 14; 2022: 869; 2023: 310; 2024: 818. Of the 818 first-time-2024 adopters, 792 have no pre-2024 rows (new entrants under mandatory reporting). **Must be filled before any DiD estimation.** (See Action Item 1.)
 - **TESG scores 2023–2024**: Unavailable. TEJ ESG score file ends at 2022/12. No workaround from current TEJ data.
 - **independent_director_ratio**: Not in TEJ Governance file. Requires TWSE corporate governance database or manual collection.
 - **state_ownership_pct**: ~~TEJ Share Structure December coverage too sparse — unusable~~ **RESOLVED (Pass 28)**: File is cross-sectional (one row per company, 2025–2026 snapshot). Treated as time-invariant control: same Government(%) value applied across all fiscal years per ticker. Coverage: 7,535/7,765 rows (97.0%); 402 tickers with government ownership > 0%. 230 rows unmatched (no TEJ entry).
@@ -320,6 +326,7 @@ gri_101_applied, gri_new_climate_energy_adopted, ifrs_s1_adopted, issb_s2_adopte
 ## Pending Work (Prioritised)
 
 ### Critical Path (blocks analysis)
+0. **Populate `gri_adoption_year` for full universe** — derive from `gri_standard_version` panel for all 2,011 Universal adopters. Flag 792 new-entrant companies (2024-only, no prior rows). **This is a prerequisite for DiD estimation.** (Pass 30)
 1. **OSF pre-registration** (H1–H4) — must precede any inferential CS21 estimates. Document: treatment definition, estimand, estimator, controls, expected sign, power calculation, robustness checks.
 2. **Stage 3 manual concordance** (~60–80 genuine unmatched GRI 3-3 topic labels, 2023–2024 panel) — two-coder protocol; ~1–2 days.
 3. **R DiD analysis scripts** — att_gt() implementation, event-study plots, Rambachan-Roth sensitivity.
@@ -352,9 +359,10 @@ gri_101_applied, gri_new_climate_energy_adopted, ifrs_s1_adopted, issb_s2_adopte
 | 2026-05-24 | research-coordinator | 22 | Synthesis summary (this document) |
 | 2026-06-08 | coordinator | 24–27 | Reconciliation (1,983 vs 1,042 N); n_material_topics_a +86 (Pass 25); n_material_topics_b 516 filled (Pass 26); Block F quick wins: insider_ownership_pct, firm_size_quintile, firm_age_quintile (Pass 27) |
 | 2026-06-08 | coordinator | 28 | assurance_level: 1,467 rows corrected Reasonable→Limited (Pass 28); state_ownership_pct: 4,209 rows filled from TEJ Share Structure Government(%) time-invariant (Pass 28) |
+| 2026-06-08 | coordinator | 29 | Full cohort audit (2021–2024): PDF/txt/DB reconciliation; Block A/B/C/D/F coverage by year; identified gri_adoption_year critical gap (74/2,011 populated); NLP corpus: 479/617/727/1,042; report: cohort-audit_2021-2023.md (Pass 29) |
 
 ---
 
 *Generated by: research-coordinator | Pass 22 | 2026-05-24*  
-*Covers: Passes 1–28 across 7 sessions (2026-05-18 through 2026-06-08)*  
+*Covers: Passes 1–29 across 7 sessions (2026-05-18 through 2026-06-08)*  
 *Next coordinator session trigger: after OSF pre-registration or Stage 3 manual concordance completion*
