@@ -213,7 +213,7 @@ Coverage is shown two ways: **NLP corpus** (1,042 companies with extracted text)
 - **Assurance_level**: 48–72% coverage per year (TEJ data completeness ceiling). Gap may bias H3 estimates.
 
 ### Data Biases
-- **ESGgenplus corpus selection bias**: 23–24 companies per year not in the bulk download. These are systematically smaller or less prominent companies — Block B/C/D estimates may skew toward larger, more sophisticated reporters.
+- **NLP corpus selection bias**: 941 of 1,983 TEJ-registered 2024 companies (47.5%) have no extracted report text and are excluded from Block B/C/D analysis. These are likely systematically smaller or less-prominent companies — estimates for process quality, topic counts, and text-based variables will skew toward larger, more active reporters. Analysts using NLP-based outcomes should note the effective N is 1,042, not 1,983.
 - **December fiscal year filter**: TEJ data filtered to YYYY/12 fiscal year-end. Non-December fiscal year companies are excluded from financial controls. This affects <5% of TWSE universe.
 - **GRI 3-3 table extraction**: Available only for 2023–2024 from PDF-embedded GRI tables. 2021–2022 use GRI code regex only — `n_material_topics_b` is 2023–2024 only for this reason.
 
