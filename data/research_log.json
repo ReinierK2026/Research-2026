@@ -1123,5 +1123,142 @@
       "audits/text_extraction_quality_audit_2022.md",
       "scripts/deduplicate_2022_processed.py (script created in pass 21, executed this pass)"
     ]
+  },
+  {
+    "session_date": "2026-06-08",
+    "pass": 24,
+    "agent": "research-coordinator",
+    "topic_slug": "twse-materiality",
+    "status": "completed",
+    "sources_consulted": [
+      "twse_esg_reports/2024/ (1,043 PDFs)",
+      "text-extraction/extracted_text/2024_processed/ (1,064 .txt)",
+      "twse-research-database.csv"
+    ],
+    "key_findings": [
+      "Source PDFs on disk: 1,043 (662 English _E + 381 non-English)",
+      "Extracted .txt files: 1,064 (680 English + 384 non-English; 21 extra from ESGgenplus with no local PDF)",
+      "Unique companies in NLP corpus: 1,042 (22 tickers have paired English+Chinese versions)",
+      "TEJ scaffold rows for 2024: 1,983; companies without a report in corpus: 941 (47.5%)",
+      "Block B/C coverage within NLP corpus: 100% (1,042/1,042)",
+      "Block D n_material_topics_a: 88.8% (925/1,042)",
+      "Block D n_material_topics_b: 50.5% (526/1,042)",
+      "Block F financial: 87.0% (907/1,042)",
+      "Block G governance: 98.5-99.8% (1,026-1,040/1,042)"
+    ],
+    "sections_updated": [
+      "reports/research-summary_twse-materiality.md — 2024 Cohort Reconciliation table added; Block B/C/D/NLP/FirmAge corrected; Data Quality table dual-denominator; Data Biases updated",
+      "data/audits/text_extraction_quality_audit_2024.md — header corrected with PDF vs txt count breakdown",
+      "data/research_log.json — Pass 24 appended"
+    ],
+    "output_file": "reports/research-summary_twse-materiality.md",
+    "notes": "Canonical N for 2024 NLP-based analysis corrected from 1,983 (TEJ universe) to 1,042 (unique companies with extracted text). All coverage fractions re-expressed against correct denominator. Reconciliation table added to Database section of research summary."
+  },
+  {
+    "session_date": "2026-06-08",
+    "pass": 25,
+    "agent": "data-analyst",
+    "topic_slug": "twse-materiality",
+    "status": "completed",
+    "sources_consulted": [
+      "text-extraction/extracted_text/2024_processed/ (1,064 .txt files)",
+      "data/gri/gri_codes_summary_2024.csv",
+      "twse-research-database.csv"
+    ],
+    "key_findings": [
+      "n_material_topics_a recovered for 86/117 missing 2024 companies via regex on processed text",
+      "Method: GRI NNN pattern + standalone NNN-N pattern on full .txt content, filtered to valid topic standards (200-207, 301-308, 401-419)",
+      "31 companies remain zero: image-embedded GRI index tables not text-extractable (includes TSMC 2330, 1409, 1437, 2314, etc.)",
+      "Block D topics_a coverage: 925/1042 (88.8%) -> 1011/1042 (97.0%)",
+      "Distribution: mean 12.3 standards, median 12, range 1-36",
+      "Spot-check: 5/5 re-extracted values match DB values (±1 for pre-existing pdfplumber values)"
+    ],
+    "sections_updated": [
+      "twse-research-database.csv — 86 rows updated (n_material_topics_a)",
+      "reports/research-summary_twse-materiality.md — Block D coverage updated to 97.0%",
+      "data/research_log.json — Pass 25 appended"
+    ],
+    "output_file": "twse-research-database.csv",
+    "notes": "31 remaining zeros have hard ceiling: GRI content index is image/scanned table. Manual coding or OCR of specific GRI index pages required for those companies. Methodological note: regex method may slightly over-count (catches GRI codes mentioned in prose body, not only formally declared topic standards). Values for the 86 new rows should be treated as approximate."
+  },
+  {
+    "task_id": "pass-26-topics-b-extraction",
+    "date": "2026-06-08",
+    "agent": "coordinator",
+    "topic": "GRI 3-3 material topic count (n_material_topics_b) extraction for 516 missing 2024 NLP-corpus companies",
+    "status": "completed",
+    "output_file": "twse-research-database.csv",
+    "variables_added": [
+      "n_material_topics_b (516 rows filled)"
+    ],
+    "notes": "Designed multi-pattern txt-based extraction (v5): pattern 1 = standalone '3-3' + management phrase (EN/ZH variants); pattern 2 = 'GRI 3-3：YYYY' in-body section headers. Per-page max across files prevents double-counting in split PDFs and bilingual pairs. Validation on 526 known tickers: Pearson r=0.59 vs gri_tables DB values; 29% exact match, 51% within ±1. Applied to 516 missing NLP-corpus companies: 374/516 non-zero, 142/516 zero. n_material_topics_b now populated for all 1,042 NLP-corpus 2024 companies (633 non-zero / 409 zero / 941 outside corpus remain blank). Zero values reflect image-based GRI indices or reports without GRI 3-3 disclosures."
+  },
+  {
+    "task_id": "pass-27-block-f-quick-wins",
+    "date": "2026-06-08",
+    "agent": "coordinator",
+    "topic": "Block F quick wins: insider_ownership_pct, firm_size_quintile, firm_age_quintile",
+    "status": "completed",
+    "output_file": "twse-research-database.csv",
+    "variables_added": [
+      "insider_ownership_pct",
+      "firm_size_quintile",
+      "firm_age_quintile"
+    ],
+    "notes": "insider_ownership_pct filled from board_ownership_pct (TEJ Governance; 7,670/7,765 rows = 98.8%). firm_size_quintile computed from ln_total_assets ranked within each fiscal year; 70.5% coverage (5,478/7,765) bounded by TEJ financial data availability. firm_age_quintile computed from firm_age ranked within each fiscal year; 94.4% coverage (7,333/7,765). All quintile bins perfectly balanced (N/5 per bin). TSMC 2024: insider_own=6.52%, size_q=5, age_q=5."
+  },
+  {
+    "task_id": "pass-28-assurance-stateownership",
+    "date": "2026-06-08",
+    "agent": "coordinator",
+    "topic": "Correct assurance_level labels and populate state_ownership_pct",
+    "status": "completed",
+    "output_file": "twse-research-database.csv",
+    "variables_added": [
+      "state_ownership_pct"
+    ],
+    "notes": "assurance_level: 1,467 rows corrected Reasonable→Limited using TEJ CSR Disclosure.xlsx. Root cause: 中度保證 (AA1000 moderate assurance) was incorrectly mapped as Reasonable in original DB. Correct: Limited. Zero rows changed in opposite direction. state_ownership_pct: 4,209 blank rows filled from TEJ Share structure.xlsx Government(%) column. Time-invariant fill: same value for all fiscal years per ticker. 3,326 rows already had values; 230 rows had no TEJ match. Coverage = 97.0% of DB rows. Join key: COID (TEJ) = twse_ticker (DB) for 4-digit TWSE tickers."
+  },
+  {
+    "task_id": "pass-29-cohort-audit-2021-2023",
+    "date": "2026-06-08",
+    "agent": "coordinator",
+    "topic": "Full cohort audit (2021–2024): Blocks A/B/C/D/F coverage + PDF/txt/DB reconciliation",
+    "status": "completed",
+    "output_file": "reports/cohort-audit_2021-2023.md",
+    "variables_added": [],
+    "notes": "Comprehensive audit of all 4 cohort years. Key findings: (1) gri_adoption_year CRITICAL GAP — only 74/2,091 companies populated; 2,011 derivable from gri_standard_version. (2) NLP corpus: 479/617/727/1,042 for 2021/22/23/24. (3) Block C 100% of NLP corpus all years. (4) n_material_topics_a gaps: 29% (2021), 15% (2022), 21% (2023), 3% (2024) of NLP corpus. (5) n_material_topics_b correctly 0% for 2021-2023 (GRI 3-3 pre-dates Universal Standards). (6) sasb_tcsc_topics_n empty everywhere. (7) tesg_score 0% for 2023-2024 (known TEJ ceiling). (8) 2021 ticker 3990 has PDF but no DB row. PDF reconciliation: 2022+ fully clean. Report saved to cohort-audit_2021-2023.md."
+  },
+  {
+    "task_id": "pass-30-gri-adoption-year-full-fill",
+    "date": "2026-06-08",
+    "agent": "coordinator",
+    "topic": "Populate gri_adoption_year for full TWSE universe from gri_standard_version panel",
+    "status": "completed",
+    "output_file": "twse-research-database.csv",
+    "variables_added": [],
+    "variables_updated": ["gri_adoption_year"],
+    "notes": "7,634 rows now populated (7,127 new fills + 74 pre-existing). 131 rows blank = never-Universal companies (appear only under GRI Standards 2016). Derivation: first fiscal year per ticker with gri_standard_version = 'GRI-Universal-2021'. Zero conflicts with prior 74 values. Adoption distribution: 2021: 14 companies; 2022: 869; 2023: 310; 2024: 818. Of 818 first-time-2024 adopters, 792 are new entrants (no pre-adoption DB rows — excluded from DiD estimation). DiD treatment variable fully valid for CS21 estimation. Critical gap resolved."
+  },
+  {
+    "task_id": "pass-31-n-material-topics-a-cohort-investigation",
+    "date": "2026-06-08",
+    "agent": "coordinator",
+    "topic": "n_material_topics_a per-cohort structural ceiling investigation (2021–2023)",
+    "status": "completed",
+    "output_file": "reports/research-summary_twse-materiality.md",
+    "variables_added": [],
+    "notes": "Investigated n_material_topics_a coverage gaps for 2021–2023 cohorts. Confirmed structural ceilings: 2021: 70.8% (339/479), 2022: 85.1% (525/617), 2023: 79.2% (576/727), 2024: 97.0% (1,011/1,042). Three root causes identified: (1) image-embedded GRI content index (pdfplumber found page but n_standards=0): ~76 (2021), ~33 (2022), ~32 (2023); (2) Chinese-only reports (English regex pipeline does not process ZH text): ~67 (2021), ~50 (2022), ~47 (2023); (3) no GRI section present in extracted text. All gaps are non-improvable without OCR or multilingual GRI extraction pipeline. n_standards−1 formula confirmed as source for all non-gri_tables companies (92–93% exact match for 2021–2023). Research summary updated with per-cohort breakdown and structural ceiling documentation."
+  },
+  {
+    "task_id": "pass-31-summary-update",
+    "date": "2026-06-08",
+    "agent": "research-coordinator",
+    "type": "synthesis",
+    "topic": "Research summary update — per-cohort consistency, Pass 30/31 findings",
+    "status": "completed",
+    "output_file": "reports/research-summary_twse-materiality.md",
+    "variables_added": [],
+    "notes": "Updated research-summary_twse-materiality.md with: (1) Treatment Variable section expanded with full-universe gri_adoption_year distribution and new-entrant flag; (2) Block B per-cohort NLP corpus numbers and bilingual breakdown by year; (3) Block C table updated with denominator row; (4) Block D n_material_topics_a per-cohort coverage table with structural ceiling root causes; (5) Data Quality table: n_material_topics_a row updated with per-cohort figures; (6) Known Reliability Issues: gri_adoption_year upgraded from CRITICAL GAP to RESOLVED; n_material_topics_a structural ceiling note added; (7) Data Biases: NLP corpus selection bias updated for multi-cohort context; (8) Pending Work: item 0 (gri_adoption_year) removed; (9) Session History: Pass 30 and 31 entries appended; (10) Footer updated to Pass 31."
   }
 ]
