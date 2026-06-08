@@ -508,6 +508,64 @@ Implementation note: Each file processed one at a time (smallest first), with pe
 
 ---
 
+---
+
+## Next Steps — NLP Analysis Pipeline
+
+**Status legend:** ⬜ Pending · 🔄 In Progress · ✅ Done  
+**Updated:** 2026-06-08 (Pass 33 — Step 1.4 Block C complete; scripts for 1.1/1.2/1.3 ready for local execution)  
+**Prerequisite satisfied:** All three quality checks pass / accepted — corpus is ready for NLP.
+
+---
+
+### Phase 0 — Pre-NLP Data Preparation
+
+| # | Step | Status | Notes |
+|---|---|---|---|
+| 0.1 | Language detection — route files to English vs multilingual track | ✅ Done | 526 `_E` files (71%) → English track; 218 other files (29%) → multilingual track. `_E` filename suffix used as primary signal. |
+| 0.2 | Block B text metrics (word_count, page_count, report_language) | ✅ Done (subsample) | Populated for 49/72 TWSE subsample rows. 23 tickers not in ESGgenplus corpus — no file available. |
+| 0.3 | GRI code extraction | ✅ Done | `gri_codes_summary_2023.csv` (649 rows, 42,044 code instances). Use this, not processed text, for GRI coverage analysis (see Check C). |
+
+---
+
+### Phase 1 — NLP Pipeline: English Track (`_E` files, 526 files)
+
+| # | Step | Status | Notes |
+|---|---|---|---|
+| 1.4 | Block C regex extractor — materiality process indicators | ✅ Done | Ran in sandbox 2026-06-08. 526/526 files processed. Coverage: mat_section_found 97.3%, board_approved 63.9%, dm_methodology_disclosed 84.2%, process_quality_score 99.2%, double_materiality_mentioned 9.9%, visualization_format 8.4%, scoring_method_disclosed 3.0%, ai_tool_disclosed 4.4%. Note: visualization_format (8.4%) and ai_tool_disclosed (4.4%) are substantially lower than 2024 (56.9% / 40.4%) — reflecting pre-IFRS disclosure norms. Script: `phase1_block_c_english_2023.py`. |
+| 1.3 | ESGLens SBERT topic matcher (all-MiniLM-L6-v2, 30 GRI topics) | ⬜ Pending | Script ready: `phase1_step1_3_esglens_2023.py`. Run first among the three model-based steps. Output: `eslens_2023_matches.jsonl` + 7 DB cols (`esglens_top1_topic`, `esglens_top1_sim`, `esglens_top3_topics`, `esglens_mean_sim`, `esglens_env_affinity`, `esglens_soc_affinity`, `esglens_gov_affinity`). Requires: `pip install sentence-transformers torch`. |
+| 1.1 | FinBERT-ESG-9-Categories sentence classification | ⬜ Pending | Script ready: `phase1_step1_1_finbert_2023.py`. Run AFTER 1.3 completes. DB cols: `finbert_env_pct`, `finbert_soc_pct`, `finbert_gov_pct`, `finbert_other_pct`, `finbert_esg_sentences_n`, `finbert_dominant_factor`. Requires: `pip install transformers torch sentencepiece`. ⚠️ Run alone — do not run concurrently with ClimateBERT. |
+| 1.2 | ClimateBERT climate sentence detection | ⬜ Pending | Script ready: `phase1_step1_2_climatebert_2023.py`. Run AFTER 1.1 fully completes. DB cols: `climatebert_climate_pct`, `climatebert_climate_sentences_n`, `climatebert_total_sentences_n`. ⚠️ Run alone — do not run concurrently with FinBERT. |
+
+**Run order (local machine):**
+```
+cd ".../scripts/phase1_nlp_local"
+python3 phase1_step1_3_esglens_2023.py      # ~20 min, 526 files
+python3 phase1_step1_1_finbert_2023.py      # wait for ESGLens to finish first
+python3 phase1_step1_2_climatebert_2023.py  # wait for FinBERT to finish first
+```
+
+---
+
+### Phase 2 — NLP Pipeline: Multilingual Track (Chinese/bilingual files, 218 files)
+
+| # | Step | Status | Notes |
+|---|---|---|---|
+| 2.1 | Multilingual semantic chunking (Qwen3-Embedding-8B or BGE-M3) | ⬜ Pending | Mirror Phase 2 from 2024. |
+| 2.2 | XLM-RoBERTa-XNLI zero-shot topic classification | ⬜ Pending | Candidate labels = GRI material topic taxonomy. |
+| 2.3 | Block C indicators (Chinese/bilingual) | ⬜ Pending | Key terms: 重大性評估流程, 雙重重大性, AI工具. |
+
+---
+
+### Phase 3 — Block Variable Population
+
+| # | Step | Status | Notes |
+|---|---|---|---|
+| 3.1 | Populate Block C + NLP cols in `twse-research-database.csv` | 🔄 In Progress | Block C (step 1.4): 526 English rows updated 2026-06-08. ESGLens / FinBERT / ClimateBERT cols exist in DB schema (175 cols total, shared with 2024 cols) but not yet filled for 2023. |
+| 3.2 | Populate Block D (material topics) from GRI tables CSVs | ⬜ Pending | Source: `gri_codes_summary_2023.csv`. |
+
+---
+
 ### Entry 8 — Block B Subsample Row Population (Pass 7)
 **Date:** 2026-05-22  
 **Scope:** TWSE subsample only (72 rows in 2023)
