@@ -1557,13 +1557,13 @@
     "pass": 36,
     "agent": "coordinator-scripts",
     "topic": "Phase 1 Step 1.1 FinBERT-ESG-9-Categories sentence classification — 2021 English track",
-    "status": "pending-user-execution",
+    "status": "completed",
     "output_file": "scripts/phase1_nlp_local/phase1_step1_1_finbert_2021.py",
     "variables_added": [
       "finbert_env_pct", "finbert_soc_pct", "finbert_gov_pct",
       "finbert_other_pct", "finbert_esg_sentences_n", "finbert_dominant_factor"
     ],
-    "notes": "Script created. Run after ESGLens completes. Do NOT run concurrently with ClimateBERT."
+    "notes": "307/307 _E files processed. Dominant: soc=143 (46.6%), gov=106 (34.5%), env=37 (12.1%), other=21 (6.8%). Mean pcts: soc=0.351, gov=0.313, env=0.198, other=0.138. Run sequentially after ESGLens."
   },
   {
     "task_id": "phase1-step1-2-climatebert-2021",
@@ -1571,13 +1571,13 @@
     "pass": 36,
     "agent": "coordinator-scripts",
     "topic": "Phase 1 Step 1.2 ClimateBERT climate detection — 2021 English track",
-    "status": "pending-user-execution",
+    "status": "completed",
     "output_file": "scripts/phase1_nlp_local/phase1_step1_2_climatebert_2021.py",
     "variables_added": [
       "climatebert_climate_pct",
       "climatebert_climate_sentences_n",
       "climatebert_total_sentences_n"
     ],
-    "notes": "Script created. Run after FinBERT completes. Do NOT run concurrently with FinBERT."
+    "notes": "307/307 _E files processed. Mean climate_pct=0.4493; 120/307 above 0.5; 0 zero-sentence files. Run sequentially after FinBERT."
   }
 ]
