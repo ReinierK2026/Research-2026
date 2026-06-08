@@ -22,68 +22,41 @@ This repository contains:
 
 **Access the live dashboard**: https://ReinierK2026.github.io/Research-2026/
 
-The dashboard auto-updates everytime any of the files in teh 'Data' folder is updated. 
+The dashboard auto-updates everytime any of the files in the 'Data' folder is updated. 
 
 ## 📁 Repository Structure
 
 ```
 Research-2026/
 ├── data/
+│ └──data/audit
 │   └── research_log.json                        # Live research session log
 |   └── text_extraction_quality_audit_2021.md    # Audit quality assessment of the 2021 data
 |   └── text_extraction_quality_audit_2022.md    # Audit quality assessment of the 2022 data
 |   └── text_extraction_quality_audit_2023.md    # Audit quality assessment of the 2023 data
 |   └── text_extraction_quality_audit_2024.md    # Audit quality assessment of the 2024 data
+│ └──data/quality
+|   └── extraction_quality_check_2024.md         # Quality checks
+|   └── extraction_quality_check_2022.md         # Quality checks
+|   └── extraction_quality_check_2021.md         # Quality checks
 ├── website/
 │   ├── index.html                               # Dashboard homepage
 │   ├── style.css                                # Responsive styling
 │   └── script.js                                # Dynamic data rendering
 ├── findings/                                    # Research outputs and documentation
 ├── gaps/                                        # Gap analysis reports
+├── reports/                                     # Research summary
+├── skills/                                      # Researcher skills used in this research project
+├── scripts/                                     # Detailed scripts run by the research agents
+├── hypothesis/                                  # Hypothesis generation files
+├── Materiality_Research_Methodology.md          # Complete methodology file including research questions, methodology to adress them and data to collect
+├── Definitions                                  # Complete list of all definitions used in the research
 └── README.md                                    # This file
 ```
 
 ## 📝 How to Update the Dashboard
 
-### Using Claude Routine (Automated)
-
-1. **In Claude Code**, after completing a research session, create/update `research_log.json`:
-
-```python
-import json
-from datetime import datetime
-
-new_session = {
-    "session_date": datetime.now().strftime("%Y-%m-%d"),
-    "pass": 1,
-    "agent": "web-researcher",
-    "topic_slug": "your-topic-slug",
-    "status": "completed",
-    "key_findings": ["Finding 1", "Finding 2"],
-    "output_file": "findings/your-output.md"
-}
-
-# Load existing log
-with open('research_log.json', 'r') as f:
-    log = json.load(f)
-
-# Append new session
-log.append(new_session)
-
-# Save updated log
-with open('research_log.json', 'w') as f:
-    json.dump(log, f, indent=2)
-```
-
-2. **Use Claude Routine** to push the updated file to GitHub:
-
-```bash
-git add data/research_log.json
-git commit -m "Update research log: [session description]"
-git push
-```
-
-3. **Dashboard auto-updates** (via GitHub Pages) within seconds ✅
+1. **Dashboard auto-updates** (via GitHub Pages) within seconds ✅
 
 ### Manual Update
 
