@@ -605,3 +605,52 @@ Block B text metrics extracted from `2023_processed/` for subsample rows:
 - `double_materiality_mentioned` near-identical (9.9% vs 10.3%): double materiality awareness was already present in 2023 but has not grown substantially.
 
 **Progress file:** `phase1_block_c_2023_progress.json` (526 tickers marked done)
+
+---
+
+### Entry 10 — Phase 1 Steps 1.3 / 1.1 / 1.2: English Track NLP Models (Pass 34)
+**Date:** 2026-06-08  
+**Scripts:** `phase1_step1_3_esglens_2023.py`, `phase1_step1_1_finbert_2023.py`, `phase1_step1_2_climatebert_2023.py`  
+**Run environment:** User local machine (HuggingFace models unavailable in sandbox)  
+**Run order:** ESGLens → FinBERT → ClimateBERT (sequential — concurrent saves would overwrite DB)  
+**Input:** `2023_processed/*_2023_E.txt` (526 files)  
+**DB target:** `twse-research-database.csv` (2023 rows, 175 cols)
+
+**Step 1.3 — ESGLens SBERT (all-MiniLM-L6-v2, 30 GRI topic descriptors):**
+
+| Metric | Value |
+|---|---|
+| Files processed | 526/526 |
+| DB cols filled | 7 (`esglens_*`) |
+| Top-1 topic: SDG Alignment | 104 companies (19.8%) |
+| Top-1 topic: GRI Alignment | 78 companies (14.8%) |
+| Top-1 topic: TCFD/ISSB Alignment | 64 companies (12.2%) |
+| Top-1 topic: Stakeholder Engagement | 47 companies (8.9%) |
+| Secondary output | `eslens_2023_matches.jsonl` (526 lines, full 30-topic matrix) |
+
+Note: SDG Alignment and GRI Alignment dominate in 2023, whereas TCFD/ISSB Alignment is the top topic in 2024. This reflects the 2023→2024 transition from SDG/GRI-framed disclosure to IFRS/ISSB-framed disclosure in TWSE English reports.
+
+**Step 1.1 — FinBERT-ESG-9-Categories:**
+
+| Dominant factor | N | % |
+|---|---|---|
+| gov | 224 | 42.6% |
+| soc | 189 | 35.9% |
+| env | 77 | 14.6% |
+| other | 36 | 6.8% |
+
+Note: Gov-dominant framing is consistent with 2024 (51% gov), though the gov share is slightly lower in 2023, with soc playing a larger role.
+
+**Step 1.2 — ClimateBERT:**
+
+| Metric | Value |
+|---|---|
+| Files processed | 526/526 |
+| Non-zero climate_pct | 520 (98.9%) |
+| Zero climate sentences | 6 companies (valid — no climate content in materiality window) |
+| Mean climate_pct | 0.484 |
+| Companies above 0.5 threshold | 230 (43.7%) |
+
+Note: Mean climate_pct of 0.484 in 2023 vs 0.502 in 2024 — a modest but consistent increase, suggesting IFRS S2-driven climate content grew slightly between cohorts.
+
+**Progress files:** `phase1_step1_3_2023_progress.json`, `phase1_step1_1_2023_progress.json`, `phase1_step1_2_2023_progress.json` (526 tickers each)
