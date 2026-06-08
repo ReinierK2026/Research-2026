@@ -1,6 +1,6 @@
 # Text Extraction Quality Audit — 2021 Cohort
 **Date:** 2026-05-22
-**Last updated:** 2026-06-08 — Pass 36: PDF completeness verified; 6202_2021_E.txt copied from macOS duplicate; Block C run (full column set, 307 _E files); NLP scripts created; ESGLens/FinBERT/ClimateBERT pending user execution  
+**Last updated:** 2026-06-08 — Pass 37: ESGLens/FinBERT/ClimateBERT NLP scripts executed; 307/822 rows filled; all Phase 1 English Track steps complete  
 **Raw corpus:** `/Text extraction/extracted_text/2021/` — 4 files (0 `_E`, 4 other)
 **Processed corpus:** `/Text extraction/extracted_text/2021_processed/` — 495 files (307 `_E` / 62%, 188 other / 38%)
 **PDFs scanned for GRI:** 488 (4 OCR files excluded)
