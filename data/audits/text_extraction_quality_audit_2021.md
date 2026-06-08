@@ -293,9 +293,9 @@ Run order: **Step 1.4 first** (sandbox — already done), then **1.3**, then **1
 | Step | Script | Status | Key results |
 |---|---|---|---|
 | 1.4 Block C | inline sandbox run | ✅ Done 2026-06-08 | mat_section_found 94.5%, board_approved 44.6%, dm_methodology_disclosed 74.3%, visualization_format 11.4%, ai_tool_disclosed 0.7%, double_materiality_mentioned 1.6% |
-| 1.3 ESGLens | `phase1_step1_3_esglens_2021.py` | ⬜ Pending | Install: `pip install sentence-transformers torch` |
-| 1.1 FinBERT | `phase1_step1_1_finbert_2021.py` | ⬜ Pending | Install: `pip install transformers torch sentencepiece` |
-| 1.2 ClimateBERT | `phase1_step1_2_climatebert_2021.py` | ⬜ Pending | Run ALONE after FinBERT completes |
+| 1.3 ESGLens | `phase1_step1_3_esglens_2021.py` | ✅ Done 2026-06-08 | 307/307 filled. Top1: SDG(77), GRI(55), SE(40), SupplierEnv(20), TCFD(19). Mean sim 0.642. Affinity: gov=0.57, env=0.29, soc=0.14 |
+| 1.1 FinBERT | `phase1_step1_1_finbert_2021.py` | ✅ Done 2026-06-08 | 307/307 filled. Dominant: soc=143 (46.6%), gov=106 (34.5%), env=37 (12.1%), other=21 (6.8%) |
+| 1.2 ClimateBERT | `phase1_step1_2_climatebert_2021.py` | ✅ Done 2026-06-08 | 307/307 filled. Mean climate_pct=0.4493; 120/307 above 0.5; 0 zero-sentence files |
 
 **Run order for local scripts:**
 ```
