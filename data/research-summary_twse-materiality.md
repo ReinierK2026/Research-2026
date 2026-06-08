@@ -195,9 +195,9 @@ TEJ Governance monthly data (2014/01–2025/01), December snapshots used. ~98–
 - 50 rows inferred via Governance file first-appearance method (only valid where first entry AFTER 2014/01)
 - 112 pre-2014 establishments and 30 special securities remain unfilled
 
-### NLP Pipeline — English Track [Passes 32–35, 2026-06-08]
+### NLP Pipeline — English Track [Passes 32–37, 2026-06-08]
 
-Phase 1 English Track NLP is complete for the **2022**, **2023**, and **2024** cohorts. All three used identical scripts, models, and DB column slots (175 cols shared across all cohort years).
+Phase 1 English Track NLP is complete for all four text cohorts: **2021**, **2022**, **2023**, and **2024**. All used identical scripts, models, and DB column slots (175 cols shared across all cohort years).
 
 **2024 cohort — 680 English files, all steps complete:**
 
