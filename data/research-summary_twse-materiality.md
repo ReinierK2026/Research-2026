@@ -349,7 +349,7 @@ gri_101_applied, gri_new_climate_energy_adopted, ifrs_s1_adopted, issb_s2_adopte
 | 2026-05-23 | data-analyst | 12–17 | Block F (balance sheet 124 cols, income 139 cols, equity 153 cols, ESG 157 cols), Block G governance, firm_age |
 | 2026-05-23 | data-analyst | 20–21 | Folder reorganisation, methodology dashboard, 2022 audit English-rate correction |
 | 2026-05-24 | research-coordinator | 22 | Synthesis summary (this document) |
-| 2026-06-08 | coordinator | 24–26 | Reconciliation (1,983 vs 1,042 N); n_material_topics_a +86 (Pass 25); n_material_topics_b 516 missing filled via txt extraction (Pass 26) → 100% NLP corpus coverage |
+| 2026-06-08 | coordinator | 24–27 | Reconciliation (1,983 vs 1,042 N); n_material_topics_a +86 (Pass 25); n_material_topics_b 516 filled (Pass 26); Block F quick wins: insider_ownership_pct, firm_size_quintile, firm_age_quintile (Pass 27) |
 
 ---
 
