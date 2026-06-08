@@ -1579,5 +1579,16 @@
       "climatebert_total_sentences_n"
     ],
     "notes": "307/307 _E files processed. Mean climate_pct=0.4493; 120/307 above 0.5; 0 zero-sentence files. Run sequentially after FinBERT."
+  },
+  {
+    "task_id": "phase2-step2-3-block-c-chinese-2024",
+    "date": "2026-06-08",
+    "pass": 38,
+    "agent": "coordinator-scripts",
+    "topic": "Phase 2 Step 2.3 Block C Chinese/bilingual extractor — 2024 multilingual track",
+    "status": "completed",
+    "output_file": "scripts/phase2_nlp_local/phase2_block_c_chinese_2024.py",
+    "variables_added": [],
+    "notes": "361 files processed (363 non-_E minus 2461, 6776 near-empty exclusions). Writes to existing Block C columns — no new columns. DB results: mat_section_found=354/361 (98.1%), board_approved=289/361 (80.1%), double_materiality_mentioned=52/361 (14.4%), scoring_method_disclosed=29/361 (8.0%), dm_methodology_disclosed=341/361 (94.5%), engagement_methods_n mean=3.14 (356/361 nonzero), stakeholder_groups_n mean=7.03 (358/361), process_steps_n=333/361 (92.2%) mean=2.02, visualization_format=70/361 (19.4%), iro_table_shown=24/361 (6.6%), ai_tool_disclosed=16/361 (4.4%), process_quality_score mean=0.426 (358/361 nonzero). Higher board_approved and process_steps_n reflect merge with pre-existing values from earlier extract_block_c pass (update rule: only overwrite if strictly better). Bilingual regex (zh+en); engagement and scoring fall back to full-text search when window returns zero."
   }
 ]
