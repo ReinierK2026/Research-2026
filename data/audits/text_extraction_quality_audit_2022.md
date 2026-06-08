@@ -1,6 +1,6 @@
 # Text Extraction Quality Audit — 2022 Cohort
 **Date:** 2026-05-22 (replaces preliminary audit of 2026-05-19)
-**Last updated:** 2026-05-26 (deduplicated — Chinese duplicates removed)
+**Last updated:** 2026-06-08 — Pass 35: Block C re-run with full column set; NLP scripts created; ESGLens/FinBERT/ClimateBERT pending user execution
 **Raw corpus:** `/Text extraction/extracted_text/2022/` — 615 files (134 `_E`, 481 other)
 **Processed corpus:** `/Text extraction/extracted_text/2022_processed/` — **623 files** (389 `_E` / **62.4%**, 234 Chinese-only / 37.6%) — deduplicated 2026-05-26; 256 Chinese duplicate files removed where an English version existed for the same company
 **PDFs scanned for GRI:** 609 (11 OCR files excluded)
