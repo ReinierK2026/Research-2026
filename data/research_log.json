@@ -1260,5 +1260,55 @@
     "output_file": "reports/research-summary_twse-materiality.md",
     "variables_added": [],
     "notes": "Updated research-summary_twse-materiality.md with: (1) Treatment Variable section expanded with full-universe gri_adoption_year distribution and new-entrant flag; (2) Block B per-cohort NLP corpus numbers and bilingual breakdown by year; (3) Block C table updated with denominator row; (4) Block D n_material_topics_a per-cohort coverage table with structural ceiling root causes; (5) Data Quality table: n_material_topics_a row updated with per-cohort figures; (6) Known Reliability Issues: gri_adoption_year upgraded from CRITICAL GAP to RESOLVED; n_material_topics_a structural ceiling note added; (7) Data Biases: NLP corpus selection bias updated for multi-cohort context; (8) Pending Work: item 0 (gri_adoption_year) removed; (9) Session History: Pass 30 and 31 entries appended; (10) Footer updated to Pass 31."
+  },
+  {
+    "task_id": "phase1-step1-4-block-c-english-2024",
+    "date": "2026-06-08",
+    "agent": "technical-researcher",
+    "topic": "Phase 1 Step 1.4 — Block C regex extractor, English track, 2024 cohort",
+    "status": "completed",
+    "output_file": "twse-research-database.csv",
+    "variables_added": ["mat_section_found","board_approved","double_materiality_mentioned","scoring_method_disclosed","dm_methodology_disclosed","stakeholder_groups_n","engagement_methods_n","process_steps_n","visualization_format","visualization_format_n","iro_table_shown","butterfly_chart_shown","scatter_plot_shown","ai_tool_disclosed","ai_tool_name","process_quality_score"],
+    "notes": "Ran phase1_block_c_english.py in sandbox on all 680 *_2024_E.txt files. 600 already done from prior passes; 80 newly processed. Final coverage (2024 English track, N=680): mat_section_found 99.0%, board_approved 57.1%, visualization_format 56.9% (up from ~38%), dm_methodology_disclosed 32.1% (up from ~16%), ai_tool_disclosed 40.4%, double_materiality_mentioned 10.3%, scoring_method_disclosed 2.2% (genuine scarcity — TDDM/DEMATEL/AHP rare in English filings), process_quality_score 99.9%."
+  },
+  {
+    "task_id": "phase1-step1-3-esglens-2024",
+    "date": "2026-06-08",
+    "agent": "technical-researcher",
+    "topic": "Phase 1 Step 1.3 — ESGLens SBERT semantic topic matcher, English track, 2024 cohort",
+    "status": "completed",
+    "output_file": "scripts/phase1_nlp_local/esglens_2024_matches.jsonl",
+    "variables_added": ["esglens_top1_topic","esglens_top1_sim","esglens_top3_topics","esglens_mean_sim","esglens_env_affinity","esglens_soc_affinity","esglens_gov_affinity"],
+    "notes": "Ran locally on user machine. Model: sentence-transformers/all-MiniLM-L6-v2. All 680 English 2024 files processed. Full per-company similarity matrix (30 GRI-anchored topics) saved to esglens_2024_matches.jsonl. DB updated with 7 summary columns. Top materiality topics across corpus: Stakeholder Engagement, GHG Emissions, TCFD/ISSB Alignment, Circular Economy. Env affinity median: 0.3; soc affinity median: 0.1; gov affinity median: 0.1."
+  },
+  {
+    "task_id": "phase1-step1-1-finbert-2024-needs-remerge",
+    "date": "2026-06-08",
+    "agent": "technical-researcher",
+    "topic": "Phase 1 Step 1.1 — FinBERT-ESG-9 classification, English track, 2024 cohort",
+    "status": "partial",
+    "output_file": "scripts/phase1_nlp_local/phase1_step1_1_progress.json",
+    "variables_added": [],
+    "notes": "Ran locally — all 680 files processed (confirmed in progress JSON). However, DB write was corrupted by multi-script header-accumulation bug (scripts naively appended new column names as extra rows on each run). FinBERT output values not recoverable from corrupted rows. DB repaired (7,765 rows restored). Steps 1.1 and 1.2 need re-run using updated scripts with db_utils.py (csv.reader/writer, safe header detection). New col slots exist in DB schema: finbert_env_pct, finbert_soc_pct, finbert_gov_pct, finbert_econ_pct, finbert_human_pct, finbert_other_pct, finbert_esg_sentences_n, finbert_dominant_factor."
+  },
+  {
+    "task_id": "phase1-step1-2-climatebert-2024-needs-remerge",
+    "date": "2026-06-08",
+    "agent": "technical-researcher",
+    "topic": "Phase 1 Step 1.2 — ClimateBERT climate detector, English track, 2024 cohort",
+    "status": "partial",
+    "output_file": "scripts/phase1_nlp_local/phase1_step1_2_progress.json",
+    "variables_added": [],
+    "notes": "Same situation as step 1.1. All 680 files processed but DB write failed. Re-run required with updated scripts. New col slots: climatebert_climate_pct, climatebert_climate_sentences_n, climatebert_total_sentences_n."
+  },
+  {
+    "task_id": "db-repair-nlp-header-corruption-2026-06-08",
+    "date": "2026-06-08",
+    "agent": "coordinator",
+    "topic": "DB repair after Phase 1 NLP header-accumulation corruption",
+    "status": "completed",
+    "output_file": "twse-research-database.csv",
+    "variables_added": ["esglens_top1_topic","esglens_top1_sim","esglens_top3_topics","esglens_mean_sim","esglens_env_affinity","esglens_soc_affinity","esglens_gov_affinity","finbert_env_pct","finbert_soc_pct","finbert_gov_pct","finbert_econ_pct","finbert_human_pct","finbert_other_pct","finbert_esg_sentences_n","finbert_dominant_factor","climatebert_climate_pct","climatebert_climate_sentences_n","climatebert_total_sentences_n"],
+    "notes": "NLP scripts (1.1-1.3) used naive line.split(',') and appended new col names as extra rows on each run, causing junk rows to accumulate (31,066 total lines vs expected 7,767). Repair: extracted all valid rows (7,765) by filtering for valid ticker + year, deduplicated by company_id, trimmed to original 157 cols, added 18 NLP col slots (175 total), filled ESGLens data from JSONL (680 rows), wrote clean file. Backup: twse-research-database_pre-nlp-repair.csv. Root-cause fix: db_utils.py added to scripts folder — uses csv.reader/writer and skips non-data rows when loading DB."
   }
 ]
