@@ -425,9 +425,11 @@ gri_101_applied, gri_new_climate_energy_adopted, ifrs_s1_adopted, issb_s2_adopte
 | 2026-06-08 | technical-researcher | 33 | 2024 Phase 1 fully completed: FinBERT re-run (680/680; gov=51%, soc=28%, env=12%, other=9%); ClimateBERT re-run (680/680; mean climate_pct=0.502, 324 companies >0.5); first ClimateBERT run lost to concurrent-save race condition, fixed by sequential re-run. All 2024 NLP columns filled. audit file + research_log updated. (Pass 33) |
 | 2026-06-08 | technical-researcher | 34 | 2023 Phase 1 English Track NLP fully completed: Block C (526/526, dm_methodology_disclosed 84.2%, visualization_format 8.4%, ai_tool_disclosed 4.4%); ESGLens (526/526, top topics: SDG Alignment→GRI Alignment→TCFD/ISSB vs 2024's TCFD/ISSB dominance); FinBERT (526/526, gov=43%); ClimateBERT (526/526, mean 0.484). Cross-cohort NLP pivot documented. All logs, audit file, research summary updated. (Pass 34) |
 | 2026-06-08 | technical-researcher | 35 | 2022 Phase 1 English Track NLP fully completed: Block C re-run with full 16-col set (389 files; mat_section_found 95.1%, dm_methodology_disclosed 82.8%, visualization_format 10.0%, ai_tool_disclosed 0.8%); ESGLens (388/389; top: SDG Alignment 94, GRI Alignment 51, TCFD/ISSB 40); FinBERT (388/389; gov=39%, soc=38%); ClimateBERT (388/389; mean 0.485). 2022 now at parity with 2023/2024. 3-year cross-cohort NLP trend table added to summary. All logs, audit, summary updated. (Pass 35) |
+| 2026-06-08 | technical-researcher | 36 | 2021 Phase 1 English Track pipeline — PDF completeness verified; 6202_2021_E.txt copied from macOS duplicate (6202_2021_E (1).txt); 2 additional near-empty _E files identified (6472, 8341); Block C run (307/307 DB matches, mat_section_found 94.5%, board_approved 44.6%, dm_methodology_disclosed 74.3%, visualization_format 11.4%, ai_tool_disclosed 0.7%); all 3 NLP scripts created. Audit file updated (Pass 36). |
+| 2026-06-08 | technical-researcher | 37 | 2021 Phase 1 NLP scripts executed: ESGLens (307/307; top: SDG(77), GRI(55), SE(40); gov-affinity=0.57); FinBERT (307/307; soc=47%, gov=35%, env=12%); ClimateBERT (307/307; mean=0.449, 120 above 0.5). All four cohorts (2021–2024) now at Phase 1 English Track NLP parity. 4-year cross-cohort trend extended. All logs, audit, summary updated. (Pass 37) |
 
 ---
 
-*Last updated by: research-coordinator | Pass 33 | 2026-06-08*  
-*Covers: Passes 1–33 across 9 sessions (2026-05-18 through 2026-06-08)*  
+*Last updated by: research-coordinator | Pass 37 | 2026-06-08*  
+*Covers: Passes 1–37 across 13 sessions (2026-05-18 through 2026-06-08)*  
 *Next coordinator session trigger: after OSF pre-registration or Stage 3 manual concordance completion*
