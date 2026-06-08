@@ -376,6 +376,8 @@ gri_101_applied, gri_new_climate_energy_adopted, ifrs_s1_adopted, issb_s2_adopte
 | 2026-06-08 | coordinator | 24–27 | Reconciliation (1,983 vs 1,042 N); n_material_topics_a +86 (Pass 25); n_material_topics_b 516 filled (Pass 26); Block F quick wins: insider_ownership_pct, firm_size_quintile, firm_age_quintile (Pass 27) |
 | 2026-06-08 | coordinator | 28 | assurance_level: 1,467 rows corrected Reasonable→Limited (Pass 28); state_ownership_pct: 4,209 rows filled from TEJ Share Structure Government(%) time-invariant (Pass 28) |
 | 2026-06-08 | coordinator | 29 | Full cohort audit (2021–2024): PDF/txt/DB reconciliation; Block A/B/C/D/F coverage by year; identified gri_adoption_year critical gap (74/2,011 populated); NLP corpus: 479/617/727/1,042; report: cohort-audit_2021-2023.md (Pass 29) |
+| 2026-06-08 | coordinator | 30 | gri_adoption_year fully populated: 7,634 rows (7,127 new + 74 prior); adoption cohorts 2021:14, 2022:869, 2023:310, 2024:818; 792 new-entrant 2024 companies flagged (no pre-treatment baseline); 131 never-Universal rows correctly blank (Pass 30) |
+| 2026-06-08 | coordinator | 31 | n_material_topics_a per-cohort structural ceiling investigation: 2021:70.8% (339/479), 2022:85.1% (525/617), 2023:79.2% (576/727), 2024:97.0% (1,011/1,042); three root causes documented; confirmed gaps are non-improvable with current pipeline (Pass 31) |
 
 ---
 
