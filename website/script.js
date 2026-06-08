@@ -2,7 +2,37 @@
 // All application logic: content model, theme system, UI components, page renderers.
 // Transpiled in-browser by Babel (loaded in index.html).
 
-/* ── shared.jsx ──────────────────────────────────────────────────────────────────────── */
+/* ── Global configuration (declare ALL constants first) ──────────────────── */
+const PAGES = [
+  { id: "overview", short: "Overview" },
+  { id: "status", short: "Status" },
+  { id: "data2024", short: "2024 Data" },
+  { id: "data2023", short: "2023 Data" },
+  { id: "data2022", short: "2022 Data" },
+  { id: "data2021", short: "2021 Data" },
+];
+
+const SECTION_ORDERS = {
+  standard: ["overview","status","data2024","data2023","data2022","data2021"],
+};
+
+const PALETTES = {
+  manuscript: { name: "Manuscript", paper: "#f4efe6", paperAlt: "#ebe4d6", ink: "#1a1714", inkSoft: "#5c544a", rule: "#d8cdb8", accent: "#7a1f12", accentSoft: "#a64a3b" },
+};
+
+const FONT_PAIRINGS = {
+  classic: {
+    name: "Classic",
+    serif: "'EB Garamond', serif",
+    sans: "'Inter', sans-serif",
+    mono: "'IBM Plex Mono', monospace",
+    googleImport: "family=EB+Garamond:wght@400;500;600&family=Inter:wght@400;500;600",
+  },
+};
+
+const DENSITY_SCALE = {
+  regular: { padY: 28, padX: 40, line: 1.6, gap: 20, size: 15.5 },
+};
 
 const CONTENT = {
   meta: {
@@ -19,9 +49,9 @@ const CONTENT = {
     email: "rk.reinierkirsten@gmail.com",
   },
   abstract: [
-    "GRI 3: Material Topics (effective January 2023) re-defined how reporting firms should identify and prioritise material topics. This project asks whether the standard's roll-out changed the topics TWSE semiconductor firms and global peers designate material.",
-    "We assemble a panel of company-year sustainability reports for the TWSE universe and global peers (2021–2024), apply a five-stage text-extraction pipeline to their Sustainability reports, and extract GRI content-index codes at scale via regex + manual concordance.",
-    "Identification uses staggered difference-in-differences (Callaway & Sant'Anna 2021 as primary; Sun & Abraham 2021 and Borusyak, Jaravel & Spiess 2024 as robustness) on first-year GRI 3 adoption by firm.",
+    "GRI 3: Material Topics (effective January 2023) re-defined how reporting firms should identify and prioritise material topics. This project asks whether the standard's roll-out changed the topics disclosed by firms.",
+    "We assemble a panel of company-year sustainability reports for the TWSE universe and global peers (2021–2024), apply a five-stage text-extraction pipeline to their Sustainability reports, and extract GRI topic codes and materiality process indicators.",
+    "Identification uses staggered difference-in-differences (Callaway & Sant'Anna 2021 as primary; Sun & Abraham 2021 and Borusyak, Jaravel & Spiess 2024 as robustness) on first-year GRI 3 adoption by each firm.",
   ],
   status: {
     stage: "Data collection",
@@ -64,7 +94,15 @@ const COHORTS = [
   { y: "2024", total: 1064, en: 680, en_pct: 64, gri_files: 948, gri_pct: 92.2, gri_codes: 74108, ocr: 15, avg_codes: 78.2 },
 ];
 
-// ─── useLiveData hook — fetches external JSON and markdown files ──────────────────────
+const TWEAK_DEFAULTS = {
+  palette: "manuscript",
+  fonts: "classic",
+  density: "regular",
+  statusStyle: "bar",
+  sectionOrder: "standard",
+};
+
+/* ── useLiveData hook ──────────────────────────────────────────────────── */
 function useLiveData() {
   const [live, setLive] = React.useState({ 
     log: null, 
@@ -76,7 +114,6 @@ function useLiveData() {
     const BASE_URL = "https://raw.githubusercontent.com/ReinierK2026/Research-2026/main";
     
     Promise.all([
-      // Fetch research log
       fetch(`${BASE_URL}/data/research_log.json`)
         .then(r => {
           if (!r.ok) throw new Error(`research_log.json: ${r.status}`);
@@ -87,7 +124,6 @@ function useLiveData() {
           return null;
         }),
       
-      // Fetch 2024 audit
       fetch(`${BASE_URL}/data/audits/text_extraction_quality_audit_2024.md`)
         .then(r => {
           if (!r.ok) throw new Error(`2024 audit: ${r.status}`);
@@ -98,7 +134,6 @@ function useLiveData() {
           return null;
         }),
       
-      // Fetch 2023 audit
       fetch(`${BASE_URL}/data/audits/text_extraction_quality_audit_2023.md`)
         .then(r => {
           if (!r.ok) throw new Error(`2023 audit: ${r.status}`);
@@ -109,7 +144,6 @@ function useLiveData() {
           return null;
         }),
       
-      // Fetch 2022 audit
       fetch(`${BASE_URL}/data/audits/text_extraction_quality_audit_2022.md`)
         .then(r => {
           if (!r.ok) throw new Error(`2022 audit: ${r.status}`);
@@ -120,7 +154,6 @@ function useLiveData() {
           return null;
         }),
       
-      // Fetch 2021 audit
       fetch(`${BASE_URL}/data/audits/text_extraction_quality_audit_2021.md`)
         .then(r => {
           if (!r.ok) throw new Error(`2021 audit: ${r.status}`);
@@ -155,7 +188,7 @@ function useLiveData() {
   return live;
 }
 
-// ── Fonts: inject the chosen Google Fonts import on demand ────────────────
+/* ── Fonts injection ──────────────────────────────────────────────────── */
 function ensureFontImport(key) {
   const pair = FONT_PAIRINGS[key];
   if (!pair) return;
@@ -168,7 +201,7 @@ function ensureFontImport(key) {
   document.head.appendChild(link);
 }
 
-// ─── Status indicator (4 styles) ───────────────────────────────────────────
+/* ── Status indicator ──────────────────────────────────────────────────── */
 function StatusIndicator({ style, status, theme }) {
   const { stage, stage_index, stages, pct } = status;
   const c = theme.ink, soft = theme.inkSoft, accent = theme.accent, rule = theme.rule;
@@ -222,57 +255,7 @@ function StatusIndicator({ style, status, theme }) {
   );
 }
 
-// ─── Placeholder figures (striped SVG / matrix / ridge) ────────────────────
-function FigurePlaceholder({ kind, theme, width = "100%", height = 220, label }) {
-  const id = `pf-${Math.random().toString(36).slice(2, 8)}`;
-  if (kind === "line") {
-    return (
-      <svg viewBox="0 0 600 220" width={width} height={height} style={{ display: "block" }}>
-        <defs>
-          <pattern id={id} width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-            <rect width="8" height="8" fill={theme.paperAlt}/>
-            <line x1="0" y1="0" x2="0" y2="8" stroke={theme.rule} strokeWidth="1"/>
-          </pattern>
-        </defs>
-        <rect width="600" height="220" fill={`url(#${id})`}/>
-        <rect x="0" y="0" width="600" height="220" fill="none" stroke={theme.rule}/>
-        {[40,80,120,160].map(y => <line key={y} x1="40" y1={y} x2="580" y2={y} stroke={theme.rule} strokeDasharray="2 4"/>)}
-        <polyline points="40,170 110,160 180,150 250,128 320,108 390,82 460,70 540,42" fill="none" stroke={theme.accent} strokeWidth="2"/>
-        {[[40,170],[110,160],[180,150],[250,128],[320,108],[390,82],[460,70],[540,42]].map(([x,y]) => (
-          <circle key={`${x},${y}`} cx={x} cy={y} r="3" fill={theme.accent}/>
-        ))}
-        <text x="20" y="210" fill={theme.inkSoft} fontSize="10" fontFamily="ui-monospace, monospace">{label || "data ▢"}</text>
-      </svg>
-    );
-  }
-  if (kind === "matrix") {
-    const cells = [];
-    for (let r = 0; r < 12; r++) for (let c = 0; c < 20; c++) {
-      const v = (Math.sin(r * 1.7 + c * 0.6) + 1) / 2;
-      cells.push(<rect key={`${r}-${c}`} x={20 + c * 28} y={20 + r * 14} width="26" height="12" fill={theme.accent} opacity={v.toFixed(2)}/>);
-    }
-    return (
-      <svg viewBox="0 0 600 220" width={width} height={height} style={{ display: "block" }}>
-        <rect width="600" height="220" fill={theme.paperAlt}/>
-        {cells}
-        <rect x="20" y="20" width="560" height="168" fill="none" stroke={theme.rule}/>
-        <text x="20" y="210" fill={theme.inkSoft} fontSize="10" fontFamily="ui-monospace, monospace">{label || "matrix ▢"}</text>
-      </svg>
-    );
-  }
-  return (
-    <svg viewBox="0 0 600 220" width={width} height={height} style={{ display: "block" }}>
-      <rect width="600" height="220" fill={theme.paperAlt}/>
-      <text x="20" y="110" fill={theme.inkSoft} fontSize="10" fontFamily="ui-monospace, monospace">{label || "ridge ▢"}</text>
-    </svg>
-  );
-}
-
-Object.assign(window, { CONTENT, COHORTS, useLiveData });
-
-// ─── Tweaks and UI ──────────────────────────────────────────────────────────────────
-const __TWEAKS_STYLE = `.twk-panel{position:fixed;right:16px;bottom:16px;z-index:2147483646;width:280px;max-height:calc(100vh - 32px);display:flex;flex-direction:column;background:rgba(250,249,247,.78);color:#29261b;backdrop-filter:blur(24px) saturate(160%);border:.5px solid rgba(255,255,255,.6);border-radius:14px;box-shadow:0 12px 40px rgba(0,0,0,.18);font:11.5px/1.4 system-ui,sans-serif;overflow:hidden}.twk-hd{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;cursor:move;user-select:none}.twk-hd b{font-size:12px;font-weight:600}.twk-x{border:0;background:0;color:rgba(41,38,27,.55);width:22px;height:22px;border-radius:6px;cursor:pointer;font-size:13px}.twk-body{padding:14px;overflow-y:auto;max-height:calc(100% - 40px)}`;
-
+/* ── useTweaks hook ───────────────────────────────────────────────────── */
 function useTweaks(defaults) {
   const [values, setValues] = React.useState(defaults);
   const setTweak = React.useCallback((keyOrEdits, val) => {
@@ -283,24 +266,7 @@ function useTweaks(defaults) {
   return [values, setTweak];
 }
 
-function TweaksPanel({ title = 'Tweaks', children }) {
-  const [open, setOpen] = React.useState(false);
-  if (!open) return null;
-  return (
-    <>
-      <style>{__TWEAKS_STYLE}</style>
-      <div className="twk-panel">
-        <div className="twk-hd">
-          <b>{title}</b>
-          <button className="twk-x" onClick={() => setOpen(false)}>✕</button>
-        </div>
-        <div className="twk-body">{children}</div>
-      </div>
-    </>
-  );
-}
-
-// ─── Direction A (main layout) ──────────────────────────────────────────────────────
+/* ── Direction A (main layout) ────────────────────────────────────────── */
 function DirectionA({ tweak, page, setPage, live }) {
   const theme = PALETTES[tweak.palette];
   const fonts = FONT_PAIRINGS[tweak.fonts];
@@ -335,7 +301,8 @@ function DirectionA({ tweak, page, setPage, live }) {
           const active = page === id;
           return (
             <button key={id} onClick={() => setPage(id)}
-            style={{background: "none", border: 0, padding: 0, font: "inherit", color: active ? theme.accent : theme.inkSoft, cursor: "pointer", fontSize: d.size * 0.78, fontWeight: active ? 600 : 400, borderBottom: active ? `1.5px solid ${theme.accent}` : "none", paddingBottom: 4}}>
+            style={{background: "none", border: 0, padding: 0, font: "inherit", color: active ? theme.accent : theme.inkSoft, cursor: "pointer", fontSize: d.size * 0.78, fontWeight: active ? 600 : 400, textDecoration: active ? "underline" : "none"}}
+            >
               {p.short}
             </button>);
         })}
@@ -357,7 +324,7 @@ function DirectionA({ tweak, page, setPage, live }) {
     </div>);
 }
 
-// ─── Page components ──────────────────────────────────────────────────────────────────
+/* ── Page components ──────────────────────────────────────────────────── */
 function OverviewA({ theme, d, live }) {
   return (
     <article style={{ maxWidth: "62ch" }}>
@@ -407,49 +374,7 @@ function DataAuditA({ theme, d, year, live }) {
     </article>);
 }
 
-Object.assign(window, { DirectionA });
-
-// ─── Global configuration ──────────────────────────────────────────────────────────
-const PAGES = [
-  { id: "overview", short: "Overview" },
-  { id: "status", short: "Status" },
-  { id: "data2024", short: "2024 Data" },
-  { id: "data2023", short: "2023 Data" },
-  { id: "data2022", short: "2022 Data" },
-  { id: "data2021", short: "2021 Data" },
-];
-
-const SECTION_ORDERS = {
-  standard: ["overview","status","data2024","data2023","data2022","data2021"],
-};
-
-const PALETTES = {
-  manuscript: { name: "Manuscript", paper: "#f4efe6", paperAlt: "#ebe4d6", ink: "#1a1714", inkSoft: "#5c544a", rule: "#d8cdb8", accent: "#7a1f12", accentSoft: "#a64a3b" },
-};
-
-const FONT_PAIRINGS = {
-  classic: {
-    name: "Classic",
-    serif: "'EB Garamond', serif",
-    sans: "'Inter', sans-serif",
-    mono: "'IBM Plex Mono', monospace",
-    googleImport: "family=EB+Garamond:wght@400;500;600&family=Inter:wght@400;500;600",
-  },
-};
-
-const DENSITY_SCALE = {
-  regular: { padY: 28, padX: 40, line: 1.6, gap: 20, size: 15.5 },
-};
-
-// ─── App entry point ──────────────────────────────────────────────────────────────────
-const TWEAK_DEFAULTS = {
-  palette: "manuscript",
-  fonts: "classic",
-  density: "regular",
-  statusStyle: "bar",
-  sectionOrder: "standard",
-};
-
+/* ── App entry point ──────────────────────────────────────────────────── */
 function App() {
   const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
   const [page, setPage] = React.useState("overview");
@@ -458,10 +383,7 @@ function App() {
   console.log("App mounted. Live data:", live);
 
   return (
-    <>
-      <DirectionA tweak={t} page={page} setPage={setPage} live={live} />
-      <TweaksPanel title="Settings" />
-    </>
+    <DirectionA tweak={t} page={page} setPage={setPage} live={live} />
   );
 }
 
