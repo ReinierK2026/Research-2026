@@ -248,6 +248,8 @@ The lower median (0.772 vs 0.909 in 2022) is primarily driven by this format mis
 | 6 | 2026-05-22 | Quality checks A/B/C | A: 4 genuine failures; B: calibration artifact; C: format transition note |
 | 7 | 2026-05-22 | Audit document written | |
 | 8 | 2026-05-22 | GRI extractor expanded with G4 regex; re-run on all 488 PDFs | 342 files with codes; 8 with G4 codes (116 instances); gri_codes_summary_2021.csv updated |
+| 9 | 2026-06-08 | PDF completeness check vs 2021_processed/ | 495 processed files confirmed complete against 492 available PDFs. 2 additional hidden partial-scan _E files identified (6472, 8341 — PAGE-markers-only). 4 anomalous filenames documented. 6202_2021_E.txt copied from macOS duplicate. |
+| 10 | 2026-06-08 | Phase 1 Step 1.4 Block C — full column run (308 _E files → 307 DB matches) | mat_section_found 290/307 (94.5%), board_approved 137/307 (44.6%), double_materiality_mentioned 5/307 (1.6%), dm_methodology_disclosed 228/307 (74.3%), visualization_format 35/307 (11.4%), ai_tool_disclosed 2/307 (0.7%) |
 
 ---
 
