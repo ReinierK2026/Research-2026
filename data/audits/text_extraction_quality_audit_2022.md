@@ -326,6 +326,7 @@ python3 phase1_step1_2_climatebert_2022.py  # third (wait for FinBERT to finish)
 | 6 | 2026-05-22 | Quality verification Checks A/B/C | A: 3 genuine failures; B: calibration artifact; C: structural note |
 | 7 | 2026-05-22 | Audit document written | Replaces preliminary 2026-05-19 audit |
 | 8 | 2026-06-08 | Phase 1 Step 1.4 Block C — full column re-run (389 _E files) | mat_section_found 370/389 (95.1%), board_approved 208/389 (53.5%), double_materiality_mentioned 26/389 (6.7%), dm_methodology_disclosed 322/389 (82.8%), visualization_format 39/389 (10.0%), ai_tool_disclosed 3/389 (0.8%) |
+| 9 | 2026-06-08 | Phase 1 Steps 1.3/1.1/1.2 — ESGLens, FinBERT, ClimateBERT (run sequentially) | 388/389 processed (3062_2022_E is 0-byte exclusion). ESGLens top1: SDG Alignment (94/388), GRI Alignment (51), TCFD/ISSB (40), Stakeholder Engagement (39). FinBERT: gov=150 (39%), soc=149 (38%), env=60 (15%), other=29 (7%). ClimateBERT: mean_pct=0.485; 179/388 above 0.5 |
 
 ---
 
