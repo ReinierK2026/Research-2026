@@ -273,6 +273,42 @@ The lower median (0.772 vs 0.909 in 2022) is primarily driven by this format mis
 
 ---
 
+## Next Steps — NLP Analysis Pipeline
+
+Phase 1 English Track NLP targets the 308 `_E` files in `2021_processed/` (307 original + `6202_2021_E.txt` copied from macOS duplicate on 2026-06-08). Effective corpus: ~301 tickers will produce NLP data (5 near-empty skipped, 1 non-DB file, 1 possible gap for 6770).
+
+### Phase 0 — Completed (earlier sessions)
+| Step | Status | Notes |
+|---|---|---|
+| Text extraction & preprocessing | ✅ Done | OCR (4 files) + PyMuPDF (488 PDFs) + text-only (3 files) |
+| Quality audit | ✅ Done | Checks A/B/C; 7 hard exclusions (updated 2026-06-08) |
+| GRI extraction | ✅ Done | 342/488 with codes; G4 pass added; gri_codes_summary_2021.csv |
+
+### Phase 1 — English Track NLP (2021)
+
+Run order: **Step 1.4 first** (sandbox — already done), then **1.3**, then **1.1**, then **1.2** (locally, sequential).
+
+| Step | Script | Status | Key results |
+|---|---|---|---|
+| 1.4 Block C | inline sandbox run | ✅ Done 2026-06-08 | mat_section_found 94.5%, board_approved 44.6%, dm_methodology_disclosed 74.3%, visualization_format 11.4%, ai_tool_disclosed 0.7%, double_materiality_mentioned 1.6% |
+| 1.3 ESGLens | `phase1_step1_3_esglens_2021.py` | ⬜ Pending | Install: `pip install sentence-transformers torch` |
+| 1.1 FinBERT | `phase1_step1_1_finbert_2021.py` | ⬜ Pending | Install: `pip install transformers torch sentencepiece` |
+| 1.2 ClimateBERT | `phase1_step1_2_climatebert_2021.py` | ⬜ Pending | Run ALONE after FinBERT completes |
+
+**Run order for local scripts:**
+```
+python3 phase1_step1_3_esglens_2021.py
+python3 phase1_step1_1_finbert_2021.py       # wait for ESGLens to finish
+python3 phase1_step1_2_climatebert_2021.py   # wait for FinBERT to finish
+```
+
+### Phase 3 — Cross-cohort analysis
+| Step | Status |
+|---|---|
+| 3.1 NLP parity with 2022/2023/2024 cohorts | 🔄 In progress — pending local NLP script execution |
+
+---
+
 ### Entry 9 — Block B Subsample Row Population (Pass 7)
 **Date:** 2026-05-22  
 **Scope:** TWSE subsample only (67 rows in 2021)
