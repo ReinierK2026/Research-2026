@@ -1,6 +1,6 @@
 # Text Extraction Quality Audit — 2023 Cohort
 **Audit date:** 2026-05-21  
-**Last updated:** 2026-06-08 (Pass 33: Phase 1 English Track NLP in progress — Step 1.4 Block C complete for 526 English files; Steps 1.1/1.2/1.3 scripts ready for local run)  
+**Last updated:** 2026-06-08 (Pass 34: Phase 1 English Track NLP fully complete — all 4 steps done for 526 English files)  
 **Corpus (raw):** `/Text extraction/extracted_text/2023/`  
 **Corpus (processed):** `/Text extraction/extracted_text/2023_processed/`  
 **Total files:** 744  (English `_E`: 526 / 71% · Other: 218 / 29%)  
@@ -513,7 +513,7 @@ Implementation note: Each file processed one at a time (smallest first), with pe
 ## Next Steps — NLP Analysis Pipeline
 
 **Status legend:** ⬜ Pending · 🔄 In Progress · ✅ Done  
-**Updated:** 2026-06-08 (Pass 33 — Step 1.4 Block C complete; scripts for 1.1/1.2/1.3 ready for local execution)  
+**Updated:** 2026-06-08 (Pass 34 — all Phase 1 English Track steps complete: Block C, ESGLens, FinBERT, ClimateBERT — 526/526 files each)  
 **Prerequisite satisfied:** All three quality checks pass / accepted — corpus is ready for NLP.
 
 ---
