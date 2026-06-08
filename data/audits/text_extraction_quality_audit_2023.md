@@ -679,13 +679,13 @@ Note: Mean climate_pct of 0.484 in 2023 vs 0.502 in 2024 — a modest but consis
 
 ---
 
-### Phase 2 — NLP Pipeline: Multilingual Track (Chinese/bilingual files, 218 files)
+### Phase 2 — NLP Pipeline: Multilingual Track (Chinese/bilingual files, 216 files)
 
 | # | Step | Status | Notes |
 |---|---|---|---|
-| 2.1 | Multilingual semantic chunking (Qwen3-Embedding-8B or BGE-M3) | ⬜ Pending | Mirror Phase 2 from 2024. |
-| 2.2 | XLM-RoBERTa-XNLI zero-shot topic classification | ⬜ Pending | Candidate labels = GRI material topic taxonomy. |
-| 2.3 | Block C indicators (Chinese/bilingual) | ⬜ Pending | Key terms: 重大性評估流程, 雙重重大性, AI工具. |
+| 2.1 | BGE-M3 multilingual semantic topic matcher | 🟡 Ready to run | Script: `phase2_step2_1_bge_2023.py`. No exclusions. Output: `bge_2023_matches.jsonl` + 7 DB cols. |
+| 2.2 | XLM-RoBERTa-XNLI zero-shot ESG classifier | 🟡 Ready to run | Script: `phase2_step2_2_xlmr_2023.py`. Model: mDeBERTa-v3-base-mnli-xnli. 6 DB cols. |
+| 2.3 | Block C indicators (Chinese/bilingual) | 🟡 Ready to run | Script: `phase2_block_c_chinese_2023.py`. No exclusions. Bilingual regex + full-text fallback. |
 
 ---
 
