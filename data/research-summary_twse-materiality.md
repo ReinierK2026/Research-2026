@@ -170,7 +170,7 @@ TEJ Governance monthly data (2014/01–2025/01), December snapshots used. ~98–
 
 ### Firm Age [High confidence | data-analyst | 2026-05-23]
 - firm_age = fiscal_year − TWSE listing year (confirmed TSMC: 2016 age=22 → listed 1994 ✓; Mediatek: 2016 age=15 → listed 2001 ✓)
-- Full TWSE universe: 7,333/7,765 (94.4%); 2024: 1,938/1,983 (97.7%)
+- Full TWSE universe: 7,333/7,765 (94.4%); 2024 NLP corpus: 1,040/1,042 (99.8%)
 - 73-company subsample: 100% firm_age coverage (507/507 rows)
 - 50 rows inferred via Governance file first-appearance method (only valid where first entry AFTER 2014/01)
 - 112 pre-2014 establishments and 30 special securities remain unfilled
@@ -186,20 +186,22 @@ Language routing complete for 2024 full corpus (1,064 files / 1,042 unique compa
 
 ## Data Quality
 
-### Completeness by Block — Full TWSE Universe, 2024 Year
-| Block | Variable | Coverage | Quality |
-|-------|----------|----------|---------|
-| A | twse_ticker, fiscal_year, gri_adoption_year | 100% (7,765 rows) | Verified |
-| B | gri_standard_version, gri_adoption_year | 100% (7,765 rows) | Verified |
-| B | word_count_total, page_count | ~53% (1,042/1,983 in 2024) | ESGgenplus corpus limit |
-| C | process_quality_score | ~52% (1,027/1,983 in 2024) | ESGgenplus corpus limit |
-| D | n_material_topics_a | ~47% (906/1,983 in 2024) | GRI code extraction limit |
-| D | n_material_topics_b | ~27% (526/1,983 in 2024); higher within 73-company subsample | GRI 3-3 table extraction 2024 only |
-| E | Binary topic panel | 2,293 company-years across 4 years | Complete for available years |
-| F | Balance sheet, income, equity | ~44–63% (4,365–4,895 rows) | TEJ coverage limit; December filter |
-| F | tesg_score | 2016–2022 only | TEJ file ends 2022 |
-| G | Governance | ~99% (7,670/7,765 rows) | Excellent TEJ coverage |
-| G | independent_director_ratio | 0% | Not in TEJ files; stub |
+### Completeness by Block — 2024 Cohort
+Coverage is shown two ways: **NLP corpus** (1,042 companies with extracted text) and **TEJ universe** (1,983 companies with TEJ scaffold rows). NLP-based blocks (B/C/D) use 1,042 as the denominator; TEJ-sourced blocks (F/G) use the full 7,765-row database.
+
+| Block | Variable | Coverage (NLP corpus) | Coverage (TEJ universe) | Quality |
+|-------|----------|-----------------------|-------------------------|---------|
+| A | twse_ticker, fiscal_year, gri_adoption_year | 100% (1,042/1,042) | 100% (7,765/7,765) | Verified |
+| B | gri_standard_version, gri_adoption_year | 100% (1,042/1,042) | 100% (7,765/7,765) | Verified |
+| B | word_count_total, page_count | 100% (1,042/1,042) | 52.5% (1,042/1,983) | Full within corpus |
+| C | process_quality_score | 100% (1,042/1,042) | 52.5% (1,042/1,983) | Full within corpus |
+| D | n_material_topics_a | 88.8% (925/1,042) | 46.6% (925/1,983) | GRI code extraction limit |
+| D | n_material_topics_b | 50.5% (526/1,042) | 26.5% (526/1,983) | GRI 3-3 table extraction 2024 only |
+| E | Binary topic panel | 2,293 company-years across 4 years | — | Complete for available years |
+| F | Balance sheet, income, equity | 87.0% (907/1,042) | ~44–63% (4,365–4,895 rows) | TEJ coverage; December filter |
+| F | tesg_score | 2016–2022 only | 2016–2022 only | TEJ file ends 2022 |
+| G | Governance | 98.5% (1,026/1,042) | ~99% (7,670/7,765 rows) | Excellent TEJ coverage |
+| G | independent_director_ratio | 0% | 0% | Not in TEJ files; stub |
 
 ### Known Reliability Issues
 - **TESG scores 2023–2024**: Unavailable. TEJ ESG score file ends at 2022/12. No workaround from current TEJ data.
