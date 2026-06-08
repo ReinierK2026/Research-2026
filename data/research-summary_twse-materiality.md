@@ -95,9 +95,9 @@ Panel: 2016–2024. Text data: 2021–2024. TEJ ESG scores: 2016–2022. GRI 3 t
 
 ### Block B: Report Characteristics [High confidence | data-analyst | 2026-05-20/22]
 - All 7,765 company-year rows have 100% coverage on: `gri_standard_version`, `gri_adoption_year`, `bilingual_report` (sourced from TEJ CSR Disclosure)
-- Text-level coverage (word count, page count, language): 0% for 2016–2020 (no text files available); 65–68% for 2021–2024 (23–24 companies per year not in ESGgenplus bulk corpus)
-- Bilingual reporting: companies publishing both English and Chinese reports identified via filename suffix
-- 2024: all 1,983 TWSE ESG reporters adopted GRI Universal Standards 2021 (consistent with the universal mandate effective that cycle)
+- Text-level coverage (word count, page count, language): 0% for 2016–2020 (no text files available); 2024: 100% of the 1,042-company NLP corpus
+- Bilingual reporting: 22 companies have both English (`_E`) and Chinese versions in the corpus; identified via filename suffix
+- 2024: 1,983 TWSE companies filed an ESG report per TEJ; the NLP corpus covers 1,042 of these (52.5%); the remaining 941 have TEJ scaffold data but no extractable report text
 
 ### Block C: Materiality Process Quality [Medium-high confidence | data-analyst + technical-researcher | 2026-05-22/23]
 Pre-adoption trends (2021→2023) from full TWSE universe:
