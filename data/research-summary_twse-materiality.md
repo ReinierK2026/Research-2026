@@ -199,6 +199,24 @@ TEJ Governance monthly data (2014/01–2025/01), December snapshots used. ~98–
 
 Phase 1 English Track NLP is complete for all four text cohorts: **2021**, **2022**, **2023**, and **2024**. All used identical scripts, models, and DB column slots (175 cols shared across all cohort years).
 
+### NLP Pipeline — Multilingual Track [Pass 38, 2026-06-08]
+
+Phase 2 Multilingual Track has begun. Step 2.3 (Block C Chinese/bilingual extractor) is complete for the 2024 cohort. Steps 2.1 (BGE-M3 semantic matching) and 2.2 (XLM-RoBERTa-XNLI topic classification) are pending.
+
+**2024 Chinese/bilingual track — 361 files processed (excl. 2461, 6776 near-empty):**
+
+| Step | Method | Status | Key Findings |
+|------|--------|--------|-------------|
+| 2.3 Block C | Bilingual regex (zh+en) | ✅ Done | mat_section=354/361 (98.1%); board_approved=289/361 (80.1%); dm_methodology=341/361 (94.5%); double_mat=52/361 (14.4%); engagement mean=3.14 (356/361); stakeholders mean=7.03; process_steps=333/361 (92.2%); viz_format=70/361 (19.4%); ai_tool=16/361 (4.4%); process_quality mean=0.426 |
+| 2.2 XLM-RoBERTa-XNLI | Zero-shot topic classification | ⬜ Pending | GRI material topic taxonomy labels; threshold ≥ 0.6 |
+| 2.1 BGE-M3 | Multilingual semantic matching | ⬜ Pending | MTEB multilingual model; CPU-feasible; analogous to Phase 1 ESGLens |
+
+**Cross-track comparison (2024 Block C only — English vs Chinese reporters):**
+- `board_approved`: Chinese-track 80.1% vs English-track 57.1% — Chinese reporters more likely to reference board-level materiality oversight
+- `double_materiality_mentioned`: Chinese-track 14.4% vs English-track 10.3% — slight edge, likely driven by bilingual companies in the Chinese-track set
+- `dm_methodology_disclosed`: Chinese-track 94.5% vs English-track 32.1% — large disparity reflects bilingual window patterns matching GRI references throughout Chinese reports; English extractor restricts to a narrower materiality window
+- `process_quality_score` mean: Chinese-track 0.426 vs English-track 0.526 — English-track higher, consistent with generally more detailed materiality process disclosure in English-language reports
+
 **2024 cohort — 680 English files, all steps complete:**
 
 | Step | Model / Method | Status | Key Findings |
