@@ -30,6 +30,17 @@ Staggered Difference-in-Differences (DiD) using the Callaway-Sant'Anna (2021) es
 ### Database
 `twse-research-database.csv` — 157 columns × 7,765 data rows (+ 2 header rows: block labels + column names). UTF-8 BOM. Block-label header pattern: Row 1 = block labels (A/B/C/D/F/G), Row 2 = column names, Row 3+ = data.
 
+### 2024 Cohort Reconciliation
+| Stage | Count | Notes |
+|-------|-------|-------|
+| TEJ CSR Disclosure rows (2024) | 1,983 | All TWSE companies with ESG filings per TEJ — database scaffold |
+| Source PDFs on disk (`twse_esg_reports/2024/`) | 1,043 | 662 English (`_E`) + 381 non-English |
+| Extracted `.txt` files (`extracted_text/2024_processed/`) | 1,064 | 680 English + 384 non-English; 21 extra from ESGgenplus (no local PDF) |
+| **Unique companies in NLP corpus** | **1,042** | 22 tickers have paired English+Chinese versions → 1,064 files, 1,042 companies |
+| TEJ rows with no report in corpus | 941 | Have TEJ scaffold data but no extractable ESG report text |
+
+All coverage percentages for NLP-based blocks (B, C, D) are expressed against **1,042** (unique companies with extracted text).
+
 ### Agents Deployed (cumulative across all sessions)
 - **web-researcher**: Regulatory/industry intelligence (2 passes)
 - **academic-researcher**: Scholarly literature, methods (1 pass)
