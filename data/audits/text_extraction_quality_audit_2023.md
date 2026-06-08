@@ -553,7 +553,7 @@ Implementation note: Each file processed one at a time (smallest first), with pe
 
 | # | Step | Status | Notes |
 |---|---|---|---|
-| 3.1 | Populate Block C + NLP cols in `twse-research-database.csv` | 🔄 In Progress | Block C (step 1.4): 526 English rows updated 2026-06-08. ESGLens / FinBERT / ClimateBERT cols exist in DB schema (175 cols total, shared with 2024 cols) but not yet filled for 2023. |
+| 3.1 | Populate Block C + NLP cols in `twse-research-database.csv` | ✅ Done (English 2023) | All Phase 1 English NLP variables fully written for 526 2023 files. DB schema: 175 cols (shared with all cohorts). Block C (step 1.4): 526/526. ESGLens (step 1.3): 526/526. FinBERT (step 1.1): 526/526. ClimateBERT (step 1.2): 526/526. |
 | 3.2 | Populate Block D (material topics) from GRI tables CSVs | ⬜ Pending | Source: `gri_codes_summary_2023.csv`. |
 
 ---
