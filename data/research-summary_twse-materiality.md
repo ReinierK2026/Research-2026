@@ -90,9 +90,12 @@ Panel: 2016–2024. Text data: 2021–2024. TEJ ESG scores: 2016–2022. GRI 3 t
 - Primary publication venues: *SAMPJ* or *CSR&EM*; NLP pipeline alone → *Expert Systems*
 - Pre-registration required on OSF or AsPredicted before any inferential DiD tests; replication package on Harvard Dataverse
 
-### Treatment Variable [High confidence | data-analyst | 2026-05-21]
-- `gri_adoption_year` derived from `gri_standard_version` for the full TWSE universe (coverage mirrors TEJ CSR Disclosure: 100% of all 7,765 company-year rows)
-- Distribution validated for 73-company subsample: 2021: 3 companies, 2022: 65 companies, 2023: 4 companies, 2024: 2 companies (full-universe distribution proportionally similar; concentrated in 2022)
+### Treatment Variable [High confidence | data-analyst | 2026-05-21 / Pass 30 2026-06-08]
+- `gri_adoption_year` **fully populated (Pass 30)**: 7,634 rows populated (7,127 new fills + 74 pre-existing); 131 rows blank = companies present only under GRI Standards 2016 (never-Universal adopters, correctly excluded from treated set)
+- Derivation method: first fiscal year per ticker where `gri_standard_version = 'GRI-Universal-2021'`; no conflicts with prior 74-company values
+- **Full-universe adoption distribution**: 2021: 14 companies; 2022: 869 companies; 2023: 310 companies; 2024: 818 companies — strongly concentrated in 2022 (dominant adoption cohort)
+- **2024 new entrants**: 792 of the 818 first-time-2024 adopters have no pre-adoption DB rows (entered under mandatory TWSE reporting 2025 cycle); these companies lack a pre-treatment baseline and are excluded from DiD estimation
+- Distribution validated for 73-company subsample: 2021: 3 companies, 2022: 65 companies, 2023: 4 companies, 2024: 2 companies (consistent with full-universe pattern)
 - GRI Standards 2016 used 2016–2021; GRI Universal 2021 used 2022–2024 (for treated companies)
 - 4 companies in the subsample initially miscoded 2024 → corrected to 2023 based on text evidence (3006, 3227, 6573, 8110)
 - DiD treatment variable fully valid for CS21 estimation across the full universe
