@@ -307,7 +307,7 @@ python3 phase1_step1_2_climatebert_2021.py   # wait for FinBERT to finish
 ### Phase 3 — Cross-cohort analysis
 | Step | Status |
 |---|---|
-| 3.1 NLP parity with 2022/2023/2024 cohorts | 🔄 In progress — pending local NLP script execution |
+| 3.1 NLP parity with 2022/2023/2024 cohorts | ✅ Complete 2026-06-08 — all four Phase 1 steps done; 307 tickers NLP-enriched |
 
 ---
 
