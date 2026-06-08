@@ -176,10 +176,11 @@ TEJ Governance monthly data (2014/01–2025/01), December snapshots used. ~98–
 - 112 pre-2014 establishments and 30 special securities remain unfilled
 
 ### NLP Pipeline [Medium confidence — designed but not executed | technical-researcher | 2026-05-22]
-Language routing complete for 2024 full corpus (1,062 files):
-- English track: 698 files (65.7%) — FinBERT-ESG-9 + ClimateBERT + GRI regex
-- Multilingual track: 364 files (34.3%) — Qwen3-Embedding-8B (BGE-M3 fallback) + XLM-RoBERTa-XNLI
-- Routing method: _E filename suffix (680 files) + langdetect confidence ≥0.90 (18 files); fastText blocked by proxy
+Language routing complete for 2024 full corpus (1,064 files / 1,042 unique companies):
+- English track: 680 files (63.9%) — FinBERT-ESG-9 + ClimateBERT + GRI regex
+- Multilingual track: 384 files (36.1%) — Qwen3-Embedding-8B (BGE-M3 fallback) + XLM-RoBERTa-XNLI
+- Routing method: `_E` filename suffix (primary); 22 companies have paired English+Chinese versions
+- Source PDFs on disk: 1,043; extracted text files: 1,064 (21 extra from ESGgenplus with no local PDF)
 
 ---
 
