@@ -1518,5 +1518,66 @@
       "climatebert_total_sentences_n"
     ],
     "notes": "388/389 _E files processed. Mean climate_pct=0.4852; 179/388 above 0.5; 0 with total_sentences=0. Run sequentially after FinBERT."
+  },
+  {
+    "task_id": "phase1-step1-4-blockc-2021",
+    "date": "2026-06-08",
+    "pass": 36,
+    "agent": "coordinator-scripts",
+    "topic": "Phase 1 Step 1.4 Block C materiality-process indicator extraction — 2021 English track",
+    "status": "completed",
+    "output_file": "scripts/phase1_nlp_local/phase1_block_c_english_2021_sandbox.py",
+    "variables_added": [
+      "mat_section_found", "board_approved", "double_materiality_mentioned",
+      "dm_methodology_disclosed", "scoring_method_disclosed", "stakeholder_survey_n",
+      "engagement_channels_n", "process_steps_n", "visualization_format",
+      "ai_tool_disclosed", "boundary_setting_disclosed", "value_chain_scope",
+      "review_frequency_disclosed", "validation_method", "topic_count_n",
+      "process_quality_score"
+    ],
+    "notes": "308 _E files (after copying 6202_2021_E(1).txt → 6202_2021_E.txt). 307 DB matches (3990 not in DB). mat_section_found 290/307 (94.5%), board_approved 137/307 (44.6%), dm_methodology_disclosed 228/307 (74.3%), visualization_format 35/307 (11.4%), ai_tool_disclosed 2/307 (0.7%). 5 hard exclusions: 4720, 9904, 9938, 6472, 8341 (near-empty/image-only)."
+  },
+  {
+    "task_id": "phase1-step1-3-esglens-2021",
+    "date": "2026-06-08",
+    "pass": 36,
+    "agent": "coordinator-scripts",
+    "topic": "Phase 1 Step 1.3 ESGLens SBERT topic matcher — 2021 English track",
+    "status": "pending-user-execution",
+    "output_file": "scripts/phase1_nlp_local/phase1_step1_3_esglens_2021.py",
+    "variables_added": [
+      "esglens_top1_topic", "esglens_top1_sim", "esglens_top3_topics",
+      "esglens_mean_sim", "esglens_env_affinity", "esglens_soc_affinity", "esglens_gov_affinity"
+    ],
+    "notes": "Script created. Run first (before FinBERT/ClimateBERT). Secondary output: scripts/phase1_nlp_local/esglens_2021_matches.jsonl"
+  },
+  {
+    "task_id": "phase1-step1-1-finbert-2021",
+    "date": "2026-06-08",
+    "pass": 36,
+    "agent": "coordinator-scripts",
+    "topic": "Phase 1 Step 1.1 FinBERT-ESG-9-Categories sentence classification — 2021 English track",
+    "status": "pending-user-execution",
+    "output_file": "scripts/phase1_nlp_local/phase1_step1_1_finbert_2021.py",
+    "variables_added": [
+      "finbert_env_pct", "finbert_soc_pct", "finbert_gov_pct",
+      "finbert_other_pct", "finbert_esg_sentences_n", "finbert_dominant_factor"
+    ],
+    "notes": "Script created. Run after ESGLens completes. Do NOT run concurrently with ClimateBERT."
+  },
+  {
+    "task_id": "phase1-step1-2-climatebert-2021",
+    "date": "2026-06-08",
+    "pass": 36,
+    "agent": "coordinator-scripts",
+    "topic": "Phase 1 Step 1.2 ClimateBERT climate detection — 2021 English track",
+    "status": "pending-user-execution",
+    "output_file": "scripts/phase1_nlp_local/phase1_step1_2_climatebert_2021.py",
+    "variables_added": [
+      "climatebert_climate_pct",
+      "climatebert_climate_sentences_n",
+      "climatebert_total_sentences_n"
+    ],
+    "notes": "Script created. Run after FinBERT completes. Do NOT run concurrently with FinBERT."
   }
 ]
