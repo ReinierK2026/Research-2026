@@ -229,7 +229,7 @@ Coverage is shown two ways: **NLP corpus** (1,042 companies with extracted text)
 
 ### Known Reliability Issues
 
-- **`gri_adoption_year` — CRITICAL GAP (Pass 29)**: Only 74 of 2,011 Universal adopters have `gri_adoption_year` populated (3.7%). This column is the DiD treatment variable. Derivable for all companies from `gri_standard_version` panel: 2021 cohort: 14; 2022: 869; 2023: 310; 2024: 818. Of the 818 first-time-2024 adopters, 792 have no pre-2024 rows (new entrants under mandatory reporting). **Must be filled before any DiD estimation.** (See Action Item 1.)
+- **`gri_adoption_year`** — ~~CRITICAL GAP (Pass 29)~~ **RESOLVED (Pass 30, 2026-06-08)**: 7,634 rows populated (7,127 new fills + 74 pre-existing). Adoption distribution: 2021: 14; 2022: 869; 2023: 310; 2024: 818. Of 818 first-time-2024 adopters, 792 are new entrants (no pre-adoption rows — excluded from DiD estimation). 131 rows blank = companies appearing only under GRI Standards 2016. DiD treatment variable fully valid for CS21 estimation.
 - **TESG scores 2023–2024**: Unavailable. TEJ ESG score file ends at 2022/12. No workaround from current TEJ data.
 - **independent_director_ratio**: Not in TEJ Governance file. Requires TWSE corporate governance database or manual collection.
 - **state_ownership_pct**: ~~TEJ Share Structure December coverage too sparse — unusable~~ **RESOLVED (Pass 28)**: File is cross-sectional (one row per company, 2025–2026 snapshot). Treated as time-invariant control: same Government(%) value applied across all fiscal years per ticker. Coverage: 7,535/7,765 rows (97.0%); 402 tickers with government ownership > 0%. 230 rows unmatched (no TEJ entry).
