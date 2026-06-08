@@ -395,9 +395,10 @@ gri_101_applied, gri_new_climate_energy_adopted, ifrs_s1_adopted, issb_s2_adopte
 | 2026-06-08 | coordinator | 29 | Full cohort audit (2021–2024): PDF/txt/DB reconciliation; Block A/B/C/D/F coverage by year; identified gri_adoption_year critical gap (74/2,011 populated); NLP corpus: 479/617/727/1,042; report: cohort-audit_2021-2023.md (Pass 29) |
 | 2026-06-08 | coordinator | 30 | gri_adoption_year fully populated: 7,634 rows (7,127 new + 74 prior); adoption cohorts 2021:14, 2022:869, 2023:310, 2024:818; 792 new-entrant 2024 companies flagged (no pre-treatment baseline); 131 never-Universal rows correctly blank (Pass 30) |
 | 2026-06-08 | coordinator | 31 | n_material_topics_a per-cohort structural ceiling investigation: 2021:70.8% (339/479), 2022:85.1% (525/617), 2023:79.2% (576/727), 2024:97.0% (1,011/1,042); three root causes documented; confirmed gaps are non-improvable with current pipeline (Pass 31) |
+| 2026-06-08 | technical-researcher | 32 | Phase 1 English Track NLP (2024 cohort): Step 1.4 Block C regex (680 files, 16 variables); Step 1.3 ESGLens SBERT matcher (680 files, 7 cols + full JSONL); Steps 1.1/1.2 ran locally but DB write corrupted — DB repaired (7,765 rows, 175 cols), ESGLens merged, FinBERT/ClimateBERT cols reserved for re-run; `db_utils.py` added to prevent recurrence (Pass 32) |
 
 ---
 
-*Last updated by: research-coordinator | Pass 31 | 2026-06-08*  
-*Covers: Passes 1–31 across 7 sessions (2026-05-18 through 2026-06-08)*  
+*Last updated by: research-coordinator | Pass 32 | 2026-06-08*  
+*Covers: Passes 1–32 across 8 sessions (2026-05-18 through 2026-06-08)*  
 *Next coordinator session trigger: after OSF pre-registration or Stage 3 manual concordance completion*
