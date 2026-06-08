@@ -533,17 +533,9 @@ Implementation note: Each file processed one at a time (smallest first), with pe
 | # | Step | Status | Notes |
 |---|---|---|---|
 | 1.4 | Block C regex extractor — materiality process indicators | ✅ Done | Ran in sandbox 2026-06-08. 526/526 files processed. Coverage: mat_section_found 97.3%, board_approved 63.9%, dm_methodology_disclosed 84.2%, process_quality_score 99.2%, double_materiality_mentioned 9.9%, visualization_format 8.4%, scoring_method_disclosed 3.0%, ai_tool_disclosed 4.4%. Note: visualization_format (8.4%) and ai_tool_disclosed (4.4%) are substantially lower than 2024 (56.9% / 40.4%) — reflecting pre-IFRS disclosure norms. Script: `phase1_block_c_english_2023.py`. |
-| 1.3 | ESGLens SBERT topic matcher (all-MiniLM-L6-v2, 30 GRI topics) | ⬜ Pending | Script ready: `phase1_step1_3_esglens_2023.py`. Run first among the three model-based steps. Output: `eslens_2023_matches.jsonl` + 7 DB cols (`esglens_top1_topic`, `esglens_top1_sim`, `esglens_top3_topics`, `esglens_mean_sim`, `esglens_env_affinity`, `esglens_soc_affinity`, `esglens_gov_affinity`). Requires: `pip install sentence-transformers torch`. |
-| 1.1 | FinBERT-ESG-9-Categories sentence classification | ⬜ Pending | Script ready: `phase1_step1_1_finbert_2023.py`. Run AFTER 1.3 completes. DB cols: `finbert_env_pct`, `finbert_soc_pct`, `finbert_gov_pct`, `finbert_other_pct`, `finbert_esg_sentences_n`, `finbert_dominant_factor`. Requires: `pip install transformers torch sentencepiece`. ⚠️ Run alone — do not run concurrently with ClimateBERT. |
-| 1.2 | ClimateBERT climate sentence detection | ⬜ Pending | Script ready: `phase1_step1_2_climatebert_2023.py`. Run AFTER 1.1 fully completes. DB cols: `climatebert_climate_pct`, `climatebert_climate_sentences_n`, `climatebert_total_sentences_n`. ⚠️ Run alone — do not run concurrently with FinBERT. |
-
-**Run order (local machine):**
-```
-cd ".../scripts/phase1_nlp_local"
-python3 phase1_step1_3_esglens_2023.py      # ~20 min, 526 files
-python3 phase1_step1_1_finbert_2023.py      # wait for ESGLens to finish first
-python3 phase1_step1_2_climatebert_2023.py  # wait for FinBERT to finish first
-```
+| 1.3 | ESGLens SBERT topic matcher (all-MiniLM-L6-v2, 30 GRI topics) | ✅ Done | Completed 2026-06-08. 526/526 filled. Top-1 topics: SDG Alignment (104/526), GRI Alignment (78), TCFD/ISSB Alignment (64), Stakeholder Engagement (47). Distinctly pre-IFRS framing vs 2024 (where TCFD/ISSB dominated). Output: `eslens_2023_matches.jsonl` + 7 DB cols filled. |
+| 1.1 | FinBERT-ESG-9-Categories sentence classification | ✅ Done | Completed 2026-06-08. 526/526 filled. Dominant factor: gov=224 (43%), soc=189 (36%), env=77 (15%), other=36 (7%). Gov-dominant pattern consistent with 2024 (51% gov) — governance framing is the stable plurality in TWSE English reports. DB cols filled: `finbert_env_pct`, `finbert_soc_pct`, `finbert_gov_pct`, `finbert_other_pct`, `finbert_esg_sentences_n`, `finbert_dominant_factor`. |
+| 1.2 | ClimateBERT climate sentence detection | ✅ Done | Completed 2026-06-08. 526/526 filled; 520 non-zero (6 companies had 0 climate sentences). Mean `climate_pct`=0.484 (vs 0.502 in 2024); 230 companies above 0.5 (vs 324 in 2024). Slightly lower climate intensity than 2024, consistent with pre-IFRS S2 reporting. DB cols filled: `climatebert_climate_pct`, `climatebert_climate_sentences_n`, `climatebert_total_sentences_n`. |
 
 ---
 
