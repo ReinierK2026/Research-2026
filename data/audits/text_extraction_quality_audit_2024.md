@@ -1,6 +1,6 @@
 # Text Extraction Quality Audit — 2024 Cohort
 **Audit date:** 2026-05-19  
-**Last updated:** 2026-06-08 (Step 0.2 done: language detection; 13 non-`_E` + 8 `_b`/`_E_b` duplicate files removed)  
+**Last updated:** 2026-06-08 (Phase 1 English Track NLP complete: steps 1.3 and 1.4 done; steps 1.1 and 1.2 need re-run to merge DB; DB repaired after header corruption)  
 **Corpus (raw):** `/Text extraction/extracted_text/2024/`  
 **Corpus (processed):** `/Text extraction/extracted_text/2024_processed/`  
 **Source PDFs on disk:** 1,022  (after removal of 21 duplicate `_b`/non-`_E` English PDFs)  
