@@ -2,7 +2,7 @@
 agent: research-coordinator
 type: synthesis-summary
 topic: "twse-materiality"
-last_updated: "2026-06-08"
+last_updated: "2026-06-09"
 sessions: ["2026-05-18", "2026-05-20", "2026-05-21", "2026-05-22", "2026-05-23", "2026-05-24", "2026-06-08", "2026-06-08-pass32", "2026-06-08-pass33", "2026-06-08-pass34", "2026-06-08-pass35", "2026-06-08-pass36", "2026-06-08-pass37", "2026-06-08-pass38", "2026-06-09-pass39"]
 agents_ever_deployed: ["web-researcher", "academic-researcher", "data-analyst", "technical-researcher", "research-gap-analysis", "hypothesis-generation", "research-coordinator"]
 status: current
@@ -452,6 +452,6 @@ gri_101_applied, gri_new_climate_energy_adopted, ifrs_s1_adopted, issb_s2_adopte
 
 ---
 
-*Last updated by: research-coordinator | Pass 38 | 2026-06-08*  
-*Covers: Passes 1–38 across 14 sessions (2026-05-18 through 2026-06-08)*  
-*Next coordinator session trigger: after Phase 2 Steps 2.1/2.2 run, or OSF pre-registration*
+*Last updated by: research-coordinator | Pass 39 | 2026-06-09*  
+*Covers: Passes 1–39 across 15 sessions (2026-05-18 through 2026-06-09)*  
+*Next coordinator session trigger: Phase 2 multilingual track for 2021/2022/2023 cohorts, or OSF pre-registration*
