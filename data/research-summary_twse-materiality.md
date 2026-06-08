@@ -215,7 +215,7 @@ Coverage is shown two ways: **NLP corpus** (1,042 companies with extracted text)
 ### Data Biases
 - **NLP corpus selection bias**: 941 of 1,983 TEJ-registered 2024 companies (47.5%) have no extracted report text and are excluded from Block B/C/D analysis. These are likely systematically smaller or less-prominent companies — estimates for process quality, topic counts, and text-based variables will skew toward larger, more active reporters. Analysts using NLP-based outcomes should note the effective N is 1,042, not 1,983.
 - **December fiscal year filter**: TEJ data filtered to YYYY/12 fiscal year-end. Non-December fiscal year companies are excluded from financial controls. This affects <5% of TWSE universe.
-- **GRI 3-3 table extraction**: Available only for 2023–2024 from PDF-embedded GRI tables. 2021–2022 use GRI code regex only — `n_material_topics_b` is 2023–2024 only for this reason.
+- **GRI 3-3 txt extraction noise**: The 516 Pass-26 values were extracted via regex rather than structured GRI table parsing. Validation against 526 gri_table-derived values shows Pearson r=0.59, 29% exact match, 51% within ±1. The primary source of error is that gri_tables itself under-extracts for many companies (pdfplumber missed rows), so "ground truth" is also noisy. Treat `n_material_topics_b` as a continuous count variable with ±2–3 measurement noise for the txt-extracted subset. Use `n_material_topics_a` (97% coverage, regex-based, more reliable) for robustness checks.
 
 ---
 
