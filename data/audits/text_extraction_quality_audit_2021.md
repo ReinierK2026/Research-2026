@@ -199,13 +199,17 @@ The lower median (0.772 vs 0.909 in 2022) is primarily driven by this format mis
 | File(s) | Issue | Recommendation |
 |---|---|---|
 | 9904_2021_E, 4720_2021_E, 9938_2021_E | Text cover + empty body pages (hidden partial scan) | OCR interior pages to recover; exclude from text analysis until OCR'd |
+| 6472_2021_E, 8341_2021_E | Same as above — PAGE markers only, zero body text (identified 2026-06-08) | Exclude from text-based analyses |
 | 3044_2021_E | Character encoding failure (font not decoded by fitz) | Exclude from all text-based analyses |
 | 3669_2021 | Corrupt PDF — 0-byte output | Exclude |
 | 2707_2021_M | `_M` suffix (non-standard); OCR'd | Usable; note non-standard suffix in panel |
+| 6202_2021_E (1).txt | macOS duplicate name (space + "(1)") — no clean copy existed | Copied to `6202_2021_E.txt` on 2026-06-08; both files now in 2021_processed |
+| 6531_2021_b.txt | `_b` suffix backup duplicate; `6531_2021.txt` is the canonical copy | Ignore _b version; not picked up by NLP glob |
+| 6770_2021_M_E (1).txt | Combined bilingual+English suffix + macOS duplicate; in DB but no clean `_E` file | Not on English NLP track; 6770 will not be processed for _E NLP |
 | All processed files | G4 sector supplements present in 8 files | G4 codes included in gri_codes_summary_2021.csv (n_g4_codes column); core G4 indicators absent from corpus |
 | All processed files | GRI index table cells stripped by sidebar filter | Use gri_codes_summary_2021.csv for GRI analysis |
 
-**Total hard exclusions: 5 files (1.0% of 495-file corpus).** Remaining 490 files are fit for NLP analysis.
+**Total hard exclusions: 7 files (1.4% of 495-file corpus)** — 5 originally documented + 2 additional hidden partial scans (6472, 8341) identified 2026-06-08. Remaining 488 files are fit for NLP analysis.
 
 ---
 
