@@ -504,7 +504,7 @@ Implementation note: Each file processed one at a time (smallest first), with pe
 
 ---
 
-*End of audit — 2023 cohort fully preprocessed and verified. Use `2023_processed/` for NLP; `gri_codes_summary_2023.csv` for GRI code coverage.*
+*Corpus fully preprocessed and verified. Use `2023_processed/` for NLP; `gri_codes_summary_2023.csv` for GRI code coverage.*
 
 ---
 
