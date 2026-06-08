@@ -208,14 +208,16 @@ Phase 2 Multilingual Track has begun. Step 2.3 (Block C Chinese/bilingual extrac
 | Step | Method | Status | Key Findings |
 |------|--------|--------|-------------|
 | 2.3 Block C | Bilingual regex (zh+en) | ✅ Done | mat_section=354/361 (98.1%); board_approved=289/361 (80.1%); dm_methodology=341/361 (94.5%); double_mat=52/361 (14.4%); engagement mean=3.14 (356/361); stakeholders mean=7.03; process_steps=333/361 (92.2%); viz_format=70/361 (19.4%); ai_tool=16/361 (4.4%); process_quality mean=0.426 |
-| 2.2 XLM-RoBERTa-XNLI | Zero-shot topic classification | ⬜ Pending | GRI material topic taxonomy labels; threshold ≥ 0.6 |
-| 2.1 BGE-M3 | Multilingual semantic matching | ⬜ Pending | MTEB multilingual model; CPU-feasible; analogous to Phase 1 ESGLens |
+| 2.1 BGE-M3 | BAAI/bge-m3, 33 bilingual GRI topic descriptors | ✅ Done | 361/361 (100%). Top topics: GRI Alignment (122/34%), Stakeholder Engagement (56), Training & Education (25), TCFD/ISSB Alignment (20), Economic Performance (17). top1_sim mean=0.690. Affinities: gov=0.353, soc=0.295, env=0.173. JSONL: bge_2024_matches.jsonl |
+| 2.2 XLM-RoBERTa-XNLI | mDeBERTa-v3-base-mnli-xnli, zero-shot sentence classification | ✅ Done | 361/361 (100%). dominant: soc=294 (81.4%), other=44 (12.2%), gov=14 (3.9%), env=9 (2.5%). Mean pcts: soc=0.449, gov=0.204, other=0.213, env=0.164. Mean sentences=43.9 |
 
-**Cross-track comparison (2024 Block C only — English vs Chinese reporters):**
-- `board_approved`: Chinese-track 80.1% vs English-track 57.1% — Chinese reporters more likely to reference board-level materiality oversight
-- `double_materiality_mentioned`: Chinese-track 14.4% vs English-track 10.3% — slight edge, likely driven by bilingual companies in the Chinese-track set
-- `dm_methodology_disclosed`: Chinese-track 94.5% vs English-track 32.1% — large disparity reflects bilingual window patterns matching GRI references throughout Chinese reports; English extractor restricts to a narrower materiality window
-- `process_quality_score` mean: Chinese-track 0.426 vs English-track 0.526 — English-track higher, consistent with generally more detailed materiality process disclosure in English-language reports
+**Cross-track comparison (2024 — English vs Chinese reporters):**
+- **Framing trajectory (BGE vs ESGLens)**: Chinese-track is GRI Alignment-dominant (34% of companies) while English-track is TCFD/ISSB Alignment-dominant (38%). Chinese reporters are framing materiality within the established GRI taxonomy; English reporters have pivoted to the IFRS S1/S2 vocabulary. Stakeholder Engagement is the 2nd-ranked topic in both tracks (56/361 zh, 172/680 en), confirming a consistent methodological core across languages.
+- **ESG pillar emphasis (XLMR vs FinBERT)**: Chinese-track is strongly soc-dominant (81.4%) while English-track is gov-dominant (51.5%). Mean soc_pct: zh=0.449 vs en=0.291; mean gov_pct: zh=0.204 vs en=0.376. This mirrors the trajectory observed in Phase 1 — the 2021 English cohort was also soc-dominant (47%), shifting to gov by 2024. Chinese reporters appear to be approximately 3 years behind English reporters in the soc→gov pillar transition.
+- **Board approval (Block C)**: Chinese-track 80.1% vs English-track 57.1% — higher rate in Chinese files, consistent with bilingual reports drawing on both Chinese governance culture (explicit board approval references) and the update merging with prior extraction.
+- **Double materiality**: Chinese-track 14.4% vs English-track 10.3% — slightly higher, likely bilingual companies referencing `雙重重大性` alongside English DM terminology, both caught by the bilingual extractor.
+- **Process quality**: Chinese-track mean 0.426 vs English-track 0.526 — English-track higher, consistent with more granular materiality process disclosure in English reports (more explicit step-counting, scoring, visualization descriptions).
+- **AI tool disclosure**: Chinese-track 4.4% vs English-track 40.4% — Chinese reporters almost entirely absent from the 2024 GenAI wave that swept English-language reports.
 
 **2024 cohort — 680 English files, all steps complete:**
 
