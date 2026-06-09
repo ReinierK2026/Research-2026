@@ -1,4 +1,4 @@
-# Research Methodology Guide: TWSE Materiality Assessment Analysis (Two-Tier Design)
+# Research Methodology Guide: GRI 3 Materiality DiD Study
 ### Answering the Five Core Research Design Questions
 **Compiled: May 15, 2026 | Last updated: June 9, 2026 | Four-stream coordinated research**
 
