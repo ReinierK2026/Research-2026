@@ -186,8 +186,8 @@ Both the `_2020` and `_109 (1)` files exist and contain identical content (confi
 
 **Subsample:** All 430 non-`_E` files (Chinese/bilingual). Given only 2 `_E` files, the standard 50/50 stratification is not applicable; the subsample is drawn exclusively from the Chinese/bilingual track.
 
-**Script:** `check_extraction_quality_2020.py` (to be written)  
-**Output:** `extraction_quality_check_2020.csv` — one row per file; columns added progressively.
+**Script:** `check_extraction_quality_2020.py` (completed 2026-06-09)  
+**Output:** `extraction_quality_check_2020.csv` — 428 rows (all files excl. hard exclusion 3703_2020); `extraction_quality_report_2020.txt`.
 
 ---
 
