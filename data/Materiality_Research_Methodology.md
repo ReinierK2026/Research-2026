@@ -101,15 +101,15 @@
 
 | Agent | When to Deploy | Task |
 |-------|---------------|------|
-| `data-analyst` | Phase 1 now | Block C cohort extraction; Block D input dataset construction; quality checks |
-| `technical-researcher` | Phase 2 | NLP pipeline implementation (FinBERT, XLM-RoBERTa, Qwen3-Embedding); test on sample |
-| `academic-researcher` | Phase 2–3 | Literature search for comparable staggered DiD studies on ESG mandates; citation tracking |
-| `web-researcher` | Phase 3 | Global peer PDF collection from IR pages; FSC regulatory bulletin monitoring |
-| `data-analyst` | Phase 3–4 | Panel construction, Block F merge, descriptive statistics, regression execution |
-| `hypothesis-generation` | Phase 4 pre-reg | Refine and formalise DiD hypotheses before statistical testing; OSF pre-registration |
+| `data-analyst` | Phase 3b now | Source `board_esg_committee`; complete Block F TEJ export; derive `impact_intensity` from `sasb_industry` |
+| `hypothesis-generation` | Phase 4 pre-reg | Assist OSF pre-registration drafting; lock H4 `impact_intensity` derivation rule |
+| `academic-researcher` | Phase 4–5 | Literature search for comparable staggered DiD studies on ESG mandates; Göttsche et al. (2025) displacement effect citations |
+| `data-analyst` | Phase 5 | Tier 1 CS21 estimation (H1–H4); event-study plots; Goodman-Bacon decomposition; Rambachan-Roth sensitivity |
+| `data-analyst` | Phase 6 | Tier 2 H5 analysis (73-company semiconductor sub-cohort; TSMC proximity interaction) |
+| `web-researcher` | Phase 6 | TSMC Supplier Sustainability Report lookup for tier-1 proximity coding; Hsinchu Science Park registry |
 | `research-coordinator` | Any multi-agent pass | Orchestrate parallel agent tasks; consolidate findings into research_log.json |
 
-**Pre-registered hypotheses** (draft): `hypotheses/hypothesis-generation_did-hypotheses_2026-05-22.md`
+**Pre-registered hypotheses**: `hypotheses/hypothesis-generation_did-hypotheses_2026-05-22.md` (updated 2026-06-09 — two-tier design)
 
 ---
 
