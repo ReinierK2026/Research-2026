@@ -233,13 +233,15 @@ The main structural constraint to accept: the estimable panel is **2021–2024**
 > **Structural constraint to document:** Outcome variable pre-treatment baseline only available from 2021 (not 2016). Effective estimation window = 2021–2024.  
 >  
 > **Data quality flags:**  
-> - `n_material_topics_b`: method inconsistency pre/post treatment boundary — consider `n_material_topics_a` as primary H1 outcome  
-> - `assurance_level`: very few Reasonable cases in subsample (5–6/year) — H3 power concern  
-> - Block F controls: 64% coverage in 2022–2024 post-treatment years  
+> - `n_material_topics_b`: 100% non-null but ~52% are placeholder zeros (unprocessed rows) — **must set to NA before regression**  
+> - `n_material_topics_b`: method inconsistency pre/post treatment boundary — use `n_material_topics_a` as primary H1 outcome  
+> - 2021 PDF coverage ~0% — pre-treatment baseline for 2022 cohort almost entirely missing; prioritise 2021 PDF downloads  
+> - `assurance_level`: TEJ coverage declining (43% in 2024); few Reasonable cases — H3 power concern  
+> - Block F controls: 46–60% coverage in 2022–2024  
 >  
-> **Coverage shortfalls:** 6/13 Phase 4 requirements fully met  
+> **Coverage shortfalls:** 6/13 Phase 4 requirements fully met; 5 partial; 2 blocked  
 >  
-> **Suggested focus for next session:** Pre-registration document drafting + `board_esg_committee` sourcing. Once those two are resolved, R DiD scripts can follow immediately.  
+> **Suggested focus for next session:** (1) NA-fix script for `n_material_topics_b`; (2) OSF pre-registration; (3) 2021 PDF downloads for 2022 adoption cohort.  
 >  
 > **Do NOT re-assign:**  
 > phase1 (FinBERT, ClimateBERT, ESGLens, Block C — all 4 years, EN track),  
