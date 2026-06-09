@@ -1528,11 +1528,21 @@
     "status": "completed",
     "output_file": "scripts/phase1_nlp_local/phase1_block_c_english_2021_sandbox.py",
     "variables_added": [
-      "mat_section_found", "board_approved", "double_materiality_mentioned",
-      "dm_methodology_disclosed", "scoring_method_disclosed", "stakeholder_survey_n",
-      "engagement_channels_n", "process_steps_n", "visualization_format",
-      "ai_tool_disclosed", "boundary_setting_disclosed", "value_chain_scope",
-      "review_frequency_disclosed", "validation_method", "topic_count_n",
+      "mat_section_found",
+      "board_approved",
+      "double_materiality_mentioned",
+      "dm_methodology_disclosed",
+      "scoring_method_disclosed",
+      "stakeholder_survey_n",
+      "engagement_channels_n",
+      "process_steps_n",
+      "visualization_format",
+      "ai_tool_disclosed",
+      "boundary_setting_disclosed",
+      "value_chain_scope",
+      "review_frequency_disclosed",
+      "validation_method",
+      "topic_count_n",
       "process_quality_score"
     ],
     "notes": "308 _E files (after copying 6202_2021_E(1).txt → 6202_2021_E.txt). 307 DB matches (3990 not in DB). mat_section_found 290/307 (94.5%), board_approved 137/307 (44.6%), dm_methodology_disclosed 228/307 (74.3%), visualization_format 35/307 (11.4%), ai_tool_disclosed 2/307 (0.7%). 5 hard exclusions: 4720, 9904, 9938, 6472, 8341 (near-empty/image-only)."
@@ -1546,8 +1556,13 @@
     "status": "completed",
     "output_file": "scripts/phase1_nlp_local/phase1_step1_3_esglens_2021.py",
     "variables_added": [
-      "esglens_top1_topic", "esglens_top1_sim", "esglens_top3_topics",
-      "esglens_mean_sim", "esglens_env_affinity", "esglens_soc_affinity", "esglens_gov_affinity"
+      "esglens_top1_topic",
+      "esglens_top1_sim",
+      "esglens_top3_topics",
+      "esglens_mean_sim",
+      "esglens_env_affinity",
+      "esglens_soc_affinity",
+      "esglens_gov_affinity"
     ],
     "notes": "307/307 _E files processed. Top1: SDG(77), GRI(55), SE(40), SupplierEnv(20), TCFD(19). Mean sim=0.642. Gov-affinity=0.57, env=0.29, soc=0.14. Secondary output: scripts/phase1_nlp_local/esglens_2021_matches.jsonl"
   },
@@ -1560,8 +1575,12 @@
     "status": "completed",
     "output_file": "scripts/phase1_nlp_local/phase1_step1_1_finbert_2021.py",
     "variables_added": [
-      "finbert_env_pct", "finbert_soc_pct", "finbert_gov_pct",
-      "finbert_other_pct", "finbert_esg_sentences_n", "finbert_dominant_factor"
+      "finbert_env_pct",
+      "finbert_soc_pct",
+      "finbert_gov_pct",
+      "finbert_other_pct",
+      "finbert_esg_sentences_n",
+      "finbert_dominant_factor"
     ],
     "notes": "307/307 _E files processed. Dominant: soc=143 (46.6%), gov=106 (34.5%), env=37 (12.1%), other=21 (6.8%). Mean pcts: soc=0.351, gov=0.313, env=0.198, other=0.138. Run sequentially after ESGLens."
   },
@@ -1599,8 +1618,15 @@
     "topic": "Phase 2 Step 2.1 BGE-M3 multilingual semantic topic matcher — 2024 Chinese/bilingual track",
     "status": "completed",
     "output_file": "scripts/phase2_nlp_local/phase2_step2_1_bge_2024.py",
-    "variables_added": ["bge_top1_topic", "bge_top1_sim", "bge_top3_topics", "bge_mean_sim",
-                        "bge_env_affinity", "bge_soc_affinity", "bge_gov_affinity"],
+    "variables_added": [
+      "bge_top1_topic",
+      "bge_top1_sim",
+      "bge_top3_topics",
+      "bge_mean_sim",
+      "bge_env_affinity",
+      "bge_soc_affinity",
+      "bge_gov_affinity"
+    ],
     "notes": "361/361 files processed (100%). Model: BAAI/bge-m3. 33 bilingual GRI topic descriptors (zh+en). bge_top1_sim mean=0.690; bge_mean_sim=0.660. Top topics: GRI Alignment (122/361=34%), Stakeholder Engagement (56), Training & Education (25), TCFD/ISSB Alignment (20), Economic Performance (17), Climate Adaptation (15). Affinities: gov=0.353, soc=0.295, env=0.173. Secondary output: bge_2024_matches.jsonl. DB schema now 188 cols. Key finding: Chinese-track is GRI-Alignment dominant vs English-track TCFD/ISSB dominant — reflects slower IFRS S1/S2 adoption framing among Chinese reporters."
   },
   {
@@ -1611,8 +1637,113 @@
     "topic": "Phase 2 Step 2.2 XLM-RoBERTa-XNLI zero-shot ESG classifier — 2024 Chinese/bilingual track",
     "status": "completed",
     "output_file": "scripts/phase2_nlp_local/phase2_step2_2_xlmr_2024.py",
-    "variables_added": ["xlmr_env_pct", "xlmr_soc_pct", "xlmr_gov_pct", "xlmr_other_pct",
-                        "xlmr_esg_sentences_n", "xlmr_dominant_factor"],
+    "variables_added": [
+      "xlmr_env_pct",
+      "xlmr_soc_pct",
+      "xlmr_gov_pct",
+      "xlmr_other_pct",
+      "xlmr_esg_sentences_n",
+      "xlmr_dominant_factor"
+    ],
     "notes": "361/361 files processed (100%). Model: MoritzLaurer/mDeBERTa-v3-base-mnli-xnli. Mean sentences=43.9. dominant_factor: soc=294 (81.4%), other=44 (12.2%), gov=14 (3.9%), env=9 (2.5%). Mean pcts: soc=0.449, gov=0.204, other=0.213, env=0.164. Key finding: Chinese-track is strongly soc-dominant (81.4%) vs English-track gov-dominant (FinBERT: gov=51.5%, soc=28%). Parallels Phase 1 2021 English cohort which was also soc-dominant (47%) before shifting to gov by 2024. Suggests Chinese reporters lag English reporters by ~3 years in governance-focus trajectory."
+  },
+  {
+    "task_id": "phase2-step2-3-block-c-chinese-2023",
+    "date": "2026-06-09",
+    "pass": 40,
+    "agent": "coordinator-scripts",
+    "topic": "Phase 2 Step 2.3 Block C Chinese/bilingual extractor — 2023 multilingual track",
+    "status": "completed",
+    "output_file": "scripts/phase2_nlp_local/phase2_block_c_chinese_2023.py",
+    "variables_added": [],
+    "notes": "216/216 files processed. No exclusions. Combined 2023 corpus: mat_found=699/1185 (59.0%), board_approved=453/1185 (38.2%), double_mat=72/1185 (6.1%), ai_tool=32/1185 (2.7%). Bilingual regex with full-text fallback for engagement/scoring."
+  },
+  {
+    "task_id": "phase2-step2-1-bge-2023",
+    "date": "2026-06-09",
+    "pass": 40,
+    "agent": "coordinator-scripts",
+    "topic": "Phase 2 Step 2.1 BGE-M3 multilingual semantic topic matcher — 2023 Chinese/bilingual track",
+    "status": "completed",
+    "output_file": "scripts/phase2_nlp_local/phase2_step2_1_bge_2023.py",
+    "variables_added": [],
+    "notes": "216/216 filled. Top1: GRI Alignment(55), Stakeholder Engagement(27), Training & Education(24), TCFD/ISSB(11). Mean sim=0.651. BGE affinity: soc=0.303, gov=0.279, env=0.156. Output: bge_2023_matches.jsonl."
+  },
+  {
+    "task_id": "phase2-step2-2-xlmr-2023",
+    "date": "2026-06-09",
+    "pass": 40,
+    "agent": "coordinator-scripts",
+    "topic": "Phase 2 Step 2.2 XLM-RoBERTa-XNLI zero-shot ESG classifier — 2023 Chinese/bilingual track",
+    "status": "completed",
+    "output_file": "scripts/phase2_nlp_local/phase2_step2_2_xlmr_2023.py",
+    "variables_added": [],
+    "notes": "216/216 filled. Dominant: soc=179 (82.9%), other=17 (7.9%), env=16 (7.4%), gov=4 (1.9%). Mean 48.2 sentences/file. Model: mDeBERTa-v3-base-mnli-xnli."
+  },
+  {
+    "task_id": "phase2-step2-3-block-c-chinese-2022",
+    "date": "2026-06-09",
+    "pass": 41,
+    "agent": "coordinator-scripts",
+    "topic": "Phase 2 Step 2.3 Block C Chinese/bilingual extractor — 2022 multilingual track",
+    "status": "completed",
+    "output_file": "scripts/phase2_nlp_local/phase2_block_c_chinese_2022.py",
+    "variables_added": [],
+    "notes": "224 files processed (excl: 1795, 3704). Combined 2022 corpus: mat_found=581/980 (59.3%), board_approved=349/980 (35.6%), double_mat=47/980 (4.8%), ai_tool=5/980 (0.5%)."
+  },
+  {
+    "task_id": "phase2-step2-1-bge-2022",
+    "date": "2026-06-09",
+    "pass": 41,
+    "agent": "coordinator-scripts",
+    "topic": "Phase 2 Step 2.1 BGE-M3 multilingual semantic topic matcher — 2022 Chinese/bilingual track",
+    "status": "completed",
+    "output_file": "scripts/phase2_nlp_local/phase2_step2_1_bge_2022.py",
+    "variables_added": [],
+    "notes": "225/225 filled (excl: 1795, 3704). Top1: GRI Alignment(70), Stakeholder Engagement(31), Training & Education(22). Mean sim=0.654. BGE affinity: gov=0.308, soc=0.299, env=0.126. Output: bge_2022_matches.jsonl."
+  },
+  {
+    "task_id": "phase2-step2-2-xlmr-2022",
+    "date": "2026-06-09",
+    "pass": 41,
+    "agent": "coordinator-scripts",
+    "topic": "Phase 2 Step 2.2 XLM-RoBERTa-XNLI zero-shot ESG classifier — 2022 Chinese/bilingual track",
+    "status": "completed",
+    "output_file": "scripts/phase2_nlp_local/phase2_step2_2_xlmr_2022.py",
+    "variables_added": [],
+    "notes": "225/225 filled. Dominant: soc=175 (77.8%), other=17 (7.6%), env=20 (8.9%), gov=13 (5.8%). Mean 47.2 sentences/file. Model: mDeBERTa-v3-base-mnli-xnli."
+  },
+  {
+    "task_id": "phase2-step2-3-block-c-chinese-2021",
+    "date": "2026-06-09",
+    "pass": 42,
+    "agent": "coordinator-scripts",
+    "topic": "Phase 2 Step 2.3 Block C Chinese/bilingual extractor — 2021 multilingual track",
+    "status": "completed",
+    "output_file": "scripts/phase2_nlp_local/phase2_block_c_chinese_2021.py",
+    "variables_added": [],
+    "notes": "172 files processed (excl: 3669). Combined 2021 corpus: mat_found=450/822 (54.7%), board_approved=209/822 (25.4%), double_mat=6/822 (0.7%), ai_tool=2/822 (0.2%). Note: lower rates reflect 2021 reporting norms."
+  },
+  {
+    "task_id": "phase2-step2-1-bge-2021",
+    "date": "2026-06-09",
+    "pass": 42,
+    "agent": "coordinator-scripts",
+    "topic": "Phase 2 Step 2.1 BGE-M3 multilingual semantic topic matcher — 2021 Chinese/bilingual track",
+    "status": "completed",
+    "output_file": "scripts/phase2_nlp_local/phase2_step2_1_bge_2021.py",
+    "variables_added": [],
+    "notes": "172/172 filled (excl: 3669). Top1: GRI Alignment(47), Stakeholder Engagement(26), Training & Education(20). Mean sim=0.643. BGE affinity: soc=0.302, gov=0.301, env=0.122. Output: bge_2021_matches.jsonl."
+  },
+  {
+    "task_id": "phase2-step2-2-xlmr-2021",
+    "date": "2026-06-09",
+    "pass": 42,
+    "agent": "coordinator-scripts",
+    "topic": "Phase 2 Step 2.2 XLM-RoBERTa-XNLI zero-shot ESG classifier — 2021 Chinese/bilingual track",
+    "status": "completed",
+    "output_file": "scripts/phase2_nlp_local/phase2_step2_2_xlmr_2021.py",
+    "variables_added": [],
+    "notes": "172/172 filled. Dominant: soc=133 (77.3%), other=14 (8.1%), env=13 (7.6%), gov=12 (7.0%). Mean 41.6 sentences/file. Model: mDeBERTa-v3-base-mnli-xnli."
   }
 ]
