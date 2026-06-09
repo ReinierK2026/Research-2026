@@ -1,6 +1,6 @@
 # Text Extraction Quality Audit — 2021 Cohort
 **Audit date:** 2026-05-22  
-**Last updated:** 2026-06-09 — Corpus expanded: 319 new PDFs (298 native + 21 scanned); GRI CSV updated to 790 rows / 536 with codes; 2 additional hard exclusions (2201_2021, 3035_2021). See Entry 12.  
+**Last updated:** 2026-06-10 — CN supplement: 314 new Chinese-track files pre-processed (Phase 0 supplement ran); 308 rows flagged bilingual_report=1; 24 mojibake-risk files flagged; word_count_cn/page_count_cn columns added; Phase 2 BGE+XLMR supplement scripts written (pending local run); Phase 3 supplement script written. See Entry 13.  
 **Corpus (raw):** `/Text extraction/extracted_text/2021/` — 4 files (0 `_E`, 4 other)  
 **Corpus (processed):** `/Text extraction/extracted_text/2021_processed/`  
 **Source PDFs on disk:** ~811 (492 original + 319 added 2026-06-09)  
