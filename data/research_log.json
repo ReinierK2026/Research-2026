@@ -1809,5 +1809,38 @@
       "topic_depth_score"
     ],
     "notes": "2021 cohort (822 rows). mda_index: 470/822 (>0), mean=0.549, mode=0.5 — lower than later cohorts, consistent with pre-CSRD reporting norms. gci: 41/822 (>0), mean=0.237 — EXPECTED: 808/822 rows are GRI Standards 2016 reporters; GRI 2-* notation absent → GCI=0.0 by design. Filter by gri_standard_version for cross-cohort analysis. n_material_topics_b: 319/822 (>0), mean=15.9, median=16 — sourced from gri_codes_summary_2021.csv. topic_depth_score: 476/822 (>0), mean=0.577, median=0.586. DEFAULT_DENOM=33 (GRI 2016 era)."
+  },
+  {
+    "task_id": "2020-text-extraction-stages-1-2",
+    "date": "2026-06-09",
+    "pass": 47,
+    "agent": "coordinator-scripts",
+    "topic": "2020 cohort text extraction — Stage 0 scan + Stage 1 OCR + Stage 2 PyMuPDF",
+    "status": "completed",
+    "output_file": "text-extraction/extracted_text/2020_processed/",
+    "variables_added": [],
+    "notes": "Full 5-stage pipeline initiated for 2020 cohort (432 PDFs). Stage 0 scan: 404 native (93.5%) + 28 scanned (6.5%) — results in scan_2020_results.json. Stage 1 OCR: 28 scanned PDFs processed with Tesseract LSTM chi_tra+eng; per-page cache (ocr_cache_2020/); 3703_2020 = 0 pages (corrupt). Stage 2 PyMuPDF: 404 native PDFs extracted with coordinate-aware layout correction (sidebar suppression x₀<16%, header/footer 7%/5%, two-column detection). Output: 432 .txt files in 2020_processed/ (2 _E / 0.5%, 430 Chinese / 99.5%). 1 hard exclusion: 3703_2020 (empty, image-only corrupt PDF). Median chars: 39,028 all; OCR files ~26% lower than native (30,074 vs 40,600). 3 filename anomalies: 2401_109 (1), 2484_109 (1), 2489_109 (1) — alternate filings, same content as _2020 counterparts."
+  },
+  {
+    "task_id": "2020-gri-extraction",
+    "date": "2026-06-09",
+    "pass": 48,
+    "agent": "coordinator-scripts",
+    "topic": "2020 cohort GRI code extraction — Stage 3",
+    "status": "completed",
+    "output_file": "data/gri/gri_codes_summary_2020.csv",
+    "variables_added": [],
+    "notes": "GRI extraction applied to 404 native PDFs (28 scanned excluded — no text layer). 250/404 (61.9%) files have GRI codes; 12 files have G4 codes (375 instances). Total GRI code instances: 9,789. Median codes per file (with codes): 36. G4 signal stronger than 2021 (375 vs 116 instances), consistent with 2020 being earlier in the G4 → GRI Standards transition. CSV: 404 rows, fields: file, gri_pages, n_codes, n_standards, n_g4_codes, codes. No duplicate rows; 3 _109 (1) rows included as distinct entries."
+  },
+  {
+    "task_id": "2020-quality-audit",
+    "date": "2026-06-09",
+    "pass": 49,
+    "agent": "coordinator-scripts",
+    "topic": "2020 cohort quality audit — Stage 4",
+    "status": "completed",
+    "output_file": "data/audits/text_extraction_quality_audit_2020.md",
+    "variables_added": [],
+    "notes": "Quality audit completed for 2020 cohort. Key findings: 432/432 files produced (1 hard exclusion: 3703_2020). Lowest English rate in dataset (0.5% — 2 files). Highest scan rate in dataset (6.5% — 28 files). GRI detection 61.9% (250/404 native); G4 codes in 12 files (375 instances, 3× rate of 2021). 3 non-standard filename anomalies flagged for deduplication. OCR quality ~26% lower char yield vs native text. Five-stage pipeline complete; 2020 corpus ready for NLP analysis. Scripts: ocr_batch_2020.py, pymupdf_batch_2020.py, gri_extract_2020.py."
   }
 ]
