@@ -581,19 +581,23 @@ mcnemar.test(table_of_paired_observations)
 
 **This is the most methodologically critical test.** Companies adopted GRI 3 in different years (some FY2022, most FY2023, some FY2024). Naïve TWFE DiD is biased under treatment effect heterogeneity (Goodman-Bacon 2021 decomposition problem).
 
+**Tier 1 application (H1–H4):** Full TWSE universe; ~1,200 treated companies; panel 2021–2024; adoption cohorts: 14 × 2021, 868 × 2022, 309 × 2023, ~26 × 2024. Control group = not-yet-treated companies within the same panel. Run separately for each outcome (`n_material_topics_b`, `process_quality_score`, `assurance_level`). H4 requires subsample runs for High vs Low `impact_intensity`.
+
+**Tier 2 application (H5):** Semiconductor sub-cohort; 73 companies; 507 company-years 2016–2024. Interaction-weighted CS21 with TSMC-proximity indicator as treatment modifier.
+
 **Primary estimator: Callaway & Sant'Anna (2021) — Doubly-Robust Group-Time ATT**
 
 ```r
 library(did)  # >= 2.1.2
 out <- att_gt(
-  yname       = "topics_total_n",
+  yname       = "n_material_topics_b",   # or process_quality_score, assurance_level
   tname       = "fiscal_year",
   idname      = "company_id",
-  gname       = "gri3_adoption_year",  # 0 for never-treated
-  xformla     = ~ ln_total_assets + roa + leverage,
+  gname       = "gri_adoption_year",     # 0 for never-treated
+  xformla     = ~ ln_total_assets + roa + board_esg_committee + standalone_sr,
   control_group = "notyettreated",
-  est_method  = "dr",  # doubly-robust
-  data        = panel_df
+  est_method  = "dr",                    # doubly-robust
+  data        = panel_df                 # full TWSE panel (Tier 1) or semicon sub-cohort (H5)
 )
 aggte(out, type = "dynamic")  # event-study aggregation
 ggdid(out)                     # visualise
