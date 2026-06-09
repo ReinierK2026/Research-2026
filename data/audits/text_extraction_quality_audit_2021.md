@@ -826,6 +826,7 @@ Run order: **Step 1.4 first** (sandbox — already done), then **1.3**, then **1
 
 ---
 
-*Scripts: `scan_2021.py`, `ocr_batch_2021.py`, `pymupdf_batch_2021.py`, `gri_extract_2021.py`, `check_extraction_quality_2021.py`, `scan_2021_new.py`, `pymupdf_batch_2021_expand.py`, `ocr_batch_2021_expand.py`, `gri_extract_2021_expand.py`*  
-*Output data: `gri_codes_summary_2021.csv` (790 rows), `extraction_quality_check_2021.csv`*  
-*Processed corpus: `text-extraction/extracted_text/2021_processed/` (809 files — expanded 2026-06-09)*
+*Scripts: `scan_2021.py`, `ocr_batch_2021.py`, `pymupdf_batch_2021.py`, `gri_extract_2021.py`, `check_extraction_quality_2021.py`, `scan_2021_new.py`, `pymupdf_batch_2021_expand.py`, `ocr_batch_2021_expand.py`, `gri_extract_2021_expand.py`, `phase0_local/phase0_2021_cn_supplement.py`, `phase2_nlp_local/phase2_step2_1_bge_2021_cn_supplement.py`, `phase2_nlp_local/phase2_step2_2_xlmr_2021_cn_supplement.py`, `phase3_local/phase3_2021_cn_supplement.py`*  
+*Output data: `gri_codes_summary_2021.csv` (790 rows), `extraction_quality_check_2021.csv`, `data/audits/lang_detection_2021_cn_supplement.csv` (314 rows)*  
+*Processed corpus: `text-extraction/extracted_text/2021_processed/` (809 files — expanded 2026-06-09)*  
+*Last updated: 2026-06-10 (Entry 13 — CN supplement Phase 0 complete; Phase 2+3 supplement scripts ready)*
