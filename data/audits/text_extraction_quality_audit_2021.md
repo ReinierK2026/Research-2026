@@ -1,6 +1,6 @@
 # Text Extraction Quality Audit — 2021 Cohort
 **Audit date:** 2026-05-22  
-**Last updated:** 2026-06-08 — Pass 37: ESGLens/FinBERT/ClimateBERT NLP scripts executed; 307/822 rows filled; all Phase 1 English Track steps complete  
+**Last updated:** 2026-06-09 — Corpus expanded: 319 new PDFs (298 native + 21 scanned); GRI CSV updated to 790 rows / 536 with codes; 2 additional hard exclusions (2201_2021, 3035_2021). See Entry 12.  
 **Corpus (raw):** `/Text extraction/extracted_text/2021/` — 4 files (0 `_E`, 4 other)  
 **Corpus (processed):** `/Text extraction/extracted_text/2021_processed/`  
 **Source PDFs on disk:** 492  (309 `_E`, 183 other)  
