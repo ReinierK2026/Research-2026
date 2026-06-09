@@ -434,10 +434,10 @@ Structural result — identical to 2021 cohort (median 0.772; 46.8% below 0.75).
 
 | # | Step | Owner | Status | Notes |
 |---|---|---|---|---|
-| 1.1 | Run FinBERT-ESG-9-Categories on 2 `_E` files | technical-researcher | ⬜ Pending | Script: `phase1_step1_1_finbert_2020.py`. Adapted from `phase1_step1_1_finbert_2021.py`. YEAR=2020, EXCLUDE={3703}. |
-| 1.2 | Run ClimateBERT on 2 `_E` files | technical-researcher | ⬜ Pending | Script: `phase1_step1_2_climatebert_2020.py`. Adapted from `phase1_step1_2_climatebert_2021.py`. YEAR=2020. |
-| 1.3 | Apply ESGLens semantic topic matcher on 2 `_E` files | technical-researcher | ⬜ Pending | Script: `phase1_step1_3_esglens_2020.py`. Adapted from `phase1_step1_3_esglens_2021.py`. YEAR=2020. |
-| 1.4 | Detect materiality process section + Block C indicators (English, 2 files) | technical-researcher | ⬜ Pending | Script: `phase1_block_c_english_2020.py`. Adapted from 2021 version. YEAR=2020. |
+| 1.1 | Run FinBERT-ESG-9-Categories on 2 `_E` files | technical-researcher | ⚠️ Pending (local) | Script: `phase1_step1_1_finbert_2020.py`. Run locally — requires FinBERT model download. Only 2 rows affected. |
+| 1.2 | Run ClimateBERT on 2 `_E` files | technical-researcher | ⚠️ Pending (local) | Script: `phase1_step1_2_climatebert_2020.py`. Run locally — requires ClimateBERT model download. Only 2 rows affected. |
+| 1.3 | Apply ESGLens semantic topic matcher on 2 `_E` files | technical-researcher | ⚠️ Pending (local) | Script: `phase1_step1_3_esglens_2020.py`. Run locally — requires sentence-transformers. Only 2 rows affected. |
+| 1.4 | Detect materiality process section + Block C indicators (English, 2 files) | technical-researcher | ✅ Done | `phase1_block_c_english_2020.py` (2026-06-09). Both 1531 and 3447: mat_section_found=1, dm_methodology_disclosed=1, process_quality_score filled. |
 
 ---
 
