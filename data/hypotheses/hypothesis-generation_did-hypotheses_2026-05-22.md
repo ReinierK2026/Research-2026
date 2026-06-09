@@ -104,7 +104,7 @@ GRI 3 does not mandate assurance but strengthens the credibility rationale: the 
 | **Outcome** | `assurance_level` — ordinal: 0 = None, 1 = Limited, 2 = Reasonable |
 | **Population** | Full TWSE universe |
 | **Estimator** | Ordered logit fixed effects (`feols` with `family = "logit"` on binarised outcome); or linear probability model as approximation |
-| **Controls** | ln_total_assets, roa, board_esg_committee, assurance_provider_type (lagged) |
+| **Controls** | ln_total_assets, roa, board_approved, assurance_provider_type (lagged) |
 | **Expected sign** | **Positive ATT**: GRI 3 adoption → higher assurance level |
 | **Expected magnitude** | Increase in probability of Reasonable assurance by 8–15 percentage points |
 
@@ -186,7 +186,7 @@ Null difference between TSMC-proximate and non-proximate companies would suggest
 
 ## Pre-Registration Notes
 
-- **H1–H4** are estimable from current data (full TWSE universe) once `board_esg_committee` is coded (DA-1 for full population, critical path)
+- **H1–H4** are estimable from current data (full TWSE universe). `board_esg_committee` was 0% populated and has been replaced by `board_approved` (Block C, fully extracted) as the board-engagement control — same theoretical construct, more direct measurement. If `board_esg_committee` is later sourced from TEJ, add it as a robustness check without changing the primary specification.
 - **H5** requires an additional external data step: TSMC supply chain tier-1 coding (estimated 1–2 days of manual lookup from TSMC Supplier Sustainability Reports 2022–2024)
 - **Estimation window for H1–H4**: 2021–2024 (GRI code extraction covers 2021 onward; 2016–2020 rows have no outcome variable data and cannot contribute to DiD)
 - **Pre-registration scope**: All five hypotheses should be pre-registered on OSF **before any inferential tests are run** — a single pre-registration covering both tiers, noting the different populations
