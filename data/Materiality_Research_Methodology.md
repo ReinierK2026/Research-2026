@@ -30,7 +30,7 @@
 
 | Block | Content | Status | Location |
 |-------|---------|--------|----------|
-| A | Company identifiers & firmographics; `sasb_industry` (H4 moderator for `impact_intensity`) | ✓ Partial — TWSE tickers, names, sasb_industry | `twse-research-database.csv` |
+| A | Company identifiers & firmographics; `sasb_industry` (H4 moderator for `impact_intensity`) | ✓ Near-complete — core identifiers 100%; `sasb_industry` 94% (467 rows missing — only gap relevant to analysis); `company_name_en` 7% and `global_ticker`/`isin` 0% (global-peer fields, irrelevant for TWSE-only H1–H4 design) | `twse-research-database.csv` |
 | B | Report metadata (language, standard, page count) | ✓ All 4 cohorts extracted | `data/quality/preprocessing_manifest_*.csv` |
 | C | Materiality process disclosure variables (`process_quality_score`) | ✓ All 4 cohorts extracted (Phase 1 + 2 NLP complete) | `twse-research-database.csv` |
 | D | Material topic variables (`n_material_topics_a/b`) | ✓ All 4 cohorts extracted (Phase 3 complete) | `twse-research-database.csv` |
