@@ -616,8 +616,8 @@ Phase 1 English Track complete for 2021 cohort. All 16 Block C + 16 NLP columns 
 ## Next Steps — NLP Analysis Pipeline
 
 **Status legend:** ⬜ Pending · 🔄 In Progress · ✅ Done  
-**Updated:** 2026-06-08 (Phase 1 English Track 2021: all steps complete — ESGLens 307/307, FinBERT 307/307, ClimateBERT 307/307, Block C 307/307)  
-**Prerequisite satisfied:** Corpus is fit for NLP (subject to 7 hard exclusions).
+**Updated:** 2026-06-09 (Corpus expansion: 319 new PDFs; Phase 1 English Track 2021: all steps complete — ESGLens 307/307, FinBERT 307/307, ClimateBERT 307/307, Block C 307/307)  
+**Prerequisite satisfied:** Corpus is fit for NLP (subject to 9 hard exclusions; 809-file expanded corpus).
 
 ---
 
