@@ -677,6 +677,81 @@ Same coordinate-aware extraction as original run (sidebar suppression x₀ < 16%
 
 ---
 
+### Entry 13 — CN Supplement: Quality Audit + Phase 0 + Phase 2/3 Scripts (2026-06-10)
+**Date:** 2026-06-10  
+**Scope:** 314 Chinese text files in `2021_processed/` not yet processed by Phase 2 BGE/XLMR
+
+**Background:** When Phase 2 originally ran for 2021, only 172 Chinese-only companies were processed (those without an `_E` counterpart). The corpus expansion of 2026-06-09 added 319 new PDFs, of which the majority are Chinese-language counterparts for companies that previously had only English reports (bilingual companies). This entry documents the pre-processing, quality audit, and script preparation for the new Chinese track.
+
+**Step 1 — Inventory (sandbox):**
+
+Cross-referenced `2021_processed/` file listing against `phase2_step2_1_bge_2021_progress.json`. Identified 319 new standard CN tickers (not yet in BGE progress; standard `\d{4}_2021.txt` naming only):
+- 305 **bilingual** (also have `_E` file) — main research use case for EN vs ZH comparison
+- 14 **CN-only** (no `_E` counterpart)
+- 1 ticker (3990) not in DB — excluded
+- 3 special-variant files (`2012_2021_M`, `6531_2021_b`, `6768_2021_M`) — not standard; ignored
+
+Effective new CN tickers for processing: **318** (in DB; excluding 3990).
+
+**Step 2 — Quality audit (sandbox, 317 files checked):**
+
+Excluded from quality check: 3669 (corrupt, known), 3990 (not in DB). Of 317 checked:
+
+| Category | Count | Tickers |
+|---|---|---|
+| Zero-byte (already known hard exclusions) | 2 | 2201, 3035 |
+| Stub / unusable (< 100 words) | 1 | 2103 (23 words; TWSE questionnaire page) |
+| Mojibake risk (cjk_ratio < 0.05) | 24 | 1216, 1314, 1434, 1702, 1709, 1717, 1723, 1907, 2308, 2385, 2421, 2439, 2610, 2707, 3006, 4720, 4766, 4904, 5288, 6412, 6472, 8341, 9904, 9930 |
+| Processable (clean or mojibake-flagged) | **314** | |
+
+Mojibake-risk files have near-zero CJK ratios but substantial word counts (4k–10k words of garbled-encoding content). Same treatment as 2020's 39 mojibake files: process with BGE/XLMR but flag with `mojibake_risk=1` in lang detection CSV. Special variant files (2012_M, 6768_M) confirmed as byte-for-byte duplicates of standard files — use standard only.
+
+File size stats (317 checked, excl. zero-byte): median 117 KB, min 425 bytes, max 475 KB.  
+Word count stats (314 processable): median 5,450, min 252, max 18,284.  
+Page count: median 98, min 5, max 287.
+
+**Step 3 — Phase 0 supplement (sandbox, `phase0_2021_cn_supplement.py`):**
+
+Script written and run in sandbox on all 314 processable CN files. Results:
+
+| DB action | Count | Notes |
+|---|---|---|
+| `word_count_cn` column added + filled | 314 rows | New column; Chinese file word count |
+| `page_count_cn` column added + filled | 314 rows | New column; Chinese file page count |
+| `word_count_total` filled (was blank) | 1 row | CN-only company with no prior value |
+| `page_count` filled (was blank) | 1 row | Same |
+| `bilingual_report` updated 0→1 | 305 rows | Companies confirmed to have both CN+EN files; 3 were already correct |
+| `bilingual_report` = 1 total (2021) | 308 rows | |
+| `n_material_topics_a` filled | 6 rows | GRI topic codes from CN text, for previously blank rows |
+
+Lang detection CSV generated: `data/audits/lang_detection_2021_cn_supplement.csv` (314 rows, includes `mojibake_risk` flag column).
+
+Note on `report_language`: NOT updated for bilingual companies. The 304 companies previously classified `en` (from their `_E` file) retain that classification. `bilingual_report=1` signals that a Chinese NLP track is now also available. To update `report_language` → `zh` for consistency with 2020 convention, run a separate targeted patch.
+
+**Step 4 — Phase 2 supplement scripts written (for local GPU run):**
+
+| Script | Target | Design |
+|---|---|---|
+| `phase2_step2_1_bge_2021_cn_supplement.py` | 314 new CN files | Additive: skip if in progress JSON; only write to blank DB cells; append to `bge_2021_matches.jsonl` |
+| `phase2_step2_2_xlmr_2021_cn_supplement.py` | 314 new CN files | Same additive pattern; append to `xlmr_2021_matches.jsonl` |
+
+Both scripts: EXCLUDE = {3669, 3990, 2201, 3035, 2103}. Resumable via progress JSONs. DB cell guard prevents overwriting any non-blank column.
+
+**Step 5 — Phase 3 supplement script written:**
+
+`phase3_2021_cn_supplement.py` — fills `topic_depth_score` only where blank AND BGE now populated. Leaves ESGLens-based TDS for the 304 bilingual companies untouched. Expected to fill TDS for ~11 CN-only companies. Run after Phase 2 BGE supplement completes.
+
+**Run order (local machine):**
+```
+cd scripts/phase2_nlp_local
+python3 phase2_step2_1_bge_2021_cn_supplement.py   # ~3 hrs GPU
+python3 phase2_step2_2_xlmr_2021_cn_supplement.py  # ~2 hrs GPU
+cd ../phase3_local
+python3 phase3_2021_cn_supplement.py               # <5 min CPU
+```
+
+---
+
 ## Next Steps — NLP Analysis Pipeline
 
 **Status legend:** ⬜ Pending · 🔄 In Progress · ✅ Done  
