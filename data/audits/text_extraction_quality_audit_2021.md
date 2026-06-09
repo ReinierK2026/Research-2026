@@ -230,7 +230,9 @@ Three PDFs (9904_2021_E, 4720_2021_E, 9938_2021_E) have a text-bearing cover pag
 | 9904_2021_E, 4720_2021_E, 9938_2021_E | Text cover + empty body pages (hidden partial scan) | OCR interior pages to recover; exclude from text analysis until OCR'd |
 | 6472_2021_E, 8341_2021_E | Same as above — PAGE markers only, zero body text (identified 2026-06-08) | Exclude from text-based analyses |
 | 3044_2021_E | Character encoding failure (font not decoded by fitz) | Exclude from all text-based analyses |
-| 3669_2021 | Corrupt PDF — 0-byte output | Exclude |
+| 3669_2021 | Corrupt PDF — 0-byte output (original) | Exclude |
+| 2201_2021 | Corrupt PDF — 213 MB but fitz reports 0 pages; distinct from 2201_2021_E (OCR'd) | Exclude; added 2026-06-09 |
+| 3035_2021 | Corrupt PDF — 92 MB but fitz reports 0 pages | Exclude; added 2026-06-09 |
 | 2707_2021_M | `_M` suffix (non-standard); OCR'd | Usable; note non-standard suffix in panel |
 | 6202_2021_E (1).txt | macOS duplicate name (space + "(1)") — no clean copy existed | Copied to `6202_2021_E.txt` on 2026-06-08; both files now in 2021_processed |
 | 6531_2021_b.txt | `_b` suffix backup duplicate; `6531_2021.txt` is the canonical copy | Ignore _b version; not picked up by NLP glob |
