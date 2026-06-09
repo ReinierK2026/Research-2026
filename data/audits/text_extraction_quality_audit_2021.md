@@ -237,6 +237,8 @@ Three PDFs (9904_2021_E, 4720_2021_E, 9938_2021_E) have a text-bearing cover pag
 | 2707_2021_M | `_M` suffix (non-standard); OCR'd | Usable; note non-standard suffix in panel |
 | 6202_2021_E (1).txt | macOS duplicate name (space + "(1)") — no clean copy existed | Copied to `6202_2021_E.txt` on 2026-06-08; both files now in 2021_processed |
 | 6531_2021_b.txt | `_b` suffix backup duplicate; `6531_2021.txt` is the canonical copy | Ignore _b version; not picked up by NLP glob |
+| 2103_2021.txt | Chinese stub (23 words, 425 bytes); extracted text is a single TWSE reporting questionnaire page with no SR content | Excluded from BGE/XLMR NLP; added to EXCLUDE set in supplement scripts |
+| 2012_2021_M.txt, 6768_2021_M.txt | `_M` suffix variants; byte-for-byte identical content to standard `_2021.txt` files | Use standard files only; `_M` variants not picked up by NLP glob |
 | 6770_2021_M_E (1).txt | Combined bilingual+English suffix + macOS duplicate; in DB but no clean `_E` file | Not on English NLP track; 6770 will not be processed for _E NLP |
 | All processed files | G4 sector supplements present in 8 files | G4 codes included in gri_codes_summary_2021.csv (n_g4_codes column); core G4 indicators absent from corpus |
 | All processed files | GRI index table cells stripped by sidebar filter | Use gri_codes_summary_2021.csv for GRI analysis |
