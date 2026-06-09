@@ -54,7 +54,7 @@ Göttsche et al. (2025) demonstrate a displacement effect for SASB financial-mat
 | **Population** | Full TWSE universe (~1,200 treated companies) |
 | **Cohorts** | Companies grouped by `gri_adoption_year` (primary clusters: 2022–2023) |
 | **Estimator** | `att_gt(yname="n_material_topics_b", tname="fiscal_year", idname="company_id", gname="gri_adoption_year", control_group="notyettreated")` |
-| **Controls** | ln_total_assets, roa, board_esg_committee, standalone_sr |
+| **Controls** | ln_total_assets, roa, board_approved, standalone_sr |
 | **Expected sign** | **Negative ATT**: GRI 3 adoption → reduction in n_material_topics_b |
 | **Expected magnitude** | Based on Göttsche et al. (2025): −2 to −5 topics relative to pre-adoption mean |
 | **Pre-trend test** | Event-study plot; inspect t−2 and t−1 coefficients for anticipation effects (Gap 6) |
