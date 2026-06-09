@@ -3,7 +3,7 @@ agent: research-coordinator
 type: synthesis-summary
 topic: "twse-materiality"
 last_updated: "2026-06-09"
-sessions: ["2026-05-18", "2026-05-20", "2026-05-21", "2026-05-22", "2026-05-23", "2026-05-24", "2026-06-08", "2026-06-08-pass32", "2026-06-08-pass33", "2026-06-08-pass34", "2026-06-08-pass35", "2026-06-08-pass36", "2026-06-08-pass37", "2026-06-08-pass38", "2026-06-09-pass39", "2026-06-09-pass40", "2026-06-09-pass41", "2026-06-09-pass42"]
+sessions: ["2026-05-18", "2026-05-20", "2026-05-21", "2026-05-22", "2026-05-23", "2026-05-24", "2026-06-08", "2026-06-08-pass32", "2026-06-08-pass33", "2026-06-08-pass34", "2026-06-08-pass35", "2026-06-08-pass36", "2026-06-08-pass37", "2026-06-08-pass38", "2026-06-09-pass39", "2026-06-09-pass40", "2026-06-09-pass41", "2026-06-09-pass42", "2026-06-09-pass43", "2026-06-09-pass44", "2026-06-09-pass45", "2026-06-09-pass46"]
 agents_ever_deployed: ["web-researcher", "academic-researcher", "data-analyst", "technical-researcher", "research-gap-analysis", "hypothesis-generation", "research-coordinator"]
 status: current
 ---
