@@ -185,10 +185,14 @@ The unit of observation is **one company's sustainability report covering one fi
 | `country_of_incorporation` | ISO 3166-1 alpha-3 (TWN, USA, KOR, NLD, DEU…) | Company registry |
 | `industry_subsector` | Fabless / Foundry / IDM / OSAT / Equipment / Materials | Manual / SIC 3674 |
 | `sic_code` | SIC 3674 (Semiconductors) or adjacent | SEC / TWSE |
+| `sasb_industry` | SASB industry classification (e.g., Technology, Resource, Infrastructure, etc.) — **H4 moderator** for `impact_intensity` | TEJ / SASB industry classifier |
+| `semiconductor_cat` | 1 = TWSE semiconductor company (Tier 2 sub-cohort flag) | Assigned; SIC 3674 + adjacent |
 | `fiscal_year` | Calendar year integer (2019–2025) | Report |
-| `sample_type` | TWSE-semicon / Global-peer | Assigned |
+| `sample_type` | TWSE-full / TWSE-semicon / Global-peer | Assigned |
 
 **Sources:** TEJ (Taiwan Economic Journal) for TWSE firms; Refinitiv Eikon / Bloomberg for global peers.
+
+**Note on `sasb_industry`:** This field is the source for the H4 moderator `impact_intensity`. Pre-specify the derivation rule before running regressions: `high_impact_industry = 1` if `sasb_industry ∈ {Resource Transformation, Infrastructure, Transportation, Extractives & Minerals Processing, Food & Beverage}`; `= 0` if `∈ {Technology & Communications, Health Care, Financials, Services}`; Consumer Goods treated as a sensitivity check (not included in primary H4 sample). Lock this classification in the OSF pre-registration.
 
 ---
 
