@@ -187,21 +187,21 @@ TSMC tier-1 supplier coding (from TSMC Supplier Sustainability Reports 2022–20
 
 ## 7. Recommended Next Steps (Priority Order)
 
-**[PRIORITY: CRITICAL]** **OSF pre-registration of H1–H4** — Write the pre-reg document covering: sample definition (73 TWSE companies, 2021–2024 estimable window), treatment coding (`gri_adoption_year`), primary outcomes (`n_material_topics_b` with `n_material_topics_a` as alternative), estimator choice (CS21 `att_gt()`), control set (noting `board_esg_committee` TBD), robustness checks. Pre-register before any `att_gt()` call. Rationale: mandatory per academic standards; hypothesis file explicitly requires it.
+**[PRIORITY: CRITICAL]** **Set `n_material_topics_b` zeros to NA for unprocessed rows** — ~2,591 company-years (2021–2024) have zero values as artefacts. Identify rows without a corresponding PDF in the extraction ledger and set `n_material_topics_b` (and `n_material_topics_a`, `process_quality_score`, `board_approved` where similarly affected) to `NA`. Do before any regression.
 
-**[PRIORITY: CRITICAL]** **Source `board_esg_committee`** — This control appears in H1/H2 specifications but is completely empty. Options: (a) TEJ Governance supplementary table; (b) TWSE ESG Committee Establishment Disclosures; (c) manual coding from governance reports. Affects specification validity.
+**[PRIORITY: CRITICAL]** **OSF pre-registration of H1–H5** — Sample definition: full TWSE universe 2021–2024 for H1–H4; 73-company semiconductor sub-cohort for H5. Lock `impact_intensity` derivation rule, `board_approved` as primary board-engagement control, and `n_material_topics_a` as primary H1 outcome. Pre-register before any `att_gt()` call.
 
-**[PRIORITY: HIGH]** **Write R DiD analysis scripts** — Implement `att_gt()` for H1–H4, event-study plots (with pre-trend test for t−1), Goodman-Bacon decomposition diagnostic, Rambachan-Roth sensitivity analysis, and TWFE robustness. Use the 2021–2024 estimation window explicitly.
+**[PRIORITY: HIGH]** **Download missing 2021 PDFs** — Only 4 of 822 company-years have 2021 PDFs processed. The 868-company 2022 adoption cohort has almost no extracted pre-treatment baseline. Priority: download 2021 reports for any company adopting GRI 3 in 2022 (868 companies). Even partial coverage significantly improves pre-trend testability.
 
-**[PRIORITY: HIGH]** **Stage 3 manual concordance** — ~60–80 unmatched GRI 3-3 topic labels from 2023–2024 gri_tables (two-coder protocol required). Improves `n_material_topics_b` precision for H1's primary outcome. Prioritise labels: "Climate Change Response," "GHG Emissions and Reduction," "Innovation R&D," "Regulatory Compliance."
+**[PRIORITY: HIGH]** **Write R DiD analysis scripts** — Implement `att_gt()` for H1–H4, event-study plots (t−1 pre-trend), Goodman-Bacon decomposition, Rambachan-Roth sensitivity, and TWFE robustness. Use 2021–2024 window; filter to rows with non-NA outcome variables only.
 
-**[PRIORITY: MEDIUM]** **Resolve Block F 2022–2024 gap** — `ln_total_assets` and `roa` at 64% for post-treatment years. Check whether TEJ file for 2022–2024 is available. Partial data is workable (listwise deletion with coverage caveat), but fuller controls strengthen the estimates.
+**[PRIORITY: HIGH]** **Stage 3 manual concordance** — ~60–80 unmatched GRI 3-3 topic labels (two-coder κ ≥ 0.80). Improves `n_material_topics_b` precision. Priority labels: "Climate Change Response," "GHG Emissions and Reduction," "Innovation R&D," "Regulatory Compliance."
 
-**[PRIORITY: MEDIUM]** **Document `n_material_topics_b` method-consistency note** — Add a formal footnote or robustness check flagging that the pre-treatment `n_material_topics_b` (2021–2022 rows using gri_codes_summary) differs from the post-treatment version (2023–2024 using gri_tables GRI 3-3 row counts). Proposed solution: use `n_material_topics_a` as the primary H1 outcome (consistent GRI-code method across all years) and `n_material_topics_b` from gri_tables only for post-2022 robustness.
+**[PRIORITY: MEDIUM]** **Fill `sasb_industry` 6% gap** — 467 rows missing H4 moderator. Source from TWSE MOPS industry codes or TEJ sector classification. Pre-specify and lock the High/Low `impact_intensity` derivation rule in the OSF pre-registration.
 
-**[PRIORITY: MEDIUM]** **TSMC tier-1 supplier coding** (H5) — 1–2 days manual lookup from TSMC Supplier Sustainability Reports 2022–2024 + Hsinchu Science Park registry. This is needed only for H5 and can run in parallel with the main DiD analysis.
+**[PRIORITY: MEDIUM]** **Resolve Block F 2022–2024 gap** — `ln_total_assets` and `roa` at 46–60%. TEJ supplementary export for missing company-years. Partial data workable with listwise deletion.
 
-**[PRIORITY: LOW]** **Update methodology dashboard** — The methodology file's Phase 4 section references a 2016–2024 panel. Update to reflect the actual 2021–2024 estimation window and the structural reasons why 2016–2020 rows cannot contribute to the DiD.
+**[PRIORITY: MEDIUM]** **TSMC tier-1 supplier coding** (H5 only) — 1–2 days manual lookup. Can run in parallel with H1–H4 analysis.
 
 ---
 
