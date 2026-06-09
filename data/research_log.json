@@ -1745,5 +1745,69 @@
     "output_file": "scripts/phase2_nlp_local/phase2_step2_2_xlmr_2021.py",
     "variables_added": [],
     "notes": "172/172 filled. Dominant: soc=133 (77.3%), other=14 (8.1%), env=13 (7.6%), gov=12 (7.0%). Mean 41.6 sentences/file. Model: mDeBERTa-v3-base-mnli-xnli."
+  },
+  {
+    "task_id": "phase3-block-vars-2024",
+    "date": "2026-06-09",
+    "pass": 43,
+    "agent": "coordinator-scripts",
+    "topic": "Phase 3 Block Variable Population — 2024 cohort",
+    "status": "completed",
+    "output_file": "scripts/phase3_local/phase3_2024.py",
+    "variables_added": [
+      "mda_index",
+      "gri_content_index_completeness",
+      "n_material_topics_b",
+      "topic_depth_score"
+    ],
+    "notes": "2024 cohort (1983 rows). mda_index: 1038/1983 (>0), mean=0.618, mode=0.7. gci: 902/1983 (>0), mean=0.856, median=0.882. n_material_topics_b: 760/1983 (>0), mean=13.4, median=13, max=34. topic_depth_score: 1040/1983 (>0), mean=0.374 (English ESGLens mean=0.231; Chinese BGE mean=0.643 — model calibration gap). n_material_topics_b from gri_tables_2024/ (528 tickers), fallback summary codes."
+  },
+  {
+    "task_id": "phase3-block-vars-2023",
+    "date": "2026-06-09",
+    "pass": 44,
+    "agent": "coordinator-scripts",
+    "topic": "Phase 3 Block Variable Population — 2023 cohort",
+    "status": "completed",
+    "output_file": "scripts/phase3_local/phase3_2023.py",
+    "variables_added": [
+      "mda_index",
+      "gri_content_index_completeness",
+      "n_material_topics_b",
+      "topic_depth_score"
+    ],
+    "notes": "2023 cohort (1185 rows). mda_index: 723/1185 (>0), mean=0.609, mode=0.6. gci: 542/1185 (>0), mean=0.807, median=0.882. n_material_topics_b: 568/1185 (>0), mean=15.3, median=15. topic_depth_score: 727/1185 (>0), mean=0.591. n_material_topics_b primary from gri_tables_2023/ (122 per-file CSVs), fallback summary codes."
+  },
+  {
+    "task_id": "phase3-block-vars-2022",
+    "date": "2026-06-09",
+    "pass": 45,
+    "agent": "coordinator-scripts",
+    "topic": "Phase 3 Block Variable Population — 2022 cohort",
+    "status": "completed",
+    "output_file": "scripts/phase3_local/phase3_2022.py",
+    "variables_added": [
+      "mda_index",
+      "gri_content_index_completeness",
+      "n_material_topics_b",
+      "topic_depth_score"
+    ],
+    "notes": "2022 cohort (980 rows). mda_index: 608/980 (>0), mean=0.601, mode=0.6. gci: 456/980 (>0), mean=0.826, median=0.882. n_material_topics_b: 517/980 (>0), mean=15.7, median=15 — sourced from gri_codes_summary_2022.csv (no gri_tables_2022 directory). topic_depth_score: 613/980 (>0), mean=0.590, median=0.598."
+  },
+  {
+    "task_id": "phase3-block-vars-2021",
+    "date": "2026-06-09",
+    "pass": 46,
+    "agent": "coordinator-scripts",
+    "topic": "Phase 3 Block Variable Population — 2021 cohort",
+    "status": "completed",
+    "output_file": "scripts/phase3_local/phase3_2021.py",
+    "variables_added": [
+      "mda_index",
+      "gri_content_index_completeness",
+      "n_material_topics_b",
+      "topic_depth_score"
+    ],
+    "notes": "2021 cohort (822 rows). mda_index: 470/822 (>0), mean=0.549, mode=0.5 — lower than later cohorts, consistent with pre-CSRD reporting norms. gci: 41/822 (>0), mean=0.237 — EXPECTED: 808/822 rows are GRI Standards 2016 reporters; GRI 2-* notation absent → GCI=0.0 by design. Filter by gri_standard_version for cross-cohort analysis. n_material_topics_b: 319/822 (>0), mean=15.9, median=16 — sourced from gri_codes_summary_2021.csv. topic_depth_score: 476/822 (>0), mean=0.577, median=0.586. DEFAULT_DENOM=33 (GRI 2016 era)."
   }
 ]
