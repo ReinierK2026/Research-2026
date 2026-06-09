@@ -1714,8 +1714,8 @@ function PublicationsA({ theme, d, fonts }) {
     <article style={{ maxWidth: "72ch", margin: "0 auto" }}>
       <h2 style={{ marginBottom: d.gap }}>§ Publications &amp; talks</h2>
       <ol style={{ listStyle: "none", padding: 0, margin: 0 }}>
-        {CONTENT.publications.map((p, i) =>
-        <li key={i} style={{ padding: `${d.gap}px 0`, borderBottom: i < CONTENT.publications.length - 1 ? `0.5px solid ${theme.rule}` : "none", display: "grid", gridTemplateColumns: "120px 1fr 120px", gap: d.gap, alignItems: "baseline" }}>
+        {(CONTENT.publications || []).map((p, i) =>
+        <li key={i} style={{ padding: `${d.gap}px 0`, borderBottom: i < (CONTENT.publications || []).length - 1 ? `0.5px solid ${theme.rule}` : "none", display: "grid", gridTemplateColumns: "120px 1fr 120px", gap: d.gap, alignItems: "baseline" }}>
             <div>
               <div className="sans smcaps" style={{ fontSize: d.size * 0.72, color: theme.inkSoft, letterSpacing: ".1em" }}>{p.kind}</div>
               <div className="sans num" style={{ fontSize: d.size * 0.85 }}>{p.year}</div>
