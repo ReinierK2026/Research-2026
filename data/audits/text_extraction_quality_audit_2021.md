@@ -98,11 +98,9 @@ Header/footer noise is estimated at ~90% of the 2021 corpus, slightly below the 
 
 ### Issue 3 · GRI Content-Index Table Fragmentation — ~70% (lower than 2022 — G4 transition)
 
-GRI content-index detection rate is 70.1% (342/488), substantially lower than the 2022 rate of 87.9%. This is not a pipeline failure — it reflects the smaller average index size and lower reporting maturity in 2021, plus the G4 → GRI Standards transition.
+GRI content-index detection rate across the full expanded corpus is 67.8% (536/790 rows in CSV), slightly below the original 70.1% (342/488) — the new batch has a somewhat lower detection rate, consistent with a larger share of Chinese/bilingual files whose index pages use less standardised formatting. G4 codes were found in **12 files** (130 instances). Average codes per file where found: 37.3, consistent with the original run.
 
-A supplementary G4 regex pass (`G4-[A-Z]{2,3}\d+`, `G4-DMA`) was added and re-run on all 488 PDFs. G4 codes were found in **8 files** (116 instances), primarily sector-specific supplements: G4-FS (Financial Services), G4-FP (Food Processing), G4-EC (Economic). Core G4 environmental/social indicators (`G4-EN3`, `G4-SO1`, `G4-LA1`) were largely absent from GRI index pages, indicating the majority of 2021 TWSE reporters had already migrated to GRI Standards by the time of reporting (as expected given the 2018 mandatory switchover deadline).
-
-The detection rate improved only marginally after G4 expansion (69.7% → 70.1%), confirming that the lower 2021 detection rate relative to 2022–2023 is not primarily a G4 format issue — it reflects the smaller average index size and lower reporting maturity in this cohort. Average codes per file where found: 37.5, versus 67.2 in 2022.
+A supplementary G4 regex pass (`G4-[A-Z]{2,3}\d+`, `G4-DMA`) was applied. Core G4 environmental/social indicators (`G4-EN3`, `G4-SO1`, `G4-LA1`) were largely absent from GRI index pages, indicating the majority of 2021 TWSE reporters had already migrated to GRI Standards by the time of reporting (as expected given the 2018 mandatory switchover deadline).
 
 **Implication:** `gri_codes_summary_2021.csv` now captures both Standards-format and G4-format codes. The `n_g4_codes` column identifies the 8 files with G4 sector-supplement codes.
 
