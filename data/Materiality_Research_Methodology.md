@@ -50,14 +50,13 @@
 
 | Gap | Priority | How to Resolve |
 |-----|----------|----------------|
-| Block D: Topic-level coding (35-topic taxonomy) | 🔴 HIGH — core DV | Deploy NLP pipeline (FinBERT + XLM-RoBERTa zero-shot) on extracted text |
-| Block F: Financial controls (TEJ data) | 🔴 HIGH — required for regression | TEJ subscription (university license); or WRDS Compustat Global for non-TWSE peers |
-| Block C: 2021–2023 cohorts | 🟡 MEDIUM | Re-run `extract_block_c.py` / `merge_block_c.py` against 2021–2023 extracted text |
-| Language routing: 2021–2023 | 🟡 MEDIUM | Run fastText lid.176.bin on extracted text paragraphs; `lang_routing_2024.csv` exists as template |
-| Global peer PDF corpus | 🟡 MEDIUM | Collect from company IR pages (20 peers listed in methodology); ~40 priority reports |
-| Block A: Global peer firmographics | 🟡 MEDIUM | Bloomberg/Refinitiv for non-TWSE tickers, ISIN, subsector |
-| Block G: MDA index (Padilla-Garrido 2024) | 🟢 LOW — quality measure | Code after Block D is complete; see Section G in data schema |
-| Block E: Topic dynamics | 🟢 LOW — derived from D | Auto-computed from Block D panel once complete |
+| `board_esg_committee`: 0% populated across all rows | 🔴 HIGH — listed control in H1–H2 | Source from TEJ governance supplement, TWSE ESG committee disclosures, or manual coding from annual reports |
+| OSF pre-registration | 🔴 HARD BLOCKER — must precede all inferential tests | Pre-register H1–H5 on OSF before running any `att_gt()` calls |
+| Stage 3 manual concordance: ~60–80 unmatched topic labels | 🟡 MEDIUM — affects Block D precision | Two-coder protocol; target κ ≥ 0.80 before finalising `n_material_topics_b` |
+| H5: TSMC tier-1 supplier coding | 🟡 MEDIUM — required for H5 only | ~1–2 days manual lookup from TSMC Supplier Sustainability Reports 2022–2024 |
+| Block F: `ln_total_assets` / `roa` 2022–2024 coverage ~64% | 🟡 MEDIUM | Complete TEJ export for missing company-years |
+| Block E: Topic dynamics panel | 🟢 LOW — derived variable | Auto-compute from Block D once concordance is finalised |
+| Global peer PDF corpus (optional extension) | 🟢 LOW — not required for H1–H5 | Collect from company IR pages (20 peers listed below) if extending to cross-country comparison |
 
 ---
 
