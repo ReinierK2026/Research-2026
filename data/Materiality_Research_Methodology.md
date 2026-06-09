@@ -1,6 +1,6 @@
-# Research Methodology Guide: TWSE Semiconductor Materiality Assessment Analysis
+# Research Methodology Guide: TWSE Materiality Assessment Analysis (Two-Tier Design)
 ### Answering the Five Core Research Design Questions
-**Compiled: May 15, 2026 | Last updated: May 22, 2026 | Four-stream coordinated research**
+**Compiled: May 15, 2026 | Last updated: June 9, 2026 | Four-stream coordinated research**
 
 ---
 
