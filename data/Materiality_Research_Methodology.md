@@ -5,7 +5,7 @@
 ---
 
 ## ── RESEARCH STATUS DASHBOARD ──
-*As of May 22, 2026 — snapshot of pipeline completion, open gaps, and next actions*
+*As of June 9, 2026 — snapshot of pipeline completion, open gaps, and next actions*
 
 ---
 
