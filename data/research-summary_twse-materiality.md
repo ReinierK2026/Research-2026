@@ -49,27 +49,54 @@ The research passed through a major build-out over three weeks:
 
 ---
 
-## 3. Current Database State (against the 73-company study cohort)
+## 3. Current Database State (full TWSE population)
 
-**DB: 188 columns × 7,765 rows (507 TWSE-semicon rows across 2016–2024, 74 unique companies)**
+**DB: 188 columns × 7,750 rows | Estimable window 2021–2024: 4,970 rows, 2,056 unique tickers**
 
-### Key variable coverage — TWSE-semicon subsample only
+### Population and treatment structure
 
-| Variable | 2016–2020 | 2021 | 2022 | 2023 | 2024 | H-relevance |
+| | Count |
+|---|---|
+| Unique tickers in DB (all years) | 2,077 |
+| Treated (have `gri_adoption_year`) | 2,009 |
+| Never treated (control group) | 68 |
+| Adoption cohort 2021 | 14 |
+| Adoption cohort 2022 | 868 |
+| Adoption cohort 2023 | 309 |
+| Adoption cohort 2024 | 818 |
+
+**H4 impact intensity split (unique tickers):**  
+Low-footprint (Technology + Services + HealthCare + Financials): 1,010 · High-impact (Resource + Infrastructure + Transportation + Minerals + Food): 661 · Other/unclassified: 406 (Consumer, RenewableEnergy — sensitivity check)
+
+### PDF corpus reconciliation
+
+| Year | Rows in DB | PDFs processed | PDF coverage | Company-years without PDF |
+|---|---|---|---|---|
+| 2021 | 822 | 4 | **~0%** | 818 |
+| 2022 | 980 | 607 | 62% | 373 |
+| 2023 | 1,185 | 727 | 61% | 458 |
+| 2024 | 1,983 | 1,041 | 52% | 942 |
+| **Total** | **4,970** | **2,379** | **48%** | **2,591** |
+
+⚠️ **Data quality flag:** Rows without a PDF have `n_material_topics_b = 0` (not NULL). These zeros are artefacts of unprocessed rows — not true zero-topic reports. They must be converted to `NA` before running `att_gt()`, otherwise the estimator will treat them as valid zero observations and bias the ATT downward.
+
+### Key variable coverage — full TWSE population, 2021–2024
+
+| Variable | 2021 | 2022 | 2023 | 2024 | Notes | H-relevance |
 |---|---|---|---|---|---|---|
-| `gri_adoption_year` | 100% ✅ | 100% ✅ | 100% ✅ | 100% ✅ | 100% ✅ | H1–H5 (treatment) |
-| `n_material_topics_b` | **0%** ⚠️ | 42% | 53% | 40% | 35% | H1, H4 |
-| `n_material_topics_a` | **0%** ⚠️ | 45% | 56% | 40% | 57% | H1 (alt outcome) |
-| `process_quality_score` | **0%** ⚠️ | 61% | 67% | 68% | 68% | H2 |
-| `assurance_level` | 49–63% | 58% | 65% | 67% | 73% | H3 |
-| `ln_total_assets` | 100% ✅ | 100% ✅ | 64% ⚠️ | 64% ⚠️ | 64% ⚠️ | H1–H3 controls |
-| `roa` | 100% ✅ | 100% ✅ | 64% ⚠️ | 64% ⚠️ | 64% ⚠️ | H1–H3 controls |
-| `board_esg_committee` | **0%** 🔴 | **0%** 🔴 | **0%** 🔴 | **0%** 🔴 | **0%** 🔴 | H1–H2 controls |
-| `standalone_sr` | — | — | — | — | 100% ✅ | H1–H2 controls |
-| `industry_subsector` | 100% ✅ | 100% ✅ | 100% ✅ | 100% ✅ | 100% ✅ | H4 |
+| `gri_adoption_year` | 94% | 100% | 100% | 100% | 6% gap = 68 never-treated tickers | H1–H5 (treatment) |
+| `n_material_topics_b` (non-zero) | 39% | 53% | 48% | 38% | Non-null=100%; zeros = unprocessed rows (see flag above) | H1, H4 |
+| `n_material_topics_a` (non-zero) | 41% | 54% | 49% | 51% | Same note | H1 (alt outcome) |
+| `process_quality_score` (non-zero) | 57% | 62% | 61% | 52% | Tracks PDF coverage | H2 |
+| `assurance_level` | 65% | 59% | 58% | 43% | Sourced from TEJ — independent of PDF coverage | H3 |
+| `ln_total_assets` | 88% | 60% | 56% | 46% | TEJ gap in 2022–2024 | H1–H4 controls |
+| `roa` | 88% | 60% | 56% | 46% | Same | H1–H4 controls |
+| `board_approved` *(replaces `board_esg_committee`)* | 58% | 63% | 61% | 53% | Block C; tracks PDF/extraction coverage | H1–H4 controls |
+| `standalone_sr` | 100% | 100% | 100% | 100% | Registry-sourced | H1–H4 controls |
+| `sasb_industry` | 88% | 95% | 94% | 96% | H4 moderator; 6% gap needs TEJ/TWSE fill | H4 moderator |
 
-**GRI adoption distribution (73 companies):** 3 × 2021 · 65 × 2022 · 4 × 2023 · 2 × 2024  
-**Industry subsector (74 companies, 2024):** Fabless=33 · OSAT=15 · Materials=8 · Equipment=8 · Foundry=5 · IDM=5
+**GRI adoption distribution (full population):** 14 × 2021 · 868 × 2022 · 309 × 2023 · 818 × 2024  
+**Effective treated sample (2022 cohort, the primary mass):** 868 companies — all with 2021 as their single pre-treatment year
 
 ---
 
