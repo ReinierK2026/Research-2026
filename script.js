@@ -387,7 +387,7 @@ const AUDIT_2023 = {
   composition: [
     ["Total files", "2023: 744"],
     ["English files", "2023: 526 (71%)"],
-    ["Chinese / bilingual", ""2023: 218 (29%)"],
+    ["Chinese / bilingual", "2023: 218 (29%)"],
   ],
   issues: [
     { n: 1, h: "Multi-column / sidebar fragmentation", pct: "98%", _E: "98.6%", _O: "96.7%", baseline: "100%", fixed: "PyMuPDF coordinate-aware re-extraction + sidebar suppression" },
