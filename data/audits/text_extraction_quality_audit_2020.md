@@ -481,11 +481,13 @@ Structural result — identical to 2021 cohort (median 0.772; 46.8% below 0.75).
 
 ---
 
-**Scripts:** `ocr_batch_2020.py`, `pymupdf_batch_2020.py`, `gri_extract_2020.py` (Entries 2–4; in `outputs/`)  
+**Scripts:** `ocr_batch_2020.py`, `pymupdf_batch_2020.py`, `gri_extract_2020.py` (Entries 2–4), `phase0_2020.py` (Entry 6)  
 **GRI output:** `gri_codes_summary_2020.csv` (404 rows)  
-**Processed corpus:** `Text extraction/extracted_text/2020_processed/` (432 files; 1 hard exclusion; 3 `_109 (1)` duplicates require ticker-level dedup)  
-**NLP scripts pending:** `check_extraction_quality_2020.py`, `phase1_*_2020.py`, `phase2_*_2020.py`, `phase3_2020.py`
+**Processed corpus:** `Text extraction/extracted_text/2020_processed/` (432 files; 1 hard exclusion; 3 `_109 (1)` duplicates deduped at source — no NLP action needed)  
+**DB columns populated:** `word_count_total`, `page_count`, `report_language`, `n_material_topics_a`  
+**Language detection:** `data/lang_detection_2020.csv` (429 rows; 39 mojibake-risk files flagged)  
+**NLP scripts ready to run:** `phase1_*_2020.py`, `phase2_*_2020.py`, `phase3_2020.py`
 
 ---
 
-*Audit initiated: 2026-06-09. Five-stage pipeline complete; 432/432 files produced; 1 hard exclusion (3703_2020). Quality Checks A/B/C completed 2026-06-09 — corpus accepted for NLP. Down-weight: 5288_2020, 1727_2020, 6024_2020. All NLP phases (1–3) pending.*
+*Audit initiated: 2026-06-09. Five-stage pipeline complete; 432/432 files produced; 1 hard exclusion (3703_2020). Quality Checks A/B/C completed 2026-06-09 — corpus accepted for NLP. Down-weight: 5288_2020, 1727_2020, 6024_2020. Phase 0 complete 2026-06-09 (phase0_2020.py): Block B, n_material_topics_a, and language detection populated; 39 mojibake-risk files identified. NLP Phases 1–3 pending.*
