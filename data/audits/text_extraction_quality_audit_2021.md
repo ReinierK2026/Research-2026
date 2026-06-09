@@ -214,13 +214,14 @@ Three PDFs (9904_2021_E, 4720_2021_E, 9938_2021_E) have a text-bearing cover pag
 
 | Category | Count | Resolution |
 |---|---|---|
-| Fully scanned (0% text coverage) | 4 | ✅ OCR complete (Entry 4) |
+| Fully scanned (0% text coverage) — original 4 | 4 | ✅ OCR complete (Entry 4) |
+| New scanned files — expansion 21 | 21 | ✅ OCR complete (Entry 12); 2 corrupt → hard exclusions |
 | Hidden partial scans (body pages empty) | 5 | ⚠️ Interior pages not OCR'd — exclude from text analysis |
 | Character encoding failure | 1 (3044_2021_E) | ❌ Unrecoverable — exclude from all analyses |
-| Corrupt PDF (0-byte output) | 1 (3669_2021) | ❌ Exclude |
+| Corrupt PDFs (0-byte output) | 3 (3669_2021, 2201_2021, 3035_2021) | ❌ Exclude |
 | macOS duplicate filename | 1 (6202_2021_E) | ✅ Resolved — copied to clean name 2026-06-08 |
 
-**Total hard exclusions: 7 files (1.4% of 495-file corpus)** — 5 originally documented + 2 additional hidden partial scans (6472, 8341) identified 2026-06-08. Remaining 488 files are fit for NLP analysis.
+**Total hard exclusions: 9 files (1.1% of 809-file corpus)** — 7 from original corpus + 2 new corrupt PDFs (2201_2021, 3035_2021) identified in expansion 2026-06-09. Remaining 800 files are fit for NLP analysis.
 
 **Additional detail — full known limitations:**
 
