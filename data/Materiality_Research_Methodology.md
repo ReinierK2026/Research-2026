@@ -145,16 +145,22 @@ PDF corpus (45GB — do not move):
 
 ## Overview
 
-This guide addresses the five methodology questions for building a publishable academic study comparing GRI materiality assessments across TWSE-listed semiconductor companies and their global peers, with a focus on tracking topic selection change before and after GRI 3 (effective January 2023).
+This guide addresses the five methodology questions for building a publishable academic study on the causal effect of GRI Universal Standards 2021 (GRI 3) adoption on materiality disclosure outcomes across TWSE-listed companies, with a focused semiconductor industry deep dive.
 
 **The five questions answered:**
 1. What data do you need for a full analysis, and what extraction is involved?
 2. Does having text already extracted from PDFs help?
 3. What text evaluation/extraction methods are academically validated?
 4. What tests track material topic selection before and after GRI 3?
-5. What coding framework allows comparison against global peers?
+5. What coding framework allows comparison within and across industries?
 
-**Scope:** Semiconductor industry — TWSE universe + global peers.
+**Two-Tier Study Design:**
+
+**Tier 1 — Full TWSE Universe (H1–H4):** Staggered DiD (Callaway-Sant'Anna 2021) on the full TWSE reporting population (~1,200 treated companies; adoption cohorts 2021–2024; panel window 2021–2024). Estimates the causal effect of GRI 3 adoption on material topic count (`n_material_topics_b` — H1), process quality (`process_quality_score` — H2), assurance level (`assurance_level` — H3), and heterogeneous displacement effects by industry physical-footprint intensity (`impact_intensity` derived from `sasb_industry` — H4). No restriction to any industry sub-group at this tier.
+
+**Tier 2 — Semiconductor Industry Deep Dive (H5):** Narrows to 73 TWSE semiconductor companies (`semiconductor_cat = 1`; 507 company-years 2016–2024). Tests whether TSMC's TDDM framework diffuses to peer companies via supply chain isomorphism. Provides a mechanistic complement to Tier 1: H1–H4 document *what* GRI 3 does across TWSE; H5 explains *why* the effect may be amplified within a tightly-coupled industry.
+
+The two tiers are complementary, not competing. See `hypotheses/hypothesis-generation_did-hypotheses_2026-05-22.md` for the full pre-registration plan.
 
 ---
 
