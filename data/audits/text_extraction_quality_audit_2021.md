@@ -691,6 +691,8 @@ Same coordinate-aware extraction as original run (sidebar suppression x₀ < 16%
 | 0.3 | GRI extraction (Standards + G4 pass) | technical-researcher | ✅ Done | 536/790 with codes (expanded); G4 pass added; gri_codes_summary_2021.csv. See Entries 6, 12. |
 | 0.4 | PDF completeness check & macOS duplicate fix | data-analyst | ✅ Done | 6202_2021_E.txt copied from macOS duplicate 2026-06-08. 2 additional hidden partial scans identified. See Entry 9. |
 | 0.5 | Corpus expansion (319 new PDFs) | coordinator-scripts | ✅ Done 2026-06-09 | Scan (319 new PDFs) + PyMuPDF (298 native) + OCR (21 scanned, 2 hard exclusions). Total corpus: 809 files. See Entry 12. |
+| 0.6 | CN supplement quality audit (317 new CN files) | data-analyst | ✅ Done 2026-06-10 | 317 standard new CN files checked. 2 zero-byte (2201, 3035 — already excluded), 1 stub (2103 — 23 words; newly excluded), 24 mojibake-risk (cjk_ratio<0.05 despite 4k–10k words of content). 314 processable. `lang_detection_2021_cn_supplement.csv` generated. See Entry 13. |
+| 0.7 | CN supplement Phase 0 DB population | data-analyst | ✅ Done 2026-06-10 | `word_count_cn` + `page_count_cn` columns added and filled for 314 rows. `bilingual_report` updated 0→1 for 308 companies (305 newly set; 3 already correct). `n_material_topics_a` filled for 6 additional blank rows. Script: `phase0_2021_cn_supplement.py`. See Entry 13. |
 
 ---
 
