@@ -461,4 +461,4 @@ Structural result — identical to 2021 cohort (median 0.772; 46.8% below 0.75).
 
 ---
 
-*Audit initiated: 2026-06-09. Five-stage pipeline complete; 432/432 files produced; 1 hard exclusion (3703_2020); Quality Checks A/B/C and all NLP phases pending.*
+*Audit initiated: 2026-06-09. Five-stage pipeline complete; 432/432 files produced; 1 hard exclusion (3703_2020). Quality Checks A/B/C completed 2026-06-09 — corpus accepted for NLP. Down-weight: 5288_2020, 1727_2020, 6024_2020. All NLP phases (1–3) pending.*
