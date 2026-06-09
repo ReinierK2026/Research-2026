@@ -35,7 +35,7 @@
 | C | Materiality process disclosure variables (`process_quality_score`) | ✓ All 4 cohorts extracted (Phase 1 + 2 NLP complete) | `twse-research-database.csv` |
 | D | Material topic variables (`n_material_topics_a/b`) | ✓ All 4 cohorts extracted (Phase 3 complete) | `twse-research-database.csv` |
 | E | Topic dynamics (year-over-year churn) | ✗ Blocked on Block D panel join | — |
-| F | Financial control variables (assets, ROA) | ✓ Partial — `ln_total_assets`, `roa` 100% 2021; 64% 2022–2024; `board_esg_committee` = 0% (critical gap) | `twse-research-database.csv` |
+| F | Financial control variables (assets, ROA) | ✓ Partial — `ln_total_assets`, `roa` 100% 2021; 64% 2022–2024; `board_esg_committee` = 0% (not used in primary spec — replaced by `board_approved` from Block C) | `twse-research-database.csv` |
 | G | Outcome/quality variables (MDA index, GRI completeness) | ✓ All 4 cohorts extracted (Phase 3 complete) | `twse-research-database.csv` |
 
 **GRI content index codes** (extracted regex-based, all cohorts): `data/gri/gri_codes_summary_*.csv`
@@ -594,7 +594,7 @@ out <- att_gt(
   tname       = "fiscal_year",
   idname      = "company_id",
   gname       = "gri_adoption_year",     # 0 for never-treated
-  xformla     = ~ ln_total_assets + roa + board_esg_committee + standalone_sr,
+  xformla     = ~ ln_total_assets + roa + board_approved + standalone_sr,
   control_group = "notyettreated",
   est_method  = "dr",                    # doubly-robust
   data        = panel_df                 # full TWSE panel (Tier 1) or semicon sub-cohort (H5)
