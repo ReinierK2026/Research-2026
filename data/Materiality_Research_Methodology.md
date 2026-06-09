@@ -69,7 +69,7 @@
 ~~**Phase 3 — Block variable population** — ✅ COMPLETE (Blocks C, D, G all 4 cohorts, June 2026)~~
 
 **Phase 3b — Pre-analysis data finalisation (current priority)**
-1. Source `board_esg_committee` for full TWSE panel (TEJ governance supplement or TWSE annual report coding) — **critical path for H1–H2 controls**
+1. ~~Source `board_esg_committee`~~ — **resolved**: primary specification uses `board_approved` (Block C, fully extracted) as substitute. Document substitution in OSF pre-registration. Optionally source `board_esg_committee` from TEJ for a robustness column.
 2. Complete TEJ export for `ln_total_assets` / `roa` 2022–2024 gap (~36% missing)
 3. Finalise Stage 3 manual concordance (~60–80 unmatched GRI topic labels; two-coder κ ≥ 0.80)
 4. Derive `impact_intensity` binary (H4 moderator): `high_impact_industry = 1` if `sasb_industry ∈ {Resource, Infrastructure, Transportation, Minerals, Food}` — pre-specify and lock before regression
