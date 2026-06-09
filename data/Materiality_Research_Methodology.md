@@ -968,7 +968,7 @@ For global peer comparison, code each topic along all three dimensions where app
 
 ---
 
-*Report compiled: May 15, 2026 | Updated: May 22, 2026 | Research coordinated across four specialist streams: academic methods literature, statistical design, technical NLP/extraction tooling, and semiconductor peer universe mapping.*
+*Report compiled: May 15, 2026 | Updated: June 9, 2026 | Two-tier design adopted (H1–H4 full TWSE universe; H5 semiconductor deep dive) | Research coordinated across four specialist streams: academic methods literature, statistical design, technical NLP/extraction tooling, and semiconductor peer universe mapping.*
 
 ---
 
