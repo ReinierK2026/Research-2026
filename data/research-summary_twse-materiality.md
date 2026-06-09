@@ -1,6 +1,6 @@
 # Research Status Summary
 **Generated:** 2026-06-09  
-**Project:** TWSE Semiconductor — GRI 3 Materiality DiD Study  
+**Project:** GRI 3 Materiality DiD Study  
 **Goal file:** `hypotheses/hypothesis-generation_did-hypotheses_2026-05-22.md`
 
 ---
