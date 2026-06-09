@@ -1,524 +1,223 @@
----
-agent: research-coordinator
-type: synthesis-summary
-topic: "twse-materiality"
-last_updated: "2026-06-09"
-sessions: ["2026-05-18", "2026-05-20", "2026-05-21", "2026-05-22", "2026-05-23", "2026-05-24", "2026-06-08", "2026-06-08-pass32", "2026-06-08-pass33", "2026-06-08-pass34", "2026-06-08-pass35", "2026-06-08-pass36", "2026-06-08-pass37", "2026-06-08-pass38", "2026-06-09-pass39", "2026-06-09-pass40", "2026-06-09-pass41", "2026-06-09-pass42", "2026-06-09-pass43", "2026-06-09-pass44", "2026-06-09-pass45", "2026-06-09-pass46"]
-agents_ever_deployed: ["web-researcher", "academic-researcher", "data-analyst", "technical-researcher", "research-gap-analysis", "hypothesis-generation", "research-coordinator"]
-status: current
----
-
-# Research Summary: GRI Universal Standards 2021 Adoption and Material Topic Disclosure Among TWSE Companies
+# Research Status Summary
+**Generated:** 2026-06-09  
+**Project:** TWSE Semiconductor — GRI 3 Materiality DiD Study  
+**Goal file:** `hypotheses/hypothesis-generation_did-hypotheses_2026-05-22.md`
 
 ---
 
-## Research Question
+## 1. The Goal: What H1–H5 Need
 
-Does adoption of GRI Universal Standards 2021 (the GRI 3 treatment) cause a net decrease in the number of disclosed material topics among TWSE-listed companies — a displacement effect driven by GRI 3-3's mandatory management-of-material-topics disclosures? And what are the effects on process quality, assurance, and topic composition?
+The hypothesis file defines a **staggered DiD study** using the Callaway-Sant'Anna (2021) estimator across 73 TWSE semiconductor companies, 2016–2024 (507 company-years). The five hypotheses require:
 
----
+| Hypothesis | Primary variable needed | Estimator | External data needed? |
+|---|---|---|---|
+| **H1** (displacement: ↓ `n_material_topics_b`) | GRI 3-3 topic counts, pre/post | CS21 | No |
+| **H2** (process quality: ↑ `process_quality_score`) | Block C composite, pre/post | CS21 + TWFE | No |
+| **H3** (assurance upgrade) | `assurance_level` ordinal, pre/post | CS21 + ordered logit | No |
+| **H4** (heterogeneity: Fabless > Foundry/OSAT) | Same as H1 + `industry_subsector` | Subsample CS21 | No |
+| **H5** (TSMC isomorphism: proximate adopt earlier) | `process_quality_score` + TSMC proximity | CS21 interaction | **Yes — TSMC tier-1 coding** |
 
-## Methodology
-
-### Study Design
-Staggered Difference-in-Differences (DiD) using the Callaway-Sant'Anna (2021) estimator (`att_gt()` in R `did` package). Estimand: Average Treatment Effect on the Treated (ATT). Treatment = first fiscal year a company reports under GRI Universal Standards 2021, coded in `gri_adoption_year`.
-
-### Population
-- **Primary sample**: Full TWSE universe — 2,091 unique companies × 2016–2024 = 7,765 company-year rows  
-- **Potential analytical subsample**: 73-company industry subset (507 company-years, 2016–2024), available for focused subgroup analysis if an industry lens is selected at the analysis stage. If activated, this subsample can be further categorised by company type (~28 Fabless, ~21 Foundry/OSAT, ~24 IDM).
-
-### Database
-`twse-research-database.csv` — **192 columns** × 7,765 data rows (+ 2 header rows: block labels + column names). UTF-8 BOM. Block-label header pattern: Row 1 = block labels (A/B/C/D/F/G), Row 2 = column names, Row 3+ = data. Column count history: 157 (original TEJ/GRI) → 175 (+ 18 NLP, Pass 32–37) → 188 (+ 13 Phase 2 multilingual NLP, Pass 38–42) → 192 (+ 4 Phase 3 Block vars, Pass 43–46).
-
-### Cohort Reconciliation (all years, Pass 29 — 2026-06-08)
-
-| Year | DB rows (TEJ) | PDFs on disk | Extracted txt (NLP corpus) | ESGgenplus-only | DB-scaffold only (no text) |
-|------|--------------|-------------|---------------------------|-----------------|--------------------------|
-| 2021 | 835 | 490 | **479** | 0 | 356 |
-| 2022 | 981 | 615 | **617** | 6 | 364 |
-| 2023 | 1,186 | 711 | **727** | 16 | 459 |
-| 2024 | 1,983 | 1,022 | **1,042** | 20 | 941 |
-
-NLP corpus = unique companies with word_count_total > 0 (text successfully extracted from report). This is the denominator for all Blocks B, C, D.
-
-**Note — 2024 bilingual pairs**: 14 companies have both `_E.pdf` and a Chinese PDF → 1,022 PDF tickers but 1,042 txt tickers (20 extra from ESGgenplus platform, no local PDF).
-
-All coverage percentages for NLP-based blocks (B, C, D) use the year-specific NLP corpus as denominator.
-
-### Agents Deployed (cumulative across all sessions)
-- **web-researcher**: Regulatory/industry intelligence (2 passes)
-- **academic-researcher**: Scholarly literature, methods (1 pass)
-- **data-analyst**: All DB construction, Block B–G population, taxonomy, dynamics (8+ passes)
-- **technical-researcher**: NLP pipeline design, language routing, GRI extraction (3 passes)
-- **research-gap-analysis**: Gap identification (1 pass)
-- **hypothesis-generation**: H1–H5 formulation (1 pass)
-- **research-coordinator**: Session coordination and synthesis (this pass)
-
-### Data Sources
-| Source | Coverage | Variables |
-|--------|----------|-----------|
-| TEJ CSR Disclosure.xlsx | 2016–2024, 7,765 rows | Scaffold, mandatory/voluntary, GRI standard version, ref_sasb/tcfd/tnfd/sdgs/ir |
-| TEJ Balance Sheet data.xlsx | 2016–2024, 4,365 rows | 22 raw + 5 derived balance sheet variables |
-| TEJ Income Statement.xlsx | 2016–2024, 4,365 rows | 12 raw + 6 derived income statement variables |
-| TEJ Equty.xlsx | 2016–2024, 4,895 rows | Market cap, shares, P/B (Tobin's Q proxy), P/E, return |
-| TEJ Governance.xlsx | 2014/01–2025/01 monthly, 7,670 rows | Board size, director/supervisor counts, ownership %, pledged %, liability insurance |
-| TEJ ESG score.xlsx | 2016–2022 only, 4,428 rows | TESG rating, score, E/S/G sub-scores |
-| ESGgenplus text corpus | 2021–2024, partial universe | ESG report PDFs (45GB) for text-based NLP extraction |
-| GRI code extraction pipeline | 2021–2024 | gri_codes_summary_202[1-4].csv, gri_tables_2023-2024/ |
-
-### Analytical Scope (Date Range)
-Panel: 2016–2024. Text data: 2021–2024. TEJ ESG scores: 2016–2022. GRI 3 treatment cohorts: 2021–2024 (most in 2022–2023).
+**The single biggest gate before any of these can run: OSF pre-registration.** The hypothesis file explicitly states all inferential tests must be pre-registered before execution.
 
 ---
 
-## Key Findings
+## 2. Completed Work (42+ passes, 2026-05-18 → 2026-06-09)
 
-### Regulatory & Industry Context [High confidence | web-researcher | 2026-05-18]
-- TWSE universal sustainability reporting mandate effective 2025 filing cycle (1,883 companies total — unique globally for 100% GRI adoption)
-- IFRS S1/S2 phased mandate: Phase 1 (>NT$10B cap) FY2026; Phase 2 (NT$5-10B) FY2027; Phase 3 (all) FY2028
-- GRI 101: Biodiversity 2024 effective Jan 2026 (replaces GRI 304); GRI 102 Climate + GRI 103 Energy effective Jan 2027
-- ISSA 5000 approved Nov 2024; effective Dec 2026 engagements — replaces ISAE 3000 for assurance
-- EU Omnibus I (Feb 2026): CSRD scope reduced from 50,000 → ~5,000 companies (>1,000 employees AND >€450M revenue); major global tech/electronics manufacturers (ASML, Infineon, STMicro, NXP) remain mandatory CSRD reporters
-- TWSE assurance rate: 64.4% of 722 reporters (2023 filing cycle)
-- ESGgenplus platform: full PDFs for all 1,883 filers; no XBRL tagging; data not backfilled prior to 2019 for most companies
+The research passed through a major build-out over three weeks:
 
-### Literature & Methods [High confidence | academic-researcher | 2026-05-18]
-- **Primary methodological precedent**: Göttsche et al. (2025) *RAS* Vol.30 pp.3596–3639 — demonstrates displacement effect for SASB financial-materiality reporting; direct precedent for H1
-- Callaway-Sant'Anna (2021) is the correct estimator for staggered adoption with heterogeneous treatment timing; `staggered` package (Roth & Sant'Anna 2023) provides proxy power assessment
-- Power analysis: 80% power for ATT ≥ 1.5 topics with 50–80 treated firms; full TWSE universe (n=2,091) exceeds minimum; a 73-company subgroup would still be sufficient for ATT ≥ 2 topics
-- IPW recommended for attrition correlated with firm size; Hurdle Poisson preferred over ZIP for topic count outcomes when structural zeros present
-- Primary publication venues: *SAMPJ* or *CSR&EM*; NLP pipeline alone → *Expert Systems*
-- Pre-registration required on OSF or AsPredicted before any inferential DiD tests; replication package on Harvard Dataverse
+**Infrastructure (Passes 1–22, May 18–24):** Regulatory and NLP landscape mapped; variable registry (Definitions.docx) built; gap analysis completed (7 gaps, Gap 7 = displacement effect = H1); full TWSE universe DB scaffold built (7,765 rows × 157+ columns); Block A (identifiers), Block B (report metadata including `gri_adoption_year`), Block C (2024 materiality process variables), Block D partial (`n_material_topics_a` for 2021–2024), Block E (topic dynamics panel), Block F (TEJ financial data — balance sheet, income statement, equity, governance, ESG scores for 2016–2024), Block G (partial) all populated. Hypotheses H1–H5 generated.
 
-### Treatment Variable [High confidence | data-analyst | 2026-05-21 / Pass 30 2026-06-08]
-- `gri_adoption_year` **fully populated (Pass 30)**: 7,634 rows populated (7,127 new fills + 74 pre-existing); 131 rows blank = companies present only under GRI Standards 2016 (never-Universal adopters, correctly excluded from treated set)
-- Derivation method: first fiscal year per ticker where `gri_standard_version = 'GRI-Universal-2021'`; no conflicts with prior 74-company values
-- **Full-universe adoption distribution**: 2021: 14 companies; 2022: 869 companies; 2023: 310 companies; 2024: 818 companies — strongly concentrated in 2022 (dominant adoption cohort)
-- **2024 new entrants**: 792 of the 818 first-time-2024 adopters have no pre-adoption DB rows (entered under mandatory TWSE reporting 2025 cycle); these companies lack a pre-treatment baseline and are excluded from DiD estimation
-- Distribution validated for 73-company subsample: 2021: 3 companies, 2022: 65 companies, 2023: 4 companies, 2024: 2 companies (consistent with full-universe pattern)
-- GRI Standards 2016 used 2016–2021; GRI Universal 2021 used 2022–2024 (for treated companies)
-- 4 companies in the subsample initially miscoded 2024 → corrected to 2023 based on text evidence (3006, 3227, 6573, 8110)
-- DiD treatment variable fully valid for CS21 estimation across the full universe
+**NLP Pipeline — Phase 1 English Track (Passes 33–37, June 8):** FinBERT-ESG-9, ClimateBERT, ESGLens SBERT, and Block C regex run on all English files for all four cohorts: **307 files (2021), 389 files (2022), 526 files (2023), 680 files (2024) = 1,902 total.** DB now at 188 columns.
 
-### Block B: Report Characteristics [High confidence | data-analyst | 2026-05-20/22]
-- All 7,765 company-year rows have 100% coverage on: `gri_standard_version`, `gri_adoption_year`, `bilingual_report` (sourced from TEJ CSR Disclosure)
-- Text-level coverage (word count, page count, language): 0% for 2016–2020 (no text files available); 2021–2024: full within NLP corpus (per-year NLP corpus is the denominator)
-- **NLP corpus by cohort** (word_count_total > 0): 2021: 479 companies; 2022: 617; 2023: 727; 2024: 1,042 — monotonically rising as TWSE reporting universe expands and ESGgenplus coverage deepens
-- **Bilingual reporting by cohort**: 2021: ~0 identified; 2022: ~6 ESGgenplus-only; 2023: ~16 ESGgenplus-only; 2024: 22 companies have both `_E` and Chinese versions (14 paired local PDFs + 20 ESGgenplus-only); identified via `_E` filename suffix
-- **NLP corpus vs TEJ universe gap**: 2021: 479/835 (57.4%); 2022: 617/981 (62.9%); 2023: 727/1,186 (61.3%); 2024: 1,042/1,983 (52.5%) — companies with no extractable report text have TEJ scaffold data but are excluded from Block B/C/D NLP analysis
+**NLP Pipeline — Phase 2 Multilingual Track (Passes 38–42, June 9 — today):** BGE-M3, XLM-RoBERTa-XNLI, and Block C Chinese extractor run on Chinese/bilingual files for all four cohorts: **172 (2021), 225 (2022), 216 (2023), 361 (2024) = 974 total.**
 
-### Block C: Materiality Process Quality [Medium-high confidence | data-analyst + technical-researcher | 2026-05-22/23]
-Block C variables are extracted from ESG report text. Coverage expressed against the per-year NLP corpus (word_count_total > 0). Pre-adoption trends (2021→2023) from full TWSE universe:
+**Phase 3 Block Variable Population (Passes 43–46, June 9 — today):** `mda_index`, `gri_content_index_completeness`, `n_material_topics_b`, and `topic_depth_score` populated for all four cohorts.
 
-| Metric | 2021 | 2022 | 2023 | 2024 |
-|--------|------|------|------|------|
-| **NLP corpus (N=)** | **479** | **617** | **727** | **1,042** |
-| mat_section_found | 75.4% | 74.3% | 71.5% | 100%† |
-| board_approved | 32.8% | 43.3% | 47.2% | 100%† |
-| double_materiality_mentioned | 1.1% | 6.3% | 9.4% | n/a |
-| avg process_quality_score | 0.527 | 0.543 | 0.546 | 0.554† |
+**Key data corrections:** `gri_adoption_year` populated for full TWSE universe (Pass 30); `assurance_level` corrected — 1,467 rows re-mapped from Reasonable → Limited after TEJ re-check (Pass 28); 2022 corpus deduplicated (Pass 23); `n_material_topics_b` text-regex extended to 516 missing 2024 companies (Pass 26).
 
-†2024 figures: 1,042/1,042 companies in NLP corpus (100% coverage within corpus). Expressed as % of TEJ universe (1,983): 52.5%. All percentages for 2021–2023 are expressed against the respective year's NLP corpus, not the full TEJ universe.
+| Agent | Passes active |
+|---|---|
+| web-researcher | 1, 2 |
+| academic-researcher | 1 |
+| data-analyst | 2–9, 11–17, 20–21, 23, 25–27, 30–31 |
+| technical-researcher | 8, 10, 18 |
+| research-coordinator | 5, 22, 24, 26–31 |
+| hypothesis-generation | 8 |
+| coordinator-scripts | 34–46 |
 
-Key trends: board_approved rising sharply pre-GRI 3 (governance tightening); double materiality awareness spreading (CSRD diffusion into TWSE); process quality improving gradually pre-treatment (pre-trend validation needed for H2).
-
-### Block D: Topic Disclosure Counts [High confidence | data-analyst | 2026-05-22/23]
-n_material_topics_a (GRI standard topic codes, not GRI 2-x) rising monotonically 2021–2024 for full TWSE universe:
-
-| Year | Avg topics_total_n | Avg env | Avg soc | Avg gov |
-|------|-------------------|---------|---------|---------|
-| 2021 | 14.8 | 4.8 | 6.4 | 3.6 |
-| 2022 | 15.6 | 5.5 | 6.2 | 3.8 |
-| 2023 | 16.1 | 5.8 | 6.4 | 3.9 |
-| 2024 | 17.5 | 6.2 | 6.9 | 4.4 |
-
-Environmental topics fastest growing (+29% over panel). SASB TC-SC topic alignment improving: avg SASB TC-SC topics 7.3 (2021) → 8.5 (2024).
-
-**n_material_topics_a — per-cohort coverage (Pass 31 investigation, 2026-06-08)**:
-
-| Year | NLP corpus | n_material_topics_a | Coverage | Gap | Source |
-|------|-----------|---------------------|----------|-----|--------|
-| 2021 | 479 | ~339 | **70.8%** | ~140 | gri_codes_summary (n_standards−1) |
-| 2022 | 617 | ~525 | **85.1%** | ~92 | gri_codes_summary (n_standards−1) |
-| 2023 | 727 | ~576 | **79.2%** | ~151 | gri_codes_summary (n_standards−1) |
-| 2024 | 1,042 | 1,011 | **97.0%** | 31 | gri_codes_summary (n_standards−1) + gri_tables |
-
-Coverage gaps are **structural ceilings** — not improvable with available data — arising from three root causes: (1) image-embedded GRI content index: pdfplumber located the page but cannot parse the codes (n_standards=0); affects ~76 companies in 2021, ~33 in 2022, ~32 in 2023; (2) Chinese-only reports: GRI extraction regex pipeline is English-only; affects ~67 in 2021, ~50 in 2022, ~47 in 2023; (3) no GRI section present in extracted text at all. The 2024 ceiling (97.0%) is notably higher because mandatory TWSE reporting brought in larger, better-structured reporters with machine-readable GRI indices.
-
-**n_material_topics_b** (GRI 3-3 disclosure entry count): **1,042/1,042 (100%) of NLP-corpus 2024 companies now have a value** (Pass 26 — 2026-06-08); 633/1,042 (60.7%) non-zero, 409/1,042 zero (image-based GRI index or no GRI 3-3 disclosures detected). 526 values from gri_tables CSVs (original extraction); 516 values from txt-based multi-pattern extraction (v5: management-phrase regex + in-body `GRI 3-3：YYYY` page-count; Pearson r=0.59 vs gri_tables baseline; 29% exact, 51% within ±1 on 526-ticker validation). This is the primary H1 outcome variable. **Pre-GRI 3 baseline unavailable by definition** — structurally correct, as GRI 3-3 did not exist before GRI Universal Standards 2021.
-
-### Block E: Topic Dynamics [High confidence | data-analyst | 2026-05-23]
-Binary topic panel: 80,255 rows (2,293 company-years × 35 canonical topics); binary disclosed 0/1.
-
-Year-over-year Jaccard similarity and churn:
-
-| Transition | n transitions | Avg Jaccard | Avg churn | Avg added | Avg dropped |
-|------------|--------------|-------------|-----------|-----------|-------------|
-| 2021→2022 | 259 | 0.631 | 0.555 | 3.4 | 3.2 |
-| 2022→2023 | 434 | 0.785 | 0.329 | 2.0 | 1.5 |
-| 2023→2024 | 537 | 0.780 | 0.330 | 2.8 | 1.0 |
-
-**Key insight**: Elevated 2021→2022 churn (Jaccard 0.631) reflects GRI Standards 2016→Universal 2021 standard-switch mechanics — NOT a GRI 3 treatment effect. This should be flagged as a pre-treatment placebo check covariate in pre-registration.
-
-Top disclosed topics in 2024 (>85%): S05 Talent (91.7%), E02 GHG (91.5%), G08 Economic Performance (91.1%), S01 OHS (87.9%), E01 Energy (86.9%) — universal, low DiD variation. Topics in DiD variation range (30–70%): E03 Scope 3 (65.2%), E08 Air Quality (44.3%), S07 Human Rights (45.6%), G05 IP Protection (51.0%), E09 Biodiversity (21%).
-
-### Block F: Financial Controls [High confidence | data-analyst | 2026-05-23]
-All financial data from TEJ, December fiscal year-end filter (YYYY/12). NTD thousands units throughout.
-
-**Balance Sheet** (99 → 124 columns; 4,365 rows; accounting identity verified: 0 mismatches):
-- 22 raw columns: total assets/liabilities/equity, current/non-current splits, debt decomposition, PP&E, intangibles, cash, receivables, inventories, payables, right-of-use assets
-- 5 derived: total_debt_ntd_thou, ln_total_assets, leverage (total_debt/total_equity), debt_ratio, current_ratio, working_capital_ntd_thou
-
-**Income Statement** (124 → 139 columns; 4,365 rows):
-- 12 raw columns: revenue, gross profit, R&D expense, operating income, EBIT, EBITDA, EBT, net income (parent/total), EPS basic/diluted, finance costs
-- 6 derived: roa, rd_intensity, gross_margin, operating_margin, net_profit_margin, revenue_growth
-
-**Equity/Valuation** (146 → 153 columns; 4,895 rows):
-- 7 raw: shares_outstanding, market_cap, P/E, P/B, price/sales, dividend yield, annual stock return, market segment
-- tobins_q = P/B (standard ESG-finance proxy; 14,839 TSE, 447 REG, 120 OTC, 6 TIB, 1 PSB)
-
-**ESG Scores** (153 → 157 columns):
-- TESG rating + score + E/S/G sub-scores: 2016–2022 only (TEJ file does not contain 2023–2024)
-- tse_mandatory_reporter: 100% coverage 2016–2024
-- ref_sasb/tcfd/tnfd/sdgs/ir: backfilled from CSR Disclosure file (7,750 rows updated)
-
-### Block G: Governance [High confidence | data-analyst | 2026-05-23]
-TEJ Governance monthly data (2014/01–2025/01), December snapshots used. ~98–100% coverage per year (7,670 rows updated):
-- board_seats, board_directors_n, board_supervisors_n, board_ownership_pct, director_ownership_pct, board_pledged_pct, main_shareholders_pct, liability_insurance_yn
-- TSMC 2024: 10 seats, 10 directors, 6.52% insider ownership ✓
-- independent_director_ratio: NOT available in TEJ Governance file; remains stub
-
-### Firm Age [High confidence | data-analyst | 2026-05-23]
-- firm_age = fiscal_year − TWSE listing year (confirmed TSMC: 2016 age=22 → listed 1994 ✓; Mediatek: 2016 age=15 → listed 2001 ✓)
-- Full TWSE universe: 7,333/7,765 (94.4%); 2024 NLP corpus: 1,040/1,042 (99.8%)
-- 73-company subsample: 100% firm_age coverage (507/507 rows)
-- 50 rows inferred via Governance file first-appearance method (only valid where first entry AFTER 2014/01)
-- 112 pre-2014 establishments and 30 special securities remain unfilled
-
-### NLP Pipeline — English Track [Passes 32–37, 2026-06-08]
-
-Phase 1 English Track NLP is complete for all four text cohorts: **2021**, **2022**, **2023**, and **2024**. All used identical scripts, models, and DB column slots (175 cols shared across all cohort years).
-
-### NLP Pipeline — Multilingual Track [Passes 38–42, 2026-06-08/09]
-
-Phase 2 Multilingual Track is **complete for all four cohorts (2021–2024)**. All three steps (Block C bilingual extractor, BGE-M3 semantic matcher, XLM-RoBERTa-XNLI classifier) ran across 974 Chinese/bilingual files in total.
-
-**2024 Chinese/bilingual track — 361 files processed (excl. 2461, 6776 near-empty):**
-
-| Step | Method | Status | Key Findings |
-|------|--------|--------|-------------|
-| 2.3 Block C | Bilingual regex (zh+en) | ✅ Done | mat_section=354/361 (98.1%); board_approved=289/361 (80.1%); dm_methodology=341/361 (94.5%); double_mat=52/361 (14.4%); engagement mean=3.14; viz_format=70/361 (19.4%); ai_tool=16/361 (4.4%); process_quality mean=0.426 |
-| 2.1 BGE-M3 | BAAI/bge-m3, 33 bilingual GRI topic descriptors | ✅ Done | 361/361 (100%). Top topics: GRI Alignment (122/34%), Stakeholder Engagement (56), Training & Education (25), TCFD/ISSB Alignment (20). top1_sim mean=0.690. Affinities: gov=0.353, soc=0.295, env=0.173. JSONL: bge_2024_matches.jsonl |
-| 2.2 XLM-RoBERTa-XNLI | mDeBERTa-v3-base-mnli-xnli, zero-shot sentence classification | ✅ Done | 361/361 (100%). dominant: soc=294 (81.4%), other=44 (12.2%), gov=14 (3.9%), env=9 (2.5%). Mean pcts: soc=0.449, gov=0.204, env=0.164. Mean sentences=43.9 |
-
-**2023 Chinese/bilingual track — 216 files processed (no exclusions):**
-
-| Step | Method | Status | Key Findings |
-|------|--------|--------|-------------|
-| 2.3 Block C | Bilingual regex (zh+en) | ✅ Done | Combined 2023 corpus: mat_found=699/1185 (59.0%), board_approved=453/1185 (38.2%), double_mat=72/1185 (6.1%), ai_tool=32/1185 (2.7%) |
-| 2.1 BGE-M3 | BAAI/bge-m3, 33 bilingual GRI topic descriptors | ✅ Done | 216/216 (100%). Top topics: GRI Alignment (55), Stakeholder Engagement (27), Training & Education (24), TCFD/ISSB Alignment (11). top1_sim mean=0.677. Affinities: soc=0.303, gov=0.279, env=0.156. JSONL: bge_2023_matches.jsonl |
-| 2.2 XLM-RoBERTa-XNLI | mDeBERTa-v3-base-mnli-xnli | ✅ Done | 216/216 (100%). dominant: soc=179 (82.9%), other=17 (7.9%), env=16 (7.4%), gov=4 (1.9%). Mean pcts: soc=0.461, gov=0.182, env=0.174. Mean sentences=48.2 |
-
-**2022 Chinese/bilingual track — 224 files processed (excl. 1795, 3704 — no PDF):**
-
-| Step | Method | Status | Key Findings |
-|------|--------|--------|-------------|
-| 2.3 Block C | Bilingual regex (zh+en) | ✅ Done | Combined 2022 corpus: mat_found=581/980 (59.3%), board_approved=349/980 (35.6%), double_mat=47/980 (4.8%), ai_tool=5/980 (0.5%) |
-| 2.1 BGE-M3 | BAAI/bge-m3, 33 bilingual GRI topic descriptors | ✅ Done | 225/225 (100%). Top topics: GRI Alignment (70), Stakeholder Engagement (31), Training & Education (22), Climate Adaptation (9). top1_sim mean=0.681. Affinities: gov=0.308, soc=0.299, env=0.126. JSONL: bge_2022_matches.jsonl |
-| 2.2 XLM-RoBERTa-XNLI | mDeBERTa-v3-base-mnli-xnli | ✅ Done | 225/225 (100%). dominant: soc=175 (77.8%), env=20 (8.9%), other=17 (7.6%), gov=13 (5.8%). Mean pcts: soc=0.453, gov=0.191, env=0.158. Mean sentences=47.2 |
-
-**2021 Chinese/bilingual track — 172 files processed (excl. 3669 — corrupt PDF):**
-
-| Step | Method | Status | Key Findings |
-|------|--------|--------|-------------|
-| 2.3 Block C | Bilingual regex (zh+en) | ✅ Done | Combined 2021 corpus: mat_found=450/822 (54.7%), board_approved=209/822 (25.4%), double_mat=6/822 (0.7%), ai_tool=2/822 (0.2%). Lower rates reflect pre-IFRS reporting norms. |
-| 2.1 BGE-M3 | BAAI/bge-m3, 33 bilingual GRI topic descriptors | ✅ Done | 172/172 (100%). Top topics: GRI Alignment (47), Stakeholder Engagement (26), Training & Education (20), Board Governance (10). top1_sim mean=0.668. Affinities: soc=0.302, gov=0.301, env=0.122. JSONL: bge_2021_matches.jsonl |
-| 2.2 XLM-RoBERTa-XNLI | mDeBERTa-v3-base-mnli-xnli | ✅ Done | 172/172 (100%). dominant: soc=133 (77.3%), other=14 (8.1%), env=13 (7.6%), gov=12 (7.0%). Mean pcts: soc=0.456, gov=0.199, env=0.155. Mean sentences=41.6 |
-
-**Cross-cohort Phase 2 comparison (Chinese/bilingual track, 2021–2024):**
-
-| Metric | 2021 (n=172) | 2022 (n=225) | 2023 (n=216) | 2024 (n=361) |
-|--------|-------------|-------------|-------------|-------------|
-| XLMR dominant (soc%) | 77.3% | 77.8% | 82.9% | 81.4% |
-| XLMR dominant (gov%) | 7.0% | 5.8% | 1.9% | 3.9% |
-| BGE top-1 topic | GRI Alignment (47) | GRI Alignment (70) | GRI Alignment (55) | GRI Alignment (122) |
-| BGE mean_sim | 0.643 | 0.654 | 0.651 | ~0.669 |
-| Mean sentences (XLMR) | 41.6 | 47.2 | 48.2 | 43.9 |
-| double_mat (combined) | 0.7% | 4.8% | 6.1% | 6.1% |
-| ai_tool (combined) | 0.2% | 0.5% | 2.7% | 14.6%* |
-
-*2024 ai_tool for combined corpus (English+Chinese). Chinese-track-only: 4.4%.
-
-**Cross-track comparison (2024 — English vs Chinese reporters):**
-- **Framing trajectory (BGE vs ESGLens)**: Chinese-track is GRI Alignment-dominant (34% of companies) while English-track is TCFD/ISSB Alignment-dominant (38%). Chinese reporters are framing materiality within the established GRI taxonomy; English reporters have pivoted to the IFRS S1/S2 vocabulary. Stakeholder Engagement is the 2nd-ranked topic in both tracks, confirming a consistent methodological core across languages.
-- **ESG pillar emphasis (XLMR vs FinBERT)**: Chinese-track is strongly soc-dominant (81.4%) while English-track is gov-dominant (51.5%). Mean soc_pct: zh=0.449 vs en=0.291; mean gov_pct: zh=0.204 vs en=0.376. The Chinese-track has remained soc-dominant and stable across all four years (77–83%), showing no sign of the gov transition seen in the English track. This structural divergence — rather than a lag — is now the better-supported interpretation.
-- **Board approval (Block C)**: Chinese-track 80.1% vs English-track 57.1% (2024) — higher rate in Chinese files, consistent with bilingual reports drawing on both Chinese governance culture and the update merging with prior extraction.
-- **Double materiality**: Rising steadily in Chinese track (0.7% → 4.8% → 6.1% → 6.1%) but still low; ESRS awareness has not yet diffused into Chinese-language reporting at scale.
-- **AI tool disclosure**: Chinese-track 4.4% vs English-track 40.4% (2024) — Chinese reporters almost entirely absent from the 2024 GenAI wave. Chinese-track ai_tool also very low in 2021–2023 (0.2%, 0.5%, 2.7%), consistent with the GenAI gap being a structural language-market difference rather than a time-lag.
-
-**2024 cohort — 680 English files, all steps complete:**
-
-| Step | Model / Method | Status | Key Findings |
-|------|---------------|--------|-------------|
-| 1.4 Block C | Regex extractor | ✅ Done | mat_section_found 99.0%; board_approved 57.1%; visualization_format 56.9%; ai_tool_disclosed 40.4%; dm_methodology_disclosed 32.1%; double_materiality_mentioned 10.3% |
-| 1.3 ESGLens | SBERT all-MiniLM-L6 | ✅ Done | Top topics: TCFD/ISSB Alignment (255), Stakeholder Engagement (172), Circular Economy (132), GHG Emissions (45). JSONL: `eslens_2024_matches.jsonl`. |
-| 1.1 FinBERT | FinBERT-ESG-9-Categories | ✅ Done | gov=350 (51%), soc=190 (28%), env=79 (12%), other=61 (9%). |
-| 1.2 ClimateBERT | distilroberta-base-climate-detector | ✅ Done | Mean climate_pct=0.502; 324/680 above 0.5; 2 companies with 0 climate sentences. |
-
-**2023 cohort — 526 English files, all steps complete:**
-
-| Step | Model / Method | Status | Key Findings |
-|------|---------------|--------|-------------|
-| 1.4 Block C | Regex extractor | ✅ Done | mat_section_found 97.3%; board_approved 63.9%; dm_methodology_disclosed 84.2%; visualization_format 8.4%; ai_tool_disclosed 4.4%; double_materiality_mentioned 9.9% |
-| 1.3 ESGLens | SBERT all-MiniLM-L6 | ✅ Done | Top topics: SDG Alignment (104), GRI Alignment (78), TCFD/ISSB Alignment (64), Stakeholder Engagement (47). JSONL: `eslens_2023_matches.jsonl`. |
-| 1.1 FinBERT | FinBERT-ESG-9-Categories | ✅ Done | gov=224 (43%), soc=189 (36%), env=77 (15%), other=36 (7%). |
-| 1.2 ClimateBERT | distilroberta-base-climate-detector | ✅ Done | Mean climate_pct=0.484; 230/526 above 0.5; 6 companies with 0 climate sentences. |
-
-**2022 cohort — 389 English files, all steps complete (388 processed; 3062_2022_E is 0-byte exclusion):**
-
-| Step | Model / Method | Status | Key Findings |
-|------|---------------|--------|-------------|
-| 1.4 Block C | Regex extractor | ✅ Done | mat_section_found 95.1%; board_approved 53.5%; dm_methodology_disclosed 82.8%; visualization_format 10.0%; ai_tool_disclosed 0.8%; double_materiality_mentioned 6.7% |
-| 1.3 ESGLens | SBERT all-MiniLM-L6 | ✅ Done | Top topics: SDG Alignment (94), GRI Alignment (51), TCFD/ISSB Alignment (40), Stakeholder Engagement (39). JSONL: `eslens_2022_matches.jsonl`. |
-| 1.1 FinBERT | FinBERT-ESG-9-Categories | ✅ Done | gov=150 (39%), soc=149 (38%), env=60 (15%), other=29 (7%). |
-| 1.2 ClimateBERT | distilroberta-base-climate-detector | ✅ Done | Mean climate_pct=0.485; 179/388 above 0.5; 0 companies with 0 climate sentences. |
-
-**2021 cohort — 307 English files, all steps complete (5 near-empty exclusions; 6202 copied from macOS duplicate):**
-
-| Step | Model / Method | Status | Key Findings |
-|------|---------------|--------|-------------|
-| 1.4 Block C | Regex extractor (16 cols) | ✅ Done | mat_section_found 94.5%, board_approved 44.6%, dm_methodology_disclosed 74.3%, visualization_format 11.4%, ai_tool_disclosed 0.7%, double_materiality_mentioned 1.6% |
-| 1.3 ESGLens | all-MiniLM-L6-v2 (30 GRI topics) | ✅ Done | Top1: SDG(77), GRI(55), SE(40), SupplierEnv(20), TCFD(19). Mean sim=0.642. Affinity: gov=0.57, env=0.29, soc=0.14 |
-| 1.1 FinBERT | FinBERT-ESG-9-Categories | ✅ Done | soc=143 (46.6%), gov=106 (34.5%), env=37 (12.1%), other=21 (6.8%). |
-| 1.2 ClimateBERT | distilroberta-base-climate-detector | ✅ Done | Mean climate_pct=0.449; 120/307 above 0.5; 0 companies with 0 climate sentences. |
-
-**Cross-cohort NLP signal (2021 → 2022 → 2023 → 2024 trends):**
-- **ESGLens framing trajectory**: SDG/GRI Alignment dominant in 2021–2023 → TCFD/ISSB/Circular Economy dominant in 2024. The 2021→2022→2023 framing is stable (same top-2 topics each year), while 2024 shows a sharp pivot — direct fingerprint of IFRS S1/S2 phased mandate announcement.
-- **ClimateBERT intensity trajectory**: 0.449 (2021) → 0.485 (2022) → 0.484 (2023) → 0.502 (2024). Gradual pre-IFRS drift, then a step up in 2024. Companies above 0.5: 120 → 179 → 230 → 324.
-- **FinBERT pillar evolution**: 2021 is distinctly soc-dominant (47%), unlike 2022–2024 where gov climbs to plurality. Gov grows consistently (35% → 39% → 43% → 51%); soc declines from 2021 peak (47% → 38% → 36% → 28%); env relatively stable (12% → 15% → 15% → 12%).
-- **Visualization disclosure**: low and stable pre-2024 (10.0% → 8.4%) → explosion in 2024 (56.9%). Near-universal adoption happened in a single year.
-- **AI tool disclosure**: essentially zero in 2022 (0.8%) and 2023 (4.4%) → 40.4% in 2024. Entirely a 2024 GenAI adoption phenomenon.
-- **Double materiality**: 6.7% (2022) → 9.9% (2023) → 10.3% (2024). Gradual increase — consistent with ESRS awareness building but limited TWSE uptake through 2024.
-
-**DB schema:** 175 columns (157 original + 18 NLP). NLP cols shared across all cohort years. Backup: `twse-research-database_pre-nlp-repair.csv`.
-
-### Phase 3: Block Variable Population [Passes 43–46, 2026-06-09]
-
-Phase 3 computed four Block G summary variables for all four cohort years using existing NLP and GRI data. Scripts: `scripts/phase3_local/phase3_{year}.py`. DB expanded to **192 columns** (188 + 4 new columns: `mda_index`, `gri_content_index_completeness`, `n_material_topics_b`, `topic_depth_score`).
-
-**Cross-cohort Phase 3 coverage (rows with >0 value / total cohort rows):**
-
-| Metric | 2021 (N=822) | 2022 (N=980) | 2023 (N=1,185) | 2024 (N=1,983) |
-|--------|-------------|-------------|----------------|----------------|
-| `mda_index` | 470 (57.2%), mean=0.549, mode=0.5 | 608 (62.0%), mean=0.601, mode=0.6 | 723 (61.0%), mean=0.609, mode=0.6 | 1,038 (52.3%), mean=0.618, mode=0.7 |
-| `gri_content_index_completeness` | **41 (5.0%)**, mean=0.237† | 456 (46.5%), mean=0.826, med=0.882 | 542 (45.7%), mean=0.807, med=0.882 | 902 (45.5%), mean=0.856, med=0.882 |
-| `n_material_topics_b` | 319 (38.8%), mean=15.9, med=16 | 517 (52.8%), mean=15.7, med=15 | 568 (47.9%), mean=15.3, med=15 | 760 (38.3%), mean=13.4, med=13, max=34 |
-| `topic_depth_score` | 476 (57.9%), mean=0.577, med=0.586 | 613 (62.6%), mean=0.590, med=0.598 | 727 (61.3%), mean=0.591, med=0.594 | 1,040 (52.4%), mean=0.374‡ |
-
-†2021 GCI near-zero by design: 808/822 rows are GRI Standards 2016 reporters who do not use "GRI 2-*" notation — GCI=0.0 is methodologically correct for this cohort. Only 14 Universal 2021 early adopters have non-zero GCI. Filter by `gri_standard_version` for cross-cohort GCI analysis.
-
-‡2024 `topic_depth_score` mean is lower (0.374) because the 2024 corpus contains a large English-track component (ESGLens; model-calibrated mean≈0.231) vs Chinese-track (BGE-M3; calibrated mean≈0.643). This is a model-calibration gap, not a disclosure quality difference. 2021–2023 means (0.577–0.591) reflect a higher Chinese-track share of the NLP corpus.
-
-**Key interpretation notes:**
-- `mda_index` trend (0.549 → 0.618): Gradual improvement in materiality disclosure quality across cohorts, consistent with increasing TWSE regulatory pressure. Lower 2021 mean reflects pre-CSRD reporting norms (`double_materiality_mentioned` near-zero at 0.7%).
-- `n_material_topics_b` for 2021/2022: Not directly comparable to 2023/2024 because (a) GRI 3-3 did not exist under GRI Standards 2016 (2021 cohort), and (b) no per-file `gri_tables_202[12]/` directories exist — values sourced entirely from `gri_codes_summary_{year}.csv`. The Phase 3 `n_material_topics_b` for 2021/2022 counts unique 3-digit GRI standards (200/300/400 series) rather than GRI 3-3 management-approach entries. Use `n_material_topics_a` for cross-cohort DiD estimation; `n_material_topics_b` is the primary H1 outcome variable for 2023/2024 only.
-- `gri_content_index_completeness` is the most complete measure for 2023/2024 (denom=34, Universal 2021 mandatory disclosures). For 2022, denom=34 applies for most reporters; for 2021, denom=33 (GRI Standards 2016) for 2016-era reporters.
+**Total logged passes: 46. Most recent activity: 2026-06-09 (Phases 2 + 3 multilingual/block-vars).**
 
 ---
 
-## Data Quality
+## 3. Current Database State (against the 73-company study cohort)
 
-### Completeness by Block — 2024 Cohort
-Coverage is shown two ways: **NLP corpus** (1,042 companies with extracted text) and **TEJ universe** (1,983 companies with TEJ scaffold rows). NLP-based blocks (B/C/D) use 1,042 as the denominator; TEJ-sourced blocks (F/G) use the full 7,765-row database.
+**DB: 188 columns × 7,765 rows (507 TWSE-semicon rows across 2016–2024, 74 unique companies)**
 
-| Block | Variable | Coverage (NLP corpus) | Coverage (TEJ universe) | Quality |
-|-------|----------|-----------------------|-------------------------|---------|
-| A | twse_ticker, fiscal_year, gri_adoption_year | 100% (1,042/1,042) | 100% (7,765/7,765) | Verified |
-| B | gri_standard_version, gri_adoption_year | 100% (1,042/1,042) | 100% (7,765/7,765) | Verified |
-| B | word_count_total, page_count | 100% (1,042/1,042) | 52.5% (1,042/1,983) | Full within corpus |
-| C | process_quality_score | 100% (1,042/1,042) | 52.5% (1,042/1,983) | Full within corpus |
-| D | n_material_topics_a | 97.0% (1,011/1,042) — 2024; 70.8%/85.1%/79.2% for 2021/2022/2023 | 51.0% (1,011/1,983) — 2024 | Structural ceiling: image-embedded GRI index, Chinese-only reports, no GRI section. 2024 ceiling higher due to mandatory-reporting cohort quality |
-| D | n_material_topics_b | **100% (1,042/1,042)** | 52.5% (1,042/1,983) | 633 non-zero / 409 zero; 526 from gri_tables + 516 txt-extracted (Pass 26) |
-| E | Binary topic panel | 2,293 company-years across 4 years | — | Complete for available years |
-| F | Balance sheet, income, equity | 87.0% (907/1,042) | ~44–63% (4,365–4,895 rows) | TEJ coverage; December filter |
-| F | insider_ownership_pct | 98.8% (7,670/7,765) | 98.8% | Filled from board_ownership_pct (Pass 27) |
-| F | state_ownership_pct | 97.0% (7,535/7,765) | 97.0% | Time-invariant fill from TEJ Share Structure Government(%) (Pass 28) |
-| F | firm_size_quintile | 70.5% (5,478/7,765) | 70.5% | Per-year quintile of ln_total_assets; bounded by TEJ financial coverage (Pass 27) |
-| F | firm_age_quintile | 94.4% (7,333/7,765) | 94.4% | Per-year quintile of firm_age (Pass 27) |
-| F | tesg_score | 2016–2022 only | 2016–2022 only | TEJ file ends 2022 |
-| G | Governance | 98.5% (1,026/1,042) | ~99% (7,670/7,765 rows) | Excellent TEJ coverage |
-| G | independent_director_ratio | 0% | 0% | Not in TEJ files; stub |
+### Key variable coverage — TWSE-semicon subsample only
 
-### Known Reliability Issues
+| Variable | 2016–2020 | 2021 | 2022 | 2023 | 2024 | H-relevance |
+|---|---|---|---|---|---|---|
+| `gri_adoption_year` | 100% ✅ | 100% ✅ | 100% ✅ | 100% ✅ | 100% ✅ | H1–H5 (treatment) |
+| `n_material_topics_b` | **0%** ⚠️ | 42% | 53% | 40% | 35% | H1, H4 |
+| `n_material_topics_a` | **0%** ⚠️ | 45% | 56% | 40% | 57% | H1 (alt outcome) |
+| `process_quality_score` | **0%** ⚠️ | 61% | 67% | 68% | 68% | H2 |
+| `assurance_level` | 49–63% | 58% | 65% | 67% | 73% | H3 |
+| `ln_total_assets` | 100% ✅ | 100% ✅ | 64% ⚠️ | 64% ⚠️ | 64% ⚠️ | H1–H3 controls |
+| `roa` | 100% ✅ | 100% ✅ | 64% ⚠️ | 64% ⚠️ | 64% ⚠️ | H1–H3 controls |
+| `board_esg_committee` | **0%** 🔴 | **0%** 🔴 | **0%** 🔴 | **0%** 🔴 | **0%** 🔴 | H1–H2 controls |
+| `standalone_sr` | — | — | — | — | 100% ✅ | H1–H2 controls |
+| `industry_subsector` | 100% ✅ | 100% ✅ | 100% ✅ | 100% ✅ | 100% ✅ | H4 |
 
-- **`gri_adoption_year`** — ~~CRITICAL GAP (Pass 29)~~ **RESOLVED (Pass 30, 2026-06-08)**: 7,634 rows populated (7,127 new fills + 74 pre-existing). Adoption distribution: 2021: 14; 2022: 869; 2023: 310; 2024: 818. Of 818 first-time-2024 adopters, 792 are new entrants (no pre-adoption rows — excluded from DiD estimation). 131 rows blank = companies appearing only under GRI Standards 2016. DiD treatment variable fully valid for CS21 estimation.
-- **TESG scores 2023–2024**: Unavailable. TEJ ESG score file ends at 2022/12. No workaround from current TEJ data.
-- **independent_director_ratio**: Not in TEJ Governance file. Requires TWSE corporate governance database or manual collection.
-- **state_ownership_pct**: ~~TEJ Share Structure December coverage too sparse — unusable~~ **RESOLVED (Pass 28)**: File is cross-sectional (one row per company, 2025–2026 snapshot). Treated as time-invariant control: same Government(%) value applied across all fiscal years per ticker. Coverage: 7,535/7,765 rows (97.0%); 402 tickers with government ownership > 0%. 230 rows unmatched (no TEJ entry).
-- **2016–2020 text data**: No ESG report text files available for these years. Block B word_count/page_count/report_language permanently unavailable for pre-2021 cohort.
-- **Topic panel 2021–2022 n_material_topics_b**: Not extractable — GRI 3-3 construct did not exist under GRI Standards 2016. This is structurally correct, not a gap.
-- **n_material_topics_a structural ceiling (Pass 31)**: Coverage varies by cohort — 2021: 70.8%, 2022: 85.1%, 2023: 79.2%, 2024: 97.0%. Gaps are not improvable: root causes are image-embedded GRI content indices (pdfplumber cannot parse), Chinese-only reports (English regex pipeline), and reports with no GRI section. The lower 2021 ceiling reflects early-adopter heterogeneity and smaller PDF text extraction coverage. Use the per-year NLP corpus as the correct denominator; do not pool across years without weighting.
-- **Stage 3 concordance**: ~60–80 genuine unmatched GRI 3-3 topic labels in 2023–2024 topic_panel. Two-coder protocol required. Priority labels: 'Climate Change Response', 'GHG Emissions and Reduction', 'Innovation R&D', 'Regulatory Compliance' (~15–20 labels).
-- **Assurance_level**: 48–72% coverage per year (TEJ data completeness ceiling). Gap may bias H3 estimates. **Note**: 1,467 rows were corrected from Reasonable→Limited (Pass 28) — 中度保證 (AA1000 moderate assurance) was incorrectly mapped as Reasonable in the original DB. H3 estimates should now be correctly specified.
-
-### Data Biases
-- **NLP corpus selection bias**: Companies with no extracted report text are excluded from Block B/C/D analysis. Across cohorts: 2021: 356/835 excluded (42.6%); 2022: 364/981 (37.1%); 2023: 459/1,186 (38.7%); 2024: 941/1,983 (47.5%). These are likely systematically smaller or less-prominent companies — estimates for process quality, topic counts, and text-based variables skew toward larger, more active reporters. Effective N by year: 479 / 617 / 727 / 1,042. The rising absolute N reflects TWSE reporting universe expansion, but coverage rate is broadly stable at ~57–63% through 2021–2023, then dips to 52.5% in 2024 (new mandatory reporters with lower extraction success). Do not interpret the rising N as improving representativeness.
-- **December fiscal year filter**: TEJ data filtered to YYYY/12 fiscal year-end. Non-December fiscal year companies are excluded from financial controls. This affects <5% of TWSE universe.
-- **GRI 3-3 txt extraction noise**: The 516 Pass-26 values were extracted via regex rather than structured GRI table parsing. Validation against 526 gri_table-derived values shows Pearson r=0.59, 29% exact match, 51% within ±1. The primary source of error is that gri_tables itself under-extracts for many companies (pdfplumber missed rows), so "ground truth" is also noisy. Treat `n_material_topics_b` as a continuous count variable with ±2–3 measurement noise for the txt-extracted subset. Use `n_material_topics_a` (97% coverage, regex-based, more reliable) for robustness checks.
+**GRI adoption distribution (73 companies):** 3 × 2021 · 65 × 2022 · 4 × 2023 · 2 × 2024  
+**Industry subsector (74 companies, 2024):** Fabless=33 · OSAT=15 · Materials=8 · Equipment=8 · Foundry=5 · IDM=5
 
 ---
 
-## Comparisons & Metrics
+## 4. Alignment Assessment: Are You on Track?
 
-### Database State (as of 2026-05-23, Pass 17)
-- Rows: 7,765 (data) + 2 header rows
-- Columns: 157
-- Encoding: UTF-8-sig BOM
-- Full universe: 2,091 unique companies × 2016–2024
-- 73-company industry subsample embedded within: 507 rows (available for subgroup analysis)
+### ✅ What is solidly ready
 
-### Coverage Trajectory by Session
-| Session | Passes | Columns | Key additions |
-|---------|--------|---------|---------------|
-| 2026-05-18 | 1–2 | 66 | Regulatory updates, methods review, gap analysis |
-| 2026-05-20 | 3–5 | 66→90 | Full TWSE universe build (7,765 rows), Block B-D-G base |
-| 2026-05-21 | 6 | 90 | Block B 2022 extension, gri_adoption_year correction |
-| 2026-05-22 | 7–8 | 90 | Full TWSE Block B/C/D/G, NLP pipeline design, H1–H5 |
-| 2026-05-23 | 9–11 | 90→99 | Block C 2021–2023, Block D E/S/G counts, Block E binary panel |
-| 2026-05-23 | 12–17 | 99→157 | Block F (balance sheet, income, equity, ESG scores), Block G governance |
-| 2026-05-24 | 22 | 157 | Coordinator synthesis (this session) |
-| 2026-06-09 | 43–46 | 188→192 | Phase 3 Block Variable Population (all 4 cohorts): mda_index, gri_content_index_completeness, n_material_topics_b, topic_depth_score |
+- **Treatment variable**: `gri_adoption_year` 100% coded for all 73 companies. DiD identification is in place.
+- **Block F controls**: `roa`, `ln_total_assets`, `leverage` populated for 2016–2021 at ~100%; partial 2022–2024.
+- **Block G**: `mda_index` and `gri_content_index_completeness` populated for 2021–2024.
+- **NLP pipeline**: Fully complete for all 4 years, both language tracks. `process_quality_score` is the most complete outcome variable for the DiD.
+- **Hypotheses**: H1–H5 are well-specified and falsifiable. The framing, estimator choice (CS21), and robustness plan are publication-grade.
+- **H4 moderator**: `industry_subsector` is 100% populated. Fabless (33) vs Foundry+OSAT (20) is testable — though the Foundry count alone (5) is small.
 
-### Financial Benchmarks (TSMC 2022 for reference)
-- tesg_score: confirmed populated; tesg_rating and E/S/G sub-scores verified
-- board_seats=10, board_directors_n=10, board_ownership_pct=6.52%, board_pledged_pct verified
-- Accounting identity: TA = TL + TE verified across all 4,365 rows (0 mismatches)
+### ⚠️ Gaps that constrain but don't block
 
----
+**1. Pre-treatment outcome data limited to 2021**  
+GRI code extraction (gri_codes_summary files) only covers 2021–2024. This means `n_material_topics_a/b` and `process_quality_score` are **zero for 2016–2020 in the subsample**. With 65 companies adopting in 2022, the DiD panel effectively has only **one pre-treatment year (2021)** for the majority of firms. This limits the event-study plot to t−1 and weakens the parallel trends test. The methodology document's Phase 4 analysis was designed for a 2016–2024 panel, but the estimable window is realistically 2021–2024.
 
-## Research Gaps (Top 3, from research-gap-analysis 2026-05-18)
+**Implication:** The pre-registration should explicitly state the 2021–2024 estimation window. The 2016–2020 rows cannot contribute to the DiD.
 
-**Gap 1 (most critical for H1 pre-registration):** Anticipation effects — companies may adjust topic disclosure in the year before GRI 3 adoption, biasing pre-trend tests. CS21 event-study plots should inspect t−2 and t−1 coefficients explicitly. Flag the 2021→2022 Jaccard drop as a placebo check covariate in OSF pre-registration.
+**2. `n_material_topics_b` measurement inconsistency across cohorts**  
+The hypothesis defines `n_material_topics_b` as "count of GRI 3-3 disclosure entries." For 2023–2024, this is sourced from `gri_tables_2023/` and `gri_tables_2024/` (structured GRI 3-3 row extractions). For 2021–2022, it falls back to `gri_codes_summary` (counts of GRI topic standard codes broadly). These two methods measure slightly different things:
+- GRI Standards 2016 reporters (most of 2021–2022) don't have GRI 3-3 disclosures, but do have GRI 200/300/400 standard citations
+- Average values are similar (15–16 across all years), suggesting continuity, but the measurement source changes at the treatment boundary
 
-**Gap 2 (CS21 design challenge):** Always-taker new entrants — companies entering reporting after 2025 universal mandate will have treatment=0 only at baseline. CS21's `notyettreated` control group must be carefully bounded; 2025 cohort may need exclusion or separate treatment.
+For H1, `n_material_topics_a` (unique GRI topic standards from content index, consistent GRI-code method across all years) may be the more defensible primary outcome, with `n_material_topics_b` from `gri_tables` as the post-treatment robustness check.
 
-**Gap 3 (H5 requires external data):** Supply-chain diffusion of materiality practices — institutional isomorphism mechanism is theoretically identified but empirically untested. Requires supplier tier-1 coding from sustainability reports (e.g. TSMC 2022–2024 for TWSE supply chain context). Estimated 1–2 days of manual lookup; only relevant if supply-chain proximity is chosen as a moderator.
+**3. Block F controls for 2022–2024**  
+`ln_total_assets` and `roa` drop to ~64% coverage in 2022–2024 (the post-treatment years for most companies). This suggests the TEJ financial data merge did not fully cover recent years. The controls can still be used with listwise deletion, but the analysis should note this limitation. For 46/72 companies in 2022, controls are available — this is sufficient for estimation with appropriate caveats.
 
-**Additional gaps documented:**
-- Gap 4: Korea/Japan peer comparison (K-ESG, SSBJ frameworks) — out-of-scope for current study, valuable for lit review positioning
-- Gap 5: Long-term topic re-expansion post-initial-displacement — panel ends 2024, only 2 years post-adoption for 2022 cohort
-- Gap 6: Quality vs. quantity trade-off mechanism — does process_quality_score mediation account for displacement, or do they move independently?
-- Gap 7 (novel contribution): Displacement effect under GRI 3 impact materiality in industry-specific context — this gap is H1's primary contribution
+**4. H4 subsector counts**  
+Actual counts: Fabless=33, Foundry=5, OSAT=15, IDM=5, Materials=8, Equipment=8. The hypothesis expected n≈28 Fabless vs n≈21 Foundry/OSAT vs n≈24 IDM. The IDM count (5 vs expected 24) is much lower, and Foundry alone (5) is too small for robust subsample estimation. Combining Foundry+OSAT gives 20 — feasible, but the test will have lower power than anticipated.
 
----
+### 🔴 Hard blockers
 
-## Hypotheses
+**1. OSF pre-registration — MUST complete before any DiD estimation**  
+The hypothesis file, the methodology, and standard academic practice all require this. This is the single most important next action.
 
-### Current Top-Ranked Hypothesis (H1 — Primary)
+**2. `board_esg_committee` = 0 across all 507 rows**  
+This is listed as a control variable in H1 and H2 but has not been populated. It will need to be sourced from TWSE corporate governance reports, TEJ governance data, or manual coding from annual reports. Without it, the specifications in H1/H2 cannot be run exactly as pre-specified.
 
-> **GRI 3 adoption causes a net decrease in n_material_topics_b among TWSE companies.** Expected ATT: −2 to −5 topics relative to pre-adoption mean. Estimator: `att_gt()` Callaway-Sant'Anna (2021). Controls: ln_total_assets, roa, board_esg_committee, standalone_sr. Pre-registration on OSF required before estimation.
-
-*Falsification condition:* ATT positive or indistinguishable from zero → displacement hypothesis rejected.
-
-### Full Hypothesis Set (H1–H5)
-
-| Hypothesis | Outcome | Expected ATT | Estimator | Status |
-|------------|---------|-------------|-----------|--------|
-| **H1** (primary) | n_material_topics_b | Negative (−2 to −5 topics) | CS21 att_gt() | Ready — pending OSF pre-reg |
-| **H2** | process_quality_score | Positive (+1–2 pts on 0–10 scale) | CS21 + TWFE robustness | Ready — pending OSF pre-reg |
-| **H3** | assurance_level (ordinal upgrade) | Positive (+8–15 pp Reasonable) | CS21 + Ordered logit | Ready — pending OSF pre-reg |
-| **H4** | n_material_topics_b × industry_cat | Displacement varies by company type (conditional on subgroup selection) | Subsample CS21 | Conditional — requires industry subsample activation |
-| **H5** | process_quality_score × supply-chain proximity | Supply-chain-proximate firms: earlier adoption, +1.5 pts | CS21 interaction | Blocked — proximity coding requires external data |
-
-Robustness checks (not pre-specified): Rambachan-Roth sensitivity analysis, `control_group = "nevertreated"` alternative, Bacon-Goodman decomposition diagnostic.
+**3. H5 blocked on external data**  
+TSMC tier-1 supplier coding (from TSMC Supplier Sustainability Reports 2022–2024) and Hsinchu Science Park co-location data haven't been gathered. Estimated 1–2 days of manual lookup.
 
 ---
 
-## Variable Registry Changes (All Sessions)
+## 5. Data Quality Assessment
 
-### New Variables Added by Session
+| Variable / Source | Quality | Key issue | Audit file |
+|---|---|---|---|
+| `gri_adoption_year` | **High** | 100% populated; corrected in Pass 6 for 4 tickers | research_log.json Pass 30 |
+| `n_material_topics_a` | **Medium** | 40–57% coverage in subsample; structural ceiling (image GRI indexes, Chinese-only reports) | Pass 31 |
+| `n_material_topics_b` | **Medium** | Method inconsistency: gri_tables (2023–24) vs gri_codes_summary proxy (2021–22); text-regex fallback has r=0.59 | Pass 26; audit 2024 |
+| `process_quality_score` | **Medium-High** | Populated for 61–68% of subsample 2021–2024; absent 2016–2020; Chinese track uses different (bilingual regex) method | Phase 1/2 NLP entries |
+| `assurance_level` | **Medium** | 49–73% TEJ coverage ceiling; 1,467 rows corrected from Reasonable→Limited (Pass 28); very few Reasonable cases in subsample (5–6/year) | Pass 28 |
+| `ln_total_assets`, `roa` | **High (pre-2022), Medium (2022+)** | 100% coverage through 2021; ~64% in 2022–2024; accounting identity verified | Passes 12–13 |
+| `board_esg_committee` | **Missing** | 0% populated — needs sourcing | Not audited |
+| `industry_subsector` | **High** | 100% Block A completeness; but Foundry n=5 limits H4 power | Pass 7 |
+| Text corpus (2024) | **High** | All three extraction quality checks pass (Checks A/B/C: 2.2%, 2.0%, 6.1%); 1,042 unique companies | audit_2024.md |
+| Text corpus (2021–23) | **High (structure), Medium (coverage)** | 2021: Check C median=0.772 (sidebar filter trade-off); all cohorts coordinate-corrected | audit_2021–23.md |
 
-**Session 1 (2026-05-18) — 21 variables via data-analyst:**
-gri_101_applied, gri_new_climate_energy_adopted, ifrs_s1_adopted, issb_s2_adopted, assurance_standard, issa5000_early_adopted, fsc_sector_metrics_disclosed, double_materiality_methodology_disclosed, standalone_mat_report, visualization_format, visualization_format_n, iro_table_shown, butterfly_chart_shown, scatter_plot_shown, iro_heatmap_shown, dynamic_viz_shown, ai_tool_disclosed, ai_tool_name, csrd_mandatory_reporter
-
-**Session 2 (2026-05-20) — DB scaffolded with 66 columns (Passes 3–4)**
-
-**Session 3+ (2026-05-22/23) — Block expansions:**
-- Block B extended: bilingual_report, report_language, word_count_total, page_count
-- Block C: mat_section_found, process_quality_score, board_approved, scoring_method_disclosed, dm_methodology_disclosed, stakeholder_groups_n, engagement_methods_n, process_steps_n, mda_index, visualization_format, ai_tool_disclosed
-- Block D: topics_total_n, topics_env_n, topics_soc_n, topics_gov_n, n_material_topics_a, n_material_topics_b, canonical_codes_str, sasb_tcsc_topics_n
-- Block E: jaccard_similarity, churn_rate, topics_added_n, topics_dropped_n, net_topic_change (via block_e_topic_dynamics.csv)
-- Block F balance sheet: 22 raw + total_debt_ntd_thou, ln_total_assets, leverage, debt_ratio, current_ratio, working_capital_ntd_thou (3 updated)
-- Block F income: 12 raw + gross_margin, operating_margin, net_profit_margin (3 updated: roa, rd_intensity, revenue_growth)
-- Block F equity: shares_outstanding_thou, pe_ratio_tej, pb_ratio_tej, price_sales_ratio, dividend_yield_pct, annual_stock_return_pct, market_segment (2 updated: market_cap_ntd_thou, tobins_q)
-- Block F ESG: tesg_rating, tesg_env_score, tesg_soc_score, tesg_gov_score (2 updated: tesg_score, tse_mandatory_reporter; 5 backfilled: ref_sasb/tcfd/tnfd/sdgs/ir)
-- Block G governance: board_directors_n, board_supervisors_n, board_ownership_pct, director_ownership_pct, board_pledged_pct, main_shareholders_pct, liability_insurance_yn (1 updated: board_seats)
-- Other: firm_age (calculated + partially inferred)
-
-**Taxonomy Updates:**
-- E01: GRI 302 → GRI 103: Energy 2025 (effective Jan 2027)
-- E02: GRI 305 → GRI 102: Climate Change 2025 (effective Jan 2027)
-- E09: GRI 304 → GRI 101: Biodiversity 2024 (effective Jan 2026)
-- E10: GRI 201-2/TCFD → GRI 102 transition plan provisions (absorbed, effective Jan 2027)
+**Overall data confidence for H1–H4: Medium.** The treatment variable and most controls are in good shape. The outcome variables have structural coverage gaps (especially for pre-treatment years) and some measurement inconsistency at the treatment boundary for `n_material_topics_b`. These are manageable with transparent robustness checks.
 
 ---
 
-## Pending Work (Prioritised)
+## 6. Coverage Against Methodology Requirements (Phase 4 Readiness)
 
-### Critical Path (blocks analysis)
-1. **OSF pre-registration** (H1–H4) — must precede any inferential CS21 estimates. Document: treatment definition, estimand, estimator, controls, expected sign, power calculation, robustness checks.
-2. **Stage 3 manual concordance** (~60–80 genuine unmatched GRI 3-3 topic labels, 2023–2024 panel) — two-coder protocol; ~1–2 days.
-3. **R DiD analysis scripts** — att_gt() implementation, event-study plots, Rambachan-Roth sensitivity.
+| Methodology requirement | Status | Gap |
+|---|---|---|
+| `gri_adoption_year` coded for all 73 companies | ✅ Done (100%) | — |
+| Block C: `process_quality_score` + materiality process variables | ✅ Done (2021–2024) | 0% for 2016–2020 |
+| Block D: `n_material_topics_a` (4-year panel) | ⚠️ Partial (40–57% per year) | Image-embedded GRI indexes; structural ceiling |
+| Block D: `n_material_topics_b` (GRI 3-3 specific) | ⚠️ Partial + inconsistent pre/post method | See §4 gap |
+| Block F financial controls (`ln_total_assets`, `roa`, `leverage`) | ⚠️ Partial (64% in 2022–2024) | TEJ data completeness |
+| `board_esg_committee` control | 🔴 Missing (0%) | Needs external sourcing |
+| `assurance_level` (H3) | ⚠️ Partial (49–73%) | TEJ ceiling; very few Reasonable cases |
+| Industry subsector for H4 | ✅ Done (100%) | Low Foundry n (5) limits power |
+| TSMC proximity indicator (H5) | 🔴 Not coded | External data — 1–2 days manual |
+| NLP pipeline (full corpus, 2021–2024) | ✅ Done (Phase 1+2 both complete) | — |
+| Stage 3 manual concordance (~60–80 unmatched labels) | ⚠️ Not done | Two-coder protocol |
+| OSF pre-registration | 🔴 Not done | BLOCKER |
+| R DiD scripts (`att_gt()`, event-study, Rambachan-Roth) | 🔴 Not written | Awaiting pre-reg |
 
-### External Data (non-blocking for H1–H4)
-4. **Supply-chain proximity coding** — if H5 is pursued, requires tier-1 supplier coding from company sustainability reports; manual lookup; ~1–2 days.
-5. **Co-location or cluster registry** — secondary proximity proxy for H5 if institutional isomorphism via geographic clustering is the chosen mechanism.
-
-### Data Gaps (no workaround in current TEJ sources)
-6. **TESG scores 2023–2024** — TEJ file ends 2022; no alternative available.
-7. **independent_director_ratio** — not in TEJ files; requires TWSE corporate governance database.
-8. ~~**state_ownership_pct**~~ — **RESOLVED (Pass 28)**: populated from TEJ Share Structure Government(%) as time-invariant control. 97.0% coverage.
-9. **dual_listed** — stub only.
-10. **analyst_coverage_n** — no TEJ source; requires I/B/E/S or similar.
-11. **MSCI ESG / Sustainalytics scores** — subscription data required.
-
----
-
-## Session History
-
-| Date | Agents | Key Passes | Findings Added |
-|------|--------|-----------|----------------|
-| 2026-05-18 | web-researcher, academic-researcher, data-analyst, research-gap-analysis | 1–2 | Regulatory/industry intelligence, methods review, definitions update (21 vars), 7 gaps |
-| 2026-05-20 | data-analyst, research-coordinator | 3–5 | Full TWSE DB build (7,765 rows, 66 cols), Block B 2024, NLP plan |
-| 2026-05-21 | data-analyst | 6 | Block B 2022, gri_adoption_year correction (4 companies) |
-| 2026-05-22 | data-analyst, technical-researcher, hypothesis-generation | 7–8, 18–19 | Full TWSE Block B/C/D/G, H1–H5, lang routing, GRI G4 extension, pipeline headers |
-| 2026-05-23 | data-analyst | 9–11 | Block C 2021–2023, Block D E/S/G counts, Block E binary panel (80,255 rows) |
-| 2026-05-23 | data-analyst | 12–17 | Block F (balance sheet 124 cols, income 139 cols, equity 153 cols, ESG 157 cols), Block G governance, firm_age |
-| 2026-05-23 | data-analyst | 20–21 | Folder reorganisation, methodology dashboard, 2022 audit English-rate correction |
-| 2026-05-24 | research-coordinator | 22 | Synthesis summary (this document) |
-| 2026-06-08 | coordinator | 24–27 | Reconciliation (1,983 vs 1,042 N); n_material_topics_a +86 (Pass 25); n_material_topics_b 516 filled (Pass 26); Block F quick wins: insider_ownership_pct, firm_size_quintile, firm_age_quintile (Pass 27) |
-| 2026-06-08 | coordinator | 28 | assurance_level: 1,467 rows corrected Reasonable→Limited (Pass 28); state_ownership_pct: 4,209 rows filled from TEJ Share Structure Government(%) time-invariant (Pass 28) |
-| 2026-06-08 | coordinator | 29 | Full cohort audit (2021–2024): PDF/txt/DB reconciliation; Block A/B/C/D/F coverage by year; identified gri_adoption_year critical gap (74/2,011 populated); NLP corpus: 479/617/727/1,042; report: cohort-audit_2021-2023.md (Pass 29) |
-| 2026-06-08 | coordinator | 30 | gri_adoption_year fully populated: 7,634 rows (7,127 new + 74 prior); adoption cohorts 2021:14, 2022:869, 2023:310, 2024:818; 792 new-entrant 2024 companies flagged (no pre-treatment baseline); 131 never-Universal rows correctly blank (Pass 30) |
-| 2026-06-08 | coordinator | 31 | n_material_topics_a per-cohort structural ceiling investigation: 2021:70.8% (339/479), 2022:85.1% (525/617), 2023:79.2% (576/727), 2024:97.0% (1,011/1,042); three root causes documented; confirmed gaps are non-improvable with current pipeline (Pass 31) |
-| 2026-06-08 | technical-researcher | 32 | Phase 1 English Track NLP (2024 cohort): Step 1.4 Block C regex (680 files, 16 variables); Step 1.3 ESGLens SBERT matcher (680 files, 7 cols + full JSONL); Steps 1.1/1.2 ran locally but DB write corrupted — DB repaired (7,765 rows, 175 cols), ESGLens merged, FinBERT/ClimateBERT cols reserved for re-run; `db_utils.py` added to prevent recurrence (Pass 32) |
-| 2026-06-08 | technical-researcher | 33 | 2024 Phase 1 fully completed: FinBERT re-run (680/680; gov=51%, soc=28%, env=12%, other=9%); ClimateBERT re-run (680/680; mean climate_pct=0.502, 324 companies >0.5); first ClimateBERT run lost to concurrent-save race condition, fixed by sequential re-run. All 2024 NLP columns filled. audit file + research_log updated. (Pass 33) |
-| 2026-06-08 | technical-researcher | 34 | 2023 Phase 1 English Track NLP fully completed: Block C (526/526, dm_methodology_disclosed 84.2%, visualization_format 8.4%, ai_tool_disclosed 4.4%); ESGLens (526/526, top topics: SDG Alignment→GRI Alignment→TCFD/ISSB vs 2024's TCFD/ISSB dominance); FinBERT (526/526, gov=43%); ClimateBERT (526/526, mean 0.484). Cross-cohort NLP pivot documented. All logs, audit file, research summary updated. (Pass 34) |
-| 2026-06-08 | technical-researcher | 35 | 2022 Phase 1 English Track NLP fully completed: Block C re-run with full 16-col set (389 files; mat_section_found 95.1%, dm_methodology_disclosed 82.8%, visualization_format 10.0%, ai_tool_disclosed 0.8%); ESGLens (388/389; top: SDG Alignment 94, GRI Alignment 51, TCFD/ISSB 40); FinBERT (388/389; gov=39%, soc=38%); ClimateBERT (388/389; mean 0.485). 2022 now at parity with 2023/2024. 3-year cross-cohort NLP trend table added to summary. All logs, audit, summary updated. (Pass 35) |
-| 2026-06-08 | technical-researcher | 36 | 2021 Phase 1 English Track pipeline — PDF completeness verified; 6202_2021_E.txt copied from macOS duplicate (6202_2021_E (1).txt); 2 additional near-empty _E files identified (6472, 8341); Block C run (307/307 DB matches, mat_section_found 94.5%, board_approved 44.6%, dm_methodology_disclosed 74.3%, visualization_format 11.4%, ai_tool_disclosed 0.7%); all 3 NLP scripts created. Audit file updated (Pass 36). |
-| 2026-06-08 | technical-researcher | 37 | 2021 Phase 1 NLP scripts executed: ESGLens (307/307; top: SDG(77), GRI(55), SE(40); gov-affinity=0.57); FinBERT (307/307; soc=47%, gov=35%, env=12%); ClimateBERT (307/307; mean=0.449, 120 above 0.5). All four cohorts (2021–2024) now at Phase 1 English Track NLP parity. 4-year cross-cohort trend extended. All logs, audit, summary updated. (Pass 37) |
-| 2026-06-08 | technical-researcher | 38 | Phase 2 Step 2.3 (Block C Chinese/bilingual) complete for 2024: 361 files, bilingual regex; mat_section=354/361 (98.1%), board_approved=289/361 (80.1%), dm_methodology=341/361 (94.5%), process_quality mean=0.426. Cross-track comparison documented (en vs zh 2024). Steps 2.1/2.2 pending. (Pass 38) |
-| 2026-06-09 | technical-researcher | 39 | Phase 2 Steps 2.1+2.2 complete for 2024: BGE-M3 (361/361; top topic GRI Alignment 34%, top1_sim=0.690; gov-affinity=0.353); XLM-RoBERTa-XNLI (361/361; soc-dominant 81.4%; mean soc_pct=0.449). Key finding: Chinese-track soc-dominant vs English-track gov-dominant — mirrors 2021 English pattern, ~3yr lag. GRI framing (zh) vs TCFD/ISSB framing (en). DB now 188 cols. (Pass 39) |
-| 2026-06-09 | coordinator-scripts | 40 | Phase 2 all 3 steps complete for 2023: BGE-M3 (216/216; top GRI Alignment 55, mean_sim=0.651); XLMR (216/216; soc=82.9%); Block C (216 files; mat_found=699/1185, board_approved=453/1185, double_mat=72/1185). TCFD/ISSB Alignment appears in 2023 top-4 BGE topics for first time. (Pass 40) |
-| 2026-06-09 | coordinator-scripts | 41 | Phase 2 all 3 steps complete for 2022: BGE-M3 (225/225; top GRI Alignment 70, mean_sim=0.654); XLMR (225/225; soc=77.8%); Block C (224 files; mat_found=581/980, board_approved=349/980, double_mat=47/980). GRI framing consistent with 2021/2023. (Pass 41) |
-| 2026-06-09 | coordinator-scripts | 42 | Phase 2 all 3 steps complete for 2021: BGE-M3 (172/172; top GRI Alignment 47, mean_sim=0.643); XLMR (172/172; soc=77.3%); Block C (172 files; mat_found=450/822, board_approved=209/822). Phase 2 multilingual track now COMPLETE for all 4 cohorts (974 Chinese/bilingual files total). Key finding: Chinese-track soc-dominance is structurally stable 77–83% across all years — not a lag, a divergence. All audit files, research_log, and research summary updated. (Pass 42) |
-| 2026-06-09 | coordinator-scripts | 43 | Phase 3 Block Variable Population — 2024 cohort: mda_index 1038/1983 (mean=0.618, mode=0.7); gci 902/1983 (mean=0.856, med=0.882); n_material_topics_b 760/1983 (mean=13.4, med=13); topic_depth_score 1040/1983 (mean=0.374; EN=0.231, ZH=0.643). Script: phase3_2024.py. (Pass 43) |
-| 2026-06-09 | coordinator-scripts | 44 | Phase 3 Block Variable Population — 2023 cohort: mda_index 723/1185 (mean=0.609, mode=0.6); gci 542/1185 (mean=0.807, med=0.882); n_material_topics_b 568/1185 (mean=15.3, med=15); topic_depth_score 727/1185 (mean=0.591). Script: phase3_2023.py. (Pass 44) |
-| 2026-06-09 | coordinator-scripts | 45 | Phase 3 Block Variable Population — 2022 cohort: mda_index 608/980 (mean=0.601, mode=0.6); gci 456/980 (mean=0.826, med=0.882); n_material_topics_b 517/980 (mean=15.7, med=15); topic_depth_score 613/980 (mean=0.590). No gri_tables_2022 — summary codes only. Script: phase3_2022.py. (Pass 45) |
-| 2026-06-09 | coordinator-scripts | 46 | Phase 3 Block Variable Population — 2021 cohort: mda_index 470/822 (mean=0.549, mode=0.5); gci 41/822 (mean=0.237 — GRI 2016 cohort, expected); n_material_topics_b 319/822 (mean=15.9, med=16); topic_depth_score 476/822 (mean=0.577). Phase 3 now COMPLETE for all 4 cohorts. All audit files and research_log updated. DB: 192 cols. (Pass 46) |
+**Overall coverage: 6 of 13 requirements fully met; 4 partial; 3 blocked.**
 
 ---
 
-*Last updated by: research-coordinator | Pass 46 | 2026-06-09*  
-*Covers: Passes 1–46 across 22 sessions (2026-05-18 through 2026-06-09)*  
-*Next coordinator session trigger: OSF pre-registration, or DiD analysis scripts (R: att_gt())*
+## 7. Recommended Next Steps (Priority Order)
+
+**[PRIORITY: CRITICAL]** **OSF pre-registration of H1–H4** — Write the pre-reg document covering: sample definition (73 TWSE companies, 2021–2024 estimable window), treatment coding (`gri_adoption_year`), primary outcomes (`n_material_topics_b` with `n_material_topics_a` as alternative), estimator choice (CS21 `att_gt()`), control set (noting `board_esg_committee` TBD), robustness checks. Pre-register before any `att_gt()` call. Rationale: mandatory per academic standards; hypothesis file explicitly requires it.
+
+**[PRIORITY: CRITICAL]** **Source `board_esg_committee`** — This control appears in H1/H2 specifications but is completely empty. Options: (a) TEJ Governance supplementary table; (b) TWSE ESG Committee Establishment Disclosures; (c) manual coding from governance reports. Affects specification validity.
+
+**[PRIORITY: HIGH]** **Write R DiD analysis scripts** — Implement `att_gt()` for H1–H4, event-study plots (with pre-trend test for t−1), Goodman-Bacon decomposition diagnostic, Rambachan-Roth sensitivity analysis, and TWFE robustness. Use the 2021–2024 estimation window explicitly.
+
+**[PRIORITY: HIGH]** **Stage 3 manual concordance** — ~60–80 unmatched GRI 3-3 topic labels from 2023–2024 gri_tables (two-coder protocol required). Improves `n_material_topics_b` precision for H1's primary outcome. Prioritise labels: "Climate Change Response," "GHG Emissions and Reduction," "Innovation R&D," "Regulatory Compliance."
+
+**[PRIORITY: MEDIUM]** **Resolve Block F 2022–2024 gap** — `ln_total_assets` and `roa` at 64% for post-treatment years. Check whether TEJ file for 2022–2024 is available. Partial data is workable (listwise deletion with coverage caveat), but fuller controls strengthen the estimates.
+
+**[PRIORITY: MEDIUM]** **Document `n_material_topics_b` method-consistency note** — Add a formal footnote or robustness check flagging that the pre-treatment `n_material_topics_b` (2021–2022 rows using gri_codes_summary) differs from the post-treatment version (2023–2024 using gri_tables GRI 3-3 row counts). Proposed solution: use `n_material_topics_a` as the primary H1 outcome (consistent GRI-code method across all years) and `n_material_topics_b` from gri_tables only for post-2022 robustness.
+
+**[PRIORITY: MEDIUM]** **TSMC tier-1 supplier coding** (H5) — 1–2 days manual lookup from TSMC Supplier Sustainability Reports 2022–2024 + Hsinchu Science Park registry. This is needed only for H5 and can run in parallel with the main DiD analysis.
+
+**[PRIORITY: LOW]** **Update methodology dashboard** — The methodology file's Phase 4 section references a 2016–2024 panel. Update to reflect the actual 2021–2024 estimation window and the structural reasons why 2016–2020 rows cannot contribute to the DiD.
+
+---
+
+## 8. Verdict: Are You on Track?
+
+**Yes — and closer than it may feel.** The hard infrastructure work is done. The DB is well-built, the NLP pipeline just completed its final passes today, and the treatment variable is 100% coded. The hypotheses are well-specified and publishable.
+
+The path to estimation has **two near-term gates**:
+1. **Source `board_esg_committee`** and decide whether to keep or drop it from the pre-registered specification
+2. **Pre-register on OSF** — then you can run `att_gt()`
+
+The main structural constraint to accept (not fix): the estimable panel is **2021–2024**, not 2016–2024 as originally scoped. One pre-treatment year (2021) is available for 65 of 73 companies. CS21 can still deliver valid ATT estimates with this window, but the event-study pre-trend test will be limited to a single pre-period coefficient. The Rambachan-Roth sensitivity analysis is especially important given this constraint.
+
+---
+
+## 9. Coordinator Handoff Block
+
+> **Research Summariser → Coordinator Handoff**  
+> Session date: 2026-06-09  
+> Completed passes on record: 46 (last activity: Phase 2 multilingual NLP + Phase 3 block variable population, all 4 cohorts, today)  
+> DB state: 188 columns × 7,765 rows; TWSE-semicon subsample: 507 rows, 74 unique companies  
+>  
+> **Open critical blockers:**  
+> 1. OSF pre-registration — zero inferential tests until done  
+> 2. `board_esg_committee` — 0% populated, listed control in H1/H2  
+> 3. H5 TSMC tier-1 supplier coding — external data, 1–2 days  
+>  
+> **Structural constraint to document:** Outcome variable pre-treatment baseline only available from 2021 (not 2016). Effective estimation window = 2021–2024.  
+>  
+> **Data quality flags:**  
+> - `n_material_topics_b`: method inconsistency pre/post treatment boundary — consider `n_material_topics_a` as primary H1 outcome  
+> - `assurance_level`: very few Reasonable cases in subsample (5–6/year) — H3 power concern  
+> - Block F controls: 64% coverage in 2022–2024 post-treatment years  
+>  
+> **Coverage shortfalls:** 6/13 Phase 4 requirements fully met  
+>  
+> **Suggested focus for next session:** Pre-registration document drafting + `board_esg_committee` sourcing. Once those two are resolved, R DiD scripts can follow immediately.  
+>  
+> **Do NOT re-assign:**  
+> phase1 (FinBERT, ClimateBERT, ESGLens, Block C — all 4 years, EN track),  
+> phase2 (BGE-M3, XLM-RoBERTa, Block C Chinese — all 4 years),  
+> phase3 (mda_index, gri_content_index_completeness, n_material_topics_b, topic_depth_score — all 4 years),  
+> gri_adoption_year full-universe fill (Pass 30),  
+> assurance_level correction (Pass 28),  
+> Block F TEJ merge (Passes 12–17),  
+> H1–H5 hypothesis generation (Pass 8)
