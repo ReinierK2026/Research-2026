@@ -481,13 +481,50 @@ Structural result — identical to 2021 cohort (median 0.772; 46.8% below 0.75).
 
 ---
 
-**Scripts:** `ocr_batch_2020.py`, `pymupdf_batch_2020.py`, `gri_extract_2020.py` (Entries 2–4), `phase0_2020.py` (Entry 6)  
+**Scripts:** `ocr_batch_2020.py`, `pymupdf_batch_2020.py`, `gri_extract_2020.py` (Entries 2–4), `phase0_2020.py` (Entry 6), `phase1_block_c_english_2020.py`, `phase2_step2_1_bge_2020.py`, `phase2_step2_2_xlmr_2020.py`, `phase2_block_c_chinese_2020.py`, `phase3_2020.py` (Entry 7)  
 **GRI output:** `gri_codes_summary_2020.csv` (404 rows)  
-**Processed corpus:** `Text extraction/extracted_text/2020_processed/` (432 files; 1 hard exclusion; 3 `_109 (1)` duplicates deduped at source — no NLP action needed)  
-**DB columns populated:** `word_count_total`, `page_count`, `report_language`, `n_material_topics_a`  
+**Processed corpus:** `Text extraction/extracted_text/2020_processed/` (432 files; 1 hard exclusion; 3 `_109 (1)` duplicates deduped at source)  
+**DB columns populated (Phase 0):** `word_count_total`, `page_count`, `report_language`, `n_material_topics_a`  
+**DB columns populated (Phase 2–3):** `bge_*`, `xlmr_*`, Block C fields, `mda_index`, `gri_content_index_completeness`, `n_material_topics_b`, `topic_depth_score`  
 **Language detection:** `data/lang_detection_2020.csv` (429 rows; 39 mojibake-risk files flagged)  
-**NLP scripts ready to run:** `phase1_*_2020.py`, `phase2_*_2020.py`, `phase3_2020.py`
+**Pending (local execution):** `phase1_step1_1_finbert_2020.py`, `phase1_step1_2_climatebert_2020.py`, `phase1_step1_3_esglens_2020.py` (2 files only; minimal impact on 2020 statistics)
 
 ---
 
-*Audit initiated: 2026-06-09. Five-stage pipeline complete; 432/432 files produced; 1 hard exclusion (3703_2020). Quality Checks A/B/C completed 2026-06-09 — corpus accepted for NLP. Down-weight: 5288_2020, 1727_2020, 6024_2020. Phase 0 complete 2026-06-09 (phase0_2020.py): Block B, n_material_topics_a, and language detection populated; 39 mojibake-risk files identified. NLP Phases 1–3 pending.*
+### Entry 7 — NLP Phases 1–3 (Block C, BGE-M3, XLMR, Phase 3 Block Variables)
+**Date:** 2026-06-09  
+**Scripts run:** `phase1_block_c_english_2020.py`, `phase2_step2_1_bge_2020.py`, `phase2_step2_2_xlmr_2020.py`, `phase2_block_c_chinese_2020.py`, `phase3_2020.py`
+
+**Phase 1 Block C English (2 files):**
+
+| Ticker | mat_section_found | dm_methodology_disclosed |
+|---|---|---|
+| 1531 | 1 | 1 |
+| 3447 | 1 | 1 |
+
+**Phase 2 Coverage (426/426 processable rows):**
+
+| Metric | Value |
+|---|---|
+| BGE-M3 top1 topic | GRI Alignment: 108 (25.4%), Stakeholder Engagement: 51 (12.0%), Training & Education: 42 (9.9%) |
+| BGE-M3 bge_top1_sim | p50=0.668, max=0.781 |
+| BGE-M3 bge_mean_sim | p50=0.629 |
+| XLMR dominant factor | soc=342 (80.3%), gov=37 (8.7%), other=29 (6.8%), env=18 (4.2%) |
+| Block C mat_section_found | 367/427 rows with files (85.9%) |
+| Block C stakeholder_groups_n | 402/427 (94.1%) |
+| double_materiality_mentioned | 6/427 (1.4%) — expected pre-CSRD baseline |
+
+**Phase 3 Block Variables:**
+
+| Variable | Coverage | Key stats |
+|---|---|---|
+| `mda_index` | 422/655 > 0 | p50=0.50, max=0.70. Pre-treatment baseline — lower than expected for CSRD-era cohorts. |
+| `n_material_topics_b` | 237/655 > 0 | p50=17, max=34 (among non-zero). |
+| `topic_depth_score` | 426/655 filled | p50=0.629, max=0.702. BGE-first, Chinese primary track. |
+| `gri_content_index_completeness` | 633/655 = 0.0; **22/655 > 0** | 22 early adopters (3.4%) with partial GRI 2-* adoption in FY2020 reports. GCI range 0.03–0.21. Research finding — not a data error. |
+
+**GCI anomaly detail:** 22 tickers (1227, 1525, 1590, 1609, 1722, 2027, 2303, 2313, 2314, 2421, 2423, 2534, 2535, 2606, 2886, 2905, 3702, 5876, 6005, 6120, 6668, 9940) have GRI 2-* codes in their FY2020 PDFs despite being classified as GRI-Standards-2016. All use partial GRI Universal 2021 disclosures (1–7 GRI 2-* codes each). Likely published in late 2021 after the Oct 2021 standard release. These companies form an early-adoption sub-sample that may be relevant for within-cohort heterogeneity analysis in the DiD study.
+
+---
+
+*Audit initiated: 2026-06-09. Five-stage pipeline complete; 1 hard exclusion (3703_2020). Quality Checks A/B/C completed — corpus accepted. Phase 0 complete (phase0_2020.py): Block B, n_material_topics_a, language detection populated; 39 mojibake-risk files flagged. Phase 1 Block C + Phase 2 (BGE, XLMR, Block C Chinese) + Phase 3 block variables complete 2026-06-09. Phase 1 ML scripts (FinBERT/ClimateBERT/ESGLens) pending local execution (2 files). All major DB columns populated.*
