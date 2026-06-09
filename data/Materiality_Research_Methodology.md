@@ -50,7 +50,7 @@
 
 | Gap | Priority | How to Resolve |
 |-----|----------|----------------|
-| `board_esg_committee`: 0% populated across all rows | 🔴 HIGH — listed control in H1–H2 | Source from TEJ governance supplement, TWSE ESG committee disclosures, or manual coding from annual reports |
+| `board_esg_committee`: 0% populated — **substituted** | ~~🔴 HIGH~~ → Resolved | Primary spec uses `board_approved` (Block C, fully extracted) as substitute — same theoretical construct (board-level ESG engagement), more direct measure. If sourced later from TEJ, add as robustness check only. |
 | OSF pre-registration | 🔴 HARD BLOCKER — must precede all inferential tests | Pre-register H1–H5 on OSF before running any `att_gt()` calls |
 | Stage 3 manual concordance: ~60–80 unmatched topic labels | 🟡 MEDIUM — affects Block D precision | Two-coder protocol; target κ ≥ 0.80 before finalising `n_material_topics_b` |
 | H5: TSMC tier-1 supplier coding | 🟡 MEDIUM — required for H5 only | ~1–2 days manual lookup from TSMC Supplier Sustainability Reports 2022–2024 |
