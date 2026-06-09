@@ -3,11 +3,11 @@
 **Last updated:** 2026-06-09 — Corpus expanded: 319 new PDFs (298 native + 21 scanned); GRI CSV updated to 790 rows / 536 with codes; 2 additional hard exclusions (2201_2021, 3035_2021). See Entry 12.  
 **Corpus (raw):** `/Text extraction/extracted_text/2021/` — 4 files (0 `_E`, 4 other)  
 **Corpus (processed):** `/Text extraction/extracted_text/2021_processed/`  
-**Source PDFs on disk:** 492  (309 `_E`, 183 other)  
-**Total extracted .txt files:** 495  (English `_E`: 307 / 62% · Chinese/bilingual: 188 / 38%)  
-**Note:** 4 `.txt` files existed in raw corpus; near-complete fresh extraction via five-stage pipeline. 7 hard exclusions (1.4%): 5 near-empty/image-only + 1 encoding failure + 1 corrupt PDF.  
-**Subsample:** 100 files, stratified (50 `_E` + 50 other; seed=42)  
-**Full-corpus scan:** all 495 files (post-extraction)  
+**Source PDFs on disk:** ~811 (492 original + 319 added 2026-06-09)  
+**Total extracted .txt files:** 809  (English `_E`: 309 / 38% · Chinese/bilingual: 500 / 62%)  
+**Note:** 4 `.txt` files existed in raw corpus; near-complete fresh extraction via five-stage pipeline. 9 hard exclusions (1.1%): 5 near-empty/image-only + 1 encoding failure + 3 corrupt PDFs (3669_2021, 2201_2021, 3035_2021).  
+**Subsample:** 100 files, stratified (50 `_E` + 50 other; seed=42) — from original 495-file corpus; Check A/B/C results unchanged  
+**Full-corpus scan:** all 809 files (post-expansion extraction)  
 **Methodology:** Independent five-stage pipeline (OCR → PyMuPDF re-extraction → text preprocessing → GRI extraction → quality verification); 100-file stratified subsample for Checks A–C
 
 ---
