@@ -7,14 +7,14 @@
 
 ## 1. The Goal: What H1–H5 Need
 
-The hypothesis file defines a **staggered DiD study** using the Callaway-Sant'Anna (2021) estimator across 73 TWSE semiconductor companies, 2016–2024 (507 company-years). The five hypotheses require:
+The hypothesis file defines a **two-tier staggered DiD study** using the Callaway-Sant'Anna (2021) estimator. Tier 1 (H1–H4) runs on the full TWSE universe (~1,200 treated companies, panel 2021–2024); Tier 2 (H5) narrows to 73 TWSE semiconductor companies. The five hypotheses require:
 
 | Hypothesis | Primary variable needed | Estimator | External data needed? |
 |---|---|---|---|
 | **H1** (displacement: ↓ `n_material_topics_b`) | GRI 3-3 topic counts, pre/post | CS21 | No |
 | **H2** (process quality: ↑ `process_quality_score`) | Block C composite, pre/post | CS21 + TWFE | No |
 | **H3** (assurance upgrade) | `assurance_level` ordinal, pre/post | CS21 + ordered logit | No |
-| **H4** (heterogeneity: Fabless > Foundry/OSAT) | Same as H1 + `industry_subsector` | Subsample CS21 | No |
+| **H4** (heterogeneity: Light-footprint > High-impact industries) | Same as H1 + `sasb_industry` → `impact_intensity` | Subsample CS21 | No |
 | **H5** (TSMC isomorphism: proximate adopt earlier) | `process_quality_score` + TSMC proximity | CS21 interaction | **Yes — TSMC tier-1 coding** |
 
 **The single biggest gate before any of these can run: OSF pre-registration.** The hypothesis file explicitly states all inferential tests must be pre-registered before execution.
