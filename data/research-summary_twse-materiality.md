@@ -104,12 +104,13 @@ Low-footprint (Technology + Services + HealthCare + Financials): 1,010 · High-i
 
 ### ✅ What is solidly ready
 
-- **Treatment variable**: `gri_adoption_year` 100% coded for all 73 companies. DiD identification is in place.
-- **Block F controls**: `roa`, `ln_total_assets`, `leverage` populated for 2016–2021 at ~100%; partial 2022–2024.
+- **Treatment variable**: `gri_adoption_year` 100% coded for all 2,009 treated companies. DiD identification is in place.
+- **Block F controls**: `roa`, `ln_total_assets` populated at ~88% for 2021; 46–60% in 2022–2024 (TEJ gap). Workable with listwise deletion.
 - **Block G**: `mda_index` and `gri_content_index_completeness` populated for 2021–2024.
-- **NLP pipeline**: Fully complete for all 4 years, both language tracks. `process_quality_score` is the most complete outcome variable for the DiD.
+- **NLP pipeline**: Fully complete for all 4 years, both language tracks. `process_quality_score` is the most complete NLP-derived outcome (52–62% coverage tracking PDF availability).
 - **Hypotheses**: H1–H5 are well-specified and falsifiable. The framing, estimator choice (CS21), and robustness plan are publication-grade.
-- **H4 moderator**: `industry_subsector` is 100% populated. Fabless (33) vs Foundry+OSAT (20) is testable — though the Foundry count alone (5) is small.
+- **H4 moderator**: `sasb_industry` is 94–96% populated for 2022–2024. Low-footprint (1,010 tickers) vs High-impact (661 tickers) split is well-powered for subsample CS21.
+- **Control set resolved**: `board_esg_committee` (0% populated) replaced by `board_approved` (Block C, 53–63% coverage matching PDF extraction). Substitution documented; original can be added as robustness if sourced from TEJ.
 
 ### ⚠️ Gaps that constrain but don't block
 
