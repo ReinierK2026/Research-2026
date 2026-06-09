@@ -740,6 +740,6 @@ Run order: **Step 1.4 first** (sandbox — already done), then **1.3**, then **1
 
 ---
 
-*Scripts: `scan_2021.py`, `ocr_batch_2021.py`, `pymupdf_batch_2021.py`, `gri_extract_2021.py`, `check_extraction_quality_2021.py`*  
-*Output data: `gri_codes_summary_2021.csv`, `extraction_quality_check_2021.csv`*  
-*Processed corpus: `Text extraction/extracted_text/2021_processed/` (495 files)*
+*Scripts: `scan_2021.py`, `ocr_batch_2021.py`, `pymupdf_batch_2021.py`, `gri_extract_2021.py`, `check_extraction_quality_2021.py`, `scan_2021_new.py`, `pymupdf_batch_2021_expand.py`, `ocr_batch_2021_expand.py`, `gri_extract_2021_expand.py`*  
+*Output data: `gri_codes_summary_2021.csv` (790 rows), `extraction_quality_check_2021.csv`*  
+*Processed corpus: `text-extraction/extracted_text/2021_processed/` (809 files — expanded 2026-06-09)*
