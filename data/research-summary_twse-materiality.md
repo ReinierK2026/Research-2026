@@ -167,21 +167,21 @@ TSMC tier-1 supplier coding (from TSMC Supplier Sustainability Reports 2022–20
 
 | Methodology requirement | Status | Gap |
 |---|---|---|
-| `gri_adoption_year` coded for all 73 companies | ✅ Done (100%) | — |
-| Block C: `process_quality_score` + materiality process variables | ✅ Done (2021–2024) | 0% for 2016–2020 |
-| Block D: `n_material_topics_a` (4-year panel) | ⚠️ Partial (40–57% per year) | Image-embedded GRI indexes; structural ceiling |
-| Block D: `n_material_topics_b` (GRI 3-3 specific) | ⚠️ Partial + inconsistent pre/post method | See §4 gap |
-| Block F financial controls (`ln_total_assets`, `roa`, `leverage`) | ⚠️ Partial (64% in 2022–2024) | TEJ data completeness |
-| `board_esg_committee` control | 🔴 Missing (0%) | Needs external sourcing |
-| `assurance_level` (H3) | ⚠️ Partial (49–73%) | TEJ ceiling; very few Reasonable cases |
-| Industry subsector for H4 | ✅ Done (100%) | Low Foundry n (5) limits power |
+| `gri_adoption_year` coded for all 2,009 treated companies | ✅ Done (100%) | — |
+| Block C: `process_quality_score` + materiality process variables | ✅ Done (2021–2024) | 0% for 2016–2020 (structural) |
+| Block D: `n_material_topics_a` (4-year panel) | ⚠️ Partial (41–54% non-zero per year) | PDF coverage ceiling; 2021 ~0% |
+| Block D: `n_material_topics_b` — zeros → NA required | ⚠️ Data prep + method inconsistency | **Critical pre-processing step** |
+| Block F financial controls (`ln_total_assets`, `roa`) | ⚠️ Partial (46–60% in 2022–2024) | TEJ gap |
+| `board_approved` control | ✅ Done (53–63% non-null) | Replaces `board_esg_committee` |
+| `assurance_level` (H3) | ⚠️ Partial (43–65%) | TEJ ceiling |
+| `sasb_industry` for H4 `impact_intensity` | ⚠️ Near-complete (88–96%) | 6% gap; fillable |
 | TSMC proximity indicator (H5) | 🔴 Not coded | External data — 1–2 days manual |
 | NLP pipeline (full corpus, 2021–2024) | ✅ Done (Phase 1+2 both complete) | — |
 | Stage 3 manual concordance (~60–80 unmatched labels) | ⚠️ Not done | Two-coder protocol |
 | OSF pre-registration | 🔴 Not done | BLOCKER |
 | R DiD scripts (`att_gt()`, event-study, Rambachan-Roth) | 🔴 Not written | Awaiting pre-reg |
 
-**Overall coverage: 6 of 13 requirements fully met; 4 partial; 3 blocked.**
+**Overall coverage: 6 of 13 requirements fully met; 5 partial; 2 blocked.**
 
 ---
 
