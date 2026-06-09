@@ -374,7 +374,34 @@ Structural result — identical to 2021 cohort (median 0.772; 46.8% below 0.75).
 
 ---
 
-*Entry 6 — Language Detection: ⬜ Not yet run. Planned: Unicode CJK density heuristic on `2020_processed/` files. Expected routing: 2 `_E` files → english_track; 430 non-`_E` → multilingual_track (excluding 3703_2020 and deduplicating `_109 (1)` files).*
+### Entry 6 — Phase 0 Data Preparation (Block B + n_material_topics_a + Language Detection)
+**Date:** 2026-06-09  
+**Script:** `phase0_2020.py` (run in sandbox)  
+**Input:** `2020_processed/` (429 files) + `data/gri/gri_codes_summary_2020.csv` (404 rows)  
+**Outputs:**
+- `twse-research-database.csv` — 2020 rows updated: `word_count_total`, `page_count`, `report_language`, `n_material_topics_a`
+- `data/lang_detection_2020.csv` — 429 rows: ticker, year, filename, lang, cjk_ratio, mojibake_risk
+
+**Results:**
+
+| Column | DB rows filled | Notes |
+|---|---|---|
+| `word_count_total` | 426 / 655 | wc > 0; 3703 correctly = 0 (0-byte); 228 blank (no file) |
+| `page_count` | 426 / 655 | pg > 0; same pattern |
+| `report_language` | 427 / 655 | All 'zh' — no exclusively-English filers in 2020; 228 blank |
+| `n_material_topics_a` | 400 / 655 | 400 matched from 404-row summary; 227 with value > 0 |
+
+**Language detection (lang_detection_2020.csv):**
+
+| Category | Count |
+|---|---|
+| `lang = en` (_E naming convention) | 2 |
+| `lang = zh` | 427 |
+| `mojibake_risk = 1` (zh, cjk_ratio < 0.05) | 39 |
+
+**Mojibake discovery — 39 files at risk:** 39 non-`_E` files have `cjk_ratio < 0.05`, meaning their CJK characters were mangled during PDF extraction (replaced with `?` or garbage ASCII). Spot-checking confirms these are genuine Chinese reports with encoding failures (e.g., `1103_2020.txt` shows `Corporate Social Responsibility Report` surrounded by `������`; `1409_2020.txt` has a few surviving CJK chars: `企業社會責任報告書` at cjk_ratio=0.0003). These files are included in the NLP pipeline but may have lower recall for Chinese-specific models. They are correctly classified as `'zh'` in the DB (naming convention applies, not content heuristic). Researchers should cross-reference `mojibake_risk=1` flag when interpreting BGE/XLMR scores for affected tickers.
+
+**Convention clarification:** `report_language` in the DB follows the naming convention (`_E` suffix → `'en'`, all others → `'zh'`). The `lang` column in `lang_detection_2020.csv` uses the same convention. `cjk_ratio` is a quality signal only.
 
 ---
 
