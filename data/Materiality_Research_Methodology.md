@@ -62,30 +62,38 @@
 
 ### Immediate Next Steps
 
-**Phase 1 — Complete Block C across all cohorts (1–2 sessions)**
-1. Verify `extract_block_c.py` handles 2021–2023 text structure (may need cohort-specific keyword tuning)
-2. Run block_c extraction for 2021, 2022, 2023
-3. Run `merge_block_c.py` to consolidate into a single 4-cohort Block C file
+~~**Phase 1 — Complete Block C across all cohorts** — ✅ COMPLETE (all 4 cohorts, June 2026)~~
 
-**Phase 2 — Block D: NLP topic coding pipeline (3–5 sessions)**
-1. Build paragraph-level dataset from extracted text (split by section, clean noise)
-2. Run FinBERT-ESG-9-Categories (`yiyanghkust/finbert-esg-9-categories`) for E/S/G pillar classification
-3. Run XLM-RoBERTa zero-shot NLI (`joeddav/xlm-roberta-large-xnli`) for Traditional Chinese sections
-4. Apply three-stage mapping pipeline (RapidFuzz → Qwen3-Embedding → manual concordance)
-5. Produce topic-level panel dataset: one row per company × year × canonical topic
+~~**Phase 2 — Block D: NLP topic coding pipeline** — ✅ COMPLETE (Phase 1 English track + Phase 2 multilingual track, all 4 cohorts, June 2026)~~
 
-**Phase 3 — Block F: Financial controls**
-1. Obtain TEJ data export (TWSE firms): ln_total_assets, ROA, leverage, paid-in capital, dual_listed
-2. Obtain Compustat Global / Bloomberg for global peers
-3. Merge into master panel on company_id × fiscal_year
+~~**Phase 3 — Block variable population** — ✅ COMPLETE (Blocks C, D, G all 4 cohorts, June 2026)~~
 
-**Phase 4 — Statistical analysis**
-1. Run Goodman-Bacon decomposition to assess TWFE bias
-2. Primary: CS21 staggered DiD (`did` package, doubly-robust, not-yet-treated control)
-3. Robustness: SA21 (Sun & Abraham) and BJS24 (Borusyak et al.) estimators
-4. Pre-trend sensitivity: HonestDiD bounds
-5. Topic composition: ILR transform + SUR
-6. Topic-level battery: Conditional logit + GEE + Benjamini-Hochberg FDR
+**Phase 3b — Pre-analysis data finalisation (current priority)**
+1. Source `board_esg_committee` for full TWSE panel (TEJ governance supplement or TWSE annual report coding) — **critical path for H1–H2 controls**
+2. Complete TEJ export for `ln_total_assets` / `roa` 2022–2024 gap (~36% missing)
+3. Finalise Stage 3 manual concordance (~60–80 unmatched GRI topic labels; two-coder κ ≥ 0.80)
+4. Derive `impact_intensity` binary (H4 moderator): `high_impact_industry = 1` if `sasb_industry ∈ {Resource, Infrastructure, Transportation, Minerals, Food}` — pre-specify and lock before regression
+
+**Phase 4 — Pre-registration (hard blocker)**
+- Pre-register H1–H5 on OSF (single registration covering both tiers, noting different populations)
+- Lock `impact_intensity` derivation rule and estimation window (2021–2024) in the pre-registration
+- No inferential tests may be run until OSF registration is confirmed
+
+**Phase 5 — Statistical analysis: Tier 1 (full TWSE universe, H1–H4)**
+1. Run Goodman-Bacon decomposition to assess TWFE bias across adoption cohorts
+2. Primary: CS21 staggered DiD (`att_gt()`, doubly-robust, not-yet-treated control) for H1–H3
+   - `yname = "n_material_topics_b"` (H1), `"process_quality_score"` (H2), `"assurance_level"` (H3)
+   - Population: ~1,200 treated TWSE companies; adoption cohorts 2021–2024; panel window 2021–2024
+3. H4 heterogeneity: Subsample CS21 for High vs Low `impact_intensity`; triple-diff ATT(Low) − ATT(High) with bootstrapped SE
+4. Robustness: SA21 (Sun & Abraham) and BJS24 (Borusyak et al.) estimators; TWFE with firm + year FE
+5. Pre-trend sensitivity: Event-study plots; Rambachan-Roth sensitivity analysis (HonestDiD)
+6. Topic composition (supplementary): ILR transform + SUR for E/S/G proportion shifts
+
+**Phase 6 — Statistical analysis: Tier 2 (semiconductor sub-cohort, H5)**
+1. Narrow to 73-company TWSE semiconductor sub-cohort (`semiconductor_cat = 1`)
+2. Source TSMC tier-1 proximity data: TSMC Supplier Sustainability Reports 2022–2024 + Hsinchu Science Park registry (~1–2 days manual)
+3. Interaction-weighted CS21: ATT for TSMC-proximate vs non-proximate adoption cohorts
+4. Outcome variables: `gri_adoption_year` (earlier adoption), `process_quality_score` (higher quality), `dm_methodology_disclosed` (binary)
 
 ---
 
