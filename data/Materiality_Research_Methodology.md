@@ -296,7 +296,8 @@ Winsorise all at 1st/99th percentile before analysis.
 | `rd_intensity` | R&D expense / revenue (critical for semiconductors) | Bloomberg |
 | `dual_listed` | 1 if ADR on NYSE/NASDAQ | SEC Edgar |
 | `state_ownership_pct` | % shares held by government entities | TEJ MOPS |
-| `board_esg_committee` | Dedicated ESG/sustainability board committee (binary) | Annual report |
+| `board_esg_committee` | Dedicated ESG/sustainability board committee (binary) — **0% populated; not used in primary spec** | Annual report / TEJ governance supplement |
+| `board_approved` | Board formally approved the materiality assessment (binary, Block C) — **primary board-engagement control in H1–H4** | Extracted from sustainability reports |
 | `analyst_coverage_n` | Number of analysts issuing recommendations | I/B/E/S via WRDS |
 | `msci_esg_rating` | Lagged 1 year | MSCI ESG |
 | `sustainalytics_risk_score` | Lagged 1 year | Sustainalytics |
