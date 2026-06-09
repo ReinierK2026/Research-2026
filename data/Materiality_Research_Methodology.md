@@ -30,13 +30,13 @@
 
 | Block | Content | Status | Location |
 |-------|---------|--------|----------|
-| A | Company identifiers & firmographics | ✓ Partial — TWSE tickers, names | `semiconductor-research-database.csv` |
-| B | Report metadata (language, standard, page count) | ✓ Partial — preprocessing manifests | `data/quality/preprocessing_manifest_*.csv` |
-| C | Materiality process disclosure variables | ✓ 2024 extracted; 2021–2023 pending | `data/quality/block_c_2024.csv` |
-| D | Material topic variables (topic counts, categories) | ✗ Not started — requires NLP pipeline | — |
-| E | Topic dynamics (year-over-year churn) | ✗ Blocked on Block D | — |
-| F | Financial control variables (assets, ROA, leverage) | ✗ Requires TEJ subscription | — |
-| G | Outcome/quality variables (MDA index, GRI completeness) | ✗ Not started | — |
+| A | Company identifiers & firmographics; `sasb_industry` (H4 moderator for `impact_intensity`) | ✓ Partial — TWSE tickers, names, sasb_industry | `twse-research-database.csv` |
+| B | Report metadata (language, standard, page count) | ✓ All 4 cohorts extracted | `data/quality/preprocessing_manifest_*.csv` |
+| C | Materiality process disclosure variables (`process_quality_score`) | ✓ All 4 cohorts extracted (Phase 1 + 2 NLP complete) | `twse-research-database.csv` |
+| D | Material topic variables (`n_material_topics_a/b`) | ✓ All 4 cohorts extracted (Phase 3 complete) | `twse-research-database.csv` |
+| E | Topic dynamics (year-over-year churn) | ✗ Blocked on Block D panel join | — |
+| F | Financial control variables (assets, ROA) | ✓ Partial — `ln_total_assets`, `roa` 100% 2021; 64% 2022–2024; `board_esg_committee` = 0% (critical gap) | `twse-research-database.csv` |
+| G | Outcome/quality variables (MDA index, GRI completeness) | ✓ All 4 cohorts extracted (Phase 3 complete) | `twse-research-database.csv` |
 
 **GRI content index codes** (extracted regex-based, all cohorts): `data/gri/gri_codes_summary_*.csv`
 - 2021: 342/488 files with GRI codes; 8 files with legacy G4 sector codes
