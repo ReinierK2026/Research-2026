@@ -302,6 +302,28 @@ Phase 2 Multilingual Track is **complete for all four cohorts (2021–2024)**. A
 
 **DB schema:** 175 columns (157 original + 18 NLP). NLP cols shared across all cohort years. Backup: `twse-research-database_pre-nlp-repair.csv`.
 
+### Phase 3: Block Variable Population [Passes 43–46, 2026-06-09]
+
+Phase 3 computed four Block G summary variables for all four cohort years using existing NLP and GRI data. Scripts: `scripts/phase3_local/phase3_{year}.py`. DB expanded to **192 columns** (188 + 4 new columns: `mda_index`, `gri_content_index_completeness`, `n_material_topics_b`, `topic_depth_score`).
+
+**Cross-cohort Phase 3 coverage (rows with >0 value / total cohort rows):**
+
+| Metric | 2021 (N=822) | 2022 (N=980) | 2023 (N=1,185) | 2024 (N=1,983) |
+|--------|-------------|-------------|----------------|----------------|
+| `mda_index` | 470 (57.2%), mean=0.549, mode=0.5 | 608 (62.0%), mean=0.601, mode=0.6 | 723 (61.0%), mean=0.609, mode=0.6 | 1,038 (52.3%), mean=0.618, mode=0.7 |
+| `gri_content_index_completeness` | **41 (5.0%)**, mean=0.237† | 456 (46.5%), mean=0.826, med=0.882 | 542 (45.7%), mean=0.807, med=0.882 | 902 (45.5%), mean=0.856, med=0.882 |
+| `n_material_topics_b` | 319 (38.8%), mean=15.9, med=16 | 517 (52.8%), mean=15.7, med=15 | 568 (47.9%), mean=15.3, med=15 | 760 (38.3%), mean=13.4, med=13, max=34 |
+| `topic_depth_score` | 476 (57.9%), mean=0.577, med=0.586 | 613 (62.6%), mean=0.590, med=0.598 | 727 (61.3%), mean=0.591, med=0.594 | 1,040 (52.4%), mean=0.374‡ |
+
+†2021 GCI near-zero by design: 808/822 rows are GRI Standards 2016 reporters who do not use "GRI 2-*" notation — GCI=0.0 is methodologically correct for this cohort. Only 14 Universal 2021 early adopters have non-zero GCI. Filter by `gri_standard_version` for cross-cohort GCI analysis.
+
+‡2024 `topic_depth_score` mean is lower (0.374) because the 2024 corpus contains a large English-track component (ESGLens; model-calibrated mean≈0.231) vs Chinese-track (BGE-M3; calibrated mean≈0.643). This is a model-calibration gap, not a disclosure quality difference. 2021–2023 means (0.577–0.591) reflect a higher Chinese-track share of the NLP corpus.
+
+**Key interpretation notes:**
+- `mda_index` trend (0.549 → 0.618): Gradual improvement in materiality disclosure quality across cohorts, consistent with increasing TWSE regulatory pressure. Lower 2021 mean reflects pre-CSRD reporting norms (`double_materiality_mentioned` near-zero at 0.7%).
+- `n_material_topics_b` for 2021/2022: Not directly comparable to 2023/2024 because (a) GRI 3-3 did not exist under GRI Standards 2016 (2021 cohort), and (b) no per-file `gri_tables_202[12]/` directories exist — values sourced entirely from `gri_codes_summary_{year}.csv`. The Phase 3 `n_material_topics_b` for 2021/2022 counts unique 3-digit GRI standards (200/300/400 series) rather than GRI 3-3 management-approach entries. Use `n_material_topics_a` for cross-cohort DiD estimation; `n_material_topics_b` is the primary H1 outcome variable for 2023/2024 only.
+- `gri_content_index_completeness` is the most complete measure for 2023/2024 (denom=34, Universal 2021 mandatory disclosures). For 2022, denom=34 applies for most reporters; for 2021, denom=33 (GRI Standards 2016) for 2016-era reporters.
+
 ---
 
 ## Data Quality
