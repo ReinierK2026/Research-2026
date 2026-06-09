@@ -374,7 +374,7 @@ Character count statistics computed across all 432 files; issue prevalence estim
 | # | Step | Owner | Status | Notes |
 |---|---|---|---|---|
 | 0.1 | Text extraction & preprocessing | technical-researcher | ✅ Done | OCR (28 files, Entry 2) + PyMuPDF (404 PDFs, Entry 3). 432 files in `2020_processed/`. |
-| 0.2 | Quality audit (Checks A/B/C) | technical-researcher | ⬜ Pending | Script: `check_extraction_quality_2020.py`. Expected to pass — median 39,028 chars, 1 hard exclusion. |
+| 0.2 | Quality audit (Checks A/B/C) | technical-researcher | ✅ Done | `check_extraction_quality_2020.py` completed 2026-06-09. A: borderline (43/428, 10% — OCR density offset); B: pass (2/102, 2.0%); C: structural (median 0.773 — sidebar trade-off). Corpus accepted. Down-weight: 5288_2020, 1727_2020, 6024_2020. |
 | 0.3 | GRI extraction (Standards + G4 pass) | technical-researcher | ✅ Done | 250/404 files with codes; 9,789 instances; G4 regex applied (12 files, 375 G4 instances). `gri_codes_summary_2020.csv`. Entry 4. |
 | 0.4 | Fix 11 missing `gri_adoption_year` rows for 2020 cohort | data-analyst | ⬜ Pending | 11 rows in DB have no `gri_adoption_year`. Cross-ref TEJ CSR Disclosure + GRI codes CSV to determine adoption year for these tickers. |
 | 0.5 | Dedup `_109 (1)` filename duplicates at ticker level | data-analyst | ⬜ Pending | Tickers 2401, 2484, 2489 each have both `_2020` and `_109 (1)` versions. NLP scripts must use only one file per ticker (use `_2020` as canonical). |
