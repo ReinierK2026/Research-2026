@@ -209,11 +209,12 @@ TSMC tier-1 supplier coding (from TSMC Supplier Sustainability Reports 2022–20
 
 **Yes — and closer than it may feel.** The hard infrastructure work is done. The DB is well-built, the NLP pipeline just completed its final passes today, and the treatment variable is 100% coded. The hypotheses are well-specified and publishable.
 
-The path to estimation has **two near-term gates**:
-1. **Source `board_esg_committee`** and decide whether to keep or drop it from the pre-registered specification
-2. **Pre-register on OSF** — then you can run `att_gt()`
+The path to estimation has **three near-term gates**:
+1. **Set `n_material_topics_b` zeros to NA** for ~2,591 unprocessed rows — one script, one hour
+2. **Pre-register on OSF** (H1–H5, both tiers) — then `att_gt()` can run
+3. **Download 2021 PDFs** for the 2022 adoption cohort — improves pre-trend testability significantly
 
-The main structural constraint to accept (not fix): the estimable panel is **2021–2024**, not 2016–2024 as originally scoped. One pre-treatment year (2021) is available for 65 of 73 companies. CS21 can still deliver valid ATT estimates with this window, but the event-study pre-trend test will be limited to a single pre-period coefficient. The Rambachan-Roth sensitivity analysis is especially important given this constraint.
+The main structural constraint to accept: the estimable panel is **2021–2024**, and 2021 PDF coverage is ~0%, meaning the 868-company 2022 cohort has minimal extracted pre-treatment data. CS21 can still deliver valid ATT estimates using the not-yet-treated control group for counterfactual inference, but the event-study pre-trend test is limited. The Rambachan-Roth sensitivity analysis is essential given this constraint.
 
 ---
 
