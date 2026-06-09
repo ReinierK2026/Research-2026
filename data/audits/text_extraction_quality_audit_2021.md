@@ -102,7 +102,7 @@ GRI content-index detection rate across the full expanded corpus is 67.8% (536/7
 
 A supplementary G4 regex pass (`G4-[A-Z]{2,3}\d+`, `G4-DMA`) was applied. Core G4 environmental/social indicators (`G4-EN3`, `G4-SO1`, `G4-LA1`) were largely absent from GRI index pages, indicating the majority of 2021 TWSE reporters had already migrated to GRI Standards by the time of reporting (as expected given the 2018 mandatory switchover deadline).
 
-**Implication:** `gri_codes_summary_2021.csv` now captures both Standards-format and G4-format codes. The `n_g4_codes` column identifies the 8 files with G4 sector-supplement codes.
+**Implication:** `gri_codes_summary_2021.csv` now captures both Standards-format and G4-format codes. The `n_g4_codes` column identifies the 12 files with G4 sector-supplement codes (expanded corpus).
 
 **Status:** ✅ **Fixed (Entry 6).** pdfplumber + regex fallback extracted GRI content-index data from all 488 non-OCR PDFs. G4 regex pass added and applied. `gri_codes_summary_2021.csv` is the authoritative GRI source (includes `n_g4_codes` column).
 
