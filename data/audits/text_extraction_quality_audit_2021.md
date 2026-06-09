@@ -733,6 +733,7 @@ Run order: **Step 1.4 first** (sandbox — already done), then **1.3**, then **1
 | 3.3 | Compute `mda_index` per Padilla-Garrido et al. (2024) | data-analyst | ✅ Done 2026-06-09 | 470/822 filled (>0). Mean=0.549, mode=0.5. Lower than later cohorts — pre-CSRD era; `double_materiality_mentioned` near-zero (0.7%) as expected. Script: `phase3_2021.py`. |
 | 3.4 | Compute `topic_depth_score` from NLP semantic similarity | data-analyst | ✅ Done 2026-06-09 | 476/822 filled (>0). Mean=0.577, median=0.586. English ESGLens mean≈0.231; Chinese BGE mean≈0.643 (model calibration gap). Script: `phase3_2021.py`. |
 | 3.5 | Compute `gri_content_index_completeness` from GRI codes | data-analyst | ✅ Done 2026-06-09 | 41/822 filled (>0). Mean=0.237 (Universal 2021 reporters only). **Expected**: 808/822 rows are GRI Standards 2016 reporters who do not use GRI 2-* notation → GCI=0.0 by design. Filter by `gri_standard_version` when analysing cross-cohort. Denom: 33 (2016) / 34 (Universal 2021). Script: `phase3_2021.py`. |
+| 3.6 | `topic_depth_score` CN supplement — fill blanks from new BGE data | data-analyst | ⬜ Pending (after 2.1s) | Only fills TDS where currently blank AND BGE now populated. 304 bilingual companies already have ESGLens TDS — untouched. ~11 CN-only companies will get TDS from BGE depth scores. Script: `phase3_2021_cn_supplement.py`. |
 
 ---
 
