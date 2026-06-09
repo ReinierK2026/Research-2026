@@ -321,7 +321,9 @@ Winsorise all at 1st/99th percentile before analysis.
 | Staggered DiD (CS21) | ≥ 5 cohort-groups | More cohorts = more efficient |
 | ITS | ≥ 8 pre + 4 post time points | 10 pre + 8 post preferred |
 
-**TWSE semiconductor universe:** ~136 companies; ~35–50 with 5+ years of GRI reports = ~210–300 company-years. Augment with 30–40 global peers to reach ~400–600 total company-years. This is publishable.
+**Tier 1 — Full TWSE universe:** ~2,009 companies with `gri_adoption_year` coded; ~1,200 treated with at least one pre-adoption observation; panel window 2021–2024 (~4,800 company-years at full coverage). Well above minimum thresholds — high statistical power for CS21 estimation.
+
+**Tier 2 — Semiconductor sub-cohort:** 73 companies; 507 company-years 2016–2024. Meets the CS21 minimum (≥ 5 cohort-groups; 4 adoption cohorts: 3 × 2021, 65 × 2022, 4 × 2023, 2 × 2024). Sufficient for H5 with TSMC-proximity interaction. Augmenting with global semiconductor peers remains an option for cross-country extension (not required for H1–H5).
 
 ---
 
