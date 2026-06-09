@@ -149,17 +149,17 @@ TSMC tier-1 supplier coding (from TSMC Supplier Sustainability Reports 2022–20
 | Variable / Source | Quality | Key issue | Audit file |
 |---|---|---|---|
 | `gri_adoption_year` | **High** | 100% populated; corrected in Pass 6 for 4 tickers | research_log.json Pass 30 |
-| `n_material_topics_a` | **Medium** | 40–57% coverage in subsample; structural ceiling (image GRI indexes, Chinese-only reports) | Pass 31 |
-| `n_material_topics_b` | **Medium** | Method inconsistency: gri_tables (2023–24) vs gri_codes_summary proxy (2021–22); text-regex fallback has r=0.59 | Pass 26; audit 2024 |
-| `process_quality_score` | **Medium-High** | Populated for 61–68% of subsample 2021–2024; absent 2016–2020; Chinese track uses different (bilingual regex) method | Phase 1/2 NLP entries |
-| `assurance_level` | **Medium** | 49–73% TEJ coverage ceiling; 1,467 rows corrected from Reasonable→Limited (Pass 28); very few Reasonable cases in subsample (5–6/year) | Pass 28 |
-| `ln_total_assets`, `roa` | **High (pre-2022), Medium (2022+)** | 100% coverage through 2021; ~64% in 2022–2024; accounting identity verified | Passes 12–13 |
-| `board_esg_committee` | **Missing** | 0% populated — needs sourcing | Not audited |
-| `industry_subsector` | **High** | 100% Block A completeness; but Foundry n=5 limits H4 power | Pass 7 |
-| Text corpus (2024) | **High** | All three extraction quality checks pass (Checks A/B/C: 2.2%, 2.0%, 6.1%); 1,042 unique companies | audit_2024.md |
-| Text corpus (2021–23) | **High (structure), Medium (coverage)** | 2021: Check C median=0.772 (sidebar filter trade-off); all cohorts coordinate-corrected | audit_2021–23.md |
+| `n_material_topics_a` | **Medium** | 41–54% non-zero (full pop); structural ceiling from PDF coverage (~48% overall, ~0% 2021) | Pass 31 |
+| `n_material_topics_b` | **Medium — requires data prep** | 100% non-null but ~52% are zeros (unprocessed rows — must be set to NA); method inconsistency at treatment boundary | Pass 26; audit 2024 |
+| `process_quality_score` | **Medium** | 52–62% non-zero (full pop); tracks PDF coverage; absent 2016–2020 structurally | Phase 1/2 NLP entries |
+| `assurance_level` | **Medium** | 43–65%; TEJ-sourced (independent of PDF coverage); 1,467 rows corrected Reasonable→Limited (Pass 28) | Pass 28 |
+| `ln_total_assets`, `roa` | **High (2021), Medium (2022+)** | 88% in 2021; 46–60% in 2022–2024; accounting identity verified | Passes 12–13 |
+| `board_approved` | **Medium** | 53–63% non-null (tracks PDF/Block C extraction); replaces `board_esg_committee` (0%); binary 0/1 both valid | Block C extraction |
+| `sasb_industry` | **High** | 88–96% across years; H4 moderator; 6% gap (467 rows) fillable from TWSE/TEJ | Block A |
+| Text corpus (2024) | **High** | All quality checks pass; 1,042 unique companies processed | audit_2024.md |
+| Text corpus (2021–23) | **High (structure), Low (2021 coverage)** | 2021: only 4 PDFs in ledger (~0% coverage); 2022–23: 61–62% coverage | audit_2021–23.md |
 
-**Overall data confidence for H1–H4: Medium.** The treatment variable and most controls are in good shape. The outcome variables have structural coverage gaps (especially for pre-treatment years) and some measurement inconsistency at the treatment boundary for `n_material_topics_b`. These are manageable with transparent robustness checks.
+**Overall data confidence for H1–H4: Medium.** Treatment variable solid; controls mostly workable. Two pre-analysis steps required before estimation: (1) set `n_material_topics_b` zeros to NA for unprocessed rows; (2) download missing PDFs (priority: 2021 cohort for pre-treatment baseline).
 
 ---
 
