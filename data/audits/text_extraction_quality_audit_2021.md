@@ -644,9 +644,9 @@ Run order: **Step 1.4 first** (sandbox — already done), then **1.3**, then **1
 
 | # | Step | Status | Notes |
 |---|---|---|---|
-| 2.1 | BGE-M3 multilingual semantic topic matcher | 🟡 Ready to run | Script: `phase2_step2_1_bge_2021.py`. Excl: 3669 (corrupt PDF). Output: `bge_2021_matches.jsonl` + 7 DB cols. |
-| 2.2 | XLM-RoBERTa-XNLI zero-shot ESG classifier | 🟡 Ready to run | Script: `phase2_step2_2_xlmr_2021.py`. Model: mDeBERTa-v3-base-mnli-xnli. Excl: 3669. 6 DB cols. |
-| 2.3 | Block C indicators (Chinese/bilingual) | 🟡 Ready to run | Script: `phase2_block_c_chinese_2021.py`. Excl: 3669. Bilingual regex + full-text fallback. |
+| 2.1 | BGE-M3 multilingual semantic topic matcher | ✅ Done 2026-06-09 | 172/172 filled. Top1: GRI Alignment(47), Stakeholder Engagement(26), Training & Education(20). Mean sim=0.643. Affinity: soc=0.302, gov=0.301, env=0.122. Script: `phase2_step2_1_bge_2021.py`. |
+| 2.2 | XLM-RoBERTa-XNLI zero-shot ESG classifier | ✅ Done 2026-06-09 | 172/172 filled. Dominant: soc=133 (77.3%), other=14 (8.1%), env=13 (7.6%), gov=12 (7.0%). Mean 41.6 sentences. Script: `phase2_step2_2_xlmr_2021.py`. |
+| 2.3 | Block C indicators (Chinese/bilingual) | ✅ Done 2026-06-09 | 172 files processed. Combined corpus (2021 all years): mat_found=450/822 (54.7%), board_approved=209/822 (25.4%), double_mat=6/822 (0.7%), ai_tool=2/822 (0.2%). Script: `phase2_block_c_chinese_2021.py`. |
 
 ---
 
