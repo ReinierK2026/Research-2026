@@ -1875,5 +1875,106 @@
     "output_file": "data/gri/gri_codes_summary_2021.csv",
     "variables_added": [],
     "notes": "GRI extraction applied to all new native PDFs via gri_extract_2021_expand.py. CSV updated from 488 to 790 rows (dedup by stem). With codes: 536/790 (67.8%, vs 70.1% in original — new batch lower). G4 files: 12 (130 instances, was 8/116). Total code instances: 20,018 (was 12,818). Avg codes/file: 37.3. Quality audit updated: 9 hard exclusions (added 2201_2021, 3035_2021), corpus Composition table updated (809 files, 38% English), Processing Log Entry 12 added, Cross-Cohort Comparison updated. Audit file: data/audits/text_extraction_quality_audit_2021.md."
+  },
+  {
+    "task_id": "2020-phase0-block-b",
+    "date": "2026-06-09",
+    "pass": 53,
+    "agent": "data-analyst",
+    "topic": "2020 cohort Phase 0 — Block B + n_material_topics_a + language detection",
+    "status": "completed",
+    "output_file": "data/lang_detection_2020.csv",
+    "variables_added": [
+      "word_count_total",
+      "page_count",
+      "report_language",
+      "n_material_topics_a"
+    ],
+    "notes": "phase0_2020.py. 427 rows with text files: 426 wc>0 (3703=0 corrupt). All report_language='zh'. n_material_topics_a: 400/655 matched. lang_detection_2020.csv: 429 rows, 39 mojibake_risk=1."
+  },
+  {
+    "task_id": "2020-phase1-block-c-english",
+    "date": "2026-06-09",
+    "pass": 54,
+    "agent": "technical-researcher",
+    "topic": "2020 cohort Phase 1 Block C — English-track materiality extraction (2 files)",
+    "status": "completed",
+    "output_file": "twse-research-database.csv",
+    "variables_added": [],
+    "notes": "phase1_block_c_english_2020.py. 2 files (1531, 3447). Both mat_section_found=1, dm_methodology_disclosed=1. Phase 1 ML (FinBERT/ClimateBERT/ESGLens) pending local run."
+  },
+  {
+    "task_id": "2020-phase2-bge",
+    "date": "2026-06-09",
+    "pass": 55,
+    "agent": "technical-researcher",
+    "topic": "2020 cohort Phase 2.1 — BGE-M3 multilingual semantic topic matcher",
+    "status": "completed",
+    "output_file": "scripts/phase2_nlp_local/bge_2020_matches.jsonl",
+    "variables_added": [
+      "bge_top1_topic",
+      "bge_top1_sim",
+      "bge_top3_topics",
+      "bge_mean_sim",
+      "bge_env_affinity",
+      "bge_soc_affinity",
+      "bge_gov_affinity"
+    ],
+    "notes": "phase2_step2_1_bge_2020.py. 426/426 processable rows. Top topic: GRI Alignment (108, 25.4%). bge_top1_sim p50=0.668, max=0.781."
+  },
+  {
+    "task_id": "2020-phase2-xlmr",
+    "date": "2026-06-09",
+    "pass": 56,
+    "agent": "technical-researcher",
+    "topic": "2020 cohort Phase 2.2 — XLM-RoBERTa-XNLI zero-shot ESG classifier",
+    "status": "completed",
+    "output_file": "twse-research-database.csv",
+    "variables_added": [
+      "xlmr_env_pct",
+      "xlmr_soc_pct",
+      "xlmr_gov_pct",
+      "xlmr_other_pct",
+      "xlmr_esg_sentences_n",
+      "xlmr_dominant_factor"
+    ],
+    "notes": "phase2_step2_2_xlmr_2020.py. 426/426 rows. xlmr_dominant: soc=342 (80.3%), gov=37, other=29, env=18."
+  },
+  {
+    "task_id": "2020-phase2-block-c-chinese",
+    "date": "2026-06-09",
+    "pass": 57,
+    "agent": "technical-researcher",
+    "topic": "2020 cohort Phase 2.3 — Block C Chinese/bilingual materiality extraction",
+    "status": "completed",
+    "output_file": "twse-research-database.csv",
+    "variables_added": [
+      "mat_section_found",
+      "dm_methodology_disclosed",
+      "stakeholder_groups_n",
+      "engagement_methods_n",
+      "process_steps_n",
+      "visualization_format_n",
+      "scoring_method_disclosed",
+      "board_approved",
+      "double_materiality_mentioned"
+    ],
+    "notes": "phase2_block_c_chinese_2020.py. mat_section_found=367/427 (85.9%), stakeholder_groups_n=402/427 (94.1%), double_materiality_mentioned=6 (1.4%, pre-CSRD baseline)."
+  },
+  {
+    "task_id": "2020-phase3-block-vars",
+    "date": "2026-06-09",
+    "pass": 58,
+    "agent": "data-analyst",
+    "topic": "2020 cohort Phase 3 — block variable population",
+    "status": "completed",
+    "output_file": "twse-research-database.csv",
+    "variables_added": [
+      "mda_index",
+      "gri_content_index_completeness",
+      "n_material_topics_b",
+      "topic_depth_score"
+    ],
+    "notes": "phase3_2020.py. mda_index p50=0.50, max=0.70. topic_depth_score p50=0.629 (BGE-first). GCI: 22 early adopters (3.4%) with partial GRI 2-* adoption in FY2020 — research finding. n_material_topics_b p50=17."
   }
 ]
