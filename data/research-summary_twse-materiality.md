@@ -114,23 +114,22 @@ Low-footprint (Technology + Services + HealthCare + Financials): 1,010 · High-i
 
 ### ⚠️ Gaps that constrain but don't block
 
-**1. Pre-treatment outcome data limited to 2021**  
-GRI code extraction (gri_codes_summary files) only covers 2021–2024. This means `n_material_topics_a/b` and `process_quality_score` are **zero for 2016–2020 in the subsample**. With 65 companies adopting in 2022, the DiD panel effectively has only **one pre-treatment year (2021)** for the majority of firms. This limits the event-study plot to t−1 and weakens the parallel trends test. The methodology document's Phase 4 analysis was designed for a 2016–2024 panel, but the estimable window is realistically 2021–2024.
+**1. Pre-treatment outcome data limited to 2021 — and near-zero PDF coverage for that year**  
+GRI code extraction only covers 2021–2024, so `n_material_topics_a/b` and `process_quality_score` are structurally unavailable for 2016–2020. More critically, 2021 PDF coverage is ~0% (4 of 822 company-years processed). This means the 868-company 2022 cohort — the primary adoption mass — has almost no extracted baseline data for their single pre-treatment year. For H1 and H2, the CS21 estimator will rely on the not-yet-treated control group to infer counterfactual trends rather than within-firm pre-treatment observations.
 
-**Implication:** The pre-registration should explicitly state the 2021–2024 estimation window. The 2016–2020 rows cannot contribute to the DiD.
+**Implication:** Pre-registration should state the 2021–2024 estimation window explicitly; note the 2021 PDF gap and its effect on event-study pre-trend power; and emphasise the Rambachan-Roth sensitivity analysis as the primary parallel trends check.
 
-**2. `n_material_topics_b` measurement inconsistency across cohorts**  
-The hypothesis defines `n_material_topics_b` as "count of GRI 3-3 disclosure entries." For 2023–2024, this is sourced from `gri_tables_2023/` and `gri_tables_2024/` (structured GRI 3-3 row extractions). For 2021–2022, it falls back to `gri_codes_summary` (counts of GRI topic standard codes broadly). These two methods measure slightly different things:
-- GRI Standards 2016 reporters (most of 2021–2022) don't have GRI 3-3 disclosures, but do have GRI 200/300/400 standard citations
-- Average values are similar (15–16 across all years), suggesting continuity, but the measurement source changes at the treatment boundary
+**2. `n_material_topics_b` zeros are artefacts, not true observations**  
+`n_material_topics_b` is 100% non-null but only 38–53% non-zero. The zeros correspond to the ~2,591 company-years without a PDF. These must be set to `NA` before estimation — running `att_gt()` on the current data would treat them as true zero-topic reports and severely bias the ATT downward. This is the single most important data prep step before any regression.
 
-For H1, `n_material_topics_a` (unique GRI topic standards from content index, consistent GRI-code method across all years) may be the more defensible primary outcome, with `n_material_topics_b` from `gri_tables` as the post-treatment robustness check.
+**3. `n_material_topics_b` measurement inconsistency at the treatment boundary**  
+Post-treatment rows (2023–2024 primarily) use `gri_tables` GRI 3-3 row counts; pre-treatment rows (2021–2022) fall back to `gri_codes_summary` topic-standard code counts — slightly different constructs. `n_material_topics_a` (consistent GRI-code method across all years) is more defensible as the primary H1 outcome; `n_material_topics_b` from `gri_tables` as post-adoption robustness.
 
-**3. Block F controls for 2022–2024**  
-`ln_total_assets` and `roa` drop to ~64% coverage in 2022–2024 (the post-treatment years for most companies). This suggests the TEJ financial data merge did not fully cover recent years. The controls can still be used with listwise deletion, but the analysis should note this limitation. For 46/72 companies in 2022, controls are available — this is sufficient for estimation with appropriate caveats.
+**4. Block F controls 2022–2024**  
+`ln_total_assets` and `roa` at 46–60% for 2022–2024 (TEJ gap). Workable with listwise deletion; note in analysis as a limitation. Does not change estimation strategy.
 
-**4. H4 subsector counts**  
-Actual counts: Fabless=33, Foundry=5, OSAT=15, IDM=5, Materials=8, Equipment=8. The hypothesis expected n≈28 Fabless vs n≈21 Foundry/OSAT vs n≈24 IDM. The IDM count (5 vs expected 24) is much lower, and Foundry alone (5) is too small for robust subsample estimation. Combining Foundry+OSAT gives 20 — feasible, but the test will have lower power than anticipated.
+**5. `sasb_industry` gap (6%) for H4**  
+467 company-years (primarily 2021 rows) are missing `sasb_industry`. Fill from TWSE MOPS or TEJ sector codes, or exclude with pre-registered note. Not a blocker — the 94–96% coverage for 2022–2024 is sufficient for the H4 subsamples.
 
 ### 🔴 Hard blockers
 
