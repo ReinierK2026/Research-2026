@@ -1,6 +1,6 @@
 # Text Extraction Quality Audit — 2020 Cohort
 **Audit date:** 2026-06-09  
-**Last updated:** 2026-06-09 — initial audit after five-stage pipeline completion  
+**Last updated:** 2026-06-09 — initial audit; five-stage pipeline complete; NLP scripts pending  
 **Corpus (raw):** no pre-existing `.txt` files — full extraction from scratch  
 **Corpus (processed):** `/text-extraction/extracted_text/2020_processed/`  
 **Source PDFs on disk:** 432  (2 `_E`, 430 other)  
