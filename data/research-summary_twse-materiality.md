@@ -492,6 +492,6 @@ gri_101_applied, gri_new_climate_energy_adopted, ifrs_s1_adopted, issb_s2_adopte
 
 ---
 
-*Last updated by: research-coordinator | Pass 39 | 2026-06-09*  
-*Covers: Passes 1–39 across 15 sessions (2026-05-18 through 2026-06-09)*  
-*Next coordinator session trigger: Phase 2 multilingual track for 2021/2022/2023 cohorts, or OSF pre-registration*
+*Last updated by: research-coordinator | Pass 42 | 2026-06-09*  
+*Covers: Passes 1–42 across 18 sessions (2026-05-18 through 2026-06-09)*  
+*Next coordinator session trigger: OSF pre-registration, or Phase 3 cross-cohort statistical analysis*
