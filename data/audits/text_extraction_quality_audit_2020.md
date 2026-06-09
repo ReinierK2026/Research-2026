@@ -447,9 +447,9 @@ Structural result — identical to 2021 cohort (median 0.772; 46.8% below 0.75).
 
 | # | Step | Owner | Status | Notes |
 |---|---|---|---|---|
-| 2.1 | BGE-M3 multilingual semantic topic matcher | technical-researcher | ⬜ Pending | Script: `phase2_step2_1_bge_2020.py`. YEAR=2020, EXCLUDE={3703}, PROC_DIR=2020_processed. Handle `_109 (1)` suffix in ticker extraction. |
-| 2.2 | XLM-RoBERTa-XNLI zero-shot ESG classifier | technical-researcher | ⬜ Pending | Script: `phase2_step2_2_xlmr_2020.py`. YEAR=2020, EXCLUDE={3703}. Handle `_109 (1)` files in ticker glob. |
-| 2.3 | Block C indicators (Chinese/bilingual) | technical-researcher | ⬜ Pending | Script: `phase2_block_c_chinese_2020.py`. Bilingual regex (zh+en). YEAR=2020, EXCLUDE={3703}. Exclude `_109 (1)` duplicates. |
+| 2.1 | BGE-M3 multilingual semantic topic matcher | technical-researcher | ✅ Done | `phase2_step2_1_bge_2020.py` (2026-06-09). 426/426 processable rows filled. JSONL: `bge_2020_matches.jsonl` (426 lines). Top topic: 'GRI Alignment' (108/426 = 25.4%). bge_top1_sim: p50=0.668, max=0.781. |
+| 2.2 | XLM-RoBERTa-XNLI zero-shot ESG classifier | technical-researcher | ✅ Done | `phase2_step2_2_xlmr_2020.py` (2026-06-09). 426/426 rows filled. dominant: soc=342 (80.3%), gov=37 (8.7%), other=29 (6.8%), env=18 (4.2%). |
+| 2.3 | Block C indicators (Chinese/bilingual) | technical-researcher | ✅ Done | `phase2_block_c_chinese_2020.py` (2026-06-09). mat_section_found=367/427 (85.9% of rows with files), stakeholder_groups_n=402/427 (94.1%), dm_methodology_disclosed=390/427 (91.3%). double_materiality_mentioned=6 (pre-CSRD, correct). |
 
 ---
 
