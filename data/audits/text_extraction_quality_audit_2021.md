@@ -14,7 +14,7 @@
 
 ## Executive Summary
 
-The 2021 cohort required near-complete fresh extraction: only 4 `.txt` files existed in the raw corpus, while 492 PDFs were available. The full five-stage pipeline was applied — scan detection (492 PDFs), OCR recovery (4 scanned files), coordinate-aware PyMuPDF extraction (488 PDFs), text-only preprocessing (3 files), and GRI content-index extraction — producing a **495-file processed corpus**.
+The 2021 cohort required near-complete fresh extraction: only 4 `.txt` files existed in the raw corpus. The full five-stage pipeline was applied to the original 492 PDFs, producing a 495-file corpus (Entry 2–7). In June 2026 the source folder expanded by 319 new PDFs (298 native + 21 scanned), bringing the total processed corpus to **809 files** (Entry 12). The English file share dropped from 62% to 38% as the new batch was predominantly Chinese/bilingual. Two new hard exclusions were identified: 2201_2021 and 3035_2021 (corrupt PDFs with 0 pages per fitz), raising total hard exclusions from 7 to 9.
 
 Three distinct issues are specific to the 2021 cohort and distinguish it from 2022–2024:
 
@@ -30,13 +30,13 @@ Quality verification confirms the processed corpus is otherwise fit for NLP use.
 
 ## Corpus Composition Change: Raw → 2021 Processed
 
-| | Raw corpus | 2021 Processed | Change |
+| | Raw corpus | 2021 Processed (original) | 2021 Processed (expanded) |
 |---|---|---|---|
-| Total files | 4 | **495** | +491 (fresh extraction) |
-| English `_E` files | 0 (0%) | 307 (62%) | +307 |
-| Chinese / bilingual | 4 (100%) | 188 (38%) | +184 |
+| Total files | 4 | 495 | **809** |
+| English `_E` files | 0 (0%) | 307 (62%) | 309 (38%) |
+| Chinese / bilingual | 4 (100%) | 188 (38%) | 500 (62%) |
 
-The 2021 raw corpus had only 4 `.txt` files. Near-complete fresh extraction via PyMuPDF (488 PDFs), OCR (4 scanned PDFs), and text-only preprocessing (3 files without PDFs) produced the 495-file processed corpus.
+The 2021 raw corpus had only 4 `.txt` files. Near-complete fresh extraction via PyMuPDF (488 PDFs), OCR (4 scanned PDFs), and text-only preprocessing (3 files without PDFs) produced the original 495-file corpus. Corpus expanded 2026-06-09: 319 new PDFs processed (298 native via PyMuPDF + 21 scanned via OCR), raising the total to 809 .txt files. The English share fell from 62% to 38% because the new batch was predominantly Chinese/bilingual.
 
 ---
 
