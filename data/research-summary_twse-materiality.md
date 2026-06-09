@@ -387,6 +387,7 @@ Coverage is shown two ways: **NLP corpus** (1,042 companies with extracted text)
 | 2026-05-23 | 9–11 | 90→99 | Block C 2021–2023, Block D E/S/G counts, Block E binary panel |
 | 2026-05-23 | 12–17 | 99→157 | Block F (balance sheet, income, equity, ESG scores), Block G governance |
 | 2026-05-24 | 22 | 157 | Coordinator synthesis (this session) |
+| 2026-06-09 | 43–46 | 188→192 | Phase 3 Block Variable Population (all 4 cohorts): mda_index, gri_content_index_completeness, n_material_topics_b, topic_depth_score |
 
 ### Financial Benchmarks (TSMC 2022 for reference)
 - tesg_score: confirmed populated; tesg_rating and E/S/G sub-scores verified
