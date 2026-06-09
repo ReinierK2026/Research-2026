@@ -655,10 +655,10 @@ Run order: **Step 1.4 first** (sandbox — already done), then **1.3**, then **1
 | # | Step | Owner | Status | Notes |
 |---|---|---|---|---|
 | 3.1 | Populate Block C + NLP cols from Phase 1 English NLP output | data-analyst | ✅ Done (English 2021) | All Phase 1 English NLP variables fully written for 307 2021 files. Block C (step 1.4): 307/307. ESGLens (step 1.3): 307/307. FinBERT (step 1.1): 307/307. ClimateBERT (step 1.2): 307/307. |
-| 3.2 | Populate Block D (material topics listed) from GRI codes CSV | data-analyst | ⬜ Pending | Source: `gri_codes_summary_2021.csv`; encode as topic×company matrix. Key DiD outcome variable: topic count (`n_material_topics`). |
-| 3.3 | Compute `mda_index` (Block G) per Padilla-Garrido et al. (2024) coding scheme | data-analyst | ⬜ Pending | 10-item binary index; majority can be coded from Block C/D NLP output. |
-| 3.4 | Compute `topic_depth_score` (Block G) from NLP passage counts per topic | data-analyst | ⬜ Pending | Word count / sentence count attributable to each material topic. |
-| 3.5 | Compute `gri_content_index_completeness` (Block G) from GRI codes CSV | data-analyst | ⬜ Pending | `n_codes_reported / n_mandatory_disclosures_for_gri_version` per company-year. Note: 2021 cohort straddles G4/Standards transition — denominator must account for both formats. |
+| 3.2 | Populate `n_material_topics_b` from GRI codes summary | data-analyst | ✅ Done 2026-06-09 | 319/822 filled (>0). Mean=15.9, median=16. No `gri_tables_2021/` directory — sourced from `gri_codes_summary_2021.csv` codes column (unique 3-digit GRI standards). Script: `phase3_2021.py`. |
+| 3.3 | Compute `mda_index` per Padilla-Garrido et al. (2024) | data-analyst | ✅ Done 2026-06-09 | 470/822 filled (>0). Mean=0.549, mode=0.5. Lower than later cohorts — pre-CSRD era; `double_materiality_mentioned` near-zero (0.7%) as expected. Script: `phase3_2021.py`. |
+| 3.4 | Compute `topic_depth_score` from NLP semantic similarity | data-analyst | ✅ Done 2026-06-09 | 476/822 filled (>0). Mean=0.577, median=0.586. English ESGLens mean≈0.231; Chinese BGE mean≈0.643 (model calibration gap). Script: `phase3_2021.py`. |
+| 3.5 | Compute `gri_content_index_completeness` from GRI codes | data-analyst | ✅ Done 2026-06-09 | 41/822 filled (>0). Mean=0.237 (Universal 2021 reporters only). **Expected**: 808/822 rows are GRI Standards 2016 reporters who do not use GRI 2-* notation → GCI=0.0 by design. Filter by `gri_standard_version` when analysing cross-cohort. Denom: 33 (2016) / 34 (Universal 2021). Script: `phase3_2021.py`. |
 
 ---
 
