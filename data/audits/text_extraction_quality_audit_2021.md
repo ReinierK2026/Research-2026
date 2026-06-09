@@ -613,6 +613,67 @@ Phase 1 English Track complete for 2021 cohort. All 16 Block C + 16 NLP columns 
 
 ---
 
+### Entry 12 — 2021 Corpus Expansion
+**Date:** 2026-06-09  
+**Scripts:** `scan_2021_new.py`, `pymupdf_batch_2021_expand.py`, `ocr_batch_2021_expand.py`, `gri_extract_2021_expand.py`  
+**Input PDFs:** `/twse_esg_reports/2021/` — 319 new PDFs not present during original extraction  
+**Output:** `2021_processed/` (809 total .txt files) · `gri_codes_summary_2021.csv` (790 rows)
+
+**Stage 0 — Scan (319 new PDFs):**
+
+| Category | Count |
+|---|---|
+| Native (text layer present) | 298 (93.4%) |
+| Scanned (image-only) | 21 (6.6%) |
+
+**Stage 1 — OCR (21 new scanned PDFs):**  
+Tesseract 4 LSTM (`--oem 1 --psm 3`), `chi_tra+eng` / `eng` per suffix. Per-page cache, resumable (budget 33 s/run).
+
+| Result | Count |
+|---|---|
+| Successfully OCR'd (non-empty) | 19 |
+| Hard exclusions (0 pages per fitz) | 2 (2201_2021, 3035_2021) |
+
+OCR median chars (non-empty, 22 files incl. original 4 in folder): 27,489 · mean: 45,909.
+
+**Stage 2 — PyMuPDF (298 new native PDFs):**  
+Same coordinate-aware extraction as original run (sidebar suppression x₀ < 16%, header/footer y-zone, two-column detection, dehyphenation for `_E`, figure caption removal). Resumable (38 s budget, progress JSON + OUT_DIR scan).
+
+| Result | Count |
+|---|---|
+| Successfully extracted | 298 |
+| Native median chars (non-empty, expanded) | 143,285 |
+| Native mean chars (non-empty, expanded) | 173,750 |
+
+**Stage 3 — GRI extraction (expanded CSV):**  
+`gri_extract_2021_expand.py` loaded existing CSV rows as `done_stems` and appended new results, deduplicating by file stem.
+
+| Metric | Original (488) | Expanded (790 rows) |
+|---|---|---|
+| With ≥1 GRI code | 342 (70.1%) | **536 (67.8%)** |
+| With G4 codes | 8 files (116 instances) | **12 files (130 instances)** |
+| Total code instances | 12,818 | **20,018** |
+| Avg codes per file (with codes) | 37.5 | **37.3** |
+| Median codes per file (with codes) | 36 | 36 |
+
+**Hard exclusions identified:**
+- `2201_2021` — 213 MB PDF; fitz reports 0 pages. Distinct from `2201_2021_E` (original OCR'd file). Hard exclusion.
+- `3035_2021` — 92 MB PDF; fitz reports 0 pages. Hard exclusion.
+
+**Combined corpus stats (809 .txt files):**
+
+| Metric | Value |
+|---|---|
+| Total .txt files | 809 |
+| English `_E` | 309 (38%) |
+| Chinese / bilingual | 500 (62%) |
+| Zero-byte (hard exclusions) | 3 (2201_2021, 3035_2021, 3669_2021) |
+| Usable files | 806 |
+| Overall median chars | 139,524 |
+| Overall mean chars | 169,434 |
+
+---
+
 ## Next Steps — NLP Analysis Pipeline
 
 **Status legend:** ⬜ Pending · 🔄 In Progress · ✅ Done  
