@@ -223,11 +223,11 @@ The main structural constraint to accept: the estimable panel is **2021–2024**
 > **Research Summariser → Coordinator Handoff**  
 > Session date: 2026-06-09  
 > Completed passes on record: 46 (last activity: Phase 2 multilingual NLP + Phase 3 block variable population, all 4 cohorts, today)  
-> DB state: 188 columns × 7,765 rows; TWSE-semicon subsample: 507 rows, 74 unique companies  
+> DB state: 188 columns × 7,750 rows; full TWSE population: 2,056 unique tickers (2021–2024), 2,009 treated  
 >  
 > **Open critical blockers:**  
-> 1. OSF pre-registration — zero inferential tests until done  
-> 2. `board_esg_committee` — 0% populated, listed control in H1/H2  
+> 1. `n_material_topics_b` zeros → NA for ~2,591 unprocessed rows (pre-analysis data prep — must do before regression)  
+> 2. OSF pre-registration — zero inferential tests until done  
 > 3. H5 TSMC tier-1 supplier coding — external data, 1–2 days  
 >  
 > **Structural constraint to document:** Outcome variable pre-treatment baseline only available from 2021 (not 2016). Effective estimation window = 2021–2024.  
