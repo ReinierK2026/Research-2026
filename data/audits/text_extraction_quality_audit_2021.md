@@ -677,8 +677,8 @@ Same coordinate-aware extraction as original run (sidebar suppression x₀ < 16%
 ## Next Steps — NLP Analysis Pipeline
 
 **Status legend:** ⬜ Pending · 🔄 In Progress · ✅ Done  
-**Updated:** 2026-06-09 (Corpus expansion: 319 new PDFs; Phase 1 English Track 2021: all steps complete — ESGLens 307/307, FinBERT 307/307, ClimateBERT 307/307, Block C 307/307)  
-**Prerequisite satisfied:** Corpus is fit for NLP (subject to 9 hard exclusions; 809-file expanded corpus).
+**Updated:** 2026-06-10 (CN supplement: Phase 0 supplement complete; Phase 2+3 supplement scripts written and validated, pending local GPU run)  
+**Prerequisite satisfied:** Corpus is fit for NLP (subject to 9 hard exclusions + 1 new stub 2103_2021; 809-file expanded corpus).
 
 ---
 
