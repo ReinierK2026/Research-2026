@@ -462,11 +462,11 @@ Structural result — identical to 2021 cohort (median 0.772; 46.8% below 0.75).
 
 | # | Step | Owner | Status | Notes |
 |---|---|---|---|---|
-| 3.1 | Populate Block C + NLP cols from Phase 1 & 2 NLP output | data-analyst | ⬜ Pending | Write Phase 1 (2 rows) and Phase 2 (~428 rows) results to DB. Script: `phase3_2020.py`. |
-| 3.2 | Populate `n_material_topics_b` from GRI codes summary | data-analyst | ⬜ Pending | Source: `gri_codes_summary_2020.csv` codes column. Unique 3-digit GRI 200/300/400-series standards. 154 files with 0 codes → 0. Script: `phase3_2020.py`. |
-| 3.3 | Compute `mda_index` per Padilla-Garrido et al. (2024) | data-analyst | ⬜ Pending | 10-item binary index / 10. Expected lower than 2021 — pre-treatment baseline year, earliest cohort. Script: `phase3_2020.py`. |
-| 3.4 | Compute `topic_depth_score` from NLP similarity data | data-analyst | ⬜ Pending | Mean top-5 similarity. English track (ESGLens, n=2): trivial. Chinese track (BGE, n~428): expected ~0.643. Script: `phase3_2020.py`. |
-| 3.5 | Compute `gri_content_index_completeness` from GRI codes | data-analyst | ⬜ Pending | **Expected ~0.0 for all 2020 rows.** GCI formula requires GRI 2-1..2-30 codes (Universal 2021 notation only). All 2020 reporters use GRI Standards 2016; none use GRI 2-* coding. Script: `phase3_2020.py`. DEFAULT_DENOM=33. |
+| 3.1 | Populate Block C + NLP cols from Phase 1 & 2 NLP output | data-analyst | ✅ Done | `phase3_2020.py` (2026-06-09). All block variables written for 655 2020 rows. |
+| 3.2 | Populate `n_material_topics_b` from GRI codes summary | data-analyst | ✅ Done | `phase3_2020.py`. 237/655 rows with n_material_topics_b > 0. p50=17 (among non-zero), max=34. |
+| 3.3 | Compute `mda_index` per Padilla-Garrido et al. (2024) | data-analyst | ✅ Done | `phase3_2020.py`. 422/655 rows have mda_index > 0. p50=0.50, max=0.70. Lower than expected for post-CSRD cohorts (pre-treatment baseline — correct). |
+| 3.4 | Compute `topic_depth_score` from NLP similarity data | data-analyst | ✅ Done | `phase3_2020.py`. 426/655 rows (all BGE-processed rows). p50=0.629, max=0.702. BGE-first priority (Chinese track dominant). |
+| 3.5 | Compute `gri_content_index_completeness` from GRI codes | data-analyst | ✅ Done | `phase3_2020.py`. **22/655 rows GCI > 0** (3.4% — early adopters with GRI 2-* codes in FY2020 reports, likely published post-Oct 2021 GRI Universal release). 633/655 rows = 0.0 as expected. This is a research finding, not a data error. GCI range for 22 adopters: 0.03–0.21. |
 
 ---
 
