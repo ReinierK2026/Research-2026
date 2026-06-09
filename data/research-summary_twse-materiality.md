@@ -136,8 +136,8 @@ Post-treatment rows (2023–2024 primarily) use `gri_tables` GRI 3-3 row counts;
 **1. OSF pre-registration — MUST complete before any DiD estimation**  
 The hypothesis file, the methodology, and standard academic practice all require this. This is the single most important next action.
 
-**2. `board_esg_committee` = 0 across all 507 rows**  
-This is listed as a control variable in H1 and H2 but has not been populated. It will need to be sourced from TWSE corporate governance reports, TEJ governance data, or manual coding from annual reports. Without it, the specifications in H1/H2 cannot be run exactly as pre-specified.
+**2. `n_material_topics_b` zeros must be set to NA before estimation**  
+~2,591 company-years in 2021–2024 have `n_material_topics_b = 0` as an artefact of not having been processed (no PDF). These are not true zero-topic observations. They must be replaced with `NA` before running `att_gt()`. Failure to do so will bias ATT estimates downward. This is the most critical immediate data-prep step.
 
 **3. H5 blocked on external data**  
 TSMC tier-1 supplier coding (from TSMC Supplier Sustainability Reports 2022–2024) and Hsinchu Science Park co-location data haven't been gathered. Estimated 1–2 days of manual lookup.
