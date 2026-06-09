@@ -136,9 +136,9 @@ Minor prevalence, consistent with 2022–2024 cohorts. Figure and table caption 
 
 ---
 
-### Issue 7 · Scanned Pages — 4 fully scanned + 5 partially scanned (hidden)
+### Issue 7 · Scanned Pages — 25 OCR stems total (4 original + 21 new expansion)
 
-**Fully scanned (coverage <10%) — 4 files identified upfront:**
+**Original 4 fully scanned files (identified upfront, OCR'd Entry 4):**
 
 | File | Pages | Chars | Lang |
 |---|---|---|---|
@@ -149,7 +149,11 @@ Minor prevalence, consistent with 2022–2024 cohorts. Figure and table caption 
 
 *Note: 2707_2021_M uses `_M` suffix (bilingual/Mandarin). OCR applied with `chi_tra+eng`.*
 
-Total chars recovered from fully scanned files: 587,183.
+Total chars recovered from original 4 scanned files: 587,183.
+
+**21 new scanned files added 2026-06-09 (Entry 12):**
+
+19/21 files successfully OCR'd. 2 hard exclusions (0 pages per fitz): 2201_2021 (213 MB), 3035_2021 (92 MB). OCR median chars (non-empty): 27,489 · mean: 45,909. New stems: 1216_2021, 1434_2021, 1709_2021, 1717_2021, 1723_2021, 1907_2021, 2385_2021, 2439_2021, 2610_2021, 2707_2021, 3006_2021, 4720_2021, 4766_2021, 5288_2021, 6412_2021, 6472_2021, 8341_2021, 9904_2021, 9930_2021 (19 with content) + 2201_2021, 3035_2021 (0 bytes — hard exclusions).
 
 **Hidden partially-scanned files (5 files) — identified during quality checks:**
 
