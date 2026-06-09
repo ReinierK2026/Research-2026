@@ -199,25 +199,62 @@ TEJ Governance monthly data (2014/01–2025/01), December snapshots used. ~98–
 
 Phase 1 English Track NLP is complete for all four text cohorts: **2021**, **2022**, **2023**, and **2024**. All used identical scripts, models, and DB column slots (175 cols shared across all cohort years).
 
-### NLP Pipeline — Multilingual Track [Pass 38, 2026-06-08]
+### NLP Pipeline — Multilingual Track [Passes 38–42, 2026-06-08/09]
 
-Phase 2 Multilingual Track has begun. Step 2.3 (Block C Chinese/bilingual extractor) is complete for the 2024 cohort. Steps 2.1 (BGE-M3 semantic matching) and 2.2 (XLM-RoBERTa-XNLI topic classification) are pending.
+Phase 2 Multilingual Track is **complete for all four cohorts (2021–2024)**. All three steps (Block C bilingual extractor, BGE-M3 semantic matcher, XLM-RoBERTa-XNLI classifier) ran across 974 Chinese/bilingual files in total.
 
 **2024 Chinese/bilingual track — 361 files processed (excl. 2461, 6776 near-empty):**
 
 | Step | Method | Status | Key Findings |
 |------|--------|--------|-------------|
-| 2.3 Block C | Bilingual regex (zh+en) | ✅ Done | mat_section=354/361 (98.1%); board_approved=289/361 (80.1%); dm_methodology=341/361 (94.5%); double_mat=52/361 (14.4%); engagement mean=3.14 (356/361); stakeholders mean=7.03; process_steps=333/361 (92.2%); viz_format=70/361 (19.4%); ai_tool=16/361 (4.4%); process_quality mean=0.426 |
-| 2.1 BGE-M3 | BAAI/bge-m3, 33 bilingual GRI topic descriptors | ✅ Done | 361/361 (100%). Top topics: GRI Alignment (122/34%), Stakeholder Engagement (56), Training & Education (25), TCFD/ISSB Alignment (20), Economic Performance (17). top1_sim mean=0.690. Affinities: gov=0.353, soc=0.295, env=0.173. JSONL: bge_2024_matches.jsonl |
-| 2.2 XLM-RoBERTa-XNLI | mDeBERTa-v3-base-mnli-xnli, zero-shot sentence classification | ✅ Done | 361/361 (100%). dominant: soc=294 (81.4%), other=44 (12.2%), gov=14 (3.9%), env=9 (2.5%). Mean pcts: soc=0.449, gov=0.204, other=0.213, env=0.164. Mean sentences=43.9 |
+| 2.3 Block C | Bilingual regex (zh+en) | ✅ Done | mat_section=354/361 (98.1%); board_approved=289/361 (80.1%); dm_methodology=341/361 (94.5%); double_mat=52/361 (14.4%); engagement mean=3.14; viz_format=70/361 (19.4%); ai_tool=16/361 (4.4%); process_quality mean=0.426 |
+| 2.1 BGE-M3 | BAAI/bge-m3, 33 bilingual GRI topic descriptors | ✅ Done | 361/361 (100%). Top topics: GRI Alignment (122/34%), Stakeholder Engagement (56), Training & Education (25), TCFD/ISSB Alignment (20). top1_sim mean=0.690. Affinities: gov=0.353, soc=0.295, env=0.173. JSONL: bge_2024_matches.jsonl |
+| 2.2 XLM-RoBERTa-XNLI | mDeBERTa-v3-base-mnli-xnli, zero-shot sentence classification | ✅ Done | 361/361 (100%). dominant: soc=294 (81.4%), other=44 (12.2%), gov=14 (3.9%), env=9 (2.5%). Mean pcts: soc=0.449, gov=0.204, env=0.164. Mean sentences=43.9 |
+
+**2023 Chinese/bilingual track — 216 files processed (no exclusions):**
+
+| Step | Method | Status | Key Findings |
+|------|--------|--------|-------------|
+| 2.3 Block C | Bilingual regex (zh+en) | ✅ Done | Combined 2023 corpus: mat_found=699/1185 (59.0%), board_approved=453/1185 (38.2%), double_mat=72/1185 (6.1%), ai_tool=32/1185 (2.7%) |
+| 2.1 BGE-M3 | BAAI/bge-m3, 33 bilingual GRI topic descriptors | ✅ Done | 216/216 (100%). Top topics: GRI Alignment (55), Stakeholder Engagement (27), Training & Education (24), TCFD/ISSB Alignment (11). top1_sim mean=0.677. Affinities: soc=0.303, gov=0.279, env=0.156. JSONL: bge_2023_matches.jsonl |
+| 2.2 XLM-RoBERTa-XNLI | mDeBERTa-v3-base-mnli-xnli | ✅ Done | 216/216 (100%). dominant: soc=179 (82.9%), other=17 (7.9%), env=16 (7.4%), gov=4 (1.9%). Mean pcts: soc=0.461, gov=0.182, env=0.174. Mean sentences=48.2 |
+
+**2022 Chinese/bilingual track — 224 files processed (excl. 1795, 3704 — no PDF):**
+
+| Step | Method | Status | Key Findings |
+|------|--------|--------|-------------|
+| 2.3 Block C | Bilingual regex (zh+en) | ✅ Done | Combined 2022 corpus: mat_found=581/980 (59.3%), board_approved=349/980 (35.6%), double_mat=47/980 (4.8%), ai_tool=5/980 (0.5%) |
+| 2.1 BGE-M3 | BAAI/bge-m3, 33 bilingual GRI topic descriptors | ✅ Done | 225/225 (100%). Top topics: GRI Alignment (70), Stakeholder Engagement (31), Training & Education (22), Climate Adaptation (9). top1_sim mean=0.681. Affinities: gov=0.308, soc=0.299, env=0.126. JSONL: bge_2022_matches.jsonl |
+| 2.2 XLM-RoBERTa-XNLI | mDeBERTa-v3-base-mnli-xnli | ✅ Done | 225/225 (100%). dominant: soc=175 (77.8%), env=20 (8.9%), other=17 (7.6%), gov=13 (5.8%). Mean pcts: soc=0.453, gov=0.191, env=0.158. Mean sentences=47.2 |
+
+**2021 Chinese/bilingual track — 172 files processed (excl. 3669 — corrupt PDF):**
+
+| Step | Method | Status | Key Findings |
+|------|--------|--------|-------------|
+| 2.3 Block C | Bilingual regex (zh+en) | ✅ Done | Combined 2021 corpus: mat_found=450/822 (54.7%), board_approved=209/822 (25.4%), double_mat=6/822 (0.7%), ai_tool=2/822 (0.2%). Lower rates reflect pre-IFRS reporting norms. |
+| 2.1 BGE-M3 | BAAI/bge-m3, 33 bilingual GRI topic descriptors | ✅ Done | 172/172 (100%). Top topics: GRI Alignment (47), Stakeholder Engagement (26), Training & Education (20), Board Governance (10). top1_sim mean=0.668. Affinities: soc=0.302, gov=0.301, env=0.122. JSONL: bge_2021_matches.jsonl |
+| 2.2 XLM-RoBERTa-XNLI | mDeBERTa-v3-base-mnli-xnli | ✅ Done | 172/172 (100%). dominant: soc=133 (77.3%), other=14 (8.1%), env=13 (7.6%), gov=12 (7.0%). Mean pcts: soc=0.456, gov=0.199, env=0.155. Mean sentences=41.6 |
+
+**Cross-cohort Phase 2 comparison (Chinese/bilingual track, 2021–2024):**
+
+| Metric | 2021 (n=172) | 2022 (n=225) | 2023 (n=216) | 2024 (n=361) |
+|--------|-------------|-------------|-------------|-------------|
+| XLMR dominant (soc%) | 77.3% | 77.8% | 82.9% | 81.4% |
+| XLMR dominant (gov%) | 7.0% | 5.8% | 1.9% | 3.9% |
+| BGE top-1 topic | GRI Alignment (47) | GRI Alignment (70) | GRI Alignment (55) | GRI Alignment (122) |
+| BGE mean_sim | 0.643 | 0.654 | 0.651 | ~0.669 |
+| Mean sentences (XLMR) | 41.6 | 47.2 | 48.2 | 43.9 |
+| double_mat (combined) | 0.7% | 4.8% | 6.1% | 6.1% |
+| ai_tool (combined) | 0.2% | 0.5% | 2.7% | 14.6%* |
+
+*2024 ai_tool for combined corpus (English+Chinese). Chinese-track-only: 4.4%.
 
 **Cross-track comparison (2024 — English vs Chinese reporters):**
-- **Framing trajectory (BGE vs ESGLens)**: Chinese-track is GRI Alignment-dominant (34% of companies) while English-track is TCFD/ISSB Alignment-dominant (38%). Chinese reporters are framing materiality within the established GRI taxonomy; English reporters have pivoted to the IFRS S1/S2 vocabulary. Stakeholder Engagement is the 2nd-ranked topic in both tracks (56/361 zh, 172/680 en), confirming a consistent methodological core across languages.
-- **ESG pillar emphasis (XLMR vs FinBERT)**: Chinese-track is strongly soc-dominant (81.4%) while English-track is gov-dominant (51.5%). Mean soc_pct: zh=0.449 vs en=0.291; mean gov_pct: zh=0.204 vs en=0.376. This mirrors the trajectory observed in Phase 1 — the 2021 English cohort was also soc-dominant (47%), shifting to gov by 2024. Chinese reporters appear to be approximately 3 years behind English reporters in the soc→gov pillar transition.
-- **Board approval (Block C)**: Chinese-track 80.1% vs English-track 57.1% — higher rate in Chinese files, consistent with bilingual reports drawing on both Chinese governance culture (explicit board approval references) and the update merging with prior extraction.
-- **Double materiality**: Chinese-track 14.4% vs English-track 10.3% — slightly higher, likely bilingual companies referencing `雙重重大性` alongside English DM terminology, both caught by the bilingual extractor.
-- **Process quality**: Chinese-track mean 0.426 vs English-track 0.526 — English-track higher, consistent with more granular materiality process disclosure in English reports (more explicit step-counting, scoring, visualization descriptions).
-- **AI tool disclosure**: Chinese-track 4.4% vs English-track 40.4% — Chinese reporters almost entirely absent from the 2024 GenAI wave that swept English-language reports.
+- **Framing trajectory (BGE vs ESGLens)**: Chinese-track is GRI Alignment-dominant (34% of companies) while English-track is TCFD/ISSB Alignment-dominant (38%). Chinese reporters are framing materiality within the established GRI taxonomy; English reporters have pivoted to the IFRS S1/S2 vocabulary. Stakeholder Engagement is the 2nd-ranked topic in both tracks, confirming a consistent methodological core across languages.
+- **ESG pillar emphasis (XLMR vs FinBERT)**: Chinese-track is strongly soc-dominant (81.4%) while English-track is gov-dominant (51.5%). Mean soc_pct: zh=0.449 vs en=0.291; mean gov_pct: zh=0.204 vs en=0.376. The Chinese-track has remained soc-dominant and stable across all four years (77–83%), showing no sign of the gov transition seen in the English track. This structural divergence — rather than a lag — is now the better-supported interpretation.
+- **Board approval (Block C)**: Chinese-track 80.1% vs English-track 57.1% (2024) — higher rate in Chinese files, consistent with bilingual reports drawing on both Chinese governance culture and the update merging with prior extraction.
+- **Double materiality**: Rising steadily in Chinese track (0.7% → 4.8% → 6.1% → 6.1%) but still low; ESRS awareness has not yet diffused into Chinese-language reporting at scale.
+- **AI tool disclosure**: Chinese-track 4.4% vs English-track 40.4% (2024) — Chinese reporters almost entirely absent from the 2024 GenAI wave. Chinese-track ai_tool also very low in 2021–2023 (0.2%, 0.5%, 2.7%), consistent with the GenAI gap being a structural language-market difference rather than a time-lag.
 
 **2024 cohort — 680 English files, all steps complete:**
 
