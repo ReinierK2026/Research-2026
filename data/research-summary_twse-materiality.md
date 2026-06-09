@@ -512,9 +512,13 @@ gri_101_applied, gri_new_climate_energy_adopted, ifrs_s1_adopted, issb_s2_adopte
 | 2026-06-09 | coordinator-scripts | 40 | Phase 2 all 3 steps complete for 2023: BGE-M3 (216/216; top GRI Alignment 55, mean_sim=0.651); XLMR (216/216; soc=82.9%); Block C (216 files; mat_found=699/1185, board_approved=453/1185, double_mat=72/1185). TCFD/ISSB Alignment appears in 2023 top-4 BGE topics for first time. (Pass 40) |
 | 2026-06-09 | coordinator-scripts | 41 | Phase 2 all 3 steps complete for 2022: BGE-M3 (225/225; top GRI Alignment 70, mean_sim=0.654); XLMR (225/225; soc=77.8%); Block C (224 files; mat_found=581/980, board_approved=349/980, double_mat=47/980). GRI framing consistent with 2021/2023. (Pass 41) |
 | 2026-06-09 | coordinator-scripts | 42 | Phase 2 all 3 steps complete for 2021: BGE-M3 (172/172; top GRI Alignment 47, mean_sim=0.643); XLMR (172/172; soc=77.3%); Block C (172 files; mat_found=450/822, board_approved=209/822). Phase 2 multilingual track now COMPLETE for all 4 cohorts (974 Chinese/bilingual files total). Key finding: Chinese-track soc-dominance is structurally stable 77–83% across all years — not a lag, a divergence. All audit files, research_log, and research summary updated. (Pass 42) |
+| 2026-06-09 | coordinator-scripts | 43 | Phase 3 Block Variable Population — 2024 cohort: mda_index 1038/1983 (mean=0.618, mode=0.7); gci 902/1983 (mean=0.856, med=0.882); n_material_topics_b 760/1983 (mean=13.4, med=13); topic_depth_score 1040/1983 (mean=0.374; EN=0.231, ZH=0.643). Script: phase3_2024.py. (Pass 43) |
+| 2026-06-09 | coordinator-scripts | 44 | Phase 3 Block Variable Population — 2023 cohort: mda_index 723/1185 (mean=0.609, mode=0.6); gci 542/1185 (mean=0.807, med=0.882); n_material_topics_b 568/1185 (mean=15.3, med=15); topic_depth_score 727/1185 (mean=0.591). Script: phase3_2023.py. (Pass 44) |
+| 2026-06-09 | coordinator-scripts | 45 | Phase 3 Block Variable Population — 2022 cohort: mda_index 608/980 (mean=0.601, mode=0.6); gci 456/980 (mean=0.826, med=0.882); n_material_topics_b 517/980 (mean=15.7, med=15); topic_depth_score 613/980 (mean=0.590). No gri_tables_2022 — summary codes only. Script: phase3_2022.py. (Pass 45) |
+| 2026-06-09 | coordinator-scripts | 46 | Phase 3 Block Variable Population — 2021 cohort: mda_index 470/822 (mean=0.549, mode=0.5); gci 41/822 (mean=0.237 — GRI 2016 cohort, expected); n_material_topics_b 319/822 (mean=15.9, med=16); topic_depth_score 476/822 (mean=0.577). Phase 3 now COMPLETE for all 4 cohorts. All audit files and research_log updated. DB: 192 cols. (Pass 46) |
 
 ---
 
-*Last updated by: research-coordinator | Pass 42 | 2026-06-09*  
-*Covers: Passes 1–42 across 18 sessions (2026-05-18 through 2026-06-09)*  
-*Next coordinator session trigger: OSF pre-registration, or Phase 3 cross-cohort statistical analysis*
+*Last updated by: research-coordinator | Pass 46 | 2026-06-09*  
+*Covers: Passes 1–46 across 22 sessions (2026-05-18 through 2026-06-09)*  
+*Next coordinator session trigger: OSF pre-registration, or DiD analysis scripts (R: att_gt())*
