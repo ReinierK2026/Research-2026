@@ -626,9 +626,10 @@ Phase 1 English Track complete for 2021 cohort. All 16 Block C + 16 NLP columns 
 | # | Step | Owner | Status | Notes |
 |---|---|---|---|---|
 | 0.1 | Text extraction & preprocessing | technical-researcher | ✅ Done | OCR (4 files) + PyMuPDF (488 PDFs) + text-only (3 files). See Entries 2, 4, 5. |
-| 0.2 | Quality audit (Checks A/B/C) | technical-researcher | ✅ Done | 7 hard exclusions (updated 2026-06-08). See Entry 7. |
-| 0.3 | GRI extraction (Standards + G4 pass) | technical-researcher | ✅ Done | 342/488 with codes; G4 pass added; gri_codes_summary_2021.csv. See Entry 6. |
+| 0.2 | Quality audit (Checks A/B/C) | technical-researcher | ✅ Done | 9 hard exclusions (updated 2026-06-09). See Entry 7. |
+| 0.3 | GRI extraction (Standards + G4 pass) | technical-researcher | ✅ Done | 536/790 with codes (expanded); G4 pass added; gri_codes_summary_2021.csv. See Entries 6, 12. |
 | 0.4 | PDF completeness check & macOS duplicate fix | data-analyst | ✅ Done | 6202_2021_E.txt copied from macOS duplicate 2026-06-08. 2 additional hidden partial scans identified. See Entry 9. |
+| 0.5 | Corpus expansion (319 new PDFs) | coordinator-scripts | ✅ Done 2026-06-09 | Scan (319 new PDFs) + PyMuPDF (298 native) + OCR (21 scanned, 2 hard exclusions). Total corpus: 809 files. See Entry 12. |
 
 ---
 
