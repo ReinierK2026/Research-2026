@@ -1842,5 +1842,38 @@
     "output_file": "data/audits/text_extraction_quality_audit_2020.md",
     "variables_added": [],
     "notes": "Quality audit completed for 2020 cohort. Key findings: 432/432 files produced (1 hard exclusion: 3703_2020). Lowest English rate in dataset (0.5% — 2 files). Highest scan rate in dataset (6.5% — 28 files). GRI detection 61.9% (250/404 native); G4 codes in 12 files (375 instances, 3× rate of 2021). 3 non-standard filename anomalies flagged for deduplication. OCR quality ~26% lower char yield vs native text. Five-stage pipeline complete; 2020 corpus ready for NLP analysis. Scripts: ocr_batch_2020.py, pymupdf_batch_2020.py, gri_extract_2020.py."
+  },
+  {
+    "task_id": "2021-corpus-expansion-scan",
+    "date": "2026-06-09",
+    "pass": 50,
+    "agent": "coordinator-scripts",
+    "topic": "2021 cohort corpus expansion — Stage 0 scan (319 new PDFs)",
+    "status": "completed",
+    "output_file": "outputs/scan_2021_new_results.json",
+    "variables_added": [],
+    "notes": "Scanned 319 new PDFs found in twse_esg_reports/2021/ that were absent during original extraction. Result: 298 native (93.4%) + 21 scanned (6.6%). Source folder now contains ~811 PDFs total (was 492). New scanned stems: 1216_2021, 1434_2021, 1709_2021, 1717_2021, 1723_2021, 1907_2021, 2201_2021, 2385_2021, 2439_2021, 2610_2021, 2707_2021, 3006_2021, 3035_2021, 4720_2021, 4766_2021, 5288_2021, 6412_2021, 6472_2021, 8341_2021, 9904_2021, 9930_2021."
+  },
+  {
+    "task_id": "2021-corpus-expansion-extract",
+    "date": "2026-06-09",
+    "pass": 51,
+    "agent": "coordinator-scripts",
+    "topic": "2021 cohort corpus expansion — Stage 1+2: OCR (21 scanned) + PyMuPDF (298 native)",
+    "status": "completed",
+    "output_file": "text-extraction/extracted_text/2021_processed/",
+    "variables_added": [],
+    "notes": "Stage 1 OCR: 21 new scanned PDFs processed with Tesseract LSTM (chi_tra+eng). 19/21 successful; 2 hard exclusions: 2201_2021 (213MB, 0 pages per fitz) and 3035_2021 (92MB, 0 pages per fitz). OCR median chars (non-empty, all 22 in processed): 27,489. Stage 2 PyMuPDF: 298 new native PDFs extracted with coordinate-aware layout correction (sidebar x0<16%, header/footer y-zone, two-column detection, dehyphenation for _E). Native median chars: 143,285. Total 2021_processed files: 809 (was 495). English share: 38% (was 62%) — new batch predominantly Chinese/bilingual."
+  },
+  {
+    "task_id": "2021-corpus-expansion-gri-audit",
+    "date": "2026-06-09",
+    "pass": 52,
+    "agent": "coordinator-scripts",
+    "topic": "2021 cohort expansion — Stage 3 GRI extraction + quality audit update",
+    "status": "completed",
+    "output_file": "data/gri/gri_codes_summary_2021.csv",
+    "variables_added": [],
+    "notes": "GRI extraction applied to all new native PDFs via gri_extract_2021_expand.py. CSV updated from 488 to 790 rows (dedup by stem). With codes: 536/790 (67.8%, vs 70.1% in original — new batch lower). G4 files: 12 (130 instances, was 8/116). Total code instances: 20,018 (was 12,818). Avg codes/file: 37.3. Quality audit updated: 9 hard exclusions (added 2201_2021, 3035_2021), corpus Composition table updated (809 files, 38% English), Processing Log Entry 12 added, Cross-Cohort Comparison updated. Audit file: data/audits/text_extraction_quality_audit_2021.md."
   }
 ]
