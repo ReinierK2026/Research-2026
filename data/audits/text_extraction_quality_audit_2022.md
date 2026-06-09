@@ -625,11 +625,15 @@ Run order: **Step 1.4 first** (sandbox), then **1.3**, then **1.1**, then **1.2*
 
 ---
 
-### Phase 3 — Cross-cohort analysis
+### Phase 3 — Block Variable Population
 
-| Step | Status |
-|---|---|
-| 3.1 NLP parity with 2023/2024 cohorts | ✅ Done 2026-06-08 — all 4 steps complete; 388/389 `_E` files |
+| # | Step | Owner | Status | Notes |
+|---|---|---|---|---|
+| 3.1 | Populate Block C + NLP cols (NLP parity with 2023/2024 cohorts) | data-analyst | ✅ Done 2026-06-08 | All 4 Phase 1 steps complete; 388/389 `_E` files. |
+| 3.2 | Populate `n_material_topics_b` from GRI codes summary | data-analyst | ✅ Done 2026-06-09 | 517/980 filled (>0). Mean=15.7, median=15. No `gri_tables_2022/` directory — sourced from `gri_codes_summary_2022.csv` codes column (unique 3-digit GRI standards). Script: `phase3_2022.py`. |
+| 3.3 | Compute `mda_index` per Padilla-Garrido et al. (2024) | data-analyst | ✅ Done 2026-06-09 | 608/980 filled (>0). Mean=0.601, mode=0.6. 10-item binary index from Block C columns. Script: `phase3_2022.py`. |
+| 3.4 | Compute `topic_depth_score` from NLP semantic similarity | data-analyst | ✅ Done 2026-06-09 | 613/980 filled (>0). Mean=0.590, median=0.598. English ESGLens mean≈0.231; Chinese BGE mean≈0.643 (model calibration gap). Script: `phase3_2022.py`. |
+| 3.5 | Compute `gri_content_index_completeness` from GRI codes | data-analyst | ✅ Done 2026-06-09 | 456/980 filled (>0). Mean=0.826, median=0.882. Denom=34 (Universal 2021). Script: `phase3_2022.py`. |
 
 ---
 
