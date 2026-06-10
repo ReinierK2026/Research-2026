@@ -222,16 +222,17 @@ Before OSF submission, the following must be updated in the hypothesis document:
 
 ## 9. Immediate Action Items (before att_gt)
 
-| Priority | Action | Impact |
-|---|---|---|
-| 🔴 #1 | Set `n_material_topics_b = NA` where value = 0 | Prevents severe downward bias in H1 |
-| 🔴 #2 | Update OSF pre-registration with corrected sample sizes, scale, control group description | Hard blocker for all inferential tests |
-| 🟠 #3 | Decide on 2024 cohort exclusion and document it | Clarifies identification strategy |
-| 🟠 #4 | Download 2021 ESG PDFs for 2022 adoption cohort | Improves pre-treatment coverage for dominant cohort |
-| 🟡 #5 | Correct process_quality_score scale in hypothesis document | Pre-registration accuracy |
-| 🟡 #6 | Add `has_any_assurance` binary as H3 alternative outcome | Better-powered version of H3 |
-| 🟡 #7 | Fill sasb_industry for 32 missing rows | Completes H4 moderator |
-| 🟡 #8 | Investigate semiconductor n discrepancy (49 vs 73) | H5 scope clarification |
+| Priority | Action | Status | Impact |
+|---|---|---|---|
+| ✅ #1 | Set `n_material_topics_b = NA` where value = 0 | **DONE** (Pass 87) | Prevents downward bias in H1 |
+| ✅ #1b | GRI extraction quality refresh (bilingual union, gri_tables retired) | **DONE** (Pass 67) | Coverage: 2,979 non-null vs 2,401 before |
+| 🔴 #2 | Update OSF pre-registration with corrected sample sizes, scale, control group description | **PENDING** | Hard blocker for all inferential tests |
+| 🟠 #3 | Pre-register ATT(g=2022, t=2023) as exploratory (only 3 controls) | **PENDING** | Prevents overclaiming year-+1 effect |
+| 🟠 #4 | Decide on 2024 cohort exclusion and document it | **DONE** (hypothesis doc + exec plan) | Clarifies identification strategy |
+| 🟡 #5 | Correct control group table in pre-registration (treated=442 not 578) | **DONE** (this doc; hypothesis doc updated) | Pre-registration accuracy |
+| 🟡 #6 | Add `has_any_assurance` binary as H3 alternative outcome | **DONE** (hypothesis doc) | Better-powered version of H3 |
+| 🟡 #7 | Fill sasb_industry for 32 missing rows | PENDING | Completes H4 moderator |
+| 🟡 #8 | Semiconductor n = 49 (not 73) confirmed | **DONE** (hypothesis doc updated) | H5 scope correct |
 
 ---
 
