@@ -2033,5 +2033,13 @@
     "topic_slug": "2022-expansion-gri-quality-audit",
     "status": "completed",
     "notes": "2022 cohort corpus expansion — Stage 3: GRI extraction + Stage 4: quality audit update. gri_extract_2022_expand.py: 3 passes; loaded existing 609-row CSV, added 375 new rows. GRI CSV final: 984 rows, 873/984 with codes (88.7%), 67.8 avg codes/file, 59,167 total instances, 3 G4 files (14 instances). Check A (cpp floors) on 392 new files: 11 flagged (2.8%), 2 genuine near-empty hard exclusions: 3413_2022 (196 chars, 1p) and 2832_2022 (281 chars, 1p). OCR hard exclusion: 1219_2022 (48 cpp). 11 corrupt 0-page PDFs hard-excluded. Total hard exclusions: 23. Audit updated: text_extraction_quality_audit_2022.md — header, exec summary, corpus table, Issue 7, Files Requiring Attention, Phase 0, Processing Log Entry 10, footer."
+  },
+  {
+    "session_date": "2026-06-10",
+    "pass": 65,
+    "agent": "technical-researcher",
+    "topic_slug": "2022-expansion-batch2-recheck",
+    "status": "completed",
+    "notes": "2022 re-check found 9 additional unextracted PDFs (6 native, 2 scanned, 1 corrupt). Native PyMuPDF: 1457_2022 (77,468 chars), 1466_2022 (42,644), 1525_2022 (22,393), 3645_2022 (43,234), 3669_2022 (60,417), 6668_2022 (23,801). OCR chi_tra+eng: 1467_2022 (43,700 chars, 65p), 1526_2022 (45,099 chars, 63p). Corrupt 0-page: 2013_2022 (skipped). GRI: 5 of 6 native files detected (1466 no index found). Final corpus: 1023 .txt files (399 _E / 39.0%, 624 Chinese / 61.0%). GRI CSV: 992 rows, 878/992 (88.5%). Audit updated (Entry 10 batch 2 note, header corrected to 1023 files)."
   }
 ]
