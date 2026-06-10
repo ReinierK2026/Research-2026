@@ -78,31 +78,115 @@
 ~~**Phase 3 — Block variable population** — ✅ COMPLETE (Blocks C, D, G all 4 cohorts, June 2026)~~
 
 **Phase 3b — Pre-analysis data finalisation (current priority)**
-1. ~~Source `board_esg_committee`~~ — **resolved**: primary specification uses `board_approved` (Block C, fully extracted) as substitute. Document substitution in OSF pre-registration. Optionally source `board_esg_committee` from TEJ for a robustness column.
-2. Complete TEJ export for `ln_total_assets` / `roa` 2022–2024 gap (~36% missing)
-3. Finalise Stage 3 manual concordance (~60–80 unmatched GRI topic labels; two-coder κ ≥ 0.80)
-4. Derive `impact_intensity` binary (H4 moderator): `high_impact_industry = 1` if `sasb_industry ∈ {Resource, Infrastructure, Transportation, Minerals, Food}` — pre-specify and lock before regression
+1. ~~Source `board_esg_committee`~~ — **resolved**: `board_approved` (Block C) is the primary control.
+2. **Set `n_material_topics_b` zeros → NA** — identify ~882 unprocessed rows (zero values) and replace with NA before any estimation.
+3. **Exclude 2024 cohort** from treatment and control pool in all H1–H4 CS21 runs — document exclusion.
+4. Re-merge TEJ 2016–2020 financial data for Stream B parallel trends validation (financials only; no NLP outcome variables for pre-2021 rows).
+5. Finalise Stage 3 manual concordance (~60–80 unmatched GRI topic labels; two-coder κ ≥ 0.80).
+6. Derive and lock `impact_intensity` binary before regression: `high_impact = 1` if `sasb_industry ∈ {Resource, Infrastructure, Transportation, Minerals, Food}`; `= 0` if `∈ {Technology, Services, HealthCare, Financials}`; Consumer + RenewableEnergy = sensitivity check.
+7. Tag `language_track` column: bilingual / zh_only / en_only — required for Stream F NLP stratification.
 
-**Phase 4 — Pre-registration (hard blocker)**
-- Pre-register H1–H5 on OSF (single registration covering both tiers, noting different populations)
-- Lock `impact_intensity` derivation rule and estimation window (2021–2024) in the pre-registration
+**Phase 4 — Pre-registration (hard blocker — all six streams)**
+- Pre-register H1–H5 + NLP supplementary stream on OSF using `hypotheses/hypothesis-generation_did-hypotheses_2026-06-10.md`
+- Lock: `idname = "twse_ticker"`, 2024 cohort exclusion, `impact_intensity` derivation, `process_quality_score` scale (0–1), H3 exploratory classification, NLP language-track stratification protocol, ESGLens exclusion
 - No inferential tests may be run until OSF registration is confirmed
 
-**Phase 5 — Statistical analysis: Tier 1 (full TWSE universe, H1–H4)**
-1. Run Goodman-Bacon decomposition to assess TWFE bias across adoption cohorts
-2. Primary: CS21 staggered DiD (`att_gt()`, doubly-robust, not-yet-treated control) for H1–H3
-   - `yname = "n_material_topics_b"` (H1), `"process_quality_score"` (H2), `"assurance_level"` (H3)
-   - Population: ~1,200 treated TWSE companies; adoption cohorts 2021–2024; panel window 2021–2024
-3. H4 heterogeneity: Subsample CS21 for High vs Low `impact_intensity`; triple-diff ATT(Low) − ATT(High) with bootstrapped SE
-4. Robustness: SA21 (Sun & Abraham) and BJS24 (Borusyak et al.) estimators; TWFE with firm + year FE
-5. Pre-trend sensitivity: Event-study plots; Rambachan-Roth sensitivity analysis (HonestDiD)
-6. Topic composition (supplementary): ILR transform + SUR for E/S/G proportion shifts
+**Phase 5 — Statistical analysis: Six parallel streams**
+
+**Stream A — Primary DiD (H1–H4)**
+```r
+# Data prep
+db <- db |> mutate(n_material_topics_b = if_else(n_material_topics_b == 0, NA_real_, n_material_topics_b))
+db <- db |> filter(gri_adoption_year != 2024)  # exclude 2024 cohort
+
+# H1: Displacement effect
+out_h1 <- att_gt(
+  yname       = "n_material_topics_b",
+  tname       = "fiscal_year",
+  idname      = "twse_ticker",          # NOT company_id
+  gname       = "gri_adoption_year",
+  control_group = "notyettreated",
+  xformla     = ~ ln_total_assets + roa + standalone_sr,  # board_approved excluded when base=2020
+  data        = db,
+  est_method  = "dr"
+)
+aggte(out_h1, type = "dynamic")  # event-study aggregation
+
+# H2: Process quality (scale 0-1; expected ATT = +0.05 to +0.15)
+out_h2 <- att_gt(yname="process_quality_score", ..., xformla=~ln_total_assets+roa+board_approved+standalone_sr)
+
+# H4: Heterogeneity by impact_intensity
+db_low  <- db |> filter(impact_intensity == "Low")
+db_high <- db |> filter(impact_intensity == "High")
+out_h4_low  <- att_gt(yname="n_material_topics_b", data=db_low,  ...)
+out_h4_high <- att_gt(yname="n_material_topics_b", data=db_high, ...)
+# Triple-diff if subsample CS21 converges; TWFE interaction as fallback
+```
+
+**Stream B — Parallel trends validation**
+```r
+# Propensity score: does adoption year predict observable pre-treatment firm characteristics?
+ps_model <- glm(early_adopter_2022 ~ ln_total_assets + roa + sasb_industry + standalone_sr,
+                data = db_2021_baseline, family = binomial)
+# If AUC > 0.70: adoption timing is predicted by observables → weight CS21 estimator
+# Covariate event-study on financials (2016-2020 TEJ data) to validate parallel trends
+```
+
+**Stream C — Cross-sectional intensity (2024 snapshot)**
+```r
+db_2024 <- db |> filter(fiscal_year == 2024) |>
+  mutate(years_since_adoption = 2024 - gri_adoption_year)
+
+# OLS
+lm_c1 <- feols(process_quality_score ~ years_since_adoption + ln_total_assets + roa +
+               sasb_industry + standalone_sr, data = db_2024, vcov = "hetero")
+# Poisson for n_material_topics_b
+glm_c2 <- fepois(n_material_topics_b ~ years_since_adoption + controls, data = db_2024)
+```
+
+**Stream D — H3 assurance (exploratory logistic)**
+```r
+db_2024 <- db_2024 |>
+  mutate(has_any_assurance = if_else(assurance_level %in% c("Limited","Reasonable"), 1L, 0L),
+         has_reasonable    = if_else(assurance_level == "Reasonable", 1L, 0L))
+
+logit_d1 <- glm(has_any_assurance ~ years_since_adoption + ln_total_assets + roa +
+                sasb_industry + standalone_sr, data = db_2024, family = binomial)
+# Marginal effects at mean; no causal interpretation
+```
+
+**Stream E — Post-adoption within-company dynamics (2022 cohort)**
+```r
+db_2022_cohort_post <- db |>
+  filter(gri_adoption_year == 2022, fiscal_year >= 2022) |>
+  mutate(years_post = fiscal_year - 2022)
+
+# Learning curve: does quality improve in years 2 and 3 post-adoption?
+fe_e1 <- feols(process_quality_score ~ years_post | twse_ticker, data = db_2022_cohort_post)
+fe_e2 <- feols(n_material_topics_b  ~ years_post | twse_ticker, data = db_2022_cohort_post)
+```
+
+**Stream F — NLP content depth (stratified by language track)**
+```r
+# EN track (bilingual companies only)
+db_en <- db |> filter(language_track == "bilingual")
+out_nlp_en <- att_gt(yname="finbert_gov_density", tname="fiscal_year", idname="twse_ticker",
+                     gname="gri_adoption_year", control_group="notyettreated",
+                     xformla=~ln_total_assets+roa+standalone_sr, data=db_en)
+
+# ZH track (ZH-only companies only)
+db_zh <- db |> filter(language_track == "zh_only")
+out_nlp_zh <- att_gt(yname="bge_gov_density", ..., data=db_zh)
+
+# NB: ESGLens excluded. Do NOT pool EN and ZH NLP results across models.
+# Cross-model GOV correlation on bilingual docs = -0.017 — models are not interchangeable.
+```
 
 **Phase 6 — Statistical analysis: Tier 2 (semiconductor sub-cohort, H5)**
-1. Narrow to 73-company TWSE semiconductor sub-cohort (`semiconductor_cat = 1`)
-2. Source TSMC tier-1 proximity data: TSMC Supplier Sustainability Reports 2022–2024 + Hsinchu Science Park registry (~1–2 days manual)
-3. Interaction-weighted CS21: ATT for TSMC-proximate vs non-proximate adoption cohorts
-4. Outcome variables: `gri_adoption_year` (earlier adoption), `process_quality_score` (higher quality), `dm_methodology_disclosed` (binary)
+1. Narrow to **49** TWSE semiconductor companies (`semiconductor_cat = 1`) — **not 73**
+2. Source TSMC tier-1 proximity data: TSMC Supplier Sustainability Reports 2022–2024 + HSP registry (~1–2 days manual)
+3. OLS on 2024 snapshot with proximity indicator as main predictor (primary); CS21 interaction if variation sufficient
+4. Outcome variables: `gri_adoption_year` (earlier adoption), `process_quality_score` (0–1 scale)
 
 ---
 
