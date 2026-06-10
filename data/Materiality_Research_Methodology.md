@@ -5,7 +5,10 @@
 ---
 
 ## ── RESEARCH STATUS DASHBOARD ──
-*As of June 9, 2026 — snapshot of pipeline completion, open gaps, and next actions*
+*As of June 10, 2026 — snapshot of pipeline completion, open gaps, and next actions*
+
+> **⚠️ Design revision — June 10, 2026:** DB quality assessment revealed the analysis universe is PDF-processed TWSE GRI reporters only (1,036 companies; 0 never-treated). Identification strategy revised to **timing-based DiD** (2022 cohort vs 2023 not-yet-treated). Six analysis streams formalised. H3 reclassified as exploratory. NLP integrated as pre-registered supplementary stream. See `hypotheses/hypothesis-generation_did-hypotheses_2026-06-10.md` for full updated specification.
+
 
 ---
 
