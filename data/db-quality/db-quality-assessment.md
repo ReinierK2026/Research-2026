@@ -270,6 +270,9 @@ Before OSF submission, the following must be updated in the hypothesis document:
 | 🟡 #6 | Add `has_any_assurance` binary as H3 alternative outcome | **DONE** (hypothesis doc) | Better-powered version of H3 |
 | 🟡 #7 | Fill sasb_industry for 32 missing rows | PENDING | Completes H4 moderator |
 | 🟡 #8 | Semiconductor n = 49 (not 73) confirmed | **DONE** (hypothesis doc updated) | H5 scope correct |
+| 🟠 #9 | Resolve `n_material_topics_a` = `n_material_topics_b` redundancy — drop `_a` or document distinction | **PENDING** | Prevents wrong-column regression in att_gt() |
+| 🟡 #10 | Exclude `board_esg_committee` from all analyses — 0% coverage (empty column) | **PENDING** | Prevents silent model failures |
+| 🟡 #11 | Remove `independent_director_ratio` from all covariate specifications — 0% coverage 2022–2024 | **PENDING** | Hard blocker if included in model |
 
 ---
 
