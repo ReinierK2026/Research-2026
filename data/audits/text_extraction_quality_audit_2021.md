@@ -886,6 +886,130 @@ Three compounding factors: (1) 37 tickers whose results were written to JSONL bu
 
 ---
 
+### Entry 15 — Block C Supplement + Language Fix + XLMR Gap Reclassification (2026-06-10)
+**Date:** 2026-06-10  
+**Scope:** 14 supplement-track tickers missing Block C; 11 tickers missing `report_language`; DB row count reconciliation; XLMR 13-ticker gap reclassification
+
+**Background:** Full coverage audit of all 2021 NLP columns against the DB (491 rows, restructured from legacy 822-row layout). Discovered that Block C was blank for 14 supplement-track tickers despite processable text files being present — the original Block C script (`phase2_block_c_chinese_2021.py`, progress JSON with 172 done) never ran on supplement tickers, and only 4 of the 14 had been identified in Entry 14. Also discovered 11 supplement tickers had `report_language` blank (Phase 0.8 supplement language detection was not run for them).
+
+**DB row count note:** The 2021 DB was restructured from 822 rows (legacy, included pre-2020) to **491 rows** (current: FY2021 only). All coverage fractions cited in this and prior entries use the effective DB at time of writing. Entry 14's "/822" references reflect the legacy count; the same physical rows in the current DB are reported as "/491".
+
+**Action 1 — Block C for 14 supplement-track tickers (sandbox, `block_c_gap_fix.py` + `block_c_gap10_fix.py`):**
+
+First pass (4 tickers identified in Entry 14 investigation): 2329, 2441, 2449, 6770.  
+Second pass (10 additional tickers found during full audit): 1536, 2012, 2023, 2102, 2206, 2345, 2707, 6189, 6768, 8112.
+
+All 14 tickers processed inline using the same regex logic as `phase2_block_c_chinese_2021.py`. Results:
+
+| Ticker | mat_section_found | process_quality_score | notes |
+|--------|-------------------|----------------------|-------|
+| 2329   | 1 | 0.3350 | dm_methodology, 12 stakeholder groups |
+| 2441   | 1 | 0.5938 | board_approved, 9 steps, 5 engagement methods |
+| 2449   | 1 | 0.1562 | minimal process description |
+| 6770   | 1 | 0.4500 | dm_methodology, 10 groups |
+| 1536   | 1 | 0.4500 | 9 groups, 5 engagement methods, 7 steps |
+| 2012   | 1 | 0.5000 | 9 groups, 4 engagement methods |
+| 2023   | 1 | 0.6250 | 8 groups, 3 engagement methods, 6 steps |
+| 2102   | 0 | 0.0000 | no materiality heading found |
+| 2206   | 1 | 0.4300 | 11 groups, 2 methods, 4 steps |
+| 2345   | 1 | 0.4800 | 8 groups, 6 methods, 4 steps |
+| 2707   | 0 | 0.0000 | no materiality heading found (25 KB, fragmented) |
+| 6189   | 1 | 0.3375 | 6 groups, 1 method, 5 steps |
+| 6768   | 1 | 0.6750 | 8 groups, 3 methods, 6 steps |
+| 8112   | 1 | 0.4100 | 10 groups, 4 methods, 3 steps |
+
+**Post-fix Block C coverage (491 DB rows):**
+
+| Column | nonblank | mat=1 | mat=0 |
+|--------|----------|-------|-------|
+| mat_section_found | **491/491** | 462 | 29 |
+| board_approved | 490/491 | 213 | — |
+| double_materiality_mentioned | 490/491 | 6 | — |
+| scoring_method_disclosed | 490/491 | 16 | — |
+| dm_methodology_disclosed | 402/491 | 401 | — |
+| process_quality_score | **491/491** | — | — |
+
+**Action 2 — `report_language='zh'` for 11 blank-language supplement tickers:**
+
+Tickers: 1536, 2012, 2023, 2102, 2206, 2329, 2345, 2707, 6189, 6768, 8112. All confirmed to have zh-only files (no `_E` counterpart) and were classified as Chinese-track by BGE/XLMR. Language distribution after fix: **183 zh + 308 en = 491/491** (no blanks).
+
+**Action 3 — XLMR 13-ticker gap reclassification:**
+
+Previous (Entry 14): "structural gap — no parseable sentences ≥15 chars in materiality window".  
+Corrected: Sandbox verification ran the exact `split_sentences()` + `find_materiality_window()` logic from the supplement script on each ticker's zh file. Results:
+
+| Ticker | Sentences found | Window type |
+|--------|-----------------|-------------|
+| 1605   | 11 | heading found |
+| 1609   | 62 | heading found |
+| 1702   | 1  | fallback (400 lines) |
+| 1707   | 45 | heading found |
+| 1709   | 4  | fallback |
+| 1710   | 38 | heading found |
+| 1711   | 53 | heading found |
+| 1712   | 75 | heading found |
+| 1717   | 4  | fallback |
+| 1722   | 45 | heading found |
+| 1723   | 9  | fallback |
+| 1735   | 37 | heading found |
+| 1762   | 52 | heading found |
+
+All 13 DO produce sentences. The supplement script skipped them because they were already in the `done` set in `phase2_step2_2_xlmr_2021_progress.json` (populated during the original 172-ticker XLMR run). At that time, these 13 may have had different file content or the model may have silently failed (OOM masked by bare `continue`), causing them to be marked done with no XLMR output.
+
+**Local re-run instructions for XLMR 13 tickers:**
+
+```python
+# Step 1: Remove 13 tickers from done set in progress JSON
+import json
+from pathlib import Path
+
+PROGRESS = Path("scripts/phase2_nlp_local/phase2_step2_2_xlmr_2021_progress.json")
+REMOVE   = {"1605","1609","1702","1707","1709","1710","1711","1712","1717","1722","1723","1735","1762"}
+
+data = json.loads(PROGRESS.read_text())
+old_done = set(data["done"])
+new_done = old_done - REMOVE
+print(f"Removing {len(old_done - new_done)} tickers from done: {sorted(old_done - new_done)}")
+print(f"New done count: {len(new_done)} (was {len(old_done)})")
+PROGRESS.write_text(json.dumps({"done": list(new_done)}))
+```
+
+```bash
+# Step 2: Re-run the supplement script (will now pick up the 13 tickers)
+cd scripts/phase2_nlp_local
+python3 phase2_step2_2_xlmr_2021_cn_supplement.py
+```
+
+Expected outcome: XLMR coverage improves from 473/491 → up to 486/491 (13 filled + 5 hard exclusions remain).
+
+**New finding — 6770 missing Phase 1 English NLP:**
+
+Ticker 6770 has `report_language='en'` and a 257 KB English file but is missing `finbert_dominant_factor`, `climatebert_climate_pct`, and `esglens_top1_topic`. This is the only en-track 2021 ticker missing Phase 1 NLP (308 en rows; 307 filled). 6770 likely entered the English NLP pipeline as an edge case (bilingual company with `_M_E` suffix file) and was missed by the glob pattern.
+
+**Local fix instructions for 6770 Phase 1 English NLP:**
+```bash
+cd scripts/phase1_nlp_local
+python3 phase1_step1_3_eslens_2021.py    # ESGLens — run first
+python3 phase1_step1_1_finbert_2021.py   # FinBERT
+python3 phase1_step1_2_climatebert_2021.py  # ClimateBERT
+```
+These scripts are resumable via progress JSONs; 6770 will be processed as the one missing ticker.
+
+**Updated 2021 full NLP coverage summary (491 DB rows):**
+
+| Track | Metric | Coverage | Notes |
+|-------|--------|----------|-------|
+| All | report_language | 491/491 | 183 zh · 308 en |
+| All | Block C (mat_section_found nonblank) | **491/491** | 462 mat=1 · 29 mat=0 |
+| EN (308 rows) | Phase 1 FinBERT | 307/308 | 6770 pending local run |
+| EN (308 rows) | Phase 1 ClimateBERT | 307/308 | 6770 pending local run |
+| EN (308 rows) | Phase 1 ESGLens | 307/308 | 6770 pending local run |
+| CN (183 rows) | Phase 2 BGE | 183/183 | (all 5 exclusions are en-track or no file) |
+| All | BGE total | **486/491** | 5 hard excl.: 2103 stub, 2201 zero-byte, 2327 en-only, 3035 zero-byte, 3669 corrupt |
+| All | XLMR total | **473/491** | 5 hard excl. same; 13 processing-error gap → pending local re-run |
+
+---
+
 *Scripts: `scan_2021.py`, `ocr_batch_2021.py`, `pymupdf_batch_2021.py`, `gri_extract_2021.py`, `check_extraction_quality_2021.py`, `scan_2021_new.py`, `pymupdf_batch_2021_expand.py`, `ocr_batch_2021_expand.py`, `gri_extract_2021_expand.py`, `phase0_local/phase0_2021_cn_supplement.py`, `phase2_nlp_local/phase2_step2_1_bge_2021_cn_supplement.py`, `phase2_nlp_local/phase2_step2_2_xlmr_2021_cn_supplement.py`, `phase3_local/phase3_2021_cn_supplement.py`*  
 *Output data: `gri_codes_summary_2021.csv` (790 rows), `extraction_quality_check_2021.csv`, `data/audits/lang_detection_2021_cn_supplement.csv` (314 rows), `data/audits/lang_detection_2021_cn_original.csv` (172 rows)*  
 *Processed corpus: `text-extraction/extracted_text/2021_processed/` (809 files — expanded 2026-06-09)*  
