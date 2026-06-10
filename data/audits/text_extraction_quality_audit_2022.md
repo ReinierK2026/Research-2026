@@ -633,9 +633,10 @@ These are likely reports that: (a) embed their GRI index as a scanned image rath
 
 | Step | Status | Notes |
 |---|---|---|
-| Text extraction & preprocessing | ✅ Done | PyMuPDF + OCR; 623 files in `2022_processed/` |
-| Quality audit | ✅ Done | Checks A/B/C; corpus fit for NLP |
-| GRI extraction | ✅ Done | 535/609 with codes; `gri_codes_summary_2022.csv` |
+| Text extraction & preprocessing (original) | ✅ Done | PyMuPDF + OCR; 623 files in `2022_processed/` |
+| Quality audit (original) | ✅ Done | Checks A/B/C; corpus fit for NLP |
+| GRI extraction (original) | ✅ Done | 535/609 with codes; `gri_codes_summary_2022.csv` |
+| 0.5 Corpus expansion (2026-06-10) | ✅ Done | +392 files (378 PyMuPDF + 14 OCR); 11 corrupt excluded; total 1,015; GRI updated (873/984, 88.7%) |
 
 ---
 
