@@ -28,7 +28,7 @@ Staggered Difference-in-Differences (DiD) using the Callaway-Sant'Anna (2021) es
 - **Potential analytical subsample**: 73-company industry subset (507 company-years, 2016–2024), available for focused subgroup analysis if an industry lens is selected at the analysis stage. If activated, this subsample can be further categorised by company type (~28 Fabless, ~21 Foundry/OSAT, ~24 IDM).
 
 ### Database
-`twse-research-database.csv` — **192 columns** × 7,765 data rows (+ 2 header rows: block labels + column names). UTF-8 BOM. Block-label header pattern: Row 1 = block labels (A/B/C/D/F/G), Row 2 = column names, Row 3+ = data. Column count history: 157 (original TEJ/GRI) → 175 (+ 18 NLP, Pass 32–37) → 188 (+ 13 Phase 2 multilingual NLP, Pass 38–42) → 192 (+ 4 Phase 3 Block vars, Pass 43–46).
+`twse-research-database.csv` — **190 columns** × 7,765 data rows (+ 2 header rows: block labels + column names). UTF-8 BOM. Block-label header pattern: Row 1 = block labels (A/B/C/D/F/G), Row 2 = column names, Row 3+ = data. Column count history: 157 (original TEJ/GRI) → 175 (+ 18 NLP, Pass 32–37) → 188 (+ 13 Phase 2 multilingual NLP, Pass 38–42) → 190 (+ 2 Phase 3 Block vars confirmed, Pass 43–46; confirmed 190 by direct header count).
 
 ### Cohort Reconciliation (all years, Pass 29 — 2026-06-08)
 
