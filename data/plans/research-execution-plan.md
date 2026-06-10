@@ -121,7 +121,9 @@ db_did <- db |> filter(gri_adoption_year != 2024 | is.na(gri_adoption_year))
 db_did <- db |> filter(!(gri_adoption_year == 2024))
 ```
 
-**Rationale:** Only 6/307 companies in the 2024 cohort have pre-2024 observations — they contribute neither as treated units (no pre-treatment baseline) nor as meaningful controls (barely appear in pre-treatment years).
+**Rationale:** Only 6/307 companies in the 2024 cohort have ≥1 pre-2024 observation (confirmed against DB 2026-06-10). The remaining 301 entered the panel only at adoption — they contribute neither as valid treated units (no pre-treatment baseline) nor as meaningful controls (barely appear in pre-treatment years; only 3 of the 307 have a 2023 observation, and only 4 have a 2022 observation).
+
+> **⚠️ Year +1 control thinness (Pass 89/90 audit):** Even with g=2024 excluded from the treatment pool, these 3–4 g=2024 companies with pre-2024 obs still form the ENTIRE control pool for ATT(g=2022, t=2023) and ATT(g=2023, t=2023). Flag these year-+1 estimates as exploratory in OSF pre-registration (n_controls=3).
 
 **Assign to:** data-analyst  
 **Blocks:** Streams A, F  
