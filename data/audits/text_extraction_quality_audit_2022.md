@@ -26,13 +26,15 @@ Quality verification confirms the processed corpus is fit for NLP use with three
 
 ## Corpus Composition Change: 2021 → 2022
 
-| | 2021 | 2022 | Change |
-|---|---|---|---|
-| Total processed files | 495 | 623 (deduplicated) | +26% |
-| English `_E` files | 307 (62%) | 389 (62.4%) | +0.4 pp |
-| Chinese-only files | 188 (38%) | 234 (37.6%) | −0.4 pp |
+| | 2021 (original) | 2021 (expanded) | 2022 (original) | 2022 (expanded) |
+|---|---|---|---|---|
+| Total processed files | 495 | 809 | 623 (dedup'd) | 1,015 (no dedup) |
+| English `_E` files | 307 (62%) | 307 (38%) | 389 (62.4%) | 399 (39.3%) |
+| Chinese-only files | 188 (38%) | 502 (62%) | 234 (37.6%) | 616 (60.7%) |
 
-**Deduplication note (2026-05-26):** The pre-deduplication corpus had 877 files for 621 unique companies — 255 companies held both a Chinese `.txt` and an English `_E.txt`. The 256 Chinese duplicates were removed, retaining the English version in every case. The current corpus has one file per company: English preferred, Chinese-only where no English version existed. The 62.4% English rate now matches the raw PDF rate (388/620 = 62.6%) at the file level.
+**Deduplication note (2026-05-26):** The pre-deduplication corpus had 877 files for 621 unique companies — 255 companies held both a Chinese `.txt` and an English `_E.txt`. The 256 Chinese duplicates were removed, retaining the English version in every case. The 62.4% English rate matched the raw PDF rate (388/620 = 62.6%) at the file level.
+
+**Expansion note (2026-06-10):** The 392 newly extracted files were added without deduplication. Of these, 382 are Chinese-language reports for companies that already have an English `_E.txt` in the corpus. The combined 1,015-file corpus therefore contains many company-year pairs with both Chinese and English entries. Apply `_E`-preferred deduplication before any company-level NLP analysis to restore the one-file-per-company constraint.
 
 ---
 
