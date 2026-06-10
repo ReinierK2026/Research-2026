@@ -65,18 +65,24 @@ The not-yet-treated control pool in CS21 consists of companies that have not yet
 
 Only 6 of the 307 late-adopter "control" companies appear in any pre-2024 year. The remaining 301 entered the panel only at adoption — they are first-observed reporters with no pre-treatment history.
 
-**What CS21 actually uses as controls for each cell:**
+**What CS21 actually uses as controls for each cell** (verified against DB 2026-06-10):
 
-| ATT cell | Treated | Control (notyettreated) |
-|---|---|---|
-| g=2022, t=2021 (pre-trend t−1) | 438 | **43** |
-| g=2022, t=2020 (pre-trend t−2) | 381 | **37** |
-| g=2022, t=2022 (treatment year) | 578 | **44** |
-| g=2023, t=2022 (pre-trend t−1) | 40 | **4** |
+| ATT cell | Treated (estimable, with t obs) | Control (gay>t, with base+t obs) | Control breakdown |
+|---|---|---|---|
+| g=2022, t=2020 (pre-trend t−2) | 381 | **37** | g2023:34 + g2024:3 |
+| g=2022, t=2021 (pre-trend t−1) | 438 | **43** | g2023:37 + g2024:6 |
+| g=2022, t=2022 (treatment year) | **442** ~~578~~ | **44** | g2023:40 + g2024:4 |
+| g=2022, t=2023 (year +1) | 431 | **⚠️ 3** | g2024:3 only |
+| g=2023, t=2022 (pre-trend t−1) | 39 | **4** | g2024:4 |
+| g=2023, t=2023 (treatment year) | 41 | **⚠️ 3** | g2024:3 only |
 
-The effective study is therefore a comparison of **2022 cohort adopters vs 2023 cohort adopters** (companies adopting GRI 3 in 2022 versus those who waited until 2023). This is a valid but narrower identification than the pre-registration describes. The 2023 cohort is barely estimable (4 controls for its pre-trend test).
+> **Correction (2026-06-10):** The prior `treated=578` for g=2022, t=2022 was wrong — it counted all 593 g=2022 companies minus those without a 2022 DB row (~15 corpus-gap companies). The correct count is **442** estimable companies (those with ≥1 pre-treatment observation), which is what att_gt() actually uses. The 578 figure included non-estimable companies with no pre-treatment baseline.
 
-**Recommendation:** Drop the 2024 cohort from H1–H4 analyses entirely. They function neither as valid treated units (no pre-treatment data) nor as meaningful controls (barely appear before 2024). The pre-registration should be updated to reflect this.
+> **⚠️ Critical gap — year +1 effect:** ATT(g=2022, t=2023) has only **3 effective controls** (the 3 g=2024 companies with 2023 observations). This makes the year-after-adoption effect barely estimable. The primary identified ATT cell is **g=2022, t=2022** (the treatment-year effect). Pre-registration should flag t=2023 estimates as exploratory given the 3-company control pool.
+
+The effective study is therefore a comparison of **2022 cohort adopters vs 2023 cohort adopters** at the treatment year (t=2022), with a very thin year-+1 estimate. This is a valid but narrower identification than initially described.
+
+**Recommendation:** Drop the 2024 cohort from H1–H4 analyses entirely. Flag ATT(g=2022, t=2023) as exploratory (3 controls). The primary causal estimate is ATT(g=2022, t=2022) with n=44 controls.
 
 ---
 
