@@ -389,7 +389,7 @@ Structural result — identical to 2021 cohort (median 0.772; 46.8% below 0.75).
 | `word_count_total` | 426 / 655 | wc > 0; 3703 correctly = 0 (0-byte); 228 blank (no file) |
 | `page_count` | 426 / 655 | pg > 0; same pattern |
 | `report_language` | 427 / 655 | All 'zh' — no exclusively-English filers in 2020; 228 blank |
-| `n_material_topics_a` | 400 / 655 | 400 matched from 404-row summary; 227 with value > 0 |
+| `n_material_topics_a` | 403 / 655 | 400 matched from 404-row summary (2026-06-09) + 3 via GRI text-pattern fallback (2026-06-10); 227 with value > 0 |
 
 **Language detection (lang_detection_2020.csv):**
 
