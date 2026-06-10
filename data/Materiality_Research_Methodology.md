@@ -251,11 +251,24 @@ This guide addresses the five methodology questions for building a publishable a
 
 **Two-Tier Study Design:**
 
-**Tier 1 — Full TWSE Universe (H1–H4):** Staggered DiD (Callaway-Sant'Anna 2021) on the full TWSE reporting population (~1,200 treated companies; adoption cohorts 2021–2024; panel window 2021–2024). Estimates the causal effect of GRI 3 adoption on material topic count (`n_material_topics_b` — H1), process quality (`process_quality_score` — H2), assurance level (`assurance_level` — H3), and heterogeneous displacement effects by industry physical-footprint intensity (`impact_intensity` derived from `sasb_industry` — H4). No restriction to any industry sub-group at this tier.
+**Identification strategy (revised June 10, 2026):** The valid analysis universe is PDF-processed TWSE GRI reporters (1,036 companies). All companies adopted GRI 3 between 2021–2024 — there are no never-treated companies. The study uses **timing-based identification**: earlier adopters (2022 cohort, 445 estimable companies) vs later adopters (2023 cohort, ~43 not-yet-treated controls). The parallel trends assumption is: absent GRI 3, the 2022 and 2023 cohorts would have had similar disclosure trajectories (plausible — both groups faced the same FSC regulatory environment; timing variation likely reflects administrative capacity, not pre-existing quality).
 
-**Tier 2 — Semiconductor Industry Deep Dive (H5):** Narrows to 73 TWSE semiconductor companies (`semiconductor_cat = 1`; 507 company-years 2016–2024). Tests whether TSMC's TDDM framework diffuses to peer companies via supply chain isomorphism. Provides a mechanistic complement to Tier 1: H1–H4 document *what* GRI 3 does across TWSE; H5 explains *why* the effect may be amplified within a tightly-coupled industry.
+**Six parallel analysis streams:**
 
-The two tiers are complementary, not competing. See `hypotheses/hypothesis-generation_did-hypotheses_2026-05-22.md` for the full pre-registration plan.
+| Stream | Type | Primary use |
+|---|---|---|
+| A | CS21 DiD (timing-based) | H1–H4 causal estimation |
+| B | Pre-treatment covariate validation | Parallel trends + propensity scores |
+| C | Cross-sectional OLS / Poisson | Years-since-adoption intensity effects (2024 snapshot) |
+| D | Logistic regression | H3 assurance (exploratory) |
+| E | Panel OLS with company FE | Post-adoption within-company learning curve (2022 cohort) |
+| F | CS21 stratified by language track | NLP supplementary outcomes (FinBERT/BGE-M3 ESG density) |
+
+**Tier 1 — Full estimable panel (H1–H4, Streams A–D, F):** 495 companies with ≥1 pre- and ≥1 post-treatment observation; **2024 cohort excluded** (only 6/307 have pre-2024 data). Primary comparison: 2022 adoption cohort (445 treated) vs 2023 not-yet-treated controls (~43 companies).
+
+**Tier 2 — Semiconductor deep dive (H5):** **49** TWSE semiconductor companies (`semiconductor_cat = 1`). TSMC proximity indicator required (external data — blocked).
+
+See `hypotheses/hypothesis-generation_did-hypotheses_2026-06-10.md` for complete pre-registration specification.
 
 ---
 
