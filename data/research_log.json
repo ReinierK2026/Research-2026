@@ -2340,5 +2340,49 @@
       "reports/cohort-audit_2021-2023.md",
       "findings/academic-researcher_did-alternatives_2026-06-10.md"
     ]
+  },
+  {
+    "task_id": "pass-92-D2-language-track",
+    "date": "2026-06-10",
+    "agent": "coordinator",
+    "topic": "D2: Derive language_track column (bilingual/zh_only/en_only/neither)",
+    "status": "completed",
+    "output_file": "twse-research-database.csv",
+    "variables_added": [
+      "language_track"
+    ],
+    "notes": "Populated using finbert_env_pct and bge_top1_topic as populated indicators. 2021 verification: bilingual=303, zh_only=183, en_only=4, neither=1 — all match spec. DB now 192 columns."
+  },
+  {
+    "task_id": "pass-92-D3-impact-intensity",
+    "date": "2026-06-10",
+    "agent": "coordinator",
+    "topic": "D3: Derive and lock impact_intensity column (High/Low/Sensitivity)",
+    "status": "completed",
+    "output_file": "twse-research-database.csv",
+    "variables_added": [
+      "impact_intensity"
+    ],
+    "notes": "High={Resource,Infrastructure,Transportation,Minerals,Food}, Low={Technology,Services,HealthCare,Financials}, Sensitivity={Consumer,RenewableEnergy}. All 11 categories covered; 32 null rows (no sasb_industry). H4 moderator now locked and pre-registered."
+  },
+  {
+    "task_id": "pass-92-D4-db-did",
+    "date": "2026-06-10",
+    "agent": "coordinator",
+    "topic": "D4: Create db_did analytical dataset variants",
+    "status": "completed",
+    "output_file": "data/db_did.csv",
+    "variables_added": [],
+    "notes": "CORRECTION: execution plan filter removes g=2024 controls; at t=2022 controls drop to 40 (not 44); at t=2023 controls drop to 0. TWO files: (1) db_did.csv (2,960 rows, g=2024 excluded) for primary ATT t≤2022; (2) db_did_full.csv (3,283 rows, all cohorts) for att_gt with glist=c(2021,2022,2023), preserving 44 controls at t=2022 and 3 at t=2023. Use db_did_full.csv as primary analytical file."
+  },
+  {
+    "task_id": "pass-92-D5-pre-treatment-financials",
+    "date": "2026-06-10",
+    "agent": "coordinator",
+    "topic": "D5: Re-merge TEJ 2016-2019 financials from pre-NLP-repair CSV",
+    "status": "completed",
+    "output_file": "data/stream_b_pre_treatment.csv",
+    "variables_added": [],
+    "notes": "Added 2,125 rows for FY 2016-2019 to main DB (2020 already 100% covered). Coverage: 2016=92%, 2017=93%, 2018=94%, 2019=95% for ln_total_assets/roa/leverage. language_track=neither; impact_intensity derived. DB now 5,408 rows x 192 cols, FY 2016-2024. 351/1036 analytical-sample companies have 2016 history."
   }
 ]
