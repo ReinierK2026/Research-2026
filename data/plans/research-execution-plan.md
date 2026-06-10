@@ -45,24 +45,20 @@ All streams are **independent** after data prep + pre-registration. Run in paral
 
 ## Data Preparation Tasks (must complete before pre-registration)
 
-### Task D1 — Set n_material_topics_b zeros → NA
+### Task D1 — Set n_material_topics_b zeros → NA ✅ COMPLETED (Pass 87, 2026-06-10)
 
-**What:** 882 rows (26.9%) have `n_material_topics_b = 0` as an artefact of unprocessed PDF rows (no GRI code extraction run). These are not true zero-topic reports.
+**What:** ~~882 rows (26.9%)~~ **→ 0 zeros remaining.** All zero-placeholder rows converted to NA (blank) in Pass 87. Additionally, Pass 67 (GRI extraction refresh with bilingual union fix) substantially improved coverage: valid rows increased from 2,401 to **2,979** across all years.
 
-**Script logic:**
-```python
-# Identify unprocessed rows: zero value AND no corresponding extraction output
-db['n_material_topics_b'] = db['n_material_topics_b'].where(
-    db['n_material_topics_b'] > 0, other=pd.NA
-)
-# Apply same logic to n_material_topics_a where zeros are present
-```
+**Current DB state (post-fix):**
+- n_material_topics_b: 2,979 positive, 304 blank/NA, 0 zero
+- n_material_topics_a: same distribution (both use gri_codes_summary, identical values)
+- 2020 base year coverage: 364/427 (85.2%); 2021: 440/491 (89.6%)
 
-**Validation:** After setting zeros to NA, check that non-null `n_material_topics_b` distribution (min=1, max=36, mean≈15) is unchanged for the non-zero rows.
+**No action needed.** Data is clean and ready for att_gt().
 
-**Assign to:** data-analyst  
-**Blocks:** Streams A, C, E  
-**Est. time:** 30 minutes
+**Assign to:** ~~data-analyst~~  
+**Status:** ✅ **COMPLETED**  
+**Blocks:** ~~Streams A, C, E~~ — unblocked
 
 ---
 
