@@ -316,6 +316,7 @@ Positive — GRI 3 adoption is expected to increase ESG sentence density across 
 - [ ] Register convergent validity check (NLP density vs `process_quality_score`) as a pre-analysis step
 - [ ] Pre-register zeros→NA data prep step for `n_material_topics_b` — link to cleaning script
 - [ ] Register `control_group = "notyettreated"` as the identification strategy; document control pool sizes per ATT cell
+- [ ] Pre-register ATT(g=2022, t=2023) and ATT(g=2023, t=2023) as **exploratory** — effective control pool = 3 companies only; do not include in primary aggregated ATT
 - [ ] Register Rambachan-Roth sensitivity analysis as robustness check
 - [ ] Register Stream B propensity score analysis — if adoption timing is predicted by observables (roc_auc > 0.70), pre-weight the CS21 estimator
 - [ ] Register H5 as blocked on TSMC proximity data; flag as supplementary pending external data
