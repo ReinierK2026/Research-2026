@@ -173,6 +173,8 @@ es_h1 <- aggte(out_h1, type="dynamic", glist=c(2021, 2022, 2023), na.rm=TRUE)
 **R specification:**
 ```r
 library(did)
+# NOTE: Use db_did_full (not db_did) to preserve 44 controls at t=2022 and 3 at t=2023
+# db_did_full includes g=2024 as controls; use glist in aggte() to restrict treated cohorts
 
 # H1 — Displacement
 out_h1 <- att_gt(
@@ -182,7 +184,7 @@ out_h1 <- att_gt(
   gname         = "gri_adoption_year",
   control_group = "notyettreated",
   xformla       = ~ ln_total_assets + roa + standalone_sr,
-  data          = db_did,
+  data          = db_did_full,   # ← db_did_full preserves 44 controls at t=2022
   est_method    = "dr",
   base_period   = "universal"
 )
@@ -197,13 +199,13 @@ out_h2 <- att_gt(
   gname         = "gri_adoption_year",
   control_group = "notyettreated",
   xformla       = ~ ln_total_assets + roa + board_approved + standalone_sr,
-  data          = db_did,
+  data          = db_did_full,   # ← same reason
   est_method    = "dr"
 )
 
 # H4 — Heterogeneity (subsample CS21)
-out_h4_low  <- att_gt(yname="n_material_topics_b", data=db_did |> filter(impact_intensity=="Low"),  ...)
-out_h4_high <- att_gt(yname="n_material_topics_b", data=db_did |> filter(impact_intensity=="High"), ...)
+out_h4_low  <- att_gt(yname="n_material_topics_b", data=db_did_full |> filter(impact_intensity=="Low"),  ...)
+out_h4_high <- att_gt(yname="n_material_topics_b", data=db_did_full |> filter(impact_intensity=="High"), ...)
 # Triple-diff robustness
 triple_diff_se <- boot_triple_diff(out_h4_low, out_h4_high, nboot=500)
 ```
