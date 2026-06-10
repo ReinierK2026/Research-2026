@@ -192,17 +192,19 @@ out_nlp_zh <- att_gt(yname="bge_gov_density", ..., data=db_zh)
 
 ### Research Agents to Deploy
 
-| Agent | When to Deploy | Task |
-|-------|---------------|------|
-| `data-analyst` | Phase 3b now | Source `board_esg_committee`; complete Block F TEJ export; derive `impact_intensity` from `sasb_industry` |
-| `hypothesis-generation` | Phase 4 pre-reg | Assist OSF pre-registration drafting; lock H4 `impact_intensity` derivation rule |
-| `academic-researcher` | Phase 4–5 | Literature search for comparable staggered DiD studies on ESG mandates; Göttsche et al. (2025) displacement effect citations |
-| `data-analyst` | Phase 5 | Tier 1 CS21 estimation (H1–H4); event-study plots; Goodman-Bacon decomposition; Rambachan-Roth sensitivity |
-| `data-analyst` | Phase 6 | Tier 2 H5 analysis (73-company semiconductor sub-cohort; TSMC proximity interaction) |
-| `web-researcher` | Phase 6 | TSMC Supplier Sustainability Report lookup for tier-1 proximity coding; Hsinchu Science Park registry |
+| Agent | Stream | Task |
+|-------|--------|------|
+| `data-analyst` | Phase 3b | Set `n_material_topics_b` zeros→NA; tag `language_track`; derive `impact_intensity`; re-merge TEJ 2016–2020 financials for Stream B |
+| `academic-researcher` | Phase 4 | Search for DiD studies with all-treated / timing-based identification; CS21 thin control group literature; Göttsche et al. (2025) displacement effect comparisons |
+| `web-researcher` | Phase 4 | FSC Taiwan GRI adoption mandate timeline — identify any administrative deadline separating 2022 vs 2023 adopters; TWSE size threshold for mandatory reporting |
+| `data-analyst` | Phase 4 (Stream B) | Propensity score analysis: does adoption year predict 2021 baseline observables? If AUC > 0.70, apply IPW weighting to CS21 |
+| `hypothesis-generation` | Phase 4 pre-reg | Assist OSF pre-registration drafting for six streams; review NLP supplementary specification |
+| `data-analyst` | Phase 5 (Streams A–F) | Run all six streams; produce event-study plots; Goodman-Bacon decomposition; Rambachan-Roth; convergent validity check (NLP vs structural) |
+| `web-researcher` | Phase 6 (H5) | TSMC Supplier Sustainability Report lookup for tier-1 proximity coding; Hsinchu Science Park registry |
 | `research-coordinator` | Any multi-agent pass | Orchestrate parallel agent tasks; consolidate findings into research_log.json |
 
-**Pre-registered hypotheses**: `hypotheses/hypothesis-generation_did-hypotheses_2026-05-22.md` (updated 2026-06-09 — two-tier design)
+**Pre-registered hypotheses (active):** `hypotheses/hypothesis-generation_did-hypotheses_2026-06-10.md`  
+**Superseded:** `hypotheses/hypothesis-generation_did-hypotheses_2026-05-22.md` — retained for version history
 
 ---
 
