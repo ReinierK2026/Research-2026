@@ -116,30 +116,43 @@ Panel: 2016–2024. Text data: 2021–2024. TEJ ESG scores: 2016–2022. GRI 3 t
 
 **Control group composition** (for `control_group = "notyettreated"` in `att_gt()`):
 
-| t | Not-yet-treated (gay > t) | Notes |
-|---|--------------------------|-------|
-| 2020 | 1,036 | All companies |
-| 2021 | 1,026 | Minus cohort 2021 (n=10) |
-| 2022 | 433 | Minus cohorts 2021+2022 |
-| 2023 | 307 | Cohort g=2024 only |
-| 2024 | **0** | **No valid controls — full saturation** |
+| t | Not-yet-treated (gay > t) | Effective controls with t obs in DB | Notes |
+|---|--------------------------|-------------------------------------|-------|
+| 2020 | 1,036 | ~1,000+ | All companies |
+| 2021 | 1,026 | ~1,000+ | Minus cohort 2021 (n=10) |
+| 2022 | 433 | **44** | g=2023 (40) + g=2024 (4) companies with 2022 DB rows |
+| 2023 | 307 | ⚠️ **3** | g=2024 only; 301 of 307 entered the DB for the first time at 2024 adoption |
+| 2024 | **0** | **0** | **No valid controls — full saturation** |
 
 **Critical finding — full treatment saturation at t=2024**: All 1,036 analytical-cohort companies have `gri_adoption_year ≤ 2024` (zero never-treated companies). At t=2024, the not-yet-treated control pool is empty → **ATT(g, t=2024) is unidentified for all cohorts** with `control_group = "notyettreated"`.
 
+**⚠️ Critical — t=2023 effective controls = 3 (Pass 89 audit, 2026-06-10)**: Although the g=2024 cohort contains 307 companies, only **3** have any DB observation in 2023 (a fiscal year prior to their 2024 adoption). The remaining 301 companies first appear in the DB in 2024 — they are new entrants with no pre-adoption history. CS21 requires controls to have at least one observation at both the base period and time t; almost none of the 307 g=2024 companies satisfy this for t=2023. This makes ATT(g=2022, t=2023) and ATT(g=2023, t=2023) barely estimable. **Pre-register both as exploratory.**
+
+**Effective ATT cell counts** (verified against DB 2026-06-10):
+
+| ATT cell | Treated (n) | Controls (n) | Control source |
+|---|---|---|---|
+| g=2022, t=2020 (pre-trend t−2) | 381 | 37 | g=2023 (34) + g=2024 (3) |
+| g=2022, t=2021 (pre-trend t−1) | 438 | 43 | g=2023 (37) + g=2024 (6) |
+| g=2022, t=2022 (treatment year) | **442** | **44** | g=2023 (40) + g=2024 (4) |
+| g=2022, t=2023 (year +1) | 431 | ⚠️ **3** | g=2024 only — exploratory |
+| g=2023, t=2022 (pre-trend t−1) | 39 | 4 | g=2024 (4) |
+| g=2023, t=2023 (treatment year) | 41 | ⚠️ **3** | g=2024 only — exploratory |
+
 **Estimable ATT(g, t) pairs** (with non-zero control pools):
 - g=2021: ATT(2021,2021), ATT(2021,2022), ATT(2021,2023) — 3 post-treatment periods ✓
-- g=2022: ATT(2022,2022), ATT(2022,2023) — 2 post-treatment periods ✓
-- g=2023: ATT(2023,2023) — 1 post-treatment period ✓
+- g=2022: ATT(2022,2022) **primary**; ATT(2022,2023) exploratory (3 controls)
+- g=2023: ATT(2023,2023) exploratory (3 controls)
 - g=2024: **no estimable ATTs** — cohort g=2024 (n=307) serves as controls for t≤2023 only
 
-**Effective analytical sample for H1**: cohorts 2021–2023, n=729 treated companies (10+593+126). Cohort g=2024 (n=307) contributes as controls only.
+**Effective analytical sample for H1**: The primary identified estimate is **ATT(g=2022, t=2022)** with 442 treated and 44 controls. Year-+1 estimates are exploratory.
 
 **R implementation guidance**:
 - Use `control_group = "notyettreated"` (the only viable option; `nevertreated` has 0 companies)
 - Set estimation horizon to t=2023 maximum (or let `att_gt()` drop t=2024 automatically)
 - Report cohort g=2024 as "treatment occurred but unestimable — serves as control cohort"
 - `allow_unbalanced_panel = TRUE` to handle the 20 corpus-gap companies
-- The 307-company control pool at t=2023 is statistically adequate for all three estimable cohorts
+- The effective control pool at t=2023 is **3 companies** — pre-register those ATT cells as exploratory; primary inference rests on ATT(g=2022, t=2022) where n_controls=44
 
 ### Block B: Report Characteristics [High confidence | data-analyst | 2026-05-20/22]
 - All 7,765 company-year rows have 100% coverage on: `gri_standard_version`, `gri_adoption_year`, `bilingual_report` (sourced from TEJ CSR Disclosure)
