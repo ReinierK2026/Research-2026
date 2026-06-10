@@ -496,8 +496,9 @@ The following must be locked in the OSF pre-registration **before any att_gt() c
 - [ ] NLP outcomes classified as supplementary / pre-registered exploratory alongside H2
 
 ### Robustness (pre-registered, not primary)
-- [ ] TWFE as CS21 alternative
-- [ ] Rambachan-Roth sensitivity analysis
+- [ ] **R1 — BJS imputation** (Borusyak, Jaravel & Spiess 2024, *Rev. Econ. Studies* 91(6)): `didimputation::did_imputation()` with same covariate spec as primary CS21; report alongside CS21 ATTs in robustness table
+- [ ] **R2 — Wooldridge extended TWFE** (Wooldridge 2021): `fixest::feols()` with cohort × period interaction dummies (`i(g_t, ref=...)`), unit + year FE, clustered SEs; replaces the basic TWFE placeholder
+- [ ] **R3 — Rambachan-Roth HonestDiD** ⚠️ NON-NEGOTIABLE (Rambachan & Roth 2023, *Rev. Econ. Studies* 90(5)): `HonestDiD::createSensitivityResults()` for H1 and H2 event-studies; report minimum M at which conclusion reverses; required because ATT identification cell has only 44 NTT controls and post-treatment parallel trends cannot be empirically tested
 - [ ] Bacon-Goodman decomposition diagnostic
 - [ ] Poisson/Hurdle model for `n_material_topics_b`
 - [ ] Stream B propensity score analysis; IPW weighting applied to Stream A if AUC > 0.70
