@@ -685,21 +685,20 @@ Check A equivalent (cpp vs language-group floors) on 392 new files:
 
 Genuine hard exclusions from native PyMuPDF extraction: `3413_2022` (196 chars total, 1 page) and `2832_2022` (281 chars total, 1 page). Pre-documented sparse files `1795_2022` (17 cpp) and `3704_2022` (68 cpp) now have PDFs but remain sparse.
 
-**Combined corpus after expansion:**
+**Combined corpus after expansion (both batches):**
 
-| Metric | Original | Expanded |
+| Metric | Original | Expanded (final) |
 |---|---|---|
-| Total .txt files | 623 | 1,015 |
-| English `_E` | 389 (62.4%) | 399 (39.3%) |
-| Chinese-only | 234 (37.6%) | 616 (60.7%) |
-| GRI CSV rows | 609 | 984 |
-| Files with GRI codes | 535 (87.9%) | 873 (88.7%) |
-| Total code instances | 35,972 | 59,167 |
-| Avg codes/file (where found) | 67.2 | 67.8 |
-| G4 files | 0 | 3 (14 instances) |
-| Hard exclusions | 9 | 23 |
+| Total .txt files | 623 | 1,023 |
+| English `_E` | 389 (62.4%) | 399 (39.0%) |
+| Chinese-only | 234 (37.6%) | 624 (61.0%) |
+| GRI CSV rows | 609 | 992 |
+| Files with GRI codes | 535 (87.9%) | 878 (88.5%) |
+| Hard exclusions (corrupt + near-empty + OCR sparse) | 9 | 24 |
 
-**GRI quality signal:** Detection rate (88.7% vs 87.9%) and avg codes/file (67.8 vs 67.2) match the original corpus within 1%, confirming the pipeline produced consistent-quality output on the new files.
+*Batch 2 (second re-check): 6 native PDFs extracted (1457, 1466, 1525, 3645, 3669, 6668 — all _2022), 2 scanned OCR'd (1467, 1526 — all _2022, chi_tra+eng), 1 corrupt skipped (2013_2022). GRI added for 5 of 6 native files (1466 has no detectable GRI index).*
+
+**GRI quality signal:** Detection rate (88.5% vs 87.9%) and corpus pattern match the original corpus within 1%, confirming consistent pipeline quality across all expansion batches.
 
 ---
 
