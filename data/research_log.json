@@ -2049,5 +2049,73 @@
     "topic_slug": "block-ag-cross-cohort-gap-fill",
     "status": "completed",
     "notes": "Cross-cohort Block A–G non-NLP gap audit and fill (all 5 cohorts, 3,283 rows). Audit identified gaps across: n_material_topics_a, extended Block C (mat_process_disclosed, matrix_shown, matrix_axes_labeled, approval_body, gri3_four_step_compliance, impact/financial_materiality_disclosed), word_count_cn/page_count_cn, report_language, mda_index. Fixes applied: (1) n_material_topics_a +324 rows from gri_codes_summary CSVs (2021:+142, 2022:+94, 2023:+58, 2024:+30); remaining blanks: 2020:24, 2021:4, 2022:13, 2023:77, 2024:1 (Phase 0 GRI table extraction structural gaps). (2) Extended Block C (7 cols) run for 2020 all 427 rows + 2021 supplement 15 + 2022 supplement 14 (2013 has no text file); mat_process_disclosed now 427/427 (2020), 491/491 (2021), 631/632 (2022). (3) word_count_cn/page_count_cn filled for CN files: 2020:427, 2021:+176 (now 490/491), 2022:+620, 2023:213 (CN-only rows), 2024:361 (CN-only rows). (4) report_language fixed for 15 blank 2022 supplement tickers: 13 set to zh, 2 (2408/3592) to en (bilingual). (5) mda_index recomputed for 14 newly-fixed 2021 Block C tickers (previously had all-zero Block C → Phase 3 score was 0): new mda_index range 0.2–0.8. Structural gaps not fixable without new data: independent_director_ratio 2022-2024 (0/2365, no shareholding files); board_esg_committee all years (0/3283, no source identified); n_material_topics_a 2023:77 (GRI tables missing for those tickers)."
+  },
+  {
+    "session_date": "2026-06-10",
+    "pass": 67,
+    "agent": "data-analyst",
+    "topic": "GRI extraction update — full refresh of GRI-derived DB columns",
+    "status": "completed",
+    "script": "scripts/phase3_local/gri_refresh_all.py",
+    "method": "gri_codes_summary union (all 5 cohorts); gri_tables retired for n_material_topics_b",
+    "improvements_vs_prior": {
+      "fix_bilingual_union": "codes now unioned across _E and CN files per ticker (was last-write-wins)",
+      "fix_2023_2024_source": "gri_codes_summary replaces gri_tables for n_material_topics_b (663 vs 88 tickers 2023; 974 vs 367 tickers 2024; summary > tables in 71/88 and 339/367 overlap comparisons)",
+      "updated_summaries": "all 5 gri_codes_summary CSVs updated before this pass (2020:+28, 2021:+24, 2022:+3 new tickers)"
+    },
+    "columns_updated": [
+      "n_material_topics_a",
+      "gri_content_index_completeness",
+      "n_material_topics_b"
+    ],
+    "columns_unchanged": [
+      "mda_index",
+      "topic_depth_score"
+    ],
+    "results": {
+      "n_material_topics_a_pos": {
+        "2020": 364,
+        "2021": 440,
+        "2022": 586,
+        "2023": 642,
+        "2024": 947
+      },
+      "n_material_topics_a_delta": {
+        "2020": "+138",
+        "2021": "+82",
+        "2022": "+34",
+        "2023": "+66",
+        "2024": "+86"
+      },
+      "gci_pos": {
+        "2020": 27,
+        "2021": 47,
+        "2022": 514,
+        "2023": 606,
+        "2024": 939
+      },
+      "gci_delta": {
+        "2020": "+5",
+        "2021": "+6",
+        "2022": "+58",
+        "2023": "+64",
+        "2024": "+37"
+      },
+      "nmb_pos": {
+        "2020": 364,
+        "2021": 440,
+        "2022": 586,
+        "2023": 642,
+        "2024": 947
+      },
+      "nmb_delta": {
+        "2020": "+127",
+        "2021": "+121",
+        "2022": "+69",
+        "2023": "+74",
+        "2024": "+187"
+      }
+    },
+    "notes": "n_material_topics_b is now identical to n_material_topics_a for all years (consistent single-source metric). gci median=0.882 for GRI-Universal-2021 reporters (2022-2024) — correct, reflects 30/34 mandatory GRI 2-* disclosures. TSMC 2022/2023 nma=0 is pre-existing structural gap (proprietary/image-based GRI index). Mediatek 2023 anomaly (nma=3) also pre-existing."
   }
 ]
