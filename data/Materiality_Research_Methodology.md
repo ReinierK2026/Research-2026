@@ -53,14 +53,19 @@
 
 | Gap | Priority | How to Resolve |
 |-----|----------|----------------|
-| `board_esg_committee`: 0% populated — **substituted** | ~~🔴 HIGH~~ → Resolved | Primary spec uses `board_approved` (Block C, fully extracted) as substitute — same theoretical construct (board-level ESG engagement), more direct measure. If sourced later from TEJ, add as robustness check only. |
-| OSF pre-registration | 🔴 HARD BLOCKER — must precede all inferential tests | Pre-register H1–H5 on OSF before running any `att_gt()` calls |
-| `sasb_industry`: 6% missing (467/7,750 rows) | 🟡 MEDIUM — H4 moderator gap | Identify which companies are missing; fill from TWSE MOPS industry classification or TEJ sector codes. Alternatively, exclude from H4 subsample with note in pre-registration. |
+| `n_material_topics_b` zeros → NA | 🔴 CRITICAL — must precede all H1 estimation | ~882 rows (26.9%) have zero values as unprocessed placeholders; set to NA before `att_gt()` or ATT will be biased downward |
+| OSF pre-registration (all six streams) | 🔴 HARD BLOCKER | Pre-register H1–H5 + NLP stream on OSF using `hypotheses/hypothesis-generation_did-hypotheses_2026-06-10.md` before any `att_gt()` calls |
+| 2024 cohort exclusion — document rationale | 🔴 REQUIRED | 307 companies in 2024 cohort; only 6 have pre-2024 data. Exclude from all H1–H4 estimation and control pool. Document in pre-registration. |
+| `board_esg_committee`: 0% populated — **substituted** | ~~🔴 HIGH~~ → Resolved | Primary spec uses `board_approved` (Block C, fully extracted) as substitute. |
+| `idname` correction in all `att_gt()` calls | 🔴 REQUIRED — would invalidate results | Use `idname = "twse_ticker"`, NOT `"company_id"`. `company_id` is a ticker-year compound key; `twse_ticker` is the true company identifier. |
+| `process_quality_score` scale — hypothesis doc corrected | 🟠 DONE — pre-registration must reflect | Scale is 0–1, not 0–10. Expected ATT = +0.05 to +0.15, not +1–2 points. Updated in 2026-06-10 hypothesis file. |
+| TEJ financial controls 2016–2020 re-merge (Stream B) | 🟠 HIGH — strengthens parallel trends | Pre-NLP-repair file contains 2016–2020 TEJ data. Re-merge `ln_total_assets`, `roa` only (not outcome vars) for covariate parallel trends validation. ~half-day data work. |
+| `sasb_industry`: 1% missing (32/3,283 rows) | 🟡 LOW — H4 moderator gap | Near-complete in current DB (99%). Fill 32 missing from TWSE MOPS or TEJ sector codes. |
 | Stage 3 manual concordance: ~60–80 unmatched topic labels | 🟡 MEDIUM — affects Block D precision | Two-coder protocol; target κ ≥ 0.80 before finalising `n_material_topics_b` |
 | H5: TSMC tier-1 supplier coding | 🟡 MEDIUM — required for H5 only | ~1–2 days manual lookup from TSMC Supplier Sustainability Reports 2022–2024 |
-| Block F: `ln_total_assets` / `roa` 2022–2024 coverage ~64% | 🟡 MEDIUM | Complete TEJ export for missing company-years |
+| NLP ESGLens exclusion documented | 🟡 MEDIUM — must be in pre-registration | ESGLens excluded from primary NLP analysis (57% GOV share). Document exclusion rationale and model selection in pre-registration. |
+| H5 semiconductor n — update | 🟡 LOW | DB contains 49 semiconductor companies, not 73. Update all references. |
 | Block E: Topic dynamics panel | 🟢 LOW — derived variable | Auto-compute from Block D once concordance is finalised |
-| Global peer PDF corpus (optional extension) | 🟢 LOW — not required for H1–H5 | Collect from company IR pages (20 peers listed below) if extending to cross-country comparison |
 
 ---
 
