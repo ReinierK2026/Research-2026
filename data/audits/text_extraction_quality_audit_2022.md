@@ -621,6 +621,88 @@ These are likely reports that: (a) embed their GRI index as a scanned image rath
 
 ---
 
+### Entry 10 — Corpus Expansion: Scan + PyMuPDF + OCR + GRI (403 new PDFs)
+**Date:** 2026-06-10  
+**Scripts:** `scan_2022_new.py` · `pymupdf_batch_2022_expand.py` · `ocr_batch_2022_expand.py` · `gri_extract_2022_expand.py`  
+**Input PDFs:** `/twse_esg_reports/2022/` (403 newly added files not yet in `2022_processed/`)  
+**Output:** `text-extraction/extracted_text/2022_processed/` (+392 files); `data/gri/gri_codes_summary_2022.csv` (updated)
+
+**Stage 0 — Scan (`scan_2022_new.py`):**  
+Classified all 403 new PDFs (excluding the original 11 OCR stems). Results:
+
+| Class | Count |
+|---|---|
+| Native-text (PyMuPDF) | 378 |
+| Scanned (OCR required) | 14 |
+| Corrupt / 0-page (error) | 11 |
+| **Total** | **403** |
+
+Corrupt 0-page files (hard exclusions): `1218_2022`, `2106_2022`, `2207_2022`, `2324_2022`, `2331_2022`, `2369_2022`, `2376_2022`, `2451_2022`, `3034_2022`, `3714_2022`, `8114_2022`
+
+**Stage 1 — PyMuPDF extraction (`pymupdf_batch_2022_expand.py`):**  
+Same coordinate-aware extraction as Entry 5 (sidebar x₀ < 16% + avg line < 45 chars; header/footer y-zones; two-column x₀-gap detection; dehyphenation for `_E`; figure caption removal; spaced-char normalisation). Resumable via progress JSON + OUT_DIR scan; budget 38 s/run; ran 4 passes to completion.
+
+| Metric | Value |
+|---|---|
+| Files processed | 378 |
+| Median chars/file | 143,481 |
+| Mean chars/file | 160,927 |
+| Errors | 0 |
+
+**Stage 2 — Tesseract OCR (`ocr_batch_2022_expand.py`):**  
+Same parameters as Entry 4 (`--oem 1 --psm 3`; 1.5× scale; per-page JSON cache with global deadline guard; `chi_tra+eng` for all 14 files). Resumable; budget 33 s/run; ran 13 passes to completion.
+
+| File | Pages | Chars (OCR) | cpp |
+|---|---|---|---|
+| 1219_2022 | 104 | 5,014 | 48 ⚠ |
+| 1455_2022 | 68 | 35,037 | 515 |
+| 1723_2022 | 124 | 35,420 | 286 |
+| 1907_2022 | 74 | 37,371 | 505 |
+| 2392_2022 | 90 | 29,197 | 324 |
+| 2511_2022 | 112 | 32,178 | 287 |
+| 3006_2022 | 92 | 31,240 | 340 |
+| 3605_2022 | 103 | 21,519 | 209 |
+| 4720_2022 | 113 | 29,739 | 263 |
+| 4766_2022 | 83 | 33,872 | 408 |
+| 5515_2022 | 56 | 34,275 | 612 |
+| 6184_2022 | 70 | 29,196 | 417 |
+| 6534_2022 | 112 | 32,667 | 292 |
+| 8341_2022 | 108 | 29,578 | 274 |
+
+`1219_2022` (48 cpp) is treated as a hard exclusion.
+
+**Stage 3 — GRI extraction (`gri_extract_2022_expand.py`):**  
+Same fitz regex pipeline as Entry 6. Loaded existing 609-row CSV into `done_stems`; processed 375 additional non-OCR/non-error files. Ran 3 passes to completion.
+
+**Stage 4 — Quality verification:**  
+Check A equivalent (cpp vs language-group floors) on 392 new files:
+
+| Result | Count | % |
+|---|---|---|
+| Flagged | 11 | 2.8% |
+| Genuine hard exclusions | 2 | 0.5% |
+| Borderline (above hard floor) | 9 | 2.3% |
+
+Genuine hard exclusions from native PyMuPDF extraction: `3413_2022` (196 chars total, 1 page) and `2832_2022` (281 chars total, 1 page). Pre-documented sparse files `1795_2022` (17 cpp) and `3704_2022` (68 cpp) now have PDFs but remain sparse.
+
+**Combined corpus after expansion:**
+
+| Metric | Original | Expanded |
+|---|---|---|
+| Total .txt files | 623 | 1,015 |
+| English `_E` | 389 (62.4%) | 399 (39.3%) |
+| Chinese-only | 234 (37.6%) | 616 (60.7%) |
+| GRI CSV rows | 609 | 984 |
+| Files with GRI codes | 535 (87.9%) | 873 (88.7%) |
+| Total code instances | 35,972 | 59,167 |
+| Avg codes/file (where found) | 67.2 | 67.8 |
+| G4 files | 0 | 3 (14 instances) |
+| Hard exclusions | 9 | 23 |
+
+**GRI quality signal:** Detection rate (88.7% vs 87.9%) and avg codes/file (67.8 vs 67.2) match the original corpus within 1%, confirming the pipeline produced consistent-quality output on the new files.
+
+---
+
 ## Next Steps — NLP Analysis Pipeline
 
 **Status legend:** ⬜ Pending · 🔄 In Progress · ✅ Done  
