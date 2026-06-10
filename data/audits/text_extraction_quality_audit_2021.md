@@ -1,6 +1,6 @@
 # Text Extraction Quality Audit — 2021 Cohort
 **Audit date:** 2026-05-22  
-**Last updated:** 2026-06-10 (2) — Retroactive quality audit of original 172 CN track completed; `lang_detection_2021_cn_original.csv` generated (8 mojibake flagged); BGE + XLMR supplements confirmed run locally (486 tickers); XLMR DB gap fixed: 37 tickers recovered from interrupted save (XLMR now 473/822); 13 true no-sentence files identified. Combined Chinese-track quality: 486 files, 32 mojibake (6.6%), 454 clean. See Entry 14.  
+**Last updated:** 2026-06-10 (3) — Block C supplement completed for 14 additional supplement-track tickers (2329 2441 2449 6770 1536 2012 2023 2102 2206 2345 2707 6189 6768 8112); `report_language='zh'` set for 11 blank-language supplement tickers; Block C now 491/491 nonblank. XLMR 13-ticker gap reclassified as processing error (not structural): all 13 produce sentences (1–75) in sandbox — they were silently skipped because they were already in the progress JSON's done set. Must be re-run locally (remove 13 from done list in `phase2_step2_2_xlmr_2021_progress.json` then re-run supplement script). New finding: ticker 6770 missing Phase 1 English NLP (finbert/climatebert/eslens) — pending local run. DB row count note: 2021 DB was restructured from 822 → 491 rows; all /491 counts are current. See Entries 14–15.  
 **Corpus (raw):** `/Text extraction/extracted_text/2021/` — 4 files (0 `_E`, 4 other)  
 **Corpus (processed):** `/Text extraction/extracted_text/2021_processed/`  
 **Source PDFs on disk:** ~811 (492 original + 319 added 2026-06-09)  
