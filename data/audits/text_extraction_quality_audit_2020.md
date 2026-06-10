@@ -528,4 +528,35 @@ Structural result — identical to 2021 cohort (median 0.772; 46.8% below 0.75).
 
 ---
 
-*Audit initiated: 2026-06-09. Five-stage pipeline complete; 1 hard exclusion (3703_2020). Quality Checks A/B/C completed — corpus accepted. Phase 0 complete (phase0_2020.py): Block B, n_material_topics_a, language detection populated; 39 mojibake-risk files flagged. Phase 1 Block C + Phase 2 (BGE, XLMR, Block C Chinese) + Phase 3 block variables complete 2026-06-09. Phase 1 ML scripts (FinBERT/ClimateBERT/ESGLens) pending local execution (2 files). All major DB columns populated.*
+### Entry 8 — DB Corrections: bilingual_report + n_material_topics_a
+**Date:** 2026-06-10  
+**Trigger:** Comprehensive 2020 DB coverage audit revealed two gaps needing correction.
+
+**Fix 1 — `bilingual_report` correction (2 tickers):**
+
+Tickers 1531 and 3447 both have `_2020_E.txt` files on disk but had `bilingual_report=0` in the DB. Root cause: `phase0_2020.py` did not detect these files during the phase0 scan (likely a path/glob ordering issue). Fix applied inline.
+
+| Ticker | bilingual_report (before) | bilingual_report (after) | `_E` file confirmed |
+|---|---|---|---|
+| 1531 | 0 | **1** | `1531_2020_E.txt` (30,647 words) |
+| 3447 | 0 | **1** | `3447_2020_E.txt` (10,412 words) |
+
+Coverage after fix: **427/427** — every ticker with a text file now has the correct `bilingual_report` value. Both 1531 and 3447 have BGE/XLMR data from the Chinese track and Block C indicators from `phase1_block_c_english_2020.py`. Their `topic_depth_score` is BGE-derived and will not change when Phase 1 English NLP (ESGLens/FinBERT/ClimateBERT) is eventually run locally.
+
+**Fix 2 — `n_material_topics_a` fallback fill (3 additional tickers):**
+
+Previous coverage: 400 tickers with `n_material_topics_a > 0`, leaving 27 blank among the 427 with text files. The blank group consists of tickers whose PDFs were scanned (excluded from `gri_codes_summary_2020.csv` GRI extraction). Fallback: scanned processed `.txt` files for GRI 200/300/400-series patterns (`GRI 2xx`, `GRI 3xx`, `GRI 4xx`, standalone `2xx-N` formats). Found decodable GRI codes in 3 additional files.
+
+| Result | Count |
+|---|---|
+| Additional tickers filled | 3 |
+| Remaining blank (no GRI codes by any method) | 24 |
+| New total with `n_material_topics_a > 0` | **403** |
+
+The 24 remaining blank tickers are structurally empty: scanned-only reports with no GRI index recoverable by either pdfplumber or text pattern search.
+
+**DB save:** 2026-06-10 (inline; no script changes required). `bilingual_report` and `n_material_topics_a` are now final for the 2020 cohort pending only the local Phase 1 NLP run for 2 files.
+
+---
+
+*Audit initiated: 2026-06-09. Five-stage pipeline complete; 1 hard exclusion (3703_2020). Quality Checks A/B/C completed — corpus accepted. Phase 0 complete (`phase0_2020.py`): Block B, `n_material_topics_a`, language detection populated; 39 mojibake-risk files flagged. Phase 1 Block C + Phase 2 (BGE, XLMR, Block C Chinese) + Phase 3 block variables complete 2026-06-09. Phase 1 ML scripts (FinBERT/ClimateBERT/ESGLens) pending local execution (2 files only: 1531, 3447). DB corrections applied 2026-06-10: `bilingual_report` fixed for 1531 and 3447; `n_material_topics_a` improved 400→403. All major DB columns now populated.*
