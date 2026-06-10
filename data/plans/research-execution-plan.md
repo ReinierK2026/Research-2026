@@ -189,11 +189,70 @@ out_h4_high <- att_gt(yname="n_material_topics_b", data=db_did |> filter(impact_
 triple_diff_se <- boot_triple_diff(out_h4_low, out_h4_high, nboot=500)
 ```
 
-**Robustness checks:**
-- TWFE: `feols(outcome ~ post_gri3_it + controls | twse_ticker + fiscal_year, cluster=~twse_ticker)`
-- Rambachan-Roth: `HonestDiD::createSensitivityResults(out_h1)`
+**Robustness checks (all pre-registered; run in parallel with Stream A primary):**
+
+**R1 — BJS Imputation (Borusyak, Jaravel & Spiess 2024)** `didimputation` package  
+More efficient than CS21 under thin treatment-year control pool; estimates Y(0) from entire pre-treatment history rather than a single comparison period.
+```r
+library(didimputation)
+bjs_h1 <- did_imputation(
+  data          = db_did,
+  yname         = "n_material_topics_b",
+  idname        = "twse_ticker",
+  tname         = "fiscal_year",
+  gname         = "gri_adoption_year",
+  first_stage   = ~ ln_total_assets + roa + standalone_sr | twse_ticker + fiscal_year
+)
+bjs_h2 <- did_imputation(data=db_did, yname="process_quality_score", ...)
+```
+**Decision rule:** If BJS and CS21 ATTs agree in direction and are within 20% of each other in magnitude → identification is credible. Report both in a robustness table.
+
+**R2 — Wooldridge Extended TWFE (2021)** `fixest` — cohort × period interactions  
+Transparent TWFE framing for accounting reviewers; near-identical estimates to CS21 under parallel trends; handles unbalanced panels without balanced cohort-time cell requirements.
+```r
+library(fixest)
+db_did <- db_did |>
+  mutate(g_t = paste0("g", gri_adoption_year, "_t", fiscal_year))
+
+# H1
+wtwfe_h1 <- feols(
+  n_material_topics_b ~ i(g_t, ref = "g2023_t2022") +   # reference = NTT control cell
+    ln_total_assets + roa + standalone_sr |
+    twse_ticker + fiscal_year,
+  data    = db_did,
+  cluster = ~twse_ticker
+)
+# H2
+wtwfe_h2 <- feols(process_quality_score ~ i(g_t, ref="g2023_t2022") +
+                    ln_total_assets + roa + standalone_sr |
+                    twse_ticker + fiscal_year,
+                  data=db_did, cluster=~twse_ticker)
+```
+**Decision rule:** If Wooldridge extended TWFE estimates replicate CS21 direction and significance → parallel trends robust to estimation approach.
+
+**R3 — Rambachan-Roth HonestDiD Sensitivity (2023)** ⚠️ NON-NEGOTIABLE  
+With only 44 NTT controls at the treatment year (t=2022), parallel trends at the ATT identification cell cannot be empirically tested. HonestDiD provides formal bounds on how large a post-treatment trend violation would need to be to overturn the result. This is mandatory for all H1–H4 analyses.
+```r
+library(HonestDiD)
+# Run after CS21 event-study; extract pre/post coefficients and vcov
+es_h1_coefs <- summary(es_h1)$att.egt
+es_h1_vcov  <- es_h1$V_analytical
+
+HonestDiD::createSensitivityResults(
+  betahat       = es_h1_coefs,
+  sigma         = es_h1_vcov,
+  numPrePeriods = 2,           # t = 2020, t = 2021
+  numPostPeriods = 1,          # t = 2022 (primary ATT period)
+  Mvec          = seq(0, 1, by = 0.1)   # M = multiple of max pre-trend
+)
+# Report: minimum M at which conclusion reverses (robustness ratio)
+```
+**Reporting standard:** State "the ATT estimate is robust to violations of parallel trends up to M = [X] times the largest observed pre-trend difference."
+
+**Additional diagnostics (unchanged):**
 - Bacon-Goodman decomposition: `bacon(outcome ~ post_gri3_it, data=db_did, id_var="twse_ticker", time_var="fiscal_year")`
-- Poisson / Hurdle for n_material_topics_b
+- Poisson / Hurdle for `n_material_topics_b`
+- Stream B propensity score; IPW weighting if AUC > 0.70
 
 **Expected outputs:**
 - Event-study plots for H1 and H2 (pre-trend + post-treatment)
