@@ -84,26 +84,29 @@ The effective study is therefore a comparison of **2022 cohort adopters vs 2023 
 
 ### H1 — n_material_topics_b (displacement effect)
 
+> **✅ RESOLVED — Pass 67 + Pass 87 (2026-06-10).** GRI extraction refreshed (bilingual union fix, gri_codes_summary for all years) and all zero placeholders converted to NA. Current DB state reflects post-fix values below.
+
 | Metric | Value |
 |---|---|
 | Total rows | 3,283 |
-| Non-zero | 2,401 (73.1%) |
-| **Zero (placeholders)** | **882 (26.9%)** |
-| Non-zero distribution | min=1, max=36, mean=15.0, median=14 |
+| Non-null (positive) | **2,979 (90.7%)** |
+| **Zero (placeholders)** | **0 — all converted to NA (Pass 87)** |
+| Blank/NA | 304 (9.3%) |
+| Non-null distribution | min=1, max=36, mean≈15.0, median=14 |
 
-Zeros are **not true observations** — they are unprocessed rows where GRI code extraction has not run. These must be set to `NA` before any regression. After this fix:
+Current valid coverage by year (post-Pass 67+87):
 
-| Year | Non-zero (valid) | Zero→NA | % valid |
-|---|---|---|---|
-| 2020 | 237 | 190 | 55.5% |
-| 2021 | 319 | 172 | 65.0% |
-| 2022 | 517 | 115 | 81.8% |
-| 2023 | 568 | 143 | 79.9% |
-| 2024 | 760 | 262 | 74.4% |
+| Year | Valid (non-null) | Blank/NA | % valid | Change vs pre-fix |
+|---|---|---|---|---|
+| 2020 | **364** | 63 | 85.2% | +127 (was 237) |
+| 2021 | **440** | 51 | 89.6% | +121 (was 319) |
+| 2022 | **586** | 46 | 92.7% | +69 (was 517) |
+| 2023 | **642** | 69 | 90.3% | +74 (was 568) |
+| 2024 | **947** | 75 | 92.7% | +187 (was 760) |
 
-Pre-2022 coverage is lower — the 2020 pre-treatment year (critical for parallel trends) has only 237 valid observations. In the estimable panel (companies with pre+post obs), pre-treatment `n_material_topics_b` coverage is **558/937 rows = 60%**.
+Pre-treatment year (2020/2021) coverage has substantially improved. In the estimable panel, pre-treatment `n_material_topics_b` coverage is now ~391/445 = **87.9%** for g=2022 companies at the 2021 base period.
 
-**Severity:** 🔴 CRITICAL — zeros must be set to NA before `att_gt()` or estimates will be severely biased downward.
+**Severity:** ~~🔴 CRITICAL~~ → ✅ **RESOLVED** — zeros→NA conversion complete; GRI extraction quality improved.
 
 ---
 
