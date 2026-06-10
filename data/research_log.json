@@ -1998,5 +1998,16 @@
     "output_file": "twse-research-database.csv",
     "variables_added": [],
     "notes": "Fix 1: bilingual_report corrected for tickers 1531 and 3447 (0→1). Both have _2020_E.txt on disk (1531: 30,647 words; 3447: 10,412 words) but phase0_2020.py did not detect them. Coverage after fix: 427/427. Fix 2: n_material_topics_a improved from 400→403 via GRI text-pattern fallback (scan of processed .txt files for GRI 200/300/400-series codes in tickers excluded from gri_codes_summary_2020.csv). 24 tickers remain blank — genuinely no GRI codes found by either PDF extraction or text pattern search. Phase 1 English NLP (ESGLens/FinBERT/ClimateBERT) still pending local execution for 2 files (1531, 3447) — run in order: eslens → finbert → climatebert. Phase 3 does NOT need re-running after Phase 1 (TDS is BGE-first; 1531 and 3447 already have BGE data)."
+  },
+  {
+    "task_id": "2021-block-c-supplement-14-tickers",
+    "date": "2026-06-10",
+    "pass": 61,
+    "agent": "data-analyst",
+    "topic": "2021 cohort Block C supplement — 14 supplement-track tickers missing materiality extraction; language detection fix for 11 tickers",
+    "status": "completed",
+    "output_file": "twse-research-database.csv",
+    "variables_added": [],
+    "notes": "Full coverage audit of 2021 Block C against all 491 DB rows revealed 14 supplement-track tickers with blank mat_section_found. Root cause: phase2_block_c_chinese_2021.py progress JSON only had 172 original tickers; supplement tickers (all 314) were never processed. Two sandbox scripts (block_c_gap_fix.py, block_c_gap10_fix.py) applied Block C extraction inline to all 14. First pass: 2329 2441 2449 6770 (mat=1 for all). Second pass: 1536 2012 2023 2206 2345 6189 6768 8112 (mat=1); 2102 2707 (mat=0, no materiality heading found). Post-fix Block C coverage: 491/491 nonblank (462 mat=1, 29 mat=0). Also set report_language='zh' for 11 blank-language supplement tickers: 1536 2012 2023 2102 2206 2329 2345 2707 6189 6768 8112. Language distribution now 183 zh + 308 en = 491/491 (no blanks). New gap identified: ticker 6770 missing Phase 1 English NLP (finbert/climatebert/eslens) — 307/308 en rows covered; 6770 pending local run. XLMR 13-ticker gap reclassified: all 13 DO produce sentences (1-75 in sandbox); were silently skipped because present in progress JSON done set from original 172 XLMR run. Local re-run instructions: remove these 13 from phase2_step2_2_xlmr_2021_progress.json done list then run phase2_step2_2_xlmr_2021_cn_supplement.py. DB row count note: 2021 DB restructured from 822 → 491 rows (current). All coverage numbers in this entry use /491 as denominator."
   }
 ]
