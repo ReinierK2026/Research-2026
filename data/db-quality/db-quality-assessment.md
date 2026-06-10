@@ -1,30 +1,31 @@
 # DB Quality Assessment — GRI 3 Materiality DiD Study
-**Date:** 2026-06-10  
+**Date:** 2026-06-10 (v2 — intermediate draft)  
 **File assessed:** twse-research-database.csv  
-**Purpose:** Evaluate readiness of the current DB against the requirements of H1–H5 (Callaway-Sant'Anna DiD)
+**Prior assessment:** db-quality-assessment_2026-06-10.md  
+**Purpose:** Updated readiness verdict for H1–H5 (Callaway-Sant'Anna DiD)
+
+> ⚠️ **SUPERSEDED — DO NOT USE FOR REFERENCE.**  
+> This v2 document uses incorrect CS21 control pool counting methodology: it counts all DB rows in a given year as controls rather than only not-yet-treated companies that satisfy both (a) `gri_adoption_year > t` and (b) observations at both the base period and time t. The resulting "427/481 controls" figures for t=2020/2021 are therefore wrong (correct values: 37/43 — see canonical assessment).  
+>
+> **Use `db-quality-assessment_2026-06-10.md` (v1, Pass 92) as the canonical version.** The one unique finding in this document — `independent_director_ratio` 0% coverage for 2022–2024 — has been ported to v1 Section 5.
+>
+> This document is retained for audit trail only.
+
+> **How to read this document:** Sections marked **↑ IMPROVED**, **↔ UNCHANGED**, or **🆕 NEW** show delta vs the prior assessment. Action items supersede the prior list.
 
 ---
 
 ## 1. Panel Overview
 
-| Metric | Value |
-|---|---|
-| Total rows (company-years) | 3,283 |
-| Unique companies (twse_ticker) | 1,036 |
-| Fiscal years covered | 2020–2024 |
-| Panel balance | **Unbalanced** — see below |
+| Metric | Prior | Now | Δ |
+|---|---|---|---|
+| Total rows (company-years) | 3,283 | 3,283 | — |
+| Unique companies (twse_ticker) | 1,036 | 1,036 | — |
+| Fiscal years covered | 2020–2024 | 2020–2024 | — |
+| Total columns | ~30 key | **190** | 🆕 +160 cols |
+| Panel balance | Unbalanced | Unbalanced | ↔ |
 
-> **Note on company_id:** The `company_id` field is a ticker-year compound key (e.g., `1101_2024`), not a company identifier. Use `twse_ticker` as `idname` in `att_gt()`.
-
-### Panel balance by company
-
-| Observations | Companies |
-|---|---|
-| 1 year only | 306 |
-| 2 years | 97 |
-| 3 years | 157 |
-| 4 years | 68 |
-| All 5 years | 408 |
+The schema has grown substantially to include a full financial block (Block D, ~40 cols), GRI process variables (Block B/C), and NLP output blocks from four models (FinBERT, ClimateBERT, BGE, XLM-R).
 
 ### Rows per year
 
@@ -36,13 +37,11 @@
 | 2023 | 711 |
 | 2024 | 1,022 |
 
-The row count grows sharply in 2022–2024 because the DB adds newly reporting companies — but these new entrants appear **only in their first year**, giving them no pre-treatment observations.
-
 ---
 
-## 2. Treatment Variable: gri_adoption_year
+## 2. Treatment Variable: gri_adoption_year ↔
 
-| Cohort | Companies in DB |
+| Cohort | Unique companies |
 |---|---|
 | 2021 | 10 |
 | 2022 | 593 |
@@ -50,93 +49,86 @@ The row count grows sharply in 2022–2024 because the DB adds newly reporting c
 | 2024 | 307 |
 | **Never-treated** | **0** |
 
-**Critical finding — no never-treated group.** Every company in the DB has a `gri_adoption_year`. The CS21 estimator with `control_group = "nevertreated"` would have zero control units. Only `control_group = "notyettreated"` is viable.
+**Unchanged finding — no never-treated group.** `control_group = "notyettreated"` remains the only viable option for CS21.
 
 ---
 
-## 3. Control Group Problem (🔴 CRITICAL)
+## 3. Control Group — SUBSTANTIALLY IMPROVED ↑ 🔴→🟠
 
-The not-yet-treated control pool in CS21 consists of companies that have not yet adopted at the relevant comparison period. The dominant control pool would be the **2024 cohort** serving as controls for the 2021–2023 cohorts. But:
+The dominant structural problem from the prior assessment (thin pre-trend control pool) has been largely resolved for the **2022 cohort pre-trend tests** but remains severe at the treatment year and for the 2023 cohort.
 
-| 2024 cohort | Count |
-|---|---|
-| Total companies | 307 |
-| With ≥1 observation before 2024 | **6** |
+### Not-yet-treated control pool by ATT cell
 
-Only 6 of the 307 late-adopter "control" companies appear in any pre-2024 year. The remaining 301 entered the panel only at adoption — they are first-observed reporters with no pre-treatment history.
+| ATT cell | Treated | NTT Controls | Prior NTT | Δ |
+|---|---|---|---|---|
+| g=2022, t=2020 (pre-trend t−2) | 381 | **427** | 37 | **↑ +390** |
+| g=2022, t=2021 (pre-trend t−1) | 438 | **481** | 43 | **↑ +438** |
+| g=2022, t=2022 (treatment year) | 578 | **44** | 44 | ↔ |
+| g=2023, t=2021 (pre-trend t−2) | 37 | **481** | 4 | **↑ +477** |
+| g=2023, t=2022 (pre-trend t−1) | 40 | **44** | 4 | ↑ +40 |
+| g=2023, t=2023 (treatment year) | 121 | **3** | n/a | 🔴 |
 
-**What CS21 actually uses as controls for each cell** (verified against DB 2026-06-10):
+**What changed:** The database has been backfilled with 2020 and 2021 observations for many 2022+ cohort companies. The 2022 cohort's parallel trends test now has a control pool of 427–481 companies (vs 37–43 previously), which is excellent for pre-trend validation.
 
-| ATT cell | Treated (estimable, with t obs) | Control (gay>t, with base+t obs) | Control breakdown |
-|---|---|---|---|
-| g=2022, t=2020 (pre-trend t−2) | 381 | **37** | g2023:34 + g2024:3 |
-| g=2022, t=2021 (pre-trend t−1) | 438 | **43** | g2023:37 + g2024:6 |
-| g=2022, t=2022 (treatment year) | **442** ~~578~~ | **44** | g2023:40 + g2024:4 |
-| g=2022, t=2023 (year +1) | 431 | **⚠️ 3** | g2024:3 only |
-| g=2023, t=2022 (pre-trend t−1) | 39 | **4** | g2024:4 |
-| g=2023, t=2023 (treatment year) | 41 | **⚠️ 3** | g2024:3 only |
+**What remains thin:** At the *treatment year* itself (t=2022), the NTT control pool is still only 44 (2023/2024 companies with 2022 data). The identification of ATT(2022, 2022) — the causal estimate of GRI 3 adoption — is still based on a 578:44 treated:control ratio.
 
-> **Correction (2026-06-10):** The prior `treated=578` for g=2022, t=2022 was wrong — it counted all 593 g=2022 companies minus those without a 2022 DB row (~15 corpus-gap companies). The correct count is **442** estimable companies (those with ≥1 pre-treatment observation), which is what att_gt() actually uses. The 578 figure included non-estimable companies with no pre-treatment baseline.
+**2023 cohort at treatment year:** Only **3 NTT controls** at t=2023. ATT(2023, 2023) is not estimable in practice. The 2023 cohort should be used only as a control for the 2022 cohort, not as a treated group in its own right.
 
-> **⚠️ Critical gap — year +1 effect:** ATT(g=2022, t=2023) has only **3 effective controls** (the 3 g=2024 companies with 2023 observations). This makes the year-after-adoption effect barely estimable. The primary identified ATT cell is **g=2022, t=2022** (the treatment-year effect). Pre-registration should flag t=2023 estimates as exploratory given the 3-company control pool.
-
-The effective study is therefore a comparison of **2022 cohort adopters vs 2023 cohort adopters** at the treatment year (t=2022), with a very thin year-+1 estimate. This is a valid but narrower identification than initially described.
-
-**Recommendation:** Drop the 2024 cohort from H1–H4 analyses entirely. Flag ATT(g=2022, t=2023) as exploratory (3 controls). The primary causal estimate is ATT(g=2022, t=2022) with n=44 controls.
+**Recommendation:** The identification strategy should be stated clearly as:
+- **Parallel trends validation (pre-2022):** Well-powered, 427–481 controls ✅
+- **Causal ATT estimate (t=2022):** Thin control pool (n=44); reportable but flag as limitation
+- **2023 and 2024 cohorts as treated units:** Drop from H1–H4 primary analysis
 
 ---
 
 ## 4. Outcome Variables
 
-### H1 — n_material_topics_b (displacement effect)
+### H1 — n_material_topics_b ↑ (CRITICAL ISSUE RESOLVED)
 
-> **✅ RESOLVED — Pass 67 + Pass 87 (2026-06-10).** GRI extraction refreshed (bilingual union fix, gri_codes_summary for all years) and all zero placeholders converted to NA. Current DB state reflects post-fix values below.
+| Metric | Prior | Now |
+|---|---|---|
+| Zero placeholders | 882 (26.9%) | **0 (0%)** |
+| NA (missing) | — | 304 (9.3%) |
+| Non-zero valid | 2,401 (73.1%) | **2,979 (90.7%)** |
+| Mean (non-null) | 15.0 | **16.9** |
+| Max | 36 | **44** |
 
-| Metric | Value |
-|---|---|
-| Total rows | 3,283 |
-| Non-null (positive) | **2,979 (90.7%)** |
-| **Zero (placeholders)** | **0 — all converted to NA (Pass 87)** |
-| Blank/NA | 304 (9.3%) |
-| Non-null distribution | min=1, max=36, mean≈15.0, median=14 |
+**🔴→🟢 Critical issue resolved.** The 882 zero-placeholders have been correctly converted to NA. This is the single most important fix since the prior assessment.
 
-Current valid coverage by year (post-Pass 67+87):
+Coverage by year (now vs prior):
 
-| Year | Valid (non-null) | Blank/NA | % valid | Change vs pre-fix |
-|---|---|---|---|---|
-| 2020 | **364** | 63 | 85.2% | +127 (was 237) |
-| 2021 | **440** | 51 | 89.6% | +121 (was 319) |
-| 2022 | **586** | 46 | 92.7% | +69 (was 517) |
-| 2023 | **642** | 69 | 90.3% | +74 (was 568) |
-| 2024 | **947** | 75 | 92.7% | +187 (was 760) |
+| Year | Valid now | Valid prior | Change |
+|---|---|---|---|
+| 2020 | 364/427 (85.2%) | 237/427 (55.5%) | **↑ +30pp** |
+| 2021 | 440/491 (89.6%) | 319/491 (65.0%) | **↑ +25pp** |
+| 2022 | 586/632 (92.7%) | 517/632 (81.8%) | ↑ +11pp |
+| 2023 | 642/711 (90.3%) | 568/711 (79.9%) | ↑ +10pp |
+| 2024 | 947/1,022 (92.7%) | 760/1,022 (74.4%) | ↑ +18pp |
 
-Pre-treatment year (2020/2021) coverage has substantially improved. In the estimable panel, pre-treatment `n_material_topics_b` coverage is now ~391/445 = **87.9%** for g=2022 companies at the 2021 base period.
+In the estimable panel (502 companies with ≥1 pre-treatment year, 2,384 rows): **91.0% coverage**. Pre-treatment coverage is now sufficient for the DiD.
 
-**Severity:** ~~🔴 CRITICAL~~ → ✅ **RESOLVED** — zeros→NA conversion complete; GRI extraction quality improved.
+**🆕 Note:** `n_material_topics_a` and `n_material_topics_b` are now **identical** (correlation = 1.000, 0 differing rows). Column `n_material_topics_a` is redundant; drop it or document the distinction.
 
----
-
-### H2 — process_quality_score (quality upgrade)
-
-| Metric | Value |
-|---|---|
-| Non-null | 3,208 / 3,283 (97.7%) |
-| Non-zero | 3,171 (96.6%) |
-| **Scale** | **0–1 (not 0–10 as in hypothesis doc)** |
-| min | 0.000 |
-| max | 1.000 |
-| mean | 0.398 |
-| median | 0.381 |
-
-**Scale discrepancy:** The hypothesis document specifies a "0–10 composite scale" with expected magnitude "+1–2 points". The actual stored values are 0–1. The expected magnitude for the DiD coefficient should be revised to approximately **+0.05 to +0.15** (5–15% of scale). This does not affect estimability but the hypothesis pre-registration text needs updating before OSF submission.
-
-Pre-treatment coverage in the estimable panel: **873/937 rows = 93%** — this is the strongest outcome variable in the DB.
-
-**Severity:** 🟡 MEDIUM — coverage is good; scale discrepancy in hypothesis document needs correction before pre-registration.
+**Severity:** 🟢 READY — zeros fixed, coverage adequate, use `n_material_topics_b` as primary H1 outcome.
 
 ---
 
-### H3 — assurance_level (upgrade effect)
+### H2 — process_quality_score ↔
+
+| Metric | Prior | Now |
+|---|---|---|
+| Non-null | 3,208/3,283 (97.7%) | 3,208/3,283 (97.7%) |
+| Scale | 0–1 | 0–1 |
+| Mean / Median | 0.398 / 0.381 | 0.398 / 0.381 |
+| Estimable panel coverage | 93% | **96.9%** |
+
+Unchanged in coverage; slightly better in the estimable panel. The 0–1 scale discrepancy vs the hypothesis document's "0–10" description remains uncorrected. The distribution is well-behaved with a useful spread (p25=0.28, p75=0.50).
+
+**Severity:** 🟡 MEDIUM — excellent data quality; hypothesis document scale still needs updating before OSF.
+
+---
+
+### H3 — assurance_level ↔ (REMAINS UNDERPOWERED)
 
 | Year | Reasonable | Limited | None/NA |
 |---|---|---|---|
@@ -145,95 +137,125 @@ Pre-treatment coverage in the estimable panel: **873/937 rows = 93%** — this i
 | 2022 | 27 | 379 | 226 (36%) |
 | 2023 | 30 | 424 | 257 (36%) |
 | 2024 | 31 | 516 | 475 (46%) |
+| **Total** | **136** | **1,863** | **1,284 (39%)** |
 
-"Reasonable" assurance is the upgrade target in H3. It represents **24–31 companies per year** out of 430–570 non-missing observations — roughly **5% prevalence**. Post-treatment in the estimable panel: 88 / 1,423 (6.2%).
+Reasonable assurance prevalence: **4.1%** (down from 5% in prior assessment — likely reclassification). There are only 136 "Reasonable" observations in the entire panel. Detecting a GRI 3-driven shift in probability of upgrade via DiD remains infeasible at this base rate.
 
-Detecting a shift in probability of Reasonable assurance via DiD requires substantial baseline frequency. At 5% prevalence, even a 50% relative increase (from 5% to 7.5%) would correspond to only ~10–12 additional companies switching in the treatment year. This is below the minimum detectable effect for any realistic sample size with a 13:1 treated:control ratio.
-
-**Severity:** 🔴 HIGH RISK — H3 is very likely underpowered. Recommend reclassifying as descriptive/exploratory in pre-registration. A binary `has_any_assurance` outcome (Limited OR Reasonable vs None) may be feasible and is better powered.
-
----
-
-## 5. Covariates
-
-| Variable | Overall coverage | 2020 | 2021 | 2022 | 2023 | 2024 |
-|---|---|---|---|---|---|---|
-| `ln_total_assets` | 91.5% | 100% | 99% | 89% | 89% | 87% |
-| `roa` | 91.5% | 100% | 99% | 89% | 89% | 87% |
-| `board_approved` | 89.7% | **25%** | 100% | 98% | 100% | 100% |
-| `standalone_sr` | 100% | 100% | 100% | 100% | 100% | 100% |
-
-**board_approved in 2020:** Only 25% coverage. This covariate is essentially unavailable for the 2020 pre-treatment year. For the parallel trends test at t=2020, `board_approved` cannot be included in the covariate vector. Use the full covariate spec only for t=2021 onward.
-
-**ln_total_assets and roa:** 87–91% coverage in 2022–2024. Missing values are correlated with companies new to the panel — likely smaller firms added to mandatory reporting. In the estimable panel (pre-treatment rows), coverage is 930/937 = 99%.
+**Severity:** 🔴 HIGH RISK — H3 as specified (Reasonable vs Limited upgrade) is not powered. Recommend:
+1. Reclassify H3 as **exploratory/descriptive** in pre-registration
+2. Replace primary H3 outcome with `has_any_assurance` (Limited OR Reasonable vs None): 1,999 obs with assurance, 1,284 without — much more estimable
 
 ---
 
-## 6. Moderator Variables (H4, H5)
+## 5. Covariates ↔ + 🆕 NEW CRITICAL FINDING
+
+| Variable | Coverage | 2020 | 2021 | 2022 | 2023 | 2024 | Status |
+|---|---|---|---|---|---|---|---|
+| `ln_total_assets` | 91.5% | 100% | 99% | 89% | 89% | 87% | 🟡 same |
+| `roa` | 91.5% | 100% | 99% | 89% | 89% | 87% | 🟡 same |
+| `board_approved` | 89.7% | **25%** | 100% | 98% | 100% | 100% | 🟡 same |
+| `standalone_sr` | 100% | 100% | 100% | 100% | 100% | 100% | 🟢 same |
+| `leverage` | 91.5% | 100% | 99% | 89% | 89% | 87% | 🟡 |
+| `firm_age` | 99.8% | — | — | — | — | — | 🟢 |
+| `rd_intensity` | 88.9% | — | — | — | — | — | 🟡 |
+
+**`board_approved` in 2020:** Still only 25% — confirmed unchanged. Exclude from covariate vector when base period is 2020.
+
+**🆕 CRITICAL: `independent_director_ratio` — data pipeline break:**
+
+| Year | Coverage |
+|---|---|
+| 2020 | 100% (425/427) |
+| 2021 | 99% (487/491) |
+| 2022 | **0%** (0/632) |
+| 2023 | **0%** (0/711) |
+| 2024 | **0%** (0/1,022) |
+
+This column is completely absent for 2022–2024. It cannot be used as a covariate. This is a new finding — if this variable was part of any planned covariate specification, it must be removed or replaced (e.g., `board_directors_n` or `board_seats` as alternative proxy).
+
+---
+
+## 6. Moderator Variables ↔
 
 | Variable | Coverage | Notes |
 |---|---|---|
-| `sasb_industry` | 99.0% (32 missing) | Complete for practical purposes |
-| `semiconductor_cat` | 100% | 49 unique companies (DB currently has fewer than the 73 referenced in H5) |
+| `sasb_industry` | 99.0% (32 missing) | Complete for practical purposes — unchanged |
+| `semiconductor_cat` | 100% | 49 unique semiconductor companies — unchanged |
 
-**H4 (impact_intensity moderator):** `sasb_industry` is sufficiently complete. Industry group sizes:
-
-| Impact group | Industries | Companies |
-|---|---|---|
-| High-impact | Resource, Infrastructure, Transportation, Minerals, Food | ~644 rows (2024) |
-| Low-impact | Technology, Services, HealthCare, Financials | ~832 rows (2024) |
-| Borderline | Consumer, RenewableEnergy | ~213 rows (2024) |
-
-H4 subsample CS21 runs will inherit the thin control group problem. The Low-impact subsample (dominated by Technology = 1,111 rows) has the largest treated pool but the same 43-company control pool.
-
-**H5 (semiconductor deep dive):** The DB contains **49 unique semiconductor companies** (`semiconductor_cat = 1`), not the 73 referenced in the hypothesis document. The 2022 adoption cohort is the dominant group here too. TSMC proximity indicator is still absent — requires external data coding.
+The 49 vs 73 discrepancy flagged in the prior assessment remains unresolved.
 
 ---
 
-## 7. Summary: Readiness by Hypothesis
+## 7. New Potential Outcome Variables 🆕
 
-| Hypothesis | Outcome | Estimable n (treated) | Control pool | Issue severity |
-|---|---|---|---|---|
-| **H1** | n_material_topics_b | 442 (g=2022 treatment year) | 44 at t=2022; **3 at t=2023** | ✅ zeros→NA done (Pass 87); ⚠️ t=2023 only 3 controls |
-| **H2** | process_quality_score | ~445 (2022 cohort) | 43–44 | 🟡 scale in hypothesis doc wrong (0–1 not 0–10) |
-| **H3** | assurance_level | ~445 (2022 cohort) | 43–44 | 🔴 Reasonable assurance too rare (~5%) — severely underpowered |
-| **H4** | n_material_topics_b × sasb_industry | ~260 Low + ~145 High | 20–30 each | 🟠 subsample makes control pool even thinner |
-| **H5** | process_quality_score, gri_adoption_year | 49 semi companies | n/a | 🟡 n=49 not n=73; TSMC proximity data absent |
+The expanded schema includes several well-covered variables that could serve as supplementary outcomes or robustness checks:
 
----
-
-## 8. Pre-Registration Adjustments Required
-
-Before OSF submission, the following must be updated in the hypothesis document:
-
-1. **Control group:** Change from "~1,200 treated, not-yet-treated control group" to "495 companies with pre+post observations; primary comparison: 2022 cohort vs 2023 cohort as not-yet-treated controls (n≈43–44)." Explicitly exclude the 2024 cohort from H1–H4.
-
-2. **process_quality_score scale:** Replace "0–10 composite scale" and "+1–2 points" with "0–1 normalized scale; expected magnitude: +0.05 to +0.15."
-
-3. **H3 power caveat:** Flag H3 as exploratory given low base rate of Reasonable assurance (~5%). Add `has_any_assurance` (Limited OR Reasonable vs None) as a better-powered alternative outcome for H3.
-
-4. **board_approved in 2020:** Note that `board_approved` will be excluded from the covariate vector when the base period is 2020 (25% coverage). For cohorts using 2021 as base period, full covariate spec applies.
-
-5. **H5 semiconductor n:** Correct from 73 to 49 companies in current DB.
-
-6. **idname:** Confirm `idname = "twse_ticker"` (not `"company_id"`) in all `att_gt()` calls.
-
----
-
-## 9. Immediate Action Items (before att_gt)
-
-| Priority | Action | Status | Impact |
+| Variable | Coverage | Mean | Notes |
 |---|---|---|---|
-| ✅ #1 | Set `n_material_topics_b = NA` where value = 0 | **DONE** (Pass 87) | Prevents downward bias in H1 |
-| ✅ #1b | GRI extraction quality refresh (bilingual union, gri_tables retired) | **DONE** (Pass 67) | Coverage: 2,979 non-null vs 2,401 before |
-| 🔴 #2 | Update OSF pre-registration with corrected sample sizes, scale, control group description | **PENDING** | Hard blocker for all inferential tests |
-| 🟠 #3 | Pre-register ATT(g=2022, t=2023) as exploratory (only 3 controls) | **PENDING** | Prevents overclaiming year-+1 effect |
-| 🟠 #4 | Decide on 2024 cohort exclusion and document it | **DONE** (hypothesis doc + exec plan) | Clarifies identification strategy |
-| 🟡 #5 | Correct control group table in pre-registration (treated=442 not 578) | **DONE** (this doc; hypothesis doc updated) | Pre-registration accuracy |
-| 🟡 #6 | Add `has_any_assurance` binary as H3 alternative outcome | **DONE** (hypothesis doc) | Better-powered version of H3 |
-| 🟡 #7 | Fill sasb_industry for 32 missing rows | PENDING | Completes H4 moderator |
-| 🟡 #8 | Semiconductor n = 49 (not 73) confirmed | **DONE** (hypothesis doc updated) | H5 scope correct |
+| `topic_depth_score` | 99.2% | 0.525 | New 0–0.76 continuous score; narrow range, low variance |
+| `gri_content_index_completeness` | 100% | 0.527 | Bimodal: 0 (no index) or ~0.88 (full index) — binary in practice |
+| `gri3_four_step_compliance` | 100% | 1.35 | Discrete count 0–4; strong candidate for H1 robustness |
+| `dm_methodology_disclosed` | 90.2% | 0.840 | Binary — high ceiling (84% already = 1 pre-adoption) |
+| `double_materiality_mentioned` | 86.7% | 0.087 | Binary, 8.7% prevalence — low but estimable |
+| `process_steps_n` | 92.8% | 2.12 | Count 0–n; reasonable variation |
+| `stakeholder_groups_n` | 98.8% | 6.75 | Count; strong coverage |
+
+**NLP model outputs (BGE, XLM-R, FinBERT, ClimateBERT):** Coverage is 51–57%, concentrated in 2022–2024. Not suitable for DiD pre-trend tests (2020–2021 coverage is sparse). Useful as cross-sectional robustness or for mechanism analyses post-treatment.
+
+**`board_esg_committee`:** Empty column (0% coverage) — do not use.
 
 ---
 
-*Generated: 2026-06-10 | data:explore-data skill*
+## 8. Summary: Readiness by Hypothesis
+
+| Hypothesis | Outcome | Estimable n (treated) | Control pool (pre-trend / ATT) | Issue severity |
+|---|---|---|---|---|
+| **H1** | n_material_topics_b | ~445 (2022 cohort) | 427–481 / 44 | 🟡 Zeros fixed; pre-trend well-powered; ATT pool thin |
+| **H2** | process_quality_score | ~445 (2022 cohort) | 427–481 / 44 | 🟡 Scale in hypothesis doc wrong (0–1 not 0–10) |
+| **H3** | assurance_level (Reasonable) | ~445 | 427–481 / 44 | 🔴 4.1% base rate — severely underpowered; reclassify as exploratory |
+| **H4** | n_material_topics_b × sasb_industry | ~260 Low + ~145 High | ~200 / ~20 | 🟠 Subgroup thins control pool further |
+| **H5** | process_quality_score, semiconductor | 49 semi companies | n/a | 🟡 n=49 (not 73); TSMC proximity still absent |
+
+---
+
+## 9. Pre-Registration Adjustments Required (Updated)
+
+All items from the prior assessment remain open unless noted:
+
+1. **Control group description** *(prior #1, still required)*: Update to "502 companies with ≥1 pre-treatment year; parallel trends tests: 427–481 NTT controls at t=2020/2021; ATT at treatment year: 44 NTT controls. 2023 and 2024 cohorts excluded from primary H1–H4 analysis as treated units."
+
+2. **process_quality_score scale** *(prior #5)*: Replace "0–10 composite scale" with "0–1 normalized scale; expected magnitude +0.05 to +0.15."
+
+3. **H3 power caveat** *(prior #6)*: Flag H3 as exploratory. Primary H3 outcome = `has_any_assurance` (Limited OR Reasonable vs None). Secondary = Reasonable only.
+
+4. **board_approved in 2020** *(prior #4)*: Exclude from covariate vector when base period = 2020. *(Note: now less critical because pre-trend controls are 2022+ cohort companies, which have full board_approved coverage in 2020.)*
+
+5. **H5 semiconductor n** *(prior #8)*: Correct from 73 to 49.
+
+6. **idname** *(prior #6)*: Confirm `idname = "twse_ticker"` — `company_id` is a compound key.
+
+7. **🆕 Remove `independent_director_ratio`** from all covariate specifications. The variable is absent for 2022–2024 due to a data pipeline break.
+
+8. **🆕 Clarify `n_material_topics_a` vs `n_material_topics_b`**: Both are now identical. Confirm which is the intended H1 outcome and drop the redundant column or document the distinction.
+
+---
+
+## 10. Immediate Action Items (Updated)
+
+| Priority | Action | Status vs Prior | Impact |
+|---|---|---|---|
+| 🟢 ~~#1~~ | ~~Set `n_material_topics_b = NA` where value = 0~~ | **DONE** | ✅ Resolved |
+| 🔴 #1 | Remove `independent_director_ratio` from covariate specs (0% coverage 2022–2024) | 🆕 NEW | Hard blocker if this variable is in any model |
+| 🔴 #2 | Update OSF pre-registration with corrected sample sizes, scale, control group description | Open | Hard blocker for all inferential tests |
+| 🟠 #3 | Decide on 2023/2024 cohort exclusion from H1–H4 treated group and document | Open | Clarifies identification strategy |
+| 🟠 #4 | Investigate `n_material_topics_a` = `n_material_topics_b` — document intended distinction or drop `_a` | 🆕 NEW | Schema hygiene; avoid confusion in code |
+| 🟡 #5 | Correct process_quality_score scale in hypothesis document | Open | Pre-registration accuracy |
+| 🟡 #6 | Add `has_any_assurance` binary as H3 primary outcome | Open | Better-powered version of H3 |
+| 🟡 #7 | Fill sasb_industry for 32 missing rows | Open | Completes H4 moderator |
+| 🟡 #8 | Investigate semiconductor n discrepancy (49 vs 73) | Open | H5 scope clarification |
+| 🟡 #9 | Diagnose and fix `independent_director_ratio` pipeline for 2022–2024 if board composition is needed | 🆕 NEW | Optional; needed only if board independence in covariate spec |
+| 🟡 #10 | Consider adding `gri3_four_step_compliance` or `process_steps_n` as H1 robustness outcomes | 🆕 NEW | Enriches robustness section |
+
+---
+
+*Generated: 2026-06-10 v2 | data:explore-data skill*
