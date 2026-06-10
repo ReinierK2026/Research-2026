@@ -115,6 +115,8 @@ Pre-treatment year (2020/2021) coverage has substantially improved. In the estim
 
 **Severity:** ~~🔴 CRITICAL~~ → ✅ **RESOLVED** — zeros→NA conversion complete; GRI extraction quality improved.
 
+> **🆕 Schema audit (2026-06-10):** `n_material_topics_a` and `n_material_topics_b` are now **identical** — correlation = 1.000, zero differing rows across all 2,979 non-null observations. One column is redundant. Confirm which is the intended H1 outcome and either drop `n_material_topics_a` or document the distinction before `att_gt()`. Using both risks confusion in code; dropping the redundant one eliminates the risk of accidentally regressing on the wrong column.
+
 ---
 
 ### H2 — process_quality_score (quality upgrade)
