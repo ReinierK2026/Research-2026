@@ -10,7 +10,7 @@
 
 Six parallel analysis streams address the constraints of the PDF-processed TWSE GRI reporter universe (1,036 companies; all treated; timing-based identification). Streams A, C, D, E, and F can run concurrently after data preparation is complete. Stream B informs the identification narrative but does not block other streams.
 
-**Hard blockers before any estimation:** (1) zeros→NA for `n_material_topics_b`; (2) OSF pre-registration.
+**Hard blockers before any estimation:** (1) ~~zeros→NA for `n_material_topics_b`~~ **✅ DONE — Pass 87 (2026-06-10)**; (2) OSF pre-registration.
 
 ---
 
