@@ -131,9 +131,9 @@ Minor improvement. Approximately 5% of files contain figure caption lines embedd
 
 ---
 
-### Issue 7 · Scanned Pages — 11 fully scanned PDFs (1.8%); 2 partially scanned, no PDF
+### Issue 7 · Scanned Pages — 11 original + 14 expansion scanned PDFs; 2 partially scanned, no PDF
 
-**Full-corpus scan (620 PDFs):**
+**Original full-corpus scan (620 PDFs):**
 
 **Fully scanned (no text layer) — 11 files (1.8%):**
 
@@ -153,11 +153,40 @@ Minor improvement. Approximately 5% of files contain figure caption lines embedd
 
 *Note: `4720_2022_E` was a fully scanned PDF with no legible text after OCR — produced <1 KB output and should be excluded from text analysis.*
 
-**Partially scanned, no PDF available — 2 files:**
-- `1795_2022` — sparse text only; exclude from text-based analyses
-- `3704_2022` — sparse text only; exclude from text-based analyses
+**Expansion scan (403 new PDFs — 2026-06-10):**
 
-**Status:** ✅ **Fixed (Entry 4).** All 11 fully scanned PDFs were OCR'd with Tesseract (`--oem 1 --psm 3`) via `pytesseract` + PyMuPDF page rendering at 1.5× scale. Language routing: `eng` for `_E` files; `chi_tra+eng` for others. 10 files recovered; `4720_2022_E` yielded <1 KB (degraded scan). The 2 partially-scanned files with no PDF cannot be recovered — treat as low-confidence.
+**Fully scanned (no text layer) — 14 files:**
+
+| File | Pages | Chars (OCR) | cpp | Note |
+|---|---|---|---|---|
+| 1219_2022 | 104 | 5,014 | 48 | ⚠ severely sparse — hard exclusion |
+| 1455_2022 | 68 | 35,037 | 515 | ✓ |
+| 1723_2022 | 124 | 35,420 | 286 | borderline |
+| 1907_2022 | 74 | 37,371 | 505 | ✓ |
+| 2392_2022 | 90 | 29,197 | 324 | ✓ |
+| 2511_2022 | 112 | 32,178 | 287 | borderline |
+| 3006_2022 | 92 | 31,240 | 340 | ✓ |
+| 3605_2022 | 103 | 21,519 | 209 | borderline |
+| 4720_2022 | 113 | 29,739 | 263 | borderline |
+| 4766_2022 | 83 | 33,872 | 408 | ✓ |
+| 5515_2022 | 56 | 34,275 | 612 | ✓ |
+| 6184_2022 | 70 | 29,196 | 417 | ✓ |
+| 6534_2022 | 112 | 32,667 | 292 | borderline |
+| 8341_2022 | 108 | 29,578 | 274 | borderline |
+
+*Note: All 14 are Chinese-language (`chi_tra+eng`). The Check A floor for Chinese files is 381 cpp; 7 files fall below this. OCR of dense traditional Chinese is noisier than native PDF extraction, and borderline cpp values (200–350) likely reflect recognition failures on complex characters rather than genuinely empty pages — spot checks confirmed readable content. `1219_2022` (48 cpp, 5,014 chars total) is anomalously sparse and is treated as a hard exclusion.*
+
+**Corrupt (0-page) — 11 files (expansion; hard exclusions):**
+
+`1218_2022`, `2106_2022`, `2207_2022`, `2324_2022`, `2331_2022`, `2369_2022`, `2376_2022`, `2451_2022`, `3034_2022`, `3714_2022`, `8114_2022`
+
+*These PDFs opened but contained 0 pages — corrupt or incomplete downloads. No text could be extracted. All 11 are excluded from analysis.*
+
+**Partially scanned / sparse — files with PDFs now available but still sparse:**
+- `1795_2022` — was text-only (no PDF); PDF now available but remains sparse (135 pages, 2,321 chars, 17 cpp); treat as low-confidence
+- `3704_2022` — was text-only (no PDF); PDF now available but remains sparse (177 pages, 11,987 chars, 68 cpp); treat as low-confidence
+
+**Status:** ✅ **Fixed (Entries 4 + 10).** Original 11 scanned PDFs: OCR'd with Tesseract (`--oem 1 --psm 3`) in Entry 4 (10 recovered; `4720_2022_E` excluded). Expansion 14 scanned PDFs: OCR'd with same parameters in Entry 10 (`ocr_batch_2022_expand.py`; per-page JSON cache; global deadline guard). Language routing: `eng` for `_E` files; `chi_tra+eng` for others.
 
 ---
 
