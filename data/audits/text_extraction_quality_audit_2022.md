@@ -239,16 +239,19 @@ Language mixing appears lower in 2022 overall (75% vs ~98% in 2021) only because
 
 ## Files Requiring Attention Before Analysis
 
-All previously flagged files have been documented. Hard exclusions total 9 files (1.0% of 877-file corpus).
+Hard exclusions: 23 files (original 9 + 11 corrupt + 2 near-empty expansion + 1 OCR hard exclusion).
 
-| Category | Count | Resolution |
-|---|---|---|
-| Near-zero text, no PDF (text-only, cpp ≈ 17) | 3 (`2392_2022_E`, `1702_2022_E`, `2845_2022_E`) | Exclude from all text-based analyses |
-| OCR produced <1 KB (degraded scan) | 1 (`4720_2022_E`) | Exclude from text-based analyses |
-| Near-empty processed files (<1 KB) | 4 (`1440_2022`, `2409_2022`, `3062_2022_E`, `9917_2022`) | Verify source PDF; exclude if unrecoverable |
-| Partially scanned, no PDF available | 2 (`1795_2022`, `3704_2022`) | Sparse text only; treat as low-confidence |
-| Corrupt / missing PDF | 1 (`2408_2022`) | No processed file; exclude |
-| GRI codes absent or incomplete in processed text | All processed files | Use `gri_codes_summary_2022.csv` for GRI analysis |
+| Category | Count | Files | Resolution |
+|---|---|---|---|
+| Near-zero text, no PDF (cpp ≈ 17) | 3 | `2392_2022_E`, `1702_2022_E`, `2845_2022_E` | Exclude from all text-based analyses |
+| OCR produced <1 KB (degraded scan) | 1 | `4720_2022_E` | Exclude from text-based analyses |
+| Near-empty processed files (<1 KB) | 4 | `1440_2022`, `2409_2022`, `3062_2022_E`, `9917_2022` | Verify source PDF; exclude if unrecoverable |
+| Partially scanned, sparse (PDFs now available) | 2 | `1795_2022` (17 cpp), `3704_2022` (68 cpp) | Sparse text; treat as low-confidence |
+| Corrupt / missing PDF (original) | 1 | `2408_2022` | No processed file; exclude |
+| Near-empty expansion files (<300 chars total) | 2 | `3413_2022` (196 chars), `2832_2022` (281 chars) | Single-page near-blank; exclude from text-based analyses |
+| OCR severely sparse — expansion (48 cpp) | 1 | `1219_2022` | Hard exclusion; OCR yielded 5,014 chars across 104 pages |
+| Corrupt 0-page PDFs — expansion | 11 | `1218_2022`, `2106_2022`, `2207_2022`, `2324_2022`, `2331_2022`, `2369_2022`, `2376_2022`, `2451_2022`, `3034_2022`, `3714_2022`, `8114_2022` | No pages could be read; exclude |
+| GRI codes absent or incomplete in processed text | All | — | Use `gri_codes_summary_2022.csv` for GRI analysis |
 
 ---
 
