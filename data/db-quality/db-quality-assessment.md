@@ -194,7 +194,7 @@ H4 subsample CS21 runs will inherit the thin control group problem. The Low-impa
 
 | Hypothesis | Outcome | Estimable n (treated) | Control pool | Issue severity |
 |---|---|---|---|---|
-| **H1** | n_material_topics_b | ~445 (2022 cohort) | 43–44 | 🔴 zeros→NA critical; control pool thin |
+| **H1** | n_material_topics_b | 442 (g=2022 treatment year) | 44 at t=2022; **3 at t=2023** | ✅ zeros→NA done (Pass 87); ⚠️ t=2023 only 3 controls |
 | **H2** | process_quality_score | ~445 (2022 cohort) | 43–44 | 🟡 scale in hypothesis doc wrong (0–1 not 0–10) |
 | **H3** | assurance_level | ~445 (2022 cohort) | 43–44 | 🔴 Reasonable assurance too rare (~5%) — severely underpowered |
 | **H4** | n_material_topics_b × sasb_industry | ~260 Low + ~145 High | 20–30 each | 🟠 subsample makes control pool even thinner |
