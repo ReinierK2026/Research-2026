@@ -205,6 +205,28 @@ H4 subsample CS21 runs will inherit the thin control group problem. The Low-impa
 
 ---
 
+## 6b. New Potential Outcome Variables (schema audit 2026-06-10)
+
+The expanded 190-column schema includes several well-covered variables suitable as supplementary outcomes or robustness checks for H1–H2:
+
+| Variable | Coverage | Scale / Range | Notes |
+|---|---|---|---|
+| `topic_depth_score` | 99.2% (3,258/3,283) | 0–0.76, mean=0.525 | Continuous; low variance (p25=0.50, p75=0.64); robustness for H2 |
+| `gri3_four_step_compliance` | 100% (3,282/3,283) | 0–4 count, mean=1.35 | Strong coverage; process compliance count; robustness for H1 |
+| `gri_content_index_completeness` | 100% | Bimodal: 0 or ≈0.88 | Effectively binary (no GRI index vs full index); treat as dummy |
+| `stakeholder_groups_n` | 98.8% | Count, mean=6.75 | Good coverage; process depth proxy |
+| `process_steps_n` | 92.8% | Count, mean=2.12 | Reasonable variation; complements `process_quality_score` |
+| `double_materiality_mentioned` | 86.7% | Binary, 8.7% prevalence | Low but estimable; mechanism variable |
+| `dm_methodology_disclosed` | 90.2% | Binary, mean=0.84 | **Ceiling effect** — 84% already = 1 pre-adoption; limited DiD utility |
+
+**NLP model outputs (FinBERT, ClimateBERT, BGE, XLM-R):** 50–57% coverage, concentrated in 2022–2024. Insufficient for DiD pre-trend tests (2020–2021 sparse). Use for cross-sectional robustness or Stream F only.
+
+**`board_esg_committee`:** ⚠️ **0% coverage** — empty column. Do not reference in any analysis or pre-registration.
+
+**`visualization_format_n`:** 39.6% coverage — too sparse for DiD; descriptive use only.
+
+---
+
 ## 7. Summary: Readiness by Hypothesis
 
 | Hypothesis | Outcome | Estimable n (treated) | Control pool | Issue severity |
