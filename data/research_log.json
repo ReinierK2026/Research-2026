@@ -1976,5 +1976,27 @@
       "topic_depth_score"
     ],
     "notes": "phase3_2020.py. mda_index p50=0.50, max=0.70. topic_depth_score p50=0.629 (BGE-first). GCI: 22 early adopters (3.4%) with partial GRI 2-* adoption in FY2020 — research finding. n_material_topics_b p50=17."
+  },
+  {
+    "task_id": "2021-xlmr-jsonl-replay",
+    "date": "2026-06-10",
+    "pass": 59,
+    "agent": "technical-researcher",
+    "topic": "2021 cohort XLMR JSONL replay — recover 37 missing tickers from interrupted save",
+    "status": "completed",
+    "output_file": "twse-research-database.csv",
+    "variables_added": [],
+    "notes": "Root cause: XLMR supplement script wrote xlmr_2021_matches.jsonl at 02:35 but save_db() was not reached before interrupt. Phase 3 supplement then loaded the pre-XLMR DB at 02:38 and committed Phase 3 without XLMR values for those 37 tickers. Fix: inline JSONL-replay script loaded xlmr_2021_matches.jsonl (301 records), wrote additively for blank rows only. 37 tickers filled; 264 already filled (skipped); 0 not in DB. XLMR coverage: 436/822 → 473/822. Remaining 13-ticker gap is structural (no parseable sentences ≥15 chars in materiality window — not fixable). Retroactive lang_detection CSV for original 172 CN track also created: data/audits/lang_detection_2021_cn_original.csv (8 mojibake, 164 ok). Combined 2021 mojibake picture: 32/486 (6.6%)."
+  },
+  {
+    "task_id": "2020-db-corrections-entry8",
+    "date": "2026-06-10",
+    "pass": 60,
+    "agent": "data-analyst",
+    "topic": "2020 cohort DB corrections — bilingual_report and n_material_topics_a",
+    "status": "completed",
+    "output_file": "twse-research-database.csv",
+    "variables_added": [],
+    "notes": "Fix 1: bilingual_report corrected for tickers 1531 and 3447 (0→1). Both have _2020_E.txt on disk (1531: 30,647 words; 3447: 10,412 words) but phase0_2020.py did not detect them. Coverage after fix: 427/427. Fix 2: n_material_topics_a improved from 400→403 via GRI text-pattern fallback (scan of processed .txt files for GRI 200/300/400-series codes in tickers excluded from gri_codes_summary_2020.csv). 24 tickers remain blank — genuinely no GRI codes found by either PDF extraction or text pattern search. Phase 1 English NLP (ESGLens/FinBERT/ClimateBERT) still pending local execution for 2 files (1531, 3447) — run in order: eslens → finbert → climatebert. Phase 3 does NOT need re-running after Phase 1 (TDS is BGE-first; 1531 and 3447 already have BGE data)."
   }
 ]
