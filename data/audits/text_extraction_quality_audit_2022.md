@@ -1,10 +1,10 @@
 # Text Extraction Quality Audit — 2022 Cohort
 **Audit date:** 2026-05-22 (replaces preliminary audit of 2026-05-19)  
-**Last updated:** 2026-06-10 — Entry 10: corpus expansion (+392 files; 1015 total)  
+**Last updated:** 2026-06-10 — Entry 10: corpus expansion (+400 files; 1023 total)  
 **Corpus (raw):** `/Text extraction/extracted_text/2022/`  
 **Corpus (processed):** `/Text extraction/extracted_text/2022_processed/`  
-**Source PDFs on disk:** ~1,023 (620 original + 403 expansion; includes 11 corrupt 0-page files)  
-**Total extracted .txt files:** 1,015  (English `_E`: 399 / 39.3% · Chinese-only: 616 / 60.7%)  
+**Source PDFs on disk:** ~1,026 (620 original + 406 expansion; includes 12 corrupt 0-page files)  
+**Total extracted .txt files:** 1,023  (English `_E`: 399 / 39.0% · Chinese-only: 624 / 61.0%)  
 **Note (original deduplication):** 256 Chinese duplicate files removed 2026-05-26 where an English `_E` version existed. Unique companies: ~621.  
 **Note (expansion 2026-06-10):** 392 additional files extracted (378 native PyMuPDF + 14 OCR). English share dropped from 62.4% → 39.3% as 382 of the new files are Chinese-language. No further deduplication applied; downstream users should apply the `_E`-preferred dedup policy before modelling.  
 **Subsample:** 100 files (50 `_E` + 50 other; seed = 42; original corpus checks only)  
