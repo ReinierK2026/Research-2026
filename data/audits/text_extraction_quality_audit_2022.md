@@ -1,12 +1,13 @@
 # Text Extraction Quality Audit — 2022 Cohort
 **Audit date:** 2026-05-22 (replaces preliminary audit of 2026-05-19)  
-**Last updated:** 2026-06-08 — Pass 35: Block C re-run (full column set) + all 4 Phase 1 English Track NLP steps complete  
+**Last updated:** 2026-06-10 — Entry 10: corpus expansion (+392 files; 1015 total)  
 **Corpus (raw):** `/Text extraction/extracted_text/2022/`  
 **Corpus (processed):** `/Text extraction/extracted_text/2022_processed/`  
-**Source PDFs on disk:** 620  
-**Total extracted .txt files:** 623  (English `_E`: 389 / 62.4% · Chinese-only: 234 / 37.6%; deduplicated 2026-05-26)  
-**Note:** 256 Chinese duplicate files removed 2026-05-26 where an English `_E` version existed for the same company. Unique companies: ~621.  
-**Subsample:** 100 files (50 `_E` + 50 other; seed = 42)  
+**Source PDFs on disk:** ~1,023 (620 original + 403 expansion; includes 11 corrupt 0-page files)  
+**Total extracted .txt files:** 1,015  (English `_E`: 399 / 39.3% · Chinese-only: 616 / 60.7%)  
+**Note (original deduplication):** 256 Chinese duplicate files removed 2026-05-26 where an English `_E` version existed. Unique companies: ~621.  
+**Note (expansion 2026-06-10):** 392 additional files extracted (378 native PyMuPDF + 14 OCR). English share dropped from 62.4% → 39.3% as 382 of the new files are Chinese-language. No further deduplication applied; downstream users should apply the `_E`-preferred dedup policy before modelling.  
+**Subsample:** 100 files (50 `_E` + 50 other; seed = 42; original corpus checks only)  
 **Methodology:** Independent five-stage pipeline (OCR → PyMuPDF re-extraction → text preprocessing → GRI extraction → quality verification); 100-file stratified subsample for Checks A–C
 
 ---
