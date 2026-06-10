@@ -769,5 +769,6 @@ Run order: **Step 1.4 first** (sandbox), then **1.3**, then **1.1**, then **1.2*
 ---
 
 *Audit scripts: `ocr_batch_2022.py`, `pymupdf_batch_2022.py`, `text_preprocess_2022.py`, `gri_extract_2022.py`, `check_extraction_quality_2022.py`*  
+*Expansion scripts (2026-06-10): `scan_2022_new.py`, `pymupdf_batch_2022_expand.py`, `ocr_batch_2022_expand.py`, `gri_extract_2022_expand.py`*  
 *Output data: `gri_codes_summary_2022.csv`, `extraction_quality_check_2022.csv`*  
-*Processed corpus: `/Text extraction/extracted_text/2022_processed/` (623 files)*
+*Processed corpus: `text-extraction/extracted_text/2022_processed/` (1,015 files; 399 English `_E`, 616 Chinese-only)*
