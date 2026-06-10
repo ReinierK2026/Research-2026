@@ -69,12 +69,16 @@ Streams A, C, D, E, and F are independent and can run in parallel after data pre
 
 | ATT cell | Treated (n) | Controls (n) | Control source |
 |---|---|---|---|
-| g=2022, t=2021 (pre-trend t−1) | 438 | 43 | 2023 cohort companies with 2021 data |
 | g=2022, t=2020 (pre-trend t−2) | 381 | 37 | 2023 cohort companies with 2020 data |
-| g=2022, t=2022 (treatment year) | 578 | 44 | 2023 cohort companies with 2022 data |
-| g=2023, t=2022 (pre-trend t−1) | 40 | 4 | 2024 cohort companies with 2022 data |
+| g=2022, t=2021 (pre-trend t−1) | 438 | 43 | 2023 cohort companies with 2021 data |
+| g=2022, t=2022 (treatment year) | ~~578~~ **442** | 44 | 2023 cohort companies with 2022 data |
+| g=2022, t=2023 (year +1) | 431 | ⚠️ **3** | g=2024 cohort: only 3 companies have any 2023 DB observation |
+| g=2023, t=2022 (pre-trend t−1) | 39 | 4 | 2024 cohort companies with 2022 data |
+| g=2023, t=2023 (treatment year) | 41 | ⚠️ **3** | g=2024 cohort: only 3 companies have any 2023 DB observation |
 
-> **Note:** The 2023 cohort ATT is estimable in principle but has only 4 control units — treat as exploratory and do not include in primary aggregated ATT.
+> **Correction (2026-06-10):** The prior `treated=578` for g=2022, t=2022 was wrong — it counted all 593 g=2022 companies minus ~15 corpus-gap companies. The correct count is **442** estimable companies (those with ≥1 pre-treatment observation that also appear in 2022), which is what att_gt() actually uses.
+>
+> **⚠️ Critical — year +1 and g=2023 treatment year:** ATT(g=2022, t=2023) and ATT(g=2023, t=2023) each have only **3 effective controls** (the 3 g=2024 companies that happen to have a 2023 DB observation — 301 of the 307 g=2024 companies entered the panel only at their 2024 adoption year). These cells are barely estimable. **Pre-register both as exploratory** and do not include in the primary aggregated event-study ATT. The primary identified estimate is ATT(g=2022, t=2022) with n=44 controls.
 
 **Primary estimation sample:** g=2022 cohort. The study estimates the effect of 2022 GRI 3 adoption relative to the not-yet-adopted 2023 cohort.
 
