@@ -2041,5 +2041,13 @@
     "topic_slug": "2022-expansion-batch2-recheck",
     "status": "completed",
     "notes": "2022 re-check found 9 additional unextracted PDFs (6 native, 2 scanned, 1 corrupt). Native PyMuPDF: 1457_2022 (77,468 chars), 1466_2022 (42,644), 1525_2022 (22,393), 3645_2022 (43,234), 3669_2022 (60,417), 6668_2022 (23,801). OCR chi_tra+eng: 1467_2022 (43,700 chars, 65p), 1526_2022 (45,099 chars, 63p). Corrupt 0-page: 2013_2022 (skipped). GRI: 5 of 6 native files detected (1466 no index found). Final corpus: 1023 .txt files (399 _E / 39.0%, 624 Chinese / 61.0%). GRI CSV: 992 rows, 878/992 (88.5%). Audit updated (Entry 10 batch 2 note, header corrected to 1023 files)."
+  },
+  {
+    "session_date": "2026-06-10",
+    "pass": 66,
+    "agent": "data-analyst",
+    "topic_slug": "block-ag-cross-cohort-gap-fill",
+    "status": "completed",
+    "notes": "Cross-cohort Block A–G non-NLP gap audit and fill (all 5 cohorts, 3,283 rows). Audit identified gaps across: n_material_topics_a, extended Block C (mat_process_disclosed, matrix_shown, matrix_axes_labeled, approval_body, gri3_four_step_compliance, impact/financial_materiality_disclosed), word_count_cn/page_count_cn, report_language, mda_index. Fixes applied: (1) n_material_topics_a +324 rows from gri_codes_summary CSVs (2021:+142, 2022:+94, 2023:+58, 2024:+30); remaining blanks: 2020:24, 2021:4, 2022:13, 2023:77, 2024:1 (Phase 0 GRI table extraction structural gaps). (2) Extended Block C (7 cols) run for 2020 all 427 rows + 2021 supplement 15 + 2022 supplement 14 (2013 has no text file); mat_process_disclosed now 427/427 (2020), 491/491 (2021), 631/632 (2022). (3) word_count_cn/page_count_cn filled for CN files: 2020:427, 2021:+176 (now 490/491), 2022:+620, 2023:213 (CN-only rows), 2024:361 (CN-only rows). (4) report_language fixed for 15 blank 2022 supplement tickers: 13 set to zh, 2 (2408/3592) to en (bilingual). (5) mda_index recomputed for 14 newly-fixed 2021 Block C tickers (previously had all-zero Block C → Phase 3 score was 0): new mda_index range 0.2–0.8. Structural gaps not fixable without new data: independent_director_ratio 2022-2024 (0/2365, no shareholding files); board_esg_committee all years (0/3283, no source identified); n_material_topics_a 2023:77 (GRI tables missing for those tickers)."
   }
 ]
