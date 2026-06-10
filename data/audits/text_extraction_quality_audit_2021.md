@@ -797,8 +797,8 @@ Run order: **Step 1.4 first** (sandbox — already done), then **1.3**, then **1
 | 2.1 | BGE-M3 multilingual semantic topic matcher — original 172 CN files | ✅ Done 2026-06-09 | 172/172 filled. Top1: GRI Alignment(47), Stakeholder Engagement(26), Training & Education(20). Mean sim=0.643. Affinity: soc=0.302, gov=0.301, env=0.122. Script: `phase2_step2_1_bge_2021.py`. |
 | 2.2 | XLM-RoBERTa-XNLI zero-shot ESG classifier — original 172 CN files | ✅ Done 2026-06-09 | 172/172 filled. Dominant: soc=133 (77.3%), other=14 (8.1%), env=13 (7.6%), gov=12 (7.0%). Mean 41.6 sentences. Script: `phase2_step2_2_xlmr_2021.py`. |
 | 2.3 | Block C indicators (Chinese/bilingual) — original 172 CN files | ✅ Done 2026-06-09 | 172 files processed. Combined corpus (2021 all years): mat_found=450/822 (54.7%), board_approved=209/822 (25.4%), double_mat=6/822 (0.7%), ai_tool=2/822 (0.2%). Script: `phase2_block_c_chinese_2021.py`. |
-| 2.1s | BGE-M3 supplement — 314 new CN files (bilingual + CN-only) | ⬜ Pending local run | Targets 314 new CN tickers not in original progress JSON. Additive: only writes to blank DB cells; appends to `bge_2021_matches.jsonl`. Excl: 3669, 3990, 2201, 3035, 2103. 24 mojibake-risk files included but flagged. Script: `phase2_step2_1_bge_2021_cn_supplement.py`. |
-| 2.2s | XLMR supplement — 314 new CN files | ⬜ Pending local run | Same additive logic as 2.1s; appends to `xlmr_2021_matches.jsonl`. Script: `phase2_step2_2_xlmr_2021_cn_supplement.py`. |
+| 2.1s | BGE-M3 supplement — 314 new CN files (bilingual + CN-only) | ✅ Done 2026-06-10 | Ran locally. 486 total BGE-filled (172 original + 314 supplement). `bge_2021_matches.jsonl` 486 records. DB: 486/822 rows filled. Script: `phase2_step2_1_bge_2021_cn_supplement.py`. |
+| 2.2s | XLMR supplement — 314 new CN files | ✅ Done 2026-06-10 (with fix) | Ran locally but was interrupted before `save_db()`. 37 tickers written to `xlmr_2021_matches.jsonl` (301 records) but not to DB — recovered via JSONL replay in Entry 14. Final: 473/822 DB rows filled; 13 tickers with no parseable sentences. Script: `phase2_step2_2_xlmr_2021_cn_supplement.py`. |
 
 ---
 
