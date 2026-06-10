@@ -276,4 +276,4 @@ Before OSF submission, the following must be updated in the hypothesis document:
 
 ---
 
-*Generated: 2026-06-10 | data:explore-data skill*
+*Generated: 2026-06-10 | data:explore-data skill | Last updated: 2026-06-10 (schema audit — 190 cols; n_material_topics_a redundancy; new potential outcomes; board_esg_committee warning)*
