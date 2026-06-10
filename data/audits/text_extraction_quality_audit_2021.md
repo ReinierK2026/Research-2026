@@ -1,6 +1,6 @@
 # Text Extraction Quality Audit — 2021 Cohort
 **Audit date:** 2026-05-22  
-**Last updated:** 2026-06-10 — CN supplement: 314 new Chinese-track files pre-processed (Phase 0 supplement ran); 308 rows flagged bilingual_report=1; 24 mojibake-risk files flagged; word_count_cn/page_count_cn columns added; Phase 2 BGE+XLMR supplement scripts written (pending local run); Phase 3 supplement script written. See Entry 13.  
+**Last updated:** 2026-06-10 (2) — Retroactive quality audit of original 172 CN track completed; `lang_detection_2021_cn_original.csv` generated (8 mojibake flagged); BGE + XLMR supplements confirmed run locally (486 tickers); XLMR DB gap fixed: 37 tickers recovered from interrupted save (XLMR now 473/822); 13 true no-sentence files identified. Combined Chinese-track quality: 486 files, 32 mojibake (6.6%), 454 clean. See Entry 14.  
 **Corpus (raw):** `/Text extraction/extracted_text/2021/` — 4 files (0 `_E`, 4 other)  
 **Corpus (processed):** `/Text extraction/extracted_text/2021_processed/`  
 **Source PDFs on disk:** ~811 (492 original + 319 added 2026-06-09)  
