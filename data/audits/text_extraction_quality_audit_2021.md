@@ -878,7 +878,7 @@ The 37-ticker gap was confirmed by file timestamps: `xlmr_2021_matches.jsonl` mo
 - Mojibake files (still filled): n=25, median=5 sentences ← much lower, reflects garbled text
 - 13 true no-sentence files: materiality window text parseable but all fragments < 15 chars
 
-**Remaining XLMR gap explanation (13 tickers):** All supplement-track files; not a data quality issue but a structural one — the materiality window text for these companies uses formatting where Chinese sentence-ending punctuation (。！？；) is absent or the text is too fragmented for the 15-char minimum threshold.
+**Remaining XLMR gap explanation (13 tickers) — CORRECTED IN ENTRY 15:** Initially documented as "structural (no parseable sentences)". Subsequent sandbox verification (2026-06-10) showed all 13 DO produce 1–75 sentences when the extraction logic runs. The real cause: all 13 were already in the progress JSON `done` set from an earlier (original 172) XLMR run where they appear to have silently failed (OOM or different file state). The supplement script's `if ticker in done: continue` guard skipped them without re-attempting. Fix: remove these 13 from the progress JSON `done` list and re-run the supplement script locally. See Entry 15.
 
 **XLMR "coming up short" — full answer:**  
 Three compounding factors: (1) 37 tickers whose results were written to JSONL but not committed to the DB (fixed); (2) 13 tickers with no parseable sentences in their materiality window; (3) 32 mojibake files (8 original + 24 supplement) that produced low-quality or null classifications. Post-fix XLMR coverage is 473/822 (57.5%) vs BGE 486/822 (59.1%) — a 13-file gap, all genuine no-sentence cases.
