@@ -62,7 +62,7 @@ All streams are **independent** after data prep + pre-registration. Run in paral
 
 ---
 
-### Task D2 — Tag language_track column
+### Task D2 — Tag language_track column ✅ COMPLETED (Pass 92, 2026-06-10)
 
 **What:** Classify each company-year as `bilingual`, `zh_only`, or `en_only` based on which NLP models ran on it.
 
@@ -79,19 +79,18 @@ conditions = [
 db['language_track'] = np.select(conditions, ['bilingual','zh_only','en_only'], default='neither')
 ```
 
-**Reference counts (2021):** bilingual=303, zh_only=183, en_only=4, neither=1
+**Populated indicator used:** `finbert_env_pct.notna()` for finbert; `bge_top1_topic.notna()` for bge.  
+**Reference counts (2021, verified):** bilingual=303 ✓, zh_only=183 ✓, en_only=4 ✓, neither=1 ✓
 
-**Assign to:** data-analyst  
-**Blocks:** Stream F  
-**Est. time:** 30 minutes
+**Status:** ✅ **COMPLETED** — `language_track` column added to DB (col 191 of 192)
 
 ---
 
-### Task D3 — Derive and lock impact_intensity
+### Task D3 — Derive and lock impact_intensity ✅ COMPLETED (Pass 92, 2026-06-10)
 
 **What:** Pre-specify the H4 moderator before running any regression.
 
-**Rule (lock in pre-registration):**
+**Rule (locked — do not change after pre-registration):**
 ```r
 db <- db |> mutate(
   impact_intensity = case_when(
@@ -103,41 +102,61 @@ db <- db |> mutate(
 )
 ```
 
-**Primary H4 analysis:** High vs Low only. Consumer + RenewableEnergy run as a sensitivity check (pre-registered, not primary).
+**Primary H4 analysis:** High vs Low only. Consumer + RenewableEnergy run as a sensitivity check (pre-registered, not primary).  
+**Coverage:** 3,251/3,283 rows assigned (32 null rows where sasb_industry is blank).
 
-**Assign to:** data-analyst  
-**Blocks:** Stream A (H4)  
-**Est. time:** 15 minutes
+**Status:** ✅ **COMPLETED** — `impact_intensity` column added to DB (col 192 of 192)
 
 ---
 
-### Task D4 — Exclude 2024 cohort
+### Task D4 — Exclude 2024 cohort ✅ COMPLETED (Pass 92, 2026-06-10) — READ CORRECTION
 
-**What:** Remove 2024 adoption cohort rows from the treatment pool and from the not-yet-treated control pool in all H1–H4 CS21 runs.
+**What:** Create filtered analytical datasets for CS21 estimation.
+
+> **⚠️ CORRECTION to original filter logic:** The filter `filter(!(gri_adoption_year == 2024))` removes g=2024 companies entirely, which:
+> - Reduces ATT(g=2022, t=2022) controls from 44 → 40 (loses 4 g=2024 companies with 2022 obs)
+> - Makes ATT(g=2022, t=2023) and ATT(g=2023, t=2023) completely inestimable (0 controls, not 3)
+>
+> Two files were created to address this:
+
+**`data/db_did.csv`** (2,960 rows) — g=2024 fully excluded  
+- Use for: CS21 primary estimates with `glist=c(2021, 2022)` if year+1 estimates are not needed  
+- Controls at t=2022: **40** (g=2023 companies only)  
+- Controls at t=2023: **0** (year+1 INESTIMABLE from this file)
+
+**`data/db_did_full.csv`** (3,283 rows) — all cohorts retained  ← **USE THIS AS PRIMARY ANALYTICAL FILE**
+- Use for: `att_gt(data=db_did_full, gname="gri_adoption_year", ...)` with `glist=c(2021, 2022, 2023)`  
+- Controls at t=2022: **44** (40 g=2023 + 4 g=2024)  
+- Controls at t=2023: **3** (g=2024 companies with 2023 obs — exploratory only)
 
 ```r
-db_did <- db |> filter(gri_adoption_year != 2024 | is.na(gri_adoption_year))
-# Also filter out 2024 cohort from the panel entirely for cleaner estimation
-db_did <- db |> filter(!(gri_adoption_year == 2024))
+# Correct R usage for db_did_full.csv:
+out_h1 <- att_gt(
+  yname         = "n_material_topics_b",
+  gname         = "gri_adoption_year",
+  data          = db_did_full,
+  control_group = "notyettreated",
+  # CS21 automatically excludes g=2024 from pre-registration target cohorts when using glist:
+)
+es_h1 <- aggte(out_h1, type="dynamic", glist=c(2021, 2022, 2023), na.rm=TRUE)
 ```
 
-**Rationale:** Only 6/307 companies in the 2024 cohort have ≥1 pre-2024 observation (confirmed against DB 2026-06-10). The remaining 301 entered the panel only at adoption — they contribute neither as valid treated units (no pre-treatment baseline) nor as meaningful controls (barely appear in pre-treatment years; only 3 of the 307 have a 2023 observation, and only 4 have a 2022 observation).
-
-> **⚠️ Year +1 control thinness (Pass 89/90 audit):** Even with g=2024 excluded from the treatment pool, these 3–4 g=2024 companies with pre-2024 obs still form the ENTIRE control pool for ATT(g=2022, t=2023) and ATT(g=2023, t=2023). Flag these year-+1 estimates as exploratory in OSF pre-registration (n_controls=3).
-
-**Assign to:** data-analyst  
-**Blocks:** Streams A, F  
-**Est. time:** 15 minutes
+**Status:** ✅ **COMPLETED** — both files saved in `data/`
 
 ---
 
-### Task D5 — Re-merge TEJ 2016–2020 financials (Stream B only)
+### Task D5 — Re-merge TEJ 2016–2020 financials (Stream B only) ✅ COMPLETED (Pass 92, 2026-06-10)
 
-**What:** Extract `twse_ticker`, `fiscal_year`, `ln_total_assets`, `roa` from `twse-research-database_pre-nlp-repair.csv` for rows where `fiscal_year ∈ {2016, 2017, 2018, 2019, 2020}`. Merge into the current DB for Stream B covariate parallel trends validation only. Do NOT populate NLP outcome variables for pre-2021 rows.
+**What:** Extract `twse_ticker`, `fiscal_year`, `ln_total_assets`, `roa`, `leverage` from `twse-research-database_pre-nlp-repair.csv` for `fiscal_year ∈ {2016, 2017, 2018, 2019}`. Append to DB as pre-treatment rows (2020 was already 100% covered in DB). Do NOT populate NLP outcome variables for pre-2021 rows.
 
-**Assign to:** data-analyst  
-**Blocks:** Stream B only  
-**Est. time:** 1–2 hours
+**Result:**
+- **2,125 rows added** (FY 2016-2019) — DB now **5,408 rows × 192 cols, FY 2016–2024**
+- Coverage: 2016=444/483 (92%), 2017=478/512 (93%), 2018=518/550 (94%), 2019=549/580 (95%)
+- `language_track='neither'` for all pre-2021 rows; `impact_intensity` derived from sasb_industry
+- **351/1,036 analytical-sample companies** have pre-treatment history to 2016
+- Reference file: `data/stream_b_pre_treatment.csv` (2,780 rows, FY 2016-2020, all columns)
+
+**Status:** ✅ **COMPLETED**
 
 ---
 
