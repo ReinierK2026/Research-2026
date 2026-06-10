@@ -2009,5 +2009,29 @@
     "output_file": "twse-research-database.csv",
     "variables_added": [],
     "notes": "Full coverage audit of 2021 Block C against all 491 DB rows revealed 14 supplement-track tickers with blank mat_section_found. Root cause: phase2_block_c_chinese_2021.py progress JSON only had 172 original tickers; supplement tickers (all 314) were never processed. Two sandbox scripts (block_c_gap_fix.py, block_c_gap10_fix.py) applied Block C extraction inline to all 14. First pass: 2329 2441 2449 6770 (mat=1 for all). Second pass: 1536 2012 2023 2206 2345 6189 6768 8112 (mat=1); 2102 2707 (mat=0, no materiality heading found). Post-fix Block C coverage: 491/491 nonblank (462 mat=1, 29 mat=0). Also set report_language='zh' for 11 blank-language supplement tickers: 1536 2012 2023 2102 2206 2329 2345 2707 6189 6768 8112. Language distribution now 183 zh + 308 en = 491/491 (no blanks). New gap identified: ticker 6770 missing Phase 1 English NLP (finbert/climatebert/eslens) — 307/308 en rows covered; 6770 pending local run. XLMR 13-ticker gap reclassified: all 13 DO produce sentences (1-75 in sandbox); were silently skipped because present in progress JSON done set from original 172 XLMR run. Local re-run instructions: remove these 13 from phase2_step2_2_xlmr_2021_progress.json done list then run phase2_step2_2_xlmr_2021_cn_supplement.py. DB row count note: 2021 DB restructured from 822 → 491 rows (current). All coverage numbers in this entry use /491 as denominator."
+  },
+  {
+    "session_date": "2026-06-10",
+    "pass": 62,
+    "agent": "technical-researcher",
+    "topic_slug": "2022-expansion-scan",
+    "status": "completed",
+    "notes": "2022 cohort corpus expansion — Stage 0: scan 403 new PDFs. script: scan_2022_new.py. Results: 378 native, 14 scanned, 11 corrupt 0-page errors. Corrupt stems (11, hard exclusions): 1218, 2106, 2207, 2324, 2331, 2369, 2376, 2451, 3034, 3714, 8114 (all _2022). Scanned stems (14): 1219, 1455, 1723, 1907, 2392, 2511, 3006, 3605, 4720, 4766, 5515, 6184, 6534, 8341 (all _2022). Output: scan_2022_new_results.json."
+  },
+  {
+    "session_date": "2026-06-10",
+    "pass": 63,
+    "agent": "technical-researcher",
+    "topic_slug": "2022-expansion-extract",
+    "status": "completed",
+    "notes": "2022 cohort corpus expansion — Stage 1+2: PyMuPDF (378 native) + OCR (14 scanned). pymupdf_batch_2022_expand.py: 4 passes, 378 files; median 143,481 chars, mean 160,927 chars; same coordinate-aware extraction as original (sidebar, header/footer, two-col, dehyphenation). ocr_batch_2022_expand.py: 13 passes, 14 files; all chi_tra+eng; --oem 1 --psm 3, 1.5x scale; per-page JSON cache + global deadline guard. Hard exclusion from OCR: 1219_2022 (48 cpp, 5,014 chars across 104 pages). Total 2022_processed: 1015 files (399 _E / 39.3%, 616 Chinese / 60.7%). 382 of 392 new files are Chinese duplicates of companies already in English. No deduplication applied."
+  },
+  {
+    "session_date": "2026-06-10",
+    "pass": 64,
+    "agent": "technical-researcher",
+    "topic_slug": "2022-expansion-gri-quality-audit",
+    "status": "completed",
+    "notes": "2022 cohort corpus expansion — Stage 3: GRI extraction + Stage 4: quality audit update. gri_extract_2022_expand.py: 3 passes; loaded existing 609-row CSV, added 375 new rows. GRI CSV final: 984 rows, 873/984 with codes (88.7%), 67.8 avg codes/file, 59,167 total instances, 3 G4 files (14 instances). Check A (cpp floors) on 392 new files: 11 flagged (2.8%), 2 genuine near-empty hard exclusions: 3413_2022 (196 chars, 1p) and 2832_2022 (281 chars, 1p). OCR hard exclusion: 1219_2022 (48 cpp). 11 corrupt 0-page PDFs hard-excluded. Total hard exclusions: 23. Audit updated: text_extraction_quality_audit_2022.md — header, exec summary, corpus table, Issue 7, Files Requiring Attention, Phase 0, Processing Log Entry 10, footer."
   }
 ]
