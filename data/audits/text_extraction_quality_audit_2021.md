@@ -826,7 +826,66 @@ Run order: **Step 1.4 first** (sandbox — already done), then **1.3**, then **1
 
 ---
 
+---
+
+### Entry 14 — Retroactive CN Quality Audit + XLMR DB Fix (2026-06-10)
+**Date:** 2026-06-10  
+**Scope:** All 486 BGE-processed 2021 Chinese files; XLMR DB gap investigation and fix
+
+**Background:** User question: "the 2021 expanded dataset, has this been checked for quality? it seems the xlmr is coming up short." Investigation confirmed the concern.
+
+**Finding 1 — BGE and XLMR supplements had already run locally:**  
+At session start the BGE progress JSON appeared to have 172 entries; by end of session both BGE and XLMR progress JSONs showed 486 tickers. Cross-referencing confirmed all 486 correspond to disk-present CN files (the 5 absent = EXCLUDE set). The supplement scripts had been run locally with GPU before this session.
+
+**Finding 2 — Original 172 Chinese track lacked a quality audit:**  
+The 314 supplement files received `lang_detection_2021_cn_supplement.csv`. The original 172 files had no equivalent — they went into BGE/XLMR without mojibake screening. Retroactive audit performed:
+
+| Category | Original 172 | Supplement 314 | Combined 486 |
+|---|---|---|---|
+| OK (cjk_ratio ≥ 0.05) | 164 (95.3%) | 290 (92.4%) | **454 (93.4%)** |
+| Mojibake risk (cjk_ratio < 0.05) | **8 (4.7%)** | 24 (7.6%) | **32 (6.6%)** |
+| Stub / missing | 0 | 0 | 0 |
+
+Mojibake files from original track (8): 1110, 1467, 1533, 1608, 2383, 8150, 8271, 9917.  
+These were fed into BGE and XLMR without flagging. Their embeddings and zero-shot classifications are computed from garbled text (near-zero CJK character ratio despite thousands of "words"). BGE outputs are lower-quality for these files; XLMR may produce spurious classifications or fail to find sentences.  
+
+**Output:** `data/audits/lang_detection_2021_cn_original.csv` (172 rows).
+
+**Finding 3 — XLMR DB gap: 37 tickers recovered:**  
+Pre-investigation, XLMR filled 436/822 2021 rows. BGE filled 486. Gap = 50 tickers.
+
+Root cause decomposition:
+
+| Cause | Count | Detail |
+|---|---|---|
+| XLMR supplement interrupted before `save_db()` | 37 | JSONL had records (written at 02:35); DB last saved at 02:38 by Phase 3 supplement, which loaded the DB before XLMR data was committed |
+| True no-sentence files | 13 | `split_sentences()` returned empty — materiality window text had no parseable sentences ≥ 15 chars |
+
+The 37-ticker gap was confirmed by file timestamps: `xlmr_2021_matches.jsonl` modified 02:35, `twse-research-database.csv` modified 02:38. Phase 3 supplement ran after XLMR and saved a DB that still lacked the XLMR data.
+
+**Fix:** Inline JSONL-replay script — loaded `xlmr_2021_matches.jsonl` (301 records), wrote additively to DB for the 37 blank rows. DB saved. XLMR coverage: **473/822** (was 436).
+
+**Updated XLMR coverage after fix:**
+
+| Column | Before fix | After fix |
+|---|---|---|
+| xlmr_dominant_factor | 436/822 | **473/822** |
+| xlmr_esg_sentences_n | 436/822 | **473/822** |
+| xlmr_env_pct | 436/822 | **473/822** |
+
+**XLMR sentence count distribution (473 filled rows):**
+- Clean files: n=411, median=43 sentences
+- Mojibake files (still filled): n=25, median=5 sentences ← much lower, reflects garbled text
+- 13 true no-sentence files: materiality window text parseable but all fragments < 15 chars
+
+**Remaining XLMR gap explanation (13 tickers):** All supplement-track files; not a data quality issue but a structural one — the materiality window text for these companies uses formatting where Chinese sentence-ending punctuation (。！？；) is absent or the text is too fragmented for the 15-char minimum threshold.
+
+**XLMR "coming up short" — full answer:**  
+Three compounding factors: (1) 37 tickers whose results were written to JSONL but not committed to the DB (fixed); (2) 13 tickers with no parseable sentences in their materiality window; (3) 32 mojibake files (8 original + 24 supplement) that produced low-quality or null classifications. Post-fix XLMR coverage is 473/822 (57.5%) vs BGE 486/822 (59.1%) — a 13-file gap, all genuine no-sentence cases.
+
+---
+
 *Scripts: `scan_2021.py`, `ocr_batch_2021.py`, `pymupdf_batch_2021.py`, `gri_extract_2021.py`, `check_extraction_quality_2021.py`, `scan_2021_new.py`, `pymupdf_batch_2021_expand.py`, `ocr_batch_2021_expand.py`, `gri_extract_2021_expand.py`, `phase0_local/phase0_2021_cn_supplement.py`, `phase2_nlp_local/phase2_step2_1_bge_2021_cn_supplement.py`, `phase2_nlp_local/phase2_step2_2_xlmr_2021_cn_supplement.py`, `phase3_local/phase3_2021_cn_supplement.py`*  
-*Output data: `gri_codes_summary_2021.csv` (790 rows), `extraction_quality_check_2021.csv`, `data/audits/lang_detection_2021_cn_supplement.csv` (314 rows)*  
+*Output data: `gri_codes_summary_2021.csv` (790 rows), `extraction_quality_check_2021.csv`, `data/audits/lang_detection_2021_cn_supplement.csv` (314 rows), `data/audits/lang_detection_2021_cn_original.csv` (172 rows)*  
 *Processed corpus: `text-extraction/extracted_text/2021_processed/` (809 files — expanded 2026-06-09)*  
-*Last updated: 2026-06-10 (Entry 13 — CN supplement Phase 0 complete; Phase 2+3 supplement scripts ready)*
+*Last updated: 2026-06-10 (Entry 14 — retroactive CN quality audit; XLMR DB gap fixed; Phase 2 supplements confirmed complete)*
