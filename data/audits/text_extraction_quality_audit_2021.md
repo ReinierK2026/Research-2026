@@ -165,13 +165,13 @@ Three PDFs (9904_2021_E, 4720_2021_E, 9938_2021_E) have a text-bearing cover pag
 
 ## Cross-Cohort Comparison: Key Shifts
 
-| Dimension | 2021 (original) | 2021 (expanded) | 2022 | Interpretation |
+| Dimension | 2021 (original) | 2021 (expanded) | 2022 (expanded) | Interpretation |
 |---|---|---|---|---|
-| Corpus size | 495 | **809** | 623 | Expanded corpus now largest in dataset |
-| English file share | 62% | **38%** | 62.4% | Expansion batch predominantly Chinese |
+| Corpus size | 495 | **809** | **1,023** | 2022 expanded now largest in dataset |
+| English file share | 62% | **38%** | **39.0%** | Both expansions predominantly Chinese |
 | HF noise prevalence | ~90% | ~90% | 93% | Comparable |
-| GRI detection rate | 70.1% | **67.8%** | 87.9% | G4 transition + lower maturity |
-| Scanned files | 4 (0.8%) + 5 hidden | 25 total (3.1%) | 11 (1.8%) | More in expanded 2021 |
+| GRI detection rate | 70.1% | **67.8%** | **88.5%** (878/992) | G4 transition + lower maturity |
+| Scanned files | 4 (0.8%) + 5 hidden | 25 total (3.1%) | **25 (2.5%)** | Comparable scan rates post-expansion |
 | Avg GRI codes/file | 37.5 | **37.3** | 67.2 | Lower — earlier reporting maturity |
 | G4 sector supplements | 8 files (1.6%) | 12 files (1.5%) | None | 2021-specific transition artefact |
 
