@@ -411,10 +411,10 @@ Phase 3 computed four Block G summary variables for all four cohort years using 
 
 | Metric | 2021 (N=491) | 2022 (N=632) | 2023 (N=711) | 2024 (N=1,022) |
 |--------|-------------|-------------|----------------|----------------|
-| `mda_index` | 470 (57.2%), mean=0.549, mode=0.5 | 608 (62.0%), mean=0.601, mode=0.6 | 723 (61.0%), mean=0.609, mode=0.6 | 1,038 (52.3%), mean=0.618, mode=0.7 |
-| `gri_content_index_completeness` | **47 (9.6%)**, correct: ~98% GRI-2016 reporters§ | **514 (81.3%)**, med=0.882 | **606 (85.2%)**, med=0.882 | **939 (91.9%)**, med=0.882 |
-| `n_material_topics_b` | **440 (89.6%)**, median=18 | **586 (92.7%)**, median=16 | **642 (90.3%)**, median=16 | **947 (92.7%)**, median=17 |
-| `topic_depth_score` | 476 (57.9%), mean=0.577, med=0.586 | 613 (62.6%), mean=0.590, med=0.598 | 727 (61.3%), mean=0.591, med=0.594 | 1,040 (52.4%), mean=0.374‡ |
+| `mda_index` | 470 (57.2%), mean=0.549, mode=0.5 | 606 (95.9%), mean=0.601, mode=0.6 | 660 (92.8%), mean=0.609, mode=0.6 *(Pass 93)* | 1,038 (52.3%), mean=0.618, mode=0.7 |
+| `gri_content_index_completeness` | **47 (9.6%)**, correct: ~98% GRI-2016 reporters§ | **514 (81.3%)**, med=0.882 | **710 (99.9%)**, med=0.882 *(Pass 93)* | **939 (91.9%)**, med=0.882 |
+| `n_material_topics_b` | **440 (89.6%)**, median=18 | **586 (92.7%)**, median=16 | **711 (100.0%)**, median=16 *(Pass 93)* | **947 (92.7%)**, median=17 |
+| `topic_depth_score` | 476 (57.9%), mean=0.577, med=0.586 | 611 (96.7%), mean=0.590, med=0.598 | 576 (81.0%), mean=0.591, med=0.594 *(Pass 93)* | 1,040 (52.4%), mean=0.374‡ |
 
 §2021 GCI near-zero by design: ~98% of 2021 rows are GRI Standards 2016 reporters who do not use "GRI 2-*" notation — GCI=0.0 is methodologically correct. Only 47 Universal 2021 early adopters have non-zero GCI. Filter by `gri_standard_version` for cross-cohort GCI analysis.
 
