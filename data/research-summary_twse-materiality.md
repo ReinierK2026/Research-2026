@@ -35,8 +35,8 @@ Staggered Difference-in-Differences (DiD) using the Callaway-Sant'Anna (2021) es
 | Year | DB rows (TEJ) | PDFs on disk | Extracted txt (NLP corpus) | ESGgenplus-only | DB-scaffold only (no text) |
 |------|--------------|-------------|---------------------------|-----------------|--------------------------|
 | 2021 | 835 | 490 | **479** | 0 | 356 |
-| 2022 | 981 | ~1,007‡ | **1,023‡** | 6 | ~-42‡ |
-| 2023 | 1,186 | 711 | **727** | 16 | 459 |
+| 2022 | **632** | ~1,007‡ | **1,023‡** | 6 | ~-391‡ |
+| 2023 | **711** | 711 | **1,259‡‡** | 16 | ~0‡‡ |
 | 2024 | 1,983 | 1,022 | **1,042** | 20 | 941 |
 
 NLP corpus = unique companies with word_count_total > 0 (text successfully extracted from report). This is the denominator for all Blocks B, C, D.
