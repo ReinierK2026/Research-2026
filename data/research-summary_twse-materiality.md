@@ -474,7 +474,15 @@ Coverage is shown two ways: **NLP corpus** (1,042 companies with extracted text)
 
 ## Comparisons & Metrics
 
-### Database State (as of 2026-05-23, Pass 17)
+### Database State (current — Pass 93, 2026-06-11)
+- Rows: **5,408** (data) + 2 header rows (FY 2016–2024)
+- Columns: **192** (+ language_track + impact_intensity added Pass 92)
+- Encoding: UTF-8-sig BOM
+- Full universe: 2,091 unique companies × 2016–2024
+- Analytical sample (FY ≥ 2020): 3,283 rows; db_did_full.csv = 3,283 rows; db_did.csv = 2,960 rows (g=2024 excluded)
+- 73-company industry subsample embedded within: 507 rows (available for subgroup analysis)
+
+### Database State (historical — as of 2026-05-23, Pass 17)
 - Rows: 7,765 (data) + 2 header rows
 - Columns: 157
 - Encoding: UTF-8-sig BOM
