@@ -431,7 +431,7 @@ Phase 3 computed four Block G summary variables for all four cohort years using 
 ## Data Quality
 
 ### Completeness by Block — 2024 Cohort
-Coverage is shown two ways: **NLP corpus** (1,042 companies with extracted text) and **TEJ universe** (1,983 companies with TEJ scaffold rows). NLP-based blocks (B/C/D) use 1,042 as the denominator; TEJ-sourced blocks (F/G) use the full 7,765-row database.
+Coverage is shown two ways: **NLP corpus** (1,042 companies with extracted text) and **TEJ universe** (1,983 companies with TEJ scaffold rows for FY 2024). NLP-based blocks (B/C/D) use 1,042 as the denominator; TEJ-sourced blocks (F/G) fractions below use the pre-restructure 7,765-row database as denominator — these fractions will be recalculated in a future pass using the current 5,408-row DB.
 
 | Block | Variable | Coverage (NLP corpus) | Coverage (TEJ universe) | Quality |
 |-------|----------|-----------------------|-------------------------|---------|
