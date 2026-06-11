@@ -99,7 +99,7 @@ The effective study is therefore a comparison of **2022 cohort adopters vs 2023 
 | Non-null (positive) | **2,979 (90.7%)** |
 | **Zero (placeholders)** | **0 — all converted to NA (Pass 87)** |
 | Blank/NA | 304 (9.3%) |
-| Non-null distribution | min=1, max=36, mean≈15.0, median=14 |
+| Non-null distribution | min=1, max=44, mean≈16.9, median=17 |
 
 Current valid coverage by year (post-Pass 67+87):
 
