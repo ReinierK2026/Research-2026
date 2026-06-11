@@ -2400,5 +2400,37 @@
     "topic_slug": "2023-expansion-gri",
     "status": "completed",
     "notes": "2023 cohort GRI extraction for 15 new files. Improved regex pipeline: STANDALONE_RE covers [1-4]xx codes (G4 100-series); find_gri_pages triggers on: expl>=3 OR sa>=10 OR kw+any_code OR kw_alone OR in_idx+continuation. All 15 files detected GRI codes (15/15, 100%). Codes per file: range 5–117, median ~65. GRI index pages: range 1–11. gri_codes_summary_2023.csv updated: 742 rows (727 prior + 15 new), 692/742 with codes (93.3%). Elapsed: 4.5s."
+  },
+  {
+    "session_date": "2026-06-11",
+    "pass": 94,
+    "agent": "technical-researcher",
+    "topic_slug": "2023-expansion-scan",
+    "status": "completed",
+    "notes": "2023 cohort Stage 0 expansion scan — classified 508 new PDFs: 495 native (avg_cpp ≥ 100), 13 scanned (avg_cpp = 0–1), 0 corrupt. 1 borderline (6239_2023, cpp=51) treated as native. 13 ghost _b stems in scan JSON had no matching PDF (base already extracted); skipped. Script: scan_2023_new.py. Output: scan_2023_new_results.json. Elapsed: 24.3s."
+  },
+  {
+    "session_date": "2026-06-11",
+    "pass": 95,
+    "agent": "technical-researcher",
+    "topic_slug": "2023-expansion-pymupdf",
+    "status": "completed",
+    "notes": "2023 cohort Stage 1 expansion — PyMuPDF coordinate-aware extraction for 495 native PDFs. Parameters: sidebar x₀ < 16%, header/footer 7%/5%, two-column detection. No dehyphenation (all Chinese). All 495 produced valid output; 0 empty, 0 corrupt. Char range: 25K–209K; median ~70K. 5 budget runs (38s each). Script: pymupdf_batch_2023_new.py. Total 2023_processed after native: 1,246 files."
+  },
+  {
+    "session_date": "2026-06-11",
+    "pass": 96,
+    "agent": "technical-researcher",
+    "topic_slug": "2023-expansion-ocr",
+    "status": "completed",
+    "notes": "2023 cohort Stage 2 expansion — Tesseract OCR for 13 scanned PDFs. All Chinese: chi_tra+eng, --oem 1 --psm 3, 1.5× scale. Per-page JSON cache for resume. Files: 1732 (82p/62K), 1735 (31p/52K), 2106 (148p/112K), 2382 (2p/already done), 2392 (116p/72K), 3006 (94p/61K), 3705 (67p/97K), 3712 (121p/78K), 4720 (118p/93K), 6183 (198p/144K), 6184 (70p/69K), 9917 (60p/80K), 9946 (108p/108K). All 13 completed. Total 1,215 pages OCR'd. ~18 budget runs. Total 2023_processed after OCR: 1,259 files."
+  },
+  {
+    "session_date": "2026-06-11",
+    "pass": 97,
+    "agent": "technical-researcher",
+    "topic_slug": "2023-expansion-gri-audit",
+    "status": "completed",
+    "notes": "2023 cohort Stage 3 GRI extraction + Stage 4 quality audit update for expansion batch. GRI: 495 PDF-backed new files processed in 3 runs (38s + 38s + 15s). Improved regex: STANDALONE_RE [1-4]xx, kw-alone trigger, sa≥10. gri_codes_summary_2023.csv: 742 → 1,237 rows; 1,142/1,237 with codes (92.3%). Quality audit: text_extraction_quality_audit_2023.md updated — header (1,259 TXT / 1,248 PDFs / 41.8% EN / 58.2% ZH), corpus composition table expanded, GRI stats updated, Entry 11 appended. Full corpus: 0 empty files; 49 low-cpp (<300, non-OCR) = 3.9% flag rate; all inspected, all image-heavy or scanned sources (no extraction failures). No hard exclusions in expansion batch."
   }
 ]
