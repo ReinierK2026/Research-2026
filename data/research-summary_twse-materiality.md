@@ -311,7 +311,7 @@ Phase 2 Multilingual Track is **complete for all four cohorts (2021–2024)**. A
 | 2.1 BGE-M3 | BAAI/bge-m3, 33 bilingual GRI topic descriptors | ✅ Done | 361/361 (100%). Top topics: GRI Alignment (122/34%), Stakeholder Engagement (56), Training & Education (25), TCFD/ISSB Alignment (20). top1_sim mean=0.690. Affinities: gov=0.353, soc=0.295, env=0.173. JSONL: bge_2024_matches.jsonl |
 | 2.2 XLM-RoBERTa-XNLI | mDeBERTa-v3-base-mnli-xnli, zero-shot sentence classification | ✅ Done | 361/361 (100%). dominant: soc=294 (81.4%), other=44 (12.2%), gov=14 (3.9%), env=9 (2.5%). Mean pcts: soc=0.449, gov=0.204, env=0.164. Mean sentences=43.9 |
 
-**2023 Chinese/bilingual track — 216 files processed (no exclusions):**
+**2023 Chinese/bilingual track — 216 original files processed ✅ + ~517 expansion ⏳ (733 total; EXCLUDE set of 17 tickers for expansion batch‡‡):**
 
 | Step | Method | Status | Key Findings |
 |------|--------|--------|-------------|
