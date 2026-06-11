@@ -157,7 +157,7 @@ Panel: 2016–2024. Text data: 2021–2024. TEJ ESG scores: 2016–2022. GRI 3 t
 - The effective control pool at t=2023 is **3 companies** — pre-register those ATT cells as exploratory; primary inference rests on ATT(g=2022, t=2022) where n_controls=44
 
 ### Block B: Report Characteristics [High confidence | data-analyst | 2026-05-20/22]
-- All 7,765 company-year rows have 100% coverage on: `gri_standard_version`, `gri_adoption_year`, `bilingual_report` (sourced from TEJ CSR Disclosure)
+- All 5,408 company-year rows (post-restructure DB) have 100% coverage on: `gri_standard_version`, `gri_adoption_year`, `bilingual_report` (sourced from TEJ CSR Disclosure)
 - Text-level coverage (word count, page count, language): 0% for 2016–2020 (no text files available); 2021–2024: full within NLP corpus (per-year NLP corpus is the denominator)
 - **NLP corpus by cohort** (txt files extracted; bilingual companies counted separately per language): 2021: 479; 2022: **1,023**‡ (617 original batch + 406 expansion; ML pipeline pending for expansion); 2023: **1,259**‡‡ planned (742 current: 526 EN + 216 CN); 2024: 1,042 — expanding as TWSE reporting universe grows and corpus extraction adds files
 - **Bilingual reporting by cohort**: 2021: ~0 identified; 2022: ~6 ESGgenplus-only; 2023: ~16 ESGgenplus-only; 2024: 22 companies have both `_E` and Chinese versions (14 paired local PDFs + 20 ESGgenplus-only); identified via `_E` filename suffix
