@@ -730,7 +730,7 @@ Note: Mean climate_pct of 0.484 in 2023 vs 0.502 in 2024 — a modest but consis
 |---|---|---|---|
 | 0.1 | Language detection — route files to English vs multilingual track | ✅ Done | 526 `_E` files (41.8%) → English track; 733 other files (58.2%) → multilingual track. `_E` filename suffix used as primary signal. (Original corpus was 71%/29%; CN expansion flipped split.) |
 | 0.2 | Block B text metrics (word_count, page_count, report_language) | ✅ Done (subsample) | Populated for 49/72 TWSE subsample rows. 23 tickers not in ESGgenplus corpus — no file available. |
-| 0.3 | GRI code extraction | ✅ Done | `gri_codes_summary_2023.csv` (649 rows, 42,044 code instances). Use this, not processed text, for GRI coverage analysis (see Check C). |
+| 0.3 | GRI code extraction | ✅ Done | `gri_codes_summary_2023.csv` (1,237 rows; 1,142/1,237 (92.3%) with ≥1 code). Use this, not processed text, for GRI coverage analysis (see Check C). |
 
 ---
 
