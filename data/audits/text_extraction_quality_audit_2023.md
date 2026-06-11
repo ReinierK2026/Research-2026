@@ -174,12 +174,12 @@ The partial-scan pattern (digitally produced sections mixed with image-only sect
 
 | Dimension | 2024 | 2023 | Interpretation |
 |---|---|---|---|
-| Corpus size | 1,064 | 744 | −30% (one year earlier) |
-| English file share | 64% | 71% | Slightly higher English share |
-| HF noise prevalence | 55% | **92%** | **Major increase — denser 2023 headers** |
+| Corpus size | 1,064 | **1,259** | +18% (original 744 was −30%; CN expansion added 515 files) |
+| English file share | 64% | **41.8%** | CN expansion flipped split; original corpus was 71% English |
+| HF noise prevalence | 55% | **92%** | **Major increase — denser 2023 headers** (measured on original corpus) |
 | Hyphenation severity (`_E`) | 81.5/file | 74.9/file | Slightly lower |
 | GRI fragmentation | 92% | 90% | Near-identical |
-| Scanned files | 18 (1.7%) | 19 (2.6%) | Slightly more |
+| Scanned files | 18 (1.7%) | **32 (2.5%)** | 19 original + 13 expansion; all OCR'd |
 | Avg GRI codes/file | 78.2 | 70.4 | Slightly fewer (less complete GRI indexes?) |
 | Language mixing (bilingual) | 92% | 100% | Higher in 2023 |
 
@@ -286,7 +286,7 @@ All flagged files have been resolved. No files require further action before NLP
 
 | Check | Metric | Pass condition | Result | Status |
 |---|---|---|---|---|
-| A · chars/page consistency | % files below floor or < 50% of median | < 5% flagged | 43 / 744 (5.8%) | ⚠️ BORDERLINE |
+| A · chars/page consistency | % files below floor or < 50% of median | < 5% flagged | 49 / 1,259 (3.9%) — full corpus incl. expansion | ✅ PASS |
 | B · linguistic plausibility | % subsample files with ≥ 2 red flags (recalibrated) | < 10% | 1 / 100 (1.0%) | ✅ PASS |
 | C · GRI code recovery rate | Median rate; % files < 0.75 | Median ≥ 0.80; < 10% below 0.75 | Structural filter — use CSV | ⚠️ STRUCTURAL NOTE |
 
