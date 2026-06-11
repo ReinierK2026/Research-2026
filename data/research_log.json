@@ -2452,5 +2452,15 @@
     "output_file": "scripts/phase2_nlp_local/",
     "variables_added": [],
     "notes": "Phase 1 EN (ESGLens/FinBERT/ClimateBERT): 526/526 COMPLETE. Phase 2 CN (BGE+XLMR+BlockC): 216/724 done; 494 pending. 17 tickers excluded (2382 tiny; 16 no-DB-row). Updated EXCLUDE sets: phase2_block_c_chinese_2023.py, bge_2023.py, xlmr_2023.py. phase3_2023.py: n_material_topics_b changed to fill-only. Run order: BlockC-CN → BGE → XLMR → Phase3."
+  },
+  {
+    "task_id": "pass-93-synthesis",
+    "date": "2026-06-11",
+    "agent": "research-coordinator",
+    "topic": "Pass 93 synthesis: research summary, audit files, execution plan, db_did update",
+    "status": "completed",
+    "output_file": "reports/research-summary_twse-materiality.md",
+    "variables_added": [],
+    "notes": "Updated research-summary_twse-materiality.md (Pass 93): DB dimensions 190→192 cols, 7765→5408 rows; cohort table 2023 DB rows 1186→711; 2023 NLP corpus 727→1259 (planned); 2022 corpus expansion note updated (Phase 1 EN done, Phase 2 CN pending); Phase 3 table 2022 percentages corrected to 632 denominator (mda_index 95.9%, tds 96.7%); Phase 3 2023 values updated to Pass 93 results (mda_index 660/711=92.8%, gci 710/711=99.9%, nmtb 711/711=100%, tds 576/711=81%); coverage trajectory table pass 43-46 corrected 188→192 → 188→190; DB-State Comparisons section updated; Data Biases NLP selection bias updated; GCI interpretation note updated; Session History pass 93 entry added; footer updated to Pass 93. All interconnected documents now current as of 2026-06-11."
   }
 ]
