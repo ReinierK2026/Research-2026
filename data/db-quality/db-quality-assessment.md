@@ -1,7 +1,10 @@
 # DB Quality Assessment — GRI 3 Materiality DiD Study
-**Date:** 2026-06-10  
+**Created:** 2026-06-10  
+**Last updated:** 2026-06-11  
 **File assessed:** twse-research-database.csv  
 **Purpose:** Evaluate readiness of the current DB against the requirements of H1–H5 (Callaway-Sant'Anna DiD)
+
+> ⚠️ **This is the single canonical quality assessment.** Always update this file in place — do not create versioned copies. Increment `Last updated` on every edit.
 
 ---
 
