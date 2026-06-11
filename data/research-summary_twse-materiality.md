@@ -161,7 +161,7 @@ Panel: 2016–2024. Text data: 2021–2024. TEJ ESG scores: 2016–2022. GRI 3 t
 - Text-level coverage (word count, page count, language): 0% for 2016–2020 (no text files available); 2021–2024: full within NLP corpus (per-year NLP corpus is the denominator)
 - **NLP corpus by cohort** (txt files extracted; bilingual companies counted separately per language): 2021: 479; 2022: **1,023**‡ (617 original batch + 406 expansion; ML pipeline pending for expansion); 2023: **1,259**‡‡ planned (742 current: 526 EN + 216 CN); 2024: 1,042 — expanding as TWSE reporting universe grows and corpus extraction adds files
 - **Bilingual reporting by cohort**: 2021: ~0 identified; 2022: ~6 ESGgenplus-only; 2023: ~16 ESGgenplus-only; 2024: 22 companies have both `_E` and Chinese versions (14 paired local PDFs + 20 ESGgenplus-only); identified via `_E` filename suffix
-- **NLP corpus vs TEJ universe gap**: 2021: 479/835 (57.4%); 2022: 617/981 (62.9%); 2023: 727/1,186 (61.3%); 2024: 1,042/1,983 (52.5%) — companies with no extractable report text have TEJ scaffold data but are excluded from Block B/C/D NLP analysis
+- **NLP corpus txt files vs DB rows (post-restructure)**: 2021: 479/491 (97.6%); 2022: 1,023/632 (162%‡ — bilingual pairs; ML pipeline pending for ~406 expansion files); 2023: 742/711 current (104%), 1,259/711 planned after CN expansion (177%‡‡); 2024: 1,042/1,022 (102%) — bilingual companies contribute one txt file per language; high coverage within post-restructure DB for all cohorts
 
 ### 2020 Cohort: Pre-Treatment Baseline NLP Pipeline [High confidence | technical-researcher + data-analyst | 2026-06-10, Passes 53–58]
 
@@ -209,7 +209,7 @@ Block C variables are extracted from ESG report text. Coverage expressed against
 
 | Metric | 2021 | 2022 | 2023 | 2024 |
 |--------|------|------|------|------|
-| **NLP corpus (N=)** | **479** | **617** | **727** | **1,042** |
+| **NLP corpus (N=)** | **479** | **1,023**‡ | **1,259**‡‡ | **1,042** |
 | mat_section_found | 75.4% | 74.3% | 71.5% | 100%† |
 | board_approved | 32.8% | 43.3% | 47.2% | 100%† |
 | double_materiality_mentioned | 1.1% | 6.3% | 9.4% | n/a |
