@@ -497,6 +497,22 @@ out_nlp_gov_zh <- att_gt(
 
 ---
 
+## Pending NLP Pipeline Work (does not block Streams A–E)
+
+The following CN-track NLP runs are pending local GPU execution. They affect **Stream F** (NLP density outcomes) but do **not** block Streams A–E, which rely on structural variables (`n_material_topics_b`, `process_quality_score`, `mda_index`, `gri_content_index_completeness`).
+
+| Cohort | Track | Pending | Scripts | Notes |
+|---|---|---|---|---|
+| 2020 | EN | 2 tickers (1531, 3447) | `phase1_step1_{3,1,2}_*_2020.py` | Only 2 `_E` files in 2020; all else done |
+| 2021 | EN | ~1 ticker (6770) | `phase1_step1_{3,1,2}_*_2021.py` | 6770 excluded from original pass |
+| 2021 | ZH — XLMR gap | 13 tickers | `phase2_step2_2_xlmr_2021_gap13.py` | Processing error in original run; all 13 produce sentences; then re-run `phase3_2021_cn_supplement.py` |
+| 2022 | ZH expansion | ~392 files | `phase2_step2_1_bge_2022.py`, `phase2_step2_2_xlmr_2022.py`, `phase2_block_c_chinese_2022.py` | Scripts updated with EXCLUDE set `{1795,3704,9917,2832,3413,3014,3016}`; then re-run `phase3_2022.py` |
+| 2023 | ZH expansion | ~500 files | `phase2_step2_1_bge_2023.py`, `phase2_step2_2_xlmr_2023.py`, `phase2_block_c_chinese_2023.py` | Scripts updated with EXCLUDE set (17 tickers); will upgrade ~500 `language_track` `en_only` → `bilingual`; then re-run `phase3_2023.py` |
+
+After all CN expansion runs complete: regenerate `db_did_full.csv` and `db_did.csv` once more to capture updated `topic_depth_score` and `language_track`.
+
+---
+
 ## OSF Pre-Registration Checklist
 
 The following must be locked in the OSF pre-registration **before any att_gt() call**:
