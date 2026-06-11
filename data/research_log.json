@@ -2384,5 +2384,21 @@
     "output_file": "data/stream_b_pre_treatment.csv",
     "variables_added": [],
     "notes": "Added 2,125 rows for FY 2016-2019 to main DB (2020 already 100% covered). Coverage: 2016=92%, 2017=93%, 2018=94%, 2019=95% for ln_total_assets/roa/leverage. language_track=neither; impact_intensity derived. DB now 5,408 rows x 192 cols, FY 2016-2024. 351/1036 analytical-sample companies have 2016 history."
+  },
+  {
+    "session_date": "2026-06-11",
+    "pass": 92,
+    "agent": "technical-researcher",
+    "topic_slug": "2023-expansion-extract",
+    "status": "completed",
+    "notes": "2023 cohort corpus expansion — 15 new native Chinese PDFs extracted with coordinate-aware PyMuPDF pipeline (sidebar x0<16%, header/footer 7%/5%, two-column detection; no dehyphenation — all Chinese). Stems: 1303_2023_b, 2441_2023, 2449_2023, 3014_2023, 3016_2023, 3035_2023, 3413_2023, 3443_2023, 3532_2023, 3545_2023, 3669_2023_b, 4961_2023, 5285_2023, 6202_2023, 8131_2023. All 15 confirmed native (avg_cpp 169–2917; 80–175 pages). Char range: 35,253–109,581. All 15 produced ok output (no empties, no corrupt). Total 2023_processed: 759 files (744 prior + 15 new). Elapsed: 10.2s."
+  },
+  {
+    "session_date": "2026-06-11",
+    "pass": 93,
+    "agent": "technical-researcher",
+    "topic_slug": "2023-expansion-gri",
+    "status": "completed",
+    "notes": "2023 cohort GRI extraction for 15 new files. Improved regex pipeline: STANDALONE_RE covers [1-4]xx codes (G4 100-series); find_gri_pages triggers on: expl>=3 OR sa>=10 OR kw+any_code OR kw_alone OR in_idx+continuation. All 15 files detected GRI codes (15/15, 100%). Codes per file: range 5–117, median ~65. GRI index pages: range 1–11. gri_codes_summary_2023.csv updated: 742 rows (727 prior + 15 new), 692/742 with codes (93.3%). Elapsed: 4.5s."
   }
 ]
