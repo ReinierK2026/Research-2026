@@ -261,6 +261,8 @@ Hard exclusions: 23 files (original 9 + 11 corrupt + 2 near-empty expansion + 1 
 
 **Purpose:** Before running any NLP analysis, confirm that the `2022_processed/` text files faithfully represent the source PDFs. Three complementary checks are run on a stratified subsample — they do not require access to the source PDFs and can be re-run at any time.
 
+**Note on corpus expansion:** The three checks below were run on the original 623-file corpus. The 392-file expansion batch (Entry 10) was separately quality-verified via a full Check A equivalent: 11/392 files flagged (2.8%), 2 genuine hard exclusions (3413_2022: 196 chars; 2832_2022: 281 chars), 9 borderline OCR files above the hard floor. Combined corpus: 1,023 files; overall flag rate ~2.1%.
+
 **Subsample:** 100 files — 50 `_E` + 50 other (seed=42).
 
 **Script:** `check_extraction_quality_2022.py`  
