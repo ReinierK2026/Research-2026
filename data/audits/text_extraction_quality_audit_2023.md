@@ -92,7 +92,7 @@ Two contributing factors:
 
 Near-identical to 2024 (92%). Chinese/bilingual files are more affected (96.7%) than English files (87.1%), consistent with the finding that Chinese reports tend to present GRI indexes in borderless tables that are harder for block-based extractors to distinguish from body text.
 
-GRI code richness: average **70.4 unique codes per file** across 597 files with GRI content. Top files reference up to 145 codes, confirming broad cross-standard disclosure across GRI 2 (Universal), GRI 200 (Economic), GRI 300 (Environmental), and GRI 400 (Social) series.
+GRI code richness: average **70.4 unique codes per file** across 597 files with GRI content (original corpus). Following the expansion, `gri_codes_summary_2023.csv` covers **1,237 rows**, of which **1,142 (92.3%)** have ≥1 GRI code.
 
 | Top GRI-rich files | Unique codes | Standards |
 |---|---|---|
@@ -102,7 +102,7 @@ GRI code richness: average **70.4 unique codes per file** across 597 files with 
 | 1220_2023_E | 121 | 35 |
 | 6168_2023 | 121 | 35 |
 
-**Status:** ✅ **Fixed (Entry 6).** Fitz regex extraction extracted GRI content-index data from all 709 non-OCR PDFs. 597/649 files with PDFs in scope (92.0%) yielded ≥1 GRI code; 42,044 total code instances across the corpus. Average 70.4 codes/file. Results in `gri_codes_summary_2023.csv`; per-file structured tables in `gri_tables_2023/` where available.
+**Status:** ✅ **Fixed (Entry 6 + Entry 11).** Fitz regex extraction applied to all PDF-backed files. 1,142/1,237 (92.3%) yielded ≥1 GRI code. Results in `gri_codes_summary_2023.csv`.
 
 **Note:** The fitz regex approach (rather than pdfplumber) was required for 2023 because pdfplumber's `extract_tables()` hangs indefinitely on many 2023 PDF pages — a PDF structure incompatibility not present in 2024 files. The fitz approach captures disclosure codes but produces less structured row data than pdfplumber. For GRI code coverage analysis, `gri_codes_summary_2023.csv` is the authoritative source.
 
