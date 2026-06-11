@@ -745,13 +745,21 @@ Note: Mean climate_pct of 0.484 in 2023 vs 0.502 in 2024 — a modest but consis
 
 ---
 
-### Phase 2 — NLP Pipeline: Multilingual Track (Chinese/bilingual files, 216 files)
+### Phase 2 — NLP Pipeline: Multilingual Track (Chinese/bilingual files, 733 total: 216 original ✅ + ~517 expansion ⏳)
 
 | # | Step | Status | Notes |
 |---|---|---|---|
-| 2.1 | BGE-M3 multilingual semantic topic matcher | ✅ Done 2026-06-09 | 216/216 filled. Top1: GRI Alignment(55), Stakeholder Engagement(27), Training & Education(24), TCFD/ISSB(11). Mean sim=0.651. Affinity: soc=0.303, gov=0.279, env=0.156. Script: `phase2_step2_1_bge_2023.py`. |
-| 2.2 | XLM-RoBERTa-XNLI zero-shot ESG classifier | ✅ Done 2026-06-09 | 216/216 filled. Dominant: soc=179 (82.9%), other=17 (7.9%), env=16 (7.4%), gov=4 (1.9%). Mean 48.2 sentences. Script: `phase2_step2_2_xlmr_2023.py`. |
-| 2.3 | Block C indicators (Chinese/bilingual) | ✅ Done 2026-06-09 | 216 files processed. Combined corpus (2023): mat_found=699/1185 (59.0%), board_approved=453/1185 (38.2%), double_mat=72/1185 (6.1%), ai_tool=32/1185 (2.7%). Script: `phase2_block_c_chinese_2023.py`. |
+| 2.1 | BGE-M3 multilingual semantic topic matcher | ✅ Done 2026-06-09 (original) | **Original batch: 216/216 filled.** Top1: GRI Alignment(55), Stakeholder Engagement(27), Training & Education(24), TCFD/ISSB(11). Mean sim=0.651. Affinity: soc=0.303, gov=0.279, env=0.156. Script: `phase2_step2_1_bge_2023.py`. ⚠️ Expansion batch (~500 files) ⏳ Pending. |
+| 2.2 | XLM-RoBERTa-XNLI zero-shot ESG classifier | ✅ Done 2026-06-09 (original) | **Original batch: 216/216 filled.** Dominant: soc=179 (82.9%), other=17 (7.9%), env=16 (7.4%), gov=4 (1.9%). Mean 48.2 sentences. Script: `phase2_step2_2_xlmr_2023.py`. ⚠️ Expansion batch (~500 files) ⏳ Pending. |
+| 2.3 | Block C indicators (Chinese/bilingual) | ✅ Done 2026-06-09 (original) | **Original batch: 216 files processed.** mat_found, board_approved, double_mat, ai_tool counts reflect original batch only. Script: `phase2_block_c_chinese_2023.py`. ⚠️ Expansion batch (~500 files) ⏳ Pending. |
+
+> **⚠️ Corpus expansion (Entry 11, 2026-06-11) — Phase 2 NLP pending for ~500 new CN files:**  
+> Total CN files expanded from 216 → 733. EXCLUDE set: `{2441, 2449, 3014, 3016, 3035, 3413, 3443, 3532, 3545, 4952, 4961, 5285, 6202, 6552, 6573, 8131, 2382}` (17 tickers: no DB row or structural gap). Processable expansion files: **~500**.  
+> Current Phase 2 Chinese-track coverage: **216 / ~716 processable (30%)**.  
+> - **2.1 BGE-M3:** ⏳ Pending local GPU — re-run `phase2_step2_1_bge_2023.py` (resumes from progress JSON; expansion tickers picked up automatically)  
+> - **2.2 XLMR:** ⏳ Pending local GPU — re-run `phase2_step2_2_xlmr_2023.py` (same resume logic)  
+> - **2.3 Block C Chinese:** ⏳ Pending local GPU — re-run `phase2_block_c_chinese_2023.py`  
+> After completion: re-run `phase3_2023.py` to update `topic_depth_score` for expansion tickers. All scripts updated with EXCLUDE set above. Note: `language_track` will upgrade from `en_only` → `bilingual` for ~500 companies after BGE/XLMR completes.
 
 ---
 
