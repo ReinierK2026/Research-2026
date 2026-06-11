@@ -491,7 +491,7 @@ Coverage is shown two ways: **NLP corpus** (1,042 companies with extracted text)
 | 2026-05-23 | 9–11 | 90→99 | Block C 2021–2023, Block D E/S/G counts, Block E binary panel |
 | 2026-05-23 | 12–17 | 99→157 | Block F (balance sheet, income, equity, ESG scores), Block G governance |
 | 2026-05-24 | 22 | 157 | Coordinator synthesis (this session) |
-| 2026-06-09 | 43–46 | 188→192 | Phase 3 Block Variable Population (all 4 cohorts): mda_index, gri_content_index_completeness, n_material_topics_b, topic_depth_score |
+| 2026-06-09 | 43–46 | 188→190 | Phase 3 Block Variable Population (all 4 cohorts): mda_index, gri_content_index_completeness, n_material_topics_b, topic_depth_score |
 | 2026-06-09 | 47–49 | 192 | 2020 cohort text pipeline: Stage 0 scan (404 native + 28 scanned); OCR (28 files, Tesseract chi_tra+eng); PyMuPDF re-extraction (404 files); GRI extraction (250/404 with codes, 9,789 instances, 12 G4 files); quality audit (Checks A/B/C — corpus accepted with notes). |
 | 2026-06-09 | 50–52 | 192 | 2021 corpus expansion: 319 new PDFs scanned (298 native + 21 scanned); OCR + PyMuPDF extraction; GRI extraction updated (488→790 rows); quality audit updated. 2021 CN corpus expands from 172→486 files for BGE/XLMR supplement run. |
 | 2026-06-10 | 53–58 | 192 | 2020 cohort NLP pipeline complete: Phase 0 (Block B, lang detection), Phase 1 Block C English, Phase 2 (BGE-M3, XLMR, Block C Chinese), Phase 3 block variables. 22 GCI early adopters identified. |
