@@ -255,6 +255,10 @@ Before OSF submission, the following must be updated in the hypothesis document:
 
 6. **idname:** Confirm `idname = "twse_ticker"` (not `"company_id"`) in all `att_gt()` calls.
 
+7. **`n_material_topics_a` redundancy:** Drop `n_material_topics_a` from the DB or pre-register clearly that `n_material_topics_b` is the H1 outcome. Both columns are currently identical (correlation = 1.000). Pre-registration must name the specific column used.
+
+8. **Robustness checks:** Pre-register three mandatory robustness checks alongside primary CS21: (R1) BJS imputation (`didimputation::did_imputation`); (R2) Wooldridge extended TWFE (`fixest::feols` with cohort × time interactions); (R3) Rambachan-Roth HonestDiD sensitivity bounds (`HonestDiD::createSensitivityResults`) — required given only 44 NTT controls at the treatment-year ATT cell. Full specifications in `research-execution-plan_2026-06-10.md` Stream A.
+
 ---
 
 ## 9. Immediate Action Items (before att_gt)
