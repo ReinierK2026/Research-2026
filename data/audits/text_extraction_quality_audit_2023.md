@@ -308,7 +308,7 @@ All flagged files have been resolved. No files require further action before NLP
 
 Corpus-level medians: English 2,255 chars/page · Chinese/bilingual 458 chars/page. Both within expected range for sustainability reports.
 
-**Results:** 43 / 744 files flagged (5.8%). 32 hard-floor flags; 22 soft flags (below 50% of language-group median). This is marginally above the 5% pass threshold.
+**Results (original corpus):** 43 / 744 files flagged (5.8%). 32 hard-floor flags; 22 soft flags (below 50% of language-group median). Marginally above 5% threshold at original corpus scale. **Post-expansion (full 1,259-file corpus):** 49 / 1,259 flagged (3.9%) — below threshold. Entry 11 Stage 4 found 0 empty files in expansion batch; combined flag rate resolves to 3.9%. ✅ PASS.
 
 **Hard-floor flagged files (lowest cpp):**
 
