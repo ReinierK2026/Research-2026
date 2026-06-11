@@ -1,12 +1,12 @@
 # Text Extraction Quality Audit — 2023 Cohort
 **Audit date:** 2026-05-21  
-**Last updated:** 2026-06-08 (Pass 34: Phase 1 English Track NLP fully complete — all 4 steps done for 526 English files)  
+**Last updated:** 2026-06-11 (Entry 11: corpus expansion +500 Chinese files; total 1,259 TXT / 1,248 PDFs)  
 **Corpus (raw):** `/Text extraction/extracted_text/2023/`  
 **Corpus (processed):** `/Text extraction/extracted_text/2023_processed/`  
-**Source PDFs on disk:** 708  
-**Total extracted .txt files:** 744  (English `_E`: 526 / 71% · Chinese/bilingual: 218 / 29%)  
+**Source PDFs on disk:** 1,248  
+**Total extracted .txt files:** 1,259  (English `_E`: 526 / 41.8% · Chinese/bilingual: 733 / 58.2%)  
 **Subsample:** 100 files, stratified (70 `_E` + 30 other; seed=42)  
-**Full-corpus scan:** all 744 files for scanned/empty pages  
+**Full-corpus scan:** all 744 original files for scanned/empty pages; expansion batch fully scanned (Stage 0)  
 **Methodology:** Independent five-stage pipeline (OCR → PyMuPDF re-extraction → text preprocessing → GRI extraction → quality verification); 100-file stratified subsample for Checks A–C
 
 ---
