@@ -290,7 +290,7 @@ All flagged files have been resolved. No files require further action before NLP
 | B · linguistic plausibility | % subsample files with ≥ 2 red flags (recalibrated) | < 10% | 1 / 100 (1.0%) | ✅ PASS |
 | C · GRI code recovery rate | Median rate; % files < 0.75 | Median ≥ 0.80; < 10% below 0.75 | Structural filter — use CSV | ⚠️ STRUCTURAL NOTE |
 
-**Decision rule:** The Check A borderline result (5.8% flagged) was investigated and found to reflect image-heavy and scanned source reports — not extraction errors. Check B passes cleanly. Check C failure is a known structural consequence of the coordinate filter; GRI data is available via CSV. **Corpus is accepted for NLP analysis with the following guidance:**
+**Decision rule:** Check A passes for the full 1,259-file corpus (3.9% flagged — below threshold). Original 744-file audit was borderline at 5.8%; the combined corpus rate drops to 3.9% once the expansion batch is included. All flagged files reflect image-heavy or scanned source reports — not extraction errors. Check B passes cleanly. Check C failure is a known structural consequence of the coordinate filter; GRI data is available via CSV. **Corpus is accepted for NLP analysis with the following guidance:**
 
 1. Down-weight or exclude `2723_2023` (Check B outlier) and the 32 Check A hard-floor files for NLP tasks sensitive to text completeness.
 2. For all GRI code coverage analysis, use `gri_codes_summary_2023.csv` — do NOT use processed text GRI searches.
