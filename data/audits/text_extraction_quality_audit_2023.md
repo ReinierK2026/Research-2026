@@ -166,7 +166,7 @@ Minor increase from 2024 (9% vs 6%). All affected files are English (`_E`: 12.9%
 
 The partial-scan pattern (digitally produced sections mixed with image-only sections) is consistent with the same pattern observed in 2024. The very low page counts for `2382_2023_E` (2 pages) suggest it may be a cover document rather than a full report. `6183_2023_E` (222 pages, 2.7%) is the largest fully-scanned file and required the most OCR processing time.
 
-**Status:** ✅ **Fixed (Entry 4).** All 19 files OCR'd with Tesseract 4 LSTM (`--oem 1 --psm 3`) via `pytesseract` + PyMuPDF page rendering at 1.5× scale. English files: `eng` language mode. Chinese/bilingual: `chi_tra+eng`. Partially-scanned files had native-text pages preserved (pages with >50 existing characters skipped). Total: **1,815 pages processed, 3,115,911 characters recovered** (avg 163,995 chars/file). Progress cached per page — resumable across session timeouts.
+**Status:** ✅ **Fixed (Entry 4 + Entry 11).** Original 19 files: OCR'd with Tesseract 4 LSTM (`--oem 1 --psm 3`) via `pytesseract` + PyMuPDF page rendering at 1.5× scale. English files: `eng` language mode. Chinese/bilingual: `chi_tra+eng`. Partially-scanned files had native-text pages preserved (pages with >50 existing characters skipped). Total original OCR: **1,815 pages processed, 3,115,911 characters recovered** (avg 163,995 chars/file). **Expansion batch (Entry 11, Stage 2): 13 additional scanned files OCR'd** (`chi_tra+eng`; same Tesseract parameters; per-page JSON cache). Progress cached per page — resumable across session timeouts.
 
 ---
 
