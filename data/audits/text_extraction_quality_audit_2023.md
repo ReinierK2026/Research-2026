@@ -780,9 +780,10 @@ Note: Mean climate_pct of 0.484 in 2023 vs 0.502 in 2024 — a modest but consis
 
 *Corpus fully preprocessed and verified. Use `2023_processed/` for NLP; `gri_codes_summary_2023.csv` for GRI code coverage.*  
 *Audit scripts: `audit_2023.py`, `preprocess_2023.py`, `ocr_batch_2023.py`, `pymupdf_batch_2023.py`, `gri_extract_2023.py`, `check_extraction_quality_2023.py`*  
+*Expansion scripts (Entry 11): `scan_2023_new.py`, `pymupdf_batch_2023_new.py`, `ocr_batch_2023_new.py`, `gri_extract_2023_batch.py`*  
 *Raw results: `quality_audit_2023_results.json`*  
 *GRI outputs: `gri_codes_summary_2023.csv`, `gri_tables_2023/`*  
 *Preprocessing manifest: `preprocessing_manifest_2023.csv`*  
-*OCR cache: `ocr_cache_2023/`*  
-*PyMuPDF progress: `pymupdf_progress_2023.json`*  
+*OCR cache: `ocr_cache_2023/`, `ocr_cache_2023_new/`*  
+*PyMuPDF progress: `pymupdf_progress_2023.json`, `pymupdf_2023_new_progress.json`*  
 *Cohort comparisons: `text_extraction_quality_audit_2022.md`, `text_extraction_quality_audit_2024.md` (cross-cohort context only — this document is self-contained)*
