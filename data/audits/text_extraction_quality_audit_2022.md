@@ -705,7 +705,7 @@ Genuine hard exclusions from native PyMuPDF extraction: `3413_2022` (196 chars t
 ## Next Steps — NLP Analysis Pipeline
 
 **Status legend:** ⬜ Pending · 🔄 In Progress · ✅ Done  
-**Updated:** 2026-06-08 (Phase 1 English Track 2022: all steps complete — Block C 389/389, ESGLens 388/389, FinBERT 388/389, ClimateBERT 388/389)  
+**Updated:** 2026-06-11 (Phase 1 English Track: all steps complete — Block C 389/389, ESGLens 388/389, FinBERT 388/389, ClimateBERT 388/389; Phase 2 CN original 225/225 ✅; Phase 2 CN expansion ~392 files ⏳ Pending local GPU run; Phase 3 DB counts reflect current 632-row structure)  
 **Prerequisite satisfied:** All three quality checks pass (adjusted) — corpus is ready for NLP.
 
 ---
