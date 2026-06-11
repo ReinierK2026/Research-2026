@@ -768,10 +768,10 @@ Note: Mean climate_pct of 0.484 in 2023 vs 0.502 in 2024 — a modest but consis
 | # | Step | Status | Notes |
 |---|---|---|---|
 | 3.1 | Populate Block C + NLP cols in `twse-research-database.csv` | ✅ Done (English 2023) | All Phase 1 English NLP variables fully written for 526 2023 files. DB schema: 175 cols (shared with all cohorts). Block C (step 1.4): 526/526. ESGLens (step 1.3): 526/526. FinBERT (step 1.1): 526/526. ClimateBERT (step 1.2): 526/526. |
-| 3.2 | Populate `n_material_topics_b` from GRI tables CSVs | ✅ Done 2026-06-09 | 568/1185 filled (>0). Mean=15.3, median=15. Primary source: `gri_tables_2023/` (122 per-file CSVs); fallback to summary codes. Script: `phase3_2023.py`. |
-| 3.3 | Compute `mda_index` per Padilla-Garrido et al. (2024) | ✅ Done 2026-06-09 | 723/1185 filled (>0). Mean=0.609, mode=0.6. 10-item binary index from Block C columns. Script: `phase3_2023.py`. |
-| 3.4 | Compute `topic_depth_score` from NLP semantic similarity | ✅ Done 2026-06-09 | 727/1185 filled (>0). Mean=0.591 (English ESGLens mean≈0.231; Chinese BGE mean≈0.643 — model calibration gap). Script: `phase3_2023.py`. |
-| 3.5 | Compute `gri_content_index_completeness` from GRI codes | ✅ Done 2026-06-09 | 542/1185 filled (>0). Mean=0.807, median=0.882. Denom=34 (Universal 2021). Script: `phase3_2023.py`. |
+| 3.2 | Populate `n_material_topics_b` from GRI tables CSVs | ✅ Re-run 2026-06-11 (Pass 93) | **660/711 (92.8%)** — current DB (711 rows, post-restructure). GRI source expanded from 649 → 1,237 rows (Pass 93); coverage improved substantially. Primary source: `gri_tables_2023/`; fallback to `gri_codes_summary_2023.csv`. Script: `phase3_2023.py`. *(Old figure 568/1185 was pre-DB-restructure.)* |
+| 3.3 | Compute `mda_index` per Padilla-Garrido et al. (2024) | ✅ Re-run 2026-06-11 (Pass 93) | **710/711 (99.9%)** — current DB. Mean≈0.609. 10-item binary index from Block C columns (Block C now covers 526 EN + 216 original CN). Script: `phase3_2023.py`. *(Old figure 723/1185 was pre-DB-restructure.)* |
+| 3.4 | Compute `topic_depth_score` from NLP semantic similarity | ✅ Re-run 2026-06-11 (Pass 93) | **711/711 (100.0%)** — current DB. All 711 companies covered: 498 en_only (ESGLens) + 198 zh_only (BGE original) + 15 bilingual. English mean≈0.231; Chinese BGE mean≈0.643. Score reflects current NLP; will update after CN expansion BGE run changes `language_track` for ~500 en_only → bilingual. Script: `phase3_2023.py`. |
+| 3.5 | Compute `gri_content_index_completeness` from GRI codes | ✅ Re-run 2026-06-11 (Pass 93) | **576/711 (81.0%)** — current DB. GRI source expanded 649 → 1,237 rows; coverage improved. Mean≈0.807, median=0.882. Denom=34 (Universal 2021). Script: `phase3_2023.py`. *(Old figure 542/1185 was pre-DB-restructure.)* |
 
 ---
 
