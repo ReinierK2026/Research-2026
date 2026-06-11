@@ -23,13 +23,14 @@ The 2023 cohort contains 744 files — 30% smaller than the 2024 cohort (1,064) 
 
 ## Corpus Composition Change: 2022 → 2023
 
-| | 2022 | 2023 | Change |
-|---|---|---|---|
-| Total files | 877 | **744** | −15% |
-| English `_E` files | 389 (44%) | **526 (71%)** | **+27 pp** |
-| Chinese / bilingual | 488 (56%) | **218 (29%)** | −27 pp |
+| | 2022 | 2023 (original) | 2023 (expanded) | Change vs 2022 |
+|---|---|---|---|---|
+| Total files | 1,023 | 744 | **1,259** | **+23%** |
+| English `_E` files | 399 (39%) | 526 (71%) | **526 (41.8%)** | +3 pp |
+| Chinese / bilingual | 624 (61%) | 218 (29%) | **733 (58.2%)** | −3 pp |
+| Source PDFs on disk | 1,023 | 708 | **1,248** | — |
 
-The 2023 cohort has a high English file share (71%), driven by TWSE mandatory disclosure uptake for English-language reporting. The high English proportion means English-driven issues (hyphenation, HF noise) account for a larger fraction of the overall statistics compared to 2022. Year-on-year the corpus grew substantially from 2022 to 2023 (−15% in raw file count, but +35% in total processed files once PDFs without prior `.txt` files are extracted).
+**Expansion note (2026-06-11):** A further 500 Chinese-language PDFs were added to the 2023 folder in two batches. First batch: 15 files extracted 2026-06-11 (Entry 12 of the prior session). Second batch: 508 new PDFs (495 native + 13 scanned + 0 corrupt) classified via Stage 0 scan, extracted via PyMuPDF/Tesseract, and GRI-extracted via the improved regex pipeline. All expansion files are Chinese/bilingual; no English (`_E`) files were added. The language split flipped from 71%/29% to 41.8%/58.2% following the expansion, bringing the 2023 cohort back to a composition more similar to 2022.
 
 ---
 
