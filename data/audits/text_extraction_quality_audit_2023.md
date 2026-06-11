@@ -719,7 +719,7 @@ Note: Mean climate_pct of 0.484 in 2023 vs 0.502 in 2024 — a modest but consis
 ## Next Steps — NLP Analysis Pipeline
 
 **Status legend:** ⬜ Pending · 🔄 In Progress · ✅ Done  
-**Updated:** 2026-06-08 (Pass 34 — all Phase 1 English Track steps complete: Block C, ESGLens, FinBERT, ClimateBERT — 526/526 files each)  
+**Updated:** 2026-06-11 (Pass 34: all Phase 1 English Track complete 526/526; Pass 93 2026-06-11: GRI refresh (649→1,237 rows) + Phase 3 re-run; Phase 2 CN original 216/216 ✅; Phase 2 CN expansion ~500 files ⏳ Pending local GPU run; Phase 3 DB counts reflect current 711-row structure)  
 **Prerequisite satisfied:** All three quality checks pass / accepted — corpus is ready for NLP.
 
 ---
