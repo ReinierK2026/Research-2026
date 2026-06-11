@@ -141,9 +141,9 @@ Minor increase from 2024 (9% vs 6%). All affected files are English (`_E`: 12.9%
 
 ---
 
-### Issue 7 · Scanned Pages — 16 fully scanned, 3 partially scanned
+### Issue 7 · Scanned Pages — **32 total: 19 original + 13 expansion**
 
-**Full-corpus scan (all 744 files):**
+**Full-corpus scan (original 744 files; expansion batch separately scanned in Entry 11):**
 
 **Fully scanned (coverage <10%) — 16 files (2.2%):**
 ```
