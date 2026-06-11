@@ -194,12 +194,14 @@ Minor improvement. Approximately 5% of files contain figure caption lines embedd
 
 | Dimension | 2021 | 2022 | Interpretation |
 |---|---|---|---|
+| Corpus size (expanded) | **809** | **1,023** | Both corpora expanded after original audit; CN-dominant in both |
+| English `_E` share (expanded) | **38%** | **39%** | Near-equal; both shifted down substantially after CN expansion |
 | Multi-column | ~100% | 100% | Stable — universal across all cohorts |
 | Header/footer noise | ~90% | 93% | Slight increase; more verbose headers in growing English share |
 | GRI table fragmentation | ~70% | 95% | Large increase — broader GRI adoption in 2022 cohort |
 | Hyphenation | ~40% (_E) | 47% | Modest increase; 88% of `_E` files affected |
 | Language mixing (non-`_E`) | ~98% | 98% | Stable within non-`_E` files; headline drops due to composition |
-| Scanned files | 0.8% + 0.6% hidden | 1.8% | Slight increase; 11 recovered via OCR |
+| Scanned files (expanded) | **25 (3.1%)** | **25 (2.5%)** | All OCR'd; expansion added scanned files in both cohorts |
 
 Language mixing appears lower in 2022 overall (75% vs ~98% in 2021) only because the raw 2022 corpus has a higher proportion of non-`_E` files (78%). When restricted to non-`_E` files, the rate is identical across both cohorts. The composition-driven apparent improvement is not meaningful for NLP routing decisions.
 
