@@ -68,7 +68,7 @@ Only 6 of the 307 late-adopter "control" companies appear in any pre-2024 year. 
 
 **What CS21 actually uses as controls for each cell** (verified against DB 2026-06-10):
 
-| ATT cell | Treated (estimable, with t obs) | Control (gay>t, with base+t obs) | Control breakdown |
+| ATT cell | Treated (estimable, with t obs) | Control (g'>g, with t obs) | Control breakdown |
 |---|---|---|---|
 | g=2022, t=2020 (pre-trend t−2) | 381 | **37** | g2023:34 + g2024:3 |
 | g=2022, t=2021 (pre-trend t−1) | 438 | **43** | g2023:37 + g2024:6 |
