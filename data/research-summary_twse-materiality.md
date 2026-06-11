@@ -405,7 +405,7 @@ Phase 2 Multilingual Track is **complete for all four cohorts (2021–2024)**. A
 
 ### Phase 3: Block Variable Population [Passes 43–46, 2026-06-09]
 
-Phase 3 computed four Block G summary variables for all four cohort years using existing NLP and GRI data. Scripts: `scripts/phase3_local/phase3_{year}.py`. DB expanded to **190 columns** (188 + 2 confirmed new columns; direct header count confirms 190 — not 192 as in earlier logs).
+Phase 3 computed four Block G summary variables for all four cohort years using existing NLP and GRI data. Scripts: `scripts/phase3_local/phase3_{year}.py`. DB expanded to **190 columns** after Phase 3 (188 + 2 confirmed new columns); then extended to **192 columns** after Pass 92 (+ `language_track` + `impact_intensity`). 2023 Phase 3 re-run 2026-06-11 (Pass 93) after GRI codes refresh (gri_codes_summary_2023.csv: 649 → 1,237 rows).
 
 **Cross-cohort Phase 3 coverage (rows with >0 value / total cohort rows):**
 
