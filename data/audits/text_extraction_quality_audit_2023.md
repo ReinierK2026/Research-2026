@@ -537,6 +537,71 @@ Implementation note: Each file processed one at a time (smallest first), with pe
 
 ---
 
+### Entry 11 — Corpus Expansion: +500 Chinese PDFs (2026-06-11)
+**Date:** 2026-06-11  
+**Scripts:** `scan_2023_new.py`, `pymupdf_batch_2023_new.py`, `ocr_batch_2023_new.py`, `gri_extract_2023_batch.py`  
+**Input:** 508 new PDFs in `twse_esg_reports/2023/` (495 native + 13 scanned + 0 corrupt)  
+**Output:** 500 new `.txt` files in `2023_processed/`; `gri_codes_summary_2023.csv` updated
+
+**Stage 0 — Scan & classify (24.3s):**
+
+| Class | Count | Notes |
+|---|---|---|
+| Native (avg cpp ≥ 100) | 495 | 1 borderline at cpp=51 (6239_2023), treated as native |
+| Scanned (avg cpp < 20) | 13 | All Chinese; 198-page maximum (6183_2023) |
+| Corrupt (0 pages) | 0 | None |
+| Ghost `_b` stems | 13 | In scan JSON but PDF not present; base versions already extracted; skipped |
+
+**Stage 1 — PyMuPDF native extraction (5 runs × 38s budget, 10.1s final):**
+- 495 files × coordinate-aware pipeline (sidebar x₀ < 16%, header/footer 7%/5%, two-column detection)
+- No dehyphenation — all Chinese, no `_E` suffix
+- All 495 produced valid output; 0 empty; 0 corrupt
+- Char range: 25,033–209,102; median ~70,000
+
+**Stage 2 — Tesseract OCR (13 scanned files, ~18 runs × 38s budget):**
+
+| File | Pages | Chars | Result |
+|---|---|---|---|
+| 2382_2023 | 2 | — | Already extracted (prior session) |
+| 1735_2023 | 31 | 52,122 | ✓ |
+| 9917_2023 | 60 | 79,694 | ✓ |
+| 3705_2023 | 67 | 97,081 | ✓ |
+| 6184_2023 | 70 | 68,560 | ✓ |
+| 1732_2023 | 82 | 62,339 | ✓ |
+| 3006_2023 | 94 | 60,754 | ✓ |
+| 9946_2023 | 108 | 107,817 | ✓ |
+| 2392_2023 | 116 | 71,819 | ✓ |
+| 4720_2023 | 118 | 93,460 | ✓ |
+| 3712_2023 | 121 | 78,234 | ✓ |
+| 2106_2023 | 148 | 111,687 | ✓ |
+| 6183_2023 | 198 | 144,043 | ✓ — largest file |
+
+Language: all `chi_tra+eng`. Engine: Tesseract LSTM `--oem 1 --psm 3`, 1.5× scale. Per-page JSON cache (`ocr_cache_2023_new/`) for resume across 45s bash timeouts.
+
+**Stage 3 — GRI extraction (3 runs, 15.4s final):**
+- Improved regex pipeline: `STANDALONE_RE` covers `[1-4]xx` codes (G4 100-series); `find_gri_pages` triggers on keyword alone, dense standalone (≥10), or keyword + any code
+- 495 PDF-backed files processed (494 native + 1 already-extracted scanned)
+- `gri_codes_summary_2023.csv`: 742 → **1,237 rows**; 1,142/1,237 with codes (**92.3%**; was 93.3% before this batch — slight dilution from Chinese-only files with less structured GRI indexes)
+
+**Quality checks on expansion batch:**
+- Empty files (<300 chars): **0**
+- Low cpp (<300, non-OCR): **49** files across full 1,259-file corpus (3.9% flag rate) — all inspected; image-heavy or scanned sources, not extraction failures
+- OCR files excluded from low-cpp flag (Tesseract output naturally sparser)
+
+**Final corpus state after Entry 11:**
+
+| Metric | Value |
+|---|---|
+| Total 2023_processed files | **1,259** |
+| English `_E` | 526 (41.8%) |
+| Chinese / bilingual | 733 (58.2%) |
+| Source PDFs on disk | 1,248 |
+| GRI CSV rows | 1,237 |
+| GRI CSV with codes | 1,142 (92.3%) |
+| Hard exclusions | 0 (no corrupt or unrecoverable files in expansion batch) |
+
+---
+
 ### Entry 7 — Extraction Quality Verification
 **Date:** 2026-05-21  
 **Tools:** `check_extraction_quality_2023.py`, `check_a_results_2023.json`, `check_b_results_2023.json`  
