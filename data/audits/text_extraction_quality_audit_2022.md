@@ -94,7 +94,7 @@ GRI content-index table fragmentation is the **highest-stakes data quality issue
 
 The fragmentation arises because GRI index tables in 2022 reports place disclosure codes in narrow left-column layouts that the coordinate-based pipeline correctly identifies as sidebar content and strips from the main text stream.
 
-**Status:** ✅ **Fixed (Entry 6).** Fitz-only regex pipeline (pdfplumber excluded — hangs on scanned/complex pages) extracted GRI content-index data from 609 non-OCR PDFs. Detection logic: ≥3 explicit `GRI NNN-N` patterns on a page, OR a GRI index keyword plus ≥1 code. Large PDFs (>60 pages) scanned back-half first. 535/609 files (87.9%) yielded ≥1 GRI code; 35,972 total code instances across the corpus. **`gri_codes_summary_2022.csv` is the authoritative GRI source** — do not parse GRI codes from processed text files.
+**Status:** ✅ **Fixed (Entries 6 + 10).** Fitz-only regex pipeline (pdfplumber excluded — hangs on scanned/complex pages) extracted GRI content-index data from **992 non-OCR PDFs total** (609 original + 383 expansion). Detection logic: ≥3 explicit `GRI NNN-N` patterns on a page, OR a GRI index keyword plus ≥1 code. Large PDFs (>60 pages) scanned back-half first. **878/992 (88.5%)** yielded ≥1 GRI code (original: 535/609, 87.9%; expansion adds 343/383, 89.6%). **`gri_codes_summary_2022.csv` is the authoritative GRI source** — do not parse GRI codes from processed text files.
 
 ---
 
