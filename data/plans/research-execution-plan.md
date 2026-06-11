@@ -1,5 +1,5 @@
 # Research Execution Plan — GRI 3 Materiality DiD Study
-**Date:** 2026-06-10  
+**Date:** 2026-06-10 (last updated: 2026-06-11)  
 **Status:** Pre-estimation planning — six parallel streams  
 **Hypothesis file:** `hypotheses/hypothesis-generation_did-hypotheses_2026-06-10.md`  
 **Methodology file:** `Materiality_Research_Methodology.md` (updated June 10, 2026)
