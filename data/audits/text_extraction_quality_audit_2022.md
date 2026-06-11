@@ -220,7 +220,7 @@ Language mixing appears lower in 2022 overall (75% vs ~98% in 2021) only because
 | 7 | Scanned pages (11 files) | ✅ Fixed (Entry 4) | `2022_processed/` (Tesseract OCR; `4720_2022_E` excluded) |
 | + | Spaced-character titles | ✅ Fixed (cover pages) | `2022_processed/` |
 
-**Working corpus for NLP analysis:** `2022_processed/` (623 files; all issues resolved — see Processing Log)
+**Working corpus for NLP analysis:** `2022_processed/` (1,023 files incl. expansion; all issues resolved — see Processing Log)
 
 ---
 
