@@ -24,7 +24,7 @@ Does adoption of GRI Universal Standards 2021 (the GRI 3 treatment) cause a net 
 Staggered Difference-in-Differences (DiD) using the Callaway-Sant'Anna (2021) estimator (`att_gt()` in R `did` package). Estimand: Average Treatment Effect on the Treated (ATT). Treatment = first fiscal year a company reports under GRI Universal Standards 2021, coded in `gri_adoption_year`.
 
 ### Population
-- **Primary sample**: Full TWSE universe — 2,091 unique companies × 2016–2024 = 7,765 company-year rows  
+- **Primary sample**: Full TWSE universe — 2,091 unique companies × 2016–2024 = 5,408 company-year rows (post-DB-restructure; see Database section)  
 - **Potential analytical subsample**: 73-company industry subset (507 company-years, 2016–2024), available for focused subgroup analysis if an industry lens is selected at the analysis stage. If activated, this subsample can be further categorised by company type (~28 Fabless, ~21 Foundry/OSAT, ~24 IDM).
 
 ### Database
