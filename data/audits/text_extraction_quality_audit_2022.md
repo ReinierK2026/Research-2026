@@ -725,7 +725,7 @@ Genuine hard exclusions from native PyMuPDF extraction: `3413_2022` (196 chars t
 
 ---
 
-### Phase 1 — NLP Pipeline: English Track (`_E` files, 389 files)
+### Phase 1 — NLP Pipeline: English Track (`_E` files, 389 original; 399 total incl. expansion)
 
 Run order: **Step 1.4 first** (sandbox), then **1.3**, then **1.1**, then **1.2** (locally, sequential).
 
