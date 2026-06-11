@@ -2432,5 +2432,25 @@
     "topic_slug": "2023-expansion-gri-audit",
     "status": "completed",
     "notes": "2023 cohort Stage 3 GRI extraction + Stage 4 quality audit update for expansion batch. GRI: 495 PDF-backed new files processed in 3 runs (38s + 38s + 15s). Improved regex: STANDALONE_RE [1-4]xx, kw-alone trigger, sa≥10. gri_codes_summary_2023.csv: 742 → 1,237 rows; 1,142/1,237 with codes (92.3%). Quality audit: text_extraction_quality_audit_2023.md updated — header (1,259 TXT / 1,248 PDFs / 41.8% EN / 58.2% ZH), corpus composition table expanded, GRI stats updated, Entry 11 appended. Full corpus: 0 empty files; 49 low-cpp (<300, non-OCR) = 3.9% flag rate; all inspected, all image-heavy or scanned sources (no extraction failures). No hard exclusions in expansion batch."
+  },
+  {
+    "task_id": "pass-93-gri-2023-refresh",
+    "date": "2026-06-11",
+    "agent": "data-analyst",
+    "topic": "2023 GRI-dependent DB refresh after updated gri_codes_summary_2023.csv",
+    "status": "completed",
+    "output_file": "twse-research-database.csv",
+    "variables_added": [],
+    "notes": "Ran build_block_d_esg_counts.py (2023): 1142 companies → block_d_esg_2023.csv updated. merge_block_d.py: 674 2023 rows updated (canonical_codes_str, topics_*_n, sasb_topics_n). gri_refresh_all.py: 2023 nma 642→658 filled (53 zeros), gci 626 filled. build_topic_panel_binary.py: 82,600-row panel regenerated (2360 company-years). canonical_codes_str 2023: 569→636."
+  },
+  {
+    "task_id": "pass-93-2023-nlp-gap-audit",
+    "date": "2026-06-11",
+    "agent": "data-analyst",
+    "topic": "2023 NLP coverage audit and script prep for Phase 2 CN expansion",
+    "status": "completed",
+    "output_file": "scripts/phase2_nlp_local/",
+    "variables_added": [],
+    "notes": "Phase 1 EN (ESGLens/FinBERT/ClimateBERT): 526/526 COMPLETE. Phase 2 CN (BGE+XLMR+BlockC): 216/724 done; 494 pending. 17 tickers excluded (2382 tiny; 16 no-DB-row). Updated EXCLUDE sets: phase2_block_c_chinese_2023.py, bge_2023.py, xlmr_2023.py. phase3_2023.py: n_material_topics_b changed to fill-only. Run order: BlockC-CN → BGE → XLMR → Phase3."
   }
 ]
