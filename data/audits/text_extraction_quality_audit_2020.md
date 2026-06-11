@@ -519,10 +519,10 @@ Structural result — identical to 2021 cohort (median 0.772; 46.8% below 0.75).
 
 | Variable | Coverage | Key stats |
 |---|---|---|
-| `mda_index` | 422/655 > 0 | p50=0.50, max=0.70. Pre-treatment baseline — lower than expected for CSRD-era cohorts. |
-| `n_material_topics_b` | 237/655 > 0 | p50=17, max=34 (among non-zero). |
-| `topic_depth_score` | 426/655 filled | p50=0.629, max=0.702. BGE-first, Chinese primary track. |
-| `gri_content_index_completeness` | 633/655 = 0.0; **22/655 > 0** | 22 early adopters (3.4%) with partial GRI 2-* adoption in FY2020 reports. GCI range 0.03–0.21. Research finding — not a data error. |
+| `mda_index` | est. ~427/427 > 0 | p50=0.50, max=0.70. Pre-treatment baseline. DB restructured 655→427; phase3_2020.py pending re-run. |
+| `n_material_topics_b` | 237/427 > 0 | p50=17, max=34 (among non-zero). DB restructured 655→427; re-run for exact counts. |
+| `topic_depth_score` | 426/427 filled | p50=0.629, max=0.702. BGE-first, Chinese primary track. DB restructured 655→427. |
+| `gri_content_index_completeness` | 405/427 = 0.0; **22/427 > 0** | 22 early adopters with partial GRI 2-* adoption in FY2020 reports. GCI range 0.03–0.21. DB restructured 655→427. |
 
 **GCI anomaly detail:** 22 tickers (1227, 1525, 1590, 1609, 1722, 2027, 2303, 2313, 2314, 2421, 2423, 2534, 2535, 2606, 2886, 2905, 3702, 5876, 6005, 6120, 6668, 9940) have GRI 2-* codes in their FY2020 PDFs despite being classified as GRI-Standards-2016. All use partial GRI Universal 2021 disclosures (1–7 GRI 2-* codes each). Likely published in late 2021 after the Oct 2021 standard release. These companies form an early-adoption sub-sample that may be relevant for within-cohort heterogeneity analysis in the DiD study.
 
