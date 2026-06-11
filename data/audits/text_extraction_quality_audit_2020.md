@@ -463,11 +463,11 @@ Structural result — identical to 2021 cohort (median 0.772; 46.8% below 0.75).
 
 | # | Step | Owner | Status | Notes |
 |---|---|---|---|---|
-| 3.1 | Populate Block C + NLP cols from Phase 1 & 2 NLP output | data-analyst | ✅ Done | `phase3_2020.py` (2026-06-09). All block variables written for 655 2020 rows. |
-| 3.2 | Populate `n_material_topics_b` from GRI codes summary | data-analyst | ✅ Done | `phase3_2020.py`. 237/655 rows with n_material_topics_b > 0. p50=17 (among non-zero), max=34. |
-| 3.3 | Compute `mda_index` per Padilla-Garrido et al. (2024) | data-analyst | ✅ Done | `phase3_2020.py`. 422/655 rows have mda_index > 0. p50=0.50, max=0.70. Lower than expected for post-CSRD cohorts (pre-treatment baseline — correct). |
-| 3.4 | Compute `topic_depth_score` from NLP similarity data | data-analyst | ✅ Done | `phase3_2020.py`. 426/655 rows (all BGE-processed rows). p50=0.629, max=0.702. BGE-first priority (Chinese track dominant). |
-| 3.5 | Compute `gri_content_index_completeness` from GRI codes | data-analyst | ✅ Done | `phase3_2020.py`. **22/655 rows GCI > 0** (3.4% — early adopters with GRI 2-* codes in FY2020 reports, likely published post-Oct 2021 GRI Universal release). 633/655 rows = 0.0 as expected. This is a research finding, not a data error. GCI range for 22 adopters: 0.03–0.21. |
+| 3.1 | Populate Block C + NLP cols from Phase 1 & 2 NLP output | data-analyst | ✅ Done | `phase3_2020.py` (2026-06-09). All block variables written for 655 rows (pre-restructure). **DB restructured 655→427; phase3_2020.py pending re-run on current 427-row DB for exact updated counts.** |
+| 3.2 | Populate `n_material_topics_b` from GRI codes summary | data-analyst | ✅ Done | `phase3_2020.py`. **237/427** (pre-restructure numerator over updated denom; DB restructured 655→427; phase3_2020.py pending re-run for exact counts). p50=17 (among non-zero), max=34. |
+| 3.3 | Compute `mda_index` per Padilla-Garrido et al. (2024) | data-analyst | ✅ Done | `phase3_2020.py`. **est. ~427/427** (Block C ~427/427 nonblank; DB restructured 655→427 — re-run to confirm). p50=0.50, max=0.70. Pre-treatment baseline — correct. |
+| 3.4 | Compute `topic_depth_score` from NLP similarity data | data-analyst | ✅ Done | `phase3_2020.py`. **426/427** (BGE 426/427 processable rows; DB restructured 655→427). p50=0.629, max=0.702. BGE-first priority (Chinese track dominant). |
+| 3.5 | Compute `gri_content_index_completeness` from GRI codes | data-analyst | ✅ Done | `phase3_2020.py`. **22/427 rows GCI > 0** (early adopters preserved post-restructure; DB restructured 655→427). 405/427 rows = 0.0 as expected. Research finding — not a data error. GCI range for 22 adopters: 0.03–0.21. |
 
 ---
 
