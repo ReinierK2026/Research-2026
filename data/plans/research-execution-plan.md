@@ -123,15 +123,15 @@ db <- db |> mutate(
 >
 > Two files were created to address this:
 
-**`data/db_did.csv`** (2,960 rows) — g=2024 fully excluded  
+**`data/db_did.csv`** (2,960 rows × 195 cols) — g=2024 fully excluded  
 - Use for: CS21 primary estimates with `glist=c(2021, 2022)` if year+1 estimates are not needed  
 - Controls at t=2022: **40** (g=2023 companies only)  
 - Controls at t=2023: **0** (year+1 INESTIMABLE from this file)
 
-**`data/db_did_full.csv`** (3,283 rows) — all cohorts retained  ← **USE THIS AS PRIMARY ANALYTICAL FILE**
+**`data/db_did_full.csv`** (3,283 rows × 195 cols) — all cohorts retained  ← **USE THIS AS PRIMARY ANALYTICAL FILE**
 - Use for: `att_gt(data=db_did_full, gname="gri_adoption_year", ...)` with `glist=c(2021, 2022, 2023)`  
 - Controls at t=2022: **44** (40 g=2023 + 4 g=2024)  
-- Controls at t=2023: **3** (g=2024 companies with 2023 obs — exploratory only)
+- Controls at t=2023: **124** (g=2023 cohort with 2023 data — **CONFIRMATORY**, corrected 2026-06-22)
 
 ```r
 # Correct R usage for db_did_full.csv:
