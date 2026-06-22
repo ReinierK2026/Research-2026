@@ -72,6 +72,15 @@ All coverage percentages for NLP-based blocks (B, C, D) use the year-specific NL
 **Pass DB-01 (2026-06-22):** `rd_intensity` patched for 85 rows where rd_expense=0 but revenue>0 (genuine zero-R&D firms). `rd_dummy` computed for 2022–2024 (was erroneously all-zero due to pipeline gap). Remaining 279 null rows have neither revenue nor rd_expense — dropped by model.
 
 **Pass DB-02 (2026-06-22):** Board diversity data integrated from TEJ Board diversity.xlsx (2021–2024; 151 Bad Quality=Y rows excluded). 2,774/2,856 DB rows updated. `independent_director_ratio` now 97.7% for 2021–2024 (was 0% for 2022–2024). Five new columns added: `independent_directors_n`, `female_directors_n`, `female_director_pct`, `director_attendance_pct`, `director_training_pct`.
+
+**Pass DB-03 (2026-06-22):** `n_material_topics_b` zeros converted to NA (zeros = unprocessed placeholder, not genuine zero-topic disclosure). Confirmed `n_material_topics_a` is 100% identical to `n_material_topics_b` (r = 1.000); `n_material_topics_a` dropped from primary analysis; retained in DB as redundant alias.
+
+**Pass DB-04 (2026-06-22):** `sasb_industry` filled for remaining 20 tickers (37 rows) with missing values. Manual assignment via web research + company name analysis. `sasb_industry` now 100% complete for all 3,283 DiD window rows.
+
+**Pass DB-05 (2026-06-22):** `twse_cgq_score` integrated from `TEJ_TWSECG.xlsx`. Ordinal 1–7 scale (7 = top 5%; 1 = bottom 20%+; 0 = not evaluated). Coverage: 3,122/3,283 DiD window rows (95.1%). Robustness-only covariate (endogeneity risk: CGQ evaluation criteria include ESG/sustainability reporting indicators). Column 191.
+
+**Pass DB-06 (2026-06-22):** Assurance columns added from `TEJ_Big4.xlsx`. Three new columns: `has_any_assurance` (col 193; binary; 60.9% in DiD window), `big4_assurance` (col 194; binary; Big4 Taiwan ESG providers: 資誠聯合/安永聯合/勤業眾信聯合/安侯建業聯合; 19.9% in DiD window), `big4_financial_auditor` (col 195; binary; financial statement auditor; 88.1% in DiD window). Severity ladder: Level 0 = no assurance (39.1%); Level 1 = non-Big4 assurance (41.0%); Level 2 = Big4 assurance (19.9%). H3 primary outcome: `has_any_assurance`. db_did_full.csv and db_did.csv regenerated (3,283 × 195 and 2,960 × 195 respectively).
+
 | ESGgenplus text corpus | 2021–2024, partial universe | ESG report PDFs (45GB) for text-based NLP extraction |
 | GRI code extraction pipeline | 2021–2024 | gri_codes_summary_202[1-4].csv, gri_tables_2023-2024/ |
 
