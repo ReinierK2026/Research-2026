@@ -554,7 +554,7 @@ The following must be locked in the OSF pre-registration **before any att_gt() c
 ### Hypotheses
 - [ ] H1 primary outcome: `n_material_topics_b`; expected sign: negative ATT (−2 to −5 topics)
 - [ ] H2 primary outcome: `process_quality_score` (0–1 scale); expected ATT: +0.05 to +0.15
-- [ ] H3 classified as exploratory logistic regression (not DiD); primary outcome: `has_any_assurance`
+- [ ] H3 classified as exploratory logistic regression (not DiD); severity ladder pre-specified: primary = `has_any_assurance` (col 193; 60.9%), secondary = `big4_assurance` (col 194; 19.9%), exploratory appendix = `has_reasonable_assurance` (~4.1%); `big4_financial_auditor` (col 195; 88.1%) included as control
 - [ ] H4: two subsample CS21 runs (High vs Low `impact_intensity`); triple-diff robustness; fallback to TWFE interaction if subsample CS21 fails to converge
 - [ ] H5: 49 semiconductor companies; blocked on TSMC proximity data; classified supplementary
 
