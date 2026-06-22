@@ -263,8 +263,8 @@ H4 subsample CS21 runs inherit the thin NTT control pool (split further across s
 | `gri_content_index_completeness` | 3,283/5,408 (61%) | Bimodal: 0 or ≈0.88 | 🟡 Treat as binary; limited variation |
 | `double_materiality_mentioned` | 2,846/5,408 (53%) | Binary, 8.7% prevalence | 🟡 Low but estimable; mechanism var |
 | `dm_methodology_disclosed` | ~90% | Binary, 84% = 1 | ⚠️ Ceiling effect pre-adoption; limited DiD utility |
-| `gri_101_applied` | 3,283 rows | **All zeros** | ❌ Not yet coded |
-| `gri_new_climate_energy_adopted` | 3,283 rows | **All zeros** | ❌ Not yet coded |
+| `gri_101_applied` | 3,283 rows | **All zeros** (3 non-zero in 2023) | ✅ By design — GRI 101: Biodiversity 2024 effective Jan 2026; FY2025+ field only |
+| `gri_new_climate_energy_adopted` | 3,283 rows | **All zeros** | ✅ By design — GRI 102/103 Climate/Energy effective Jan 2027; FY2026+ field only |
 | `board_esg_committee` | **0%** | Empty column | ❌ Do not reference |
 
 **NLP model outputs (Block D — FinBERT, ESGLens, BGE, XLM-R):**
