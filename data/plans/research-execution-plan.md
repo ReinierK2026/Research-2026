@@ -164,7 +164,7 @@ es_h1 <- aggte(out_h1, type="dynamic", glist=c(2021, 2022, 2023), na.rm=TRUE)
 **What:** Extract `twse_ticker`, `fiscal_year`, `ln_total_assets`, `roa`, `leverage` from `twse-research-database_pre-nlp-repair.csv` for `fiscal_year ∈ {2016, 2017, 2018, 2019}`. Append to DB as pre-treatment rows (2020 was already 100% covered in DB). Do NOT populate NLP outcome variables for pre-2021 rows.
 
 **Result:**
-- **2,125 rows added** (FY 2016-2019) — DB now **5,408 rows × 197 cols, FY 2016–2024**
+- **2,125 rows added** (FY 2016-2019) — DB now **5,408 rows × 195 cols (as of Pass DB-06), FY 2016–2024**
 - Coverage: 2016=444/483 (92%), 2017=478/512 (93%), 2018=518/550 (94%), 2019=549/580 (95%)
 - `language_track='neither'` for all pre-2021 rows; `impact_intensity` derived from sasb_industry
 - **351/1,036 analytical-sample companies** have pre-treatment history to 2016
