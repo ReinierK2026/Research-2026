@@ -151,31 +151,39 @@ Coverage is 98% in the DiD window. The previously-quoted 59.3% figure was comput
 
 ---
 
-### H3 — assurance_level (upgrade effect)
+### H3 — Assurance variables (Pass DB-06, 2026-06-22)
 
-| Year | Reasonable | Limited | None/NA |
+Three pre-computed binary columns now in DB (cols 193–195):
+
+| Column | Definition | DiD window coverage | Prevalence |
 |---|---|---|---|
-| 2020 | 24 | 239 | 164 (38%) |
-| 2021 | 24 | 305 | 162 (33%) |
-| 2022 | 27 | 379 | 226 (36%) |
-| 2023 | 30 | 424 | 257 (36%) |
-| 2024 | 31 | 516 | 475 (46%) |
+| `has_any_assurance` | 1 if assurance_level ∈ {Limited, Reasonable} | 3,283/3,283 (100%) | 1,999/3,283 = **60.9%** |
+| `big4_assurance` | 1 if ESG assurer is PwC/EY/Deloitte/KPMG | 3,283/3,283 (100%) | 655/3,283 = **19.9%** |
+| `big4_financial_auditor` | 1 if financial auditor is Big4 (TEJ_Big4.xlsx) | 3,115/3,283 (94.9%) | 2,895/3,283 = **88.1%** |
 
-"Reasonable" assurance in the estimable post-treatment panel: **81/1,330** (6.1%). At ~5% baseline prevalence, detecting a meaningful shift requires a very large treatment effect. **H3 remains severely underpowered for the "Reasonable" outcome.**
+**Assurance severity ladder (H3 framework):**
+- Level 0 — No assurance: `has_any_assurance = 0` (39.1% of DiD window)
+- Level 1 — Non-Big4 assurance: `has_any_assurance = 1, big4_assurance = 0` (41.0%; BSI/SGS/BV/etc.)
+- Level 2 — Big4 assurance: `has_any_assurance = 1, big4_assurance = 1` (19.9%; PwC/EY/Deloitte/KPMG)
 
-`has_any_assurance` (Limited OR Reasonable vs None):
+**By year:**
 
-| Year | None | Has assurance |
-|---|---|---|
-| 2020 | 164 | 263 |
-| 2021 | 162 | 329 |
-| 2022 | 226 | 406 |
-| 2023 | 257 | 454 |
-| 2024 | 475 | 547 |
+| Year | has_any=0 | has_any=1 | big4_assurance=1 | Reasonable |
+|---|---|---|---|---|
+| 2020 | 164 (38%) | 263 (62%) | ~95 | 24 |
+| 2021 | 162 (33%) | 329 (67%) | ~118 | 24 |
+| 2022 | 226 (36%) | 406 (64%) | ~131 | 27 |
+| 2023 | 257 (36%) | 454 (64%) | ~152 | 30 |
+| 2024 | 475 (46%) | 547 (54%) | ~159 | 31 |
 
-`has_any_assurance` has much more variation (~60% prevalence) and is the recommended H3 outcome.
+**H3 outcome specification:**
+- **Primary:** `has_any_assurance` — well-powered (~61% prevalence); logistic regression
+- **Secondary:** `big4_assurance` — quality threshold (~20% prevalence); logistic regression (separate model)
+- **Exploratory:** `has_reasonable_assurance` — still severely underpowered (~4.1% in DiD window = 136/3,283); report with explicit caveat
 
-**Severity:** 🔴 for "Reasonable" upgrade; 🟡 for `has_any_assurance` binary.
+**big4_financial_auditor:** Control/covariate variable — 88.1% coverage in DiD window (168 rows blank = very recent listings not yet in TEJ). Use as robustness covariate for H2 (process quality) and H3; do not use as primary outcome.
+
+**Severity:** 🟢 `has_any_assurance`; 🟡 `big4_assurance`; 🔴 `has_reasonable_assurance`.
 
 ---
 
