@@ -1,6 +1,6 @@
 # DB Quality Assessment — GRI 3 Materiality DiD Study
 **Created:** 2026-06-10  
-**Last updated:** 2026-06-22 (design notes + rd patch + board diversity patch)  
+**Last updated:** 2026-06-22 (design notes + rd patch + board diversity patch + zeros→NA pass)  
 **File assessed:** twse-research-database.csv  
 **Purpose:** Evaluate readiness of the current DB against the requirements of H1–H5 (Callaway-Sant'Anna DiD)
 
@@ -323,7 +323,7 @@ Before OSF submission:
 |---|---|---|
 | ✅ #1 | Set `n_material_topics_b = NA` where value = 0 (original corpus) | **DONE** (Pass 87) |
 | ✅ #1b | GRI extraction quality refresh (bilingual union, gri_tables retired) | **DONE** (Pass 67) |
-| 🔴 #2 | Set `n_material_topics_b = NA` for 286 zeros in newly-added rows | **PENDING** |
+| ✅ #2 | Set `n_material_topics_b = NA` for 162 zeros in 2020–2024 (162 nmb + 162 nma; backlog dry-run confirmed 0 recoverable codes; Pass DB-03) | **DONE** |
 | 🔴 #3 | Update OSF pre-registration text (all items in §8 above) | **PENDING** |
 | 🟠 #4 | Upgrade ATT(g=2022, t=2023) from exploratory to confirmatory in pre-reg | **PENDING** |
 | ✅ #5 | `independent_director_ratio` repopulated from TEJ Board diversity — now safe for specs (Pass DB-02) | **DONE** |
@@ -363,4 +363,20 @@ New columns added:
 
 ---
 
-*Generated: 2026-06-10 | Last updated: 2026-06-22 (data:explore-data — DB expanded to 5,408 rows / 1,226 cos / 192 cols / 2016–2024; NTT@t=2023 corrected 3→124; estimable panel 454 cos; 286 new zeros flagged; tesg_score gap documented; firm_age/rd_intensity added; gri_101/new_climate all-zero noted)*
+### Pass DB-03 — zeros → NA for n_material_topics_b / n_material_topics_a (2026-06-22)
+Converted all remaining zeros in the 2020–2024 DiD window to blank (NA).
+
+Pre-step: ran `gri_backlog_extract.py --dry-run` — confirmed 0 recoverable codes across all 162 zero rows. 114 had text files processed but no GRI content index found (genuine zero-disclosure). 1 had no text file. 47 were later-added company-years not in original backlog.
+
+Result:
+- n_material_topics_b: 162 zeros → NA; 0 zeros remain in 2020–2024
+- n_material_topics_a: 162 zeros → NA; 0 zeros remain in 2020–2024
+- 2016–2019: already NA by design (no change)
+
+Final state: positive=3,121 | NA=2,287 (incl. 2016–2019 by-design NAs + 162 converted) | zero=0
+
+⚠️ db_did_full.csv and db_did.csv need regeneration from updated master DB before att_gt().
+
+---
+
+*Generated: 2026-06-10 | Last updated: 2026-06-22 (design notes + rd patch + board diversity patch + zeros→NA — 162 zeros in n_material_topics_b/a converted to NA for 2020–2024; 0 zeros now remain in DiD window)*

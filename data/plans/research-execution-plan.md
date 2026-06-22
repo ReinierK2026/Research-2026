@@ -54,11 +54,11 @@ All streams are **independent** after data prep + pre-registration. Run in paral
 **What:** ~~882 rows (26.9%)~~ **→ 0 zeros remaining.** All zero-placeholder rows converted to NA (blank) in Pass 87. Additionally, Pass 67 (GRI extraction refresh with bilingual union fix) substantially improved coverage: valid rows increased from 2,401 to **2,979** across all years.
 
 **Current DB state (post-fix):**
-- n_material_topics_b: 2,979 positive, 304 blank/NA, 0 zero
+- n_material_topics_b: 2,979 positive, 304 blank/NA, 0 zero (original Pass 87 figures)
 - n_material_topics_a: same distribution (both use gri_codes_summary, identical values)
 - 2020 base year coverage: 364/427 (85.2%); 2021: 440/491 (89.6%)
 
-**No action needed.** Data is clean and ready for att_gt().
+**Re-applied 2026-06-22 (Pass DB-03):** DB restructuring (Passes 92/93) reintroduced 162 zeros from gri_refresh_all.py. Dry-run of gri_backlog_extract.py confirmed 0 recoverable codes. All 162 zeros converted to NA. Final state: 3,121 positive, 0 zeros in 2020–2024. ⚠️ db_did_full.csv and db_did.csv must be regenerated before att_gt().
 
 **Assign to:** ~~data-analyst~~  
 **Status:** ✅ **COMPLETED**  
