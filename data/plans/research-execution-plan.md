@@ -1,5 +1,5 @@
 # Research Execution Plan — GRI 3 Materiality DiD Study
-**Date:** 2026-06-10 (last updated: 2026-06-11)  
+**Date:** 2026-06-10 (last updated: 2026-06-22)  
 **Status:** Pre-estimation planning — six parallel streams  
 **Hypothesis file:** `hypotheses/hypothesis-generation_did-hypotheses_2026-06-10.md`  
 **Methodology file:** `Materiality_Research_Methodology.md` (updated June 10, 2026)
@@ -11,6 +11,10 @@
 Six parallel analysis streams address the constraints of the PDF-processed TWSE GRI reporter universe (1,036 companies; all treated; timing-based identification). Streams A, C, D, E, and F can run concurrently after data preparation is complete. Stream B informs the identification narrative but does not block other streams.
 
 **Hard blockers before any estimation:** (1) ~~zeros→NA for `n_material_topics_b`~~ **✅ DONE — Pass 87 (2026-06-10)**; (2) OSF pre-registration.
+
+**✅ 2026-06-22 correction — NTT pool at t=2023:** Prior documents showed 3 controls for ATT(g=2022, t=2023). After DB expansion to 5,408 rows (adding 2016–2019), the g=2023 cohort now has **124 companies with 2023 data**. ATT(g=2022, t=2023) is **upgradeable from exploratory → confirmatory**. Update OSF pre-registration accordingly.
+
+**✅ 2026-06-22 — Board diversity (Pass DB-02):** `independent_director_ratio` is now 97.7% covered for 2021–2024. Added to primary covariate spec in Stream A. New columns: `female_director_pct`, `director_attendance_pct`, `director_training_pct`, `independent_directors_n`, `female_directors_n`.
 
 ---
 
@@ -82,7 +86,7 @@ db['language_track'] = np.select(conditions, ['bilingual','zh_only','en_only'], 
 **Populated indicator used:** `finbert_env_pct.notna()` for finbert; `bge_top1_topic.notna()` for bge.  
 **Reference counts (2021, verified):** bilingual=303 ✓, zh_only=183 ✓, en_only=4 ✓, neither=1 ✓
 
-**Status:** ✅ **COMPLETED** — `language_track` column added to DB (col 191 of 192)
+**Status:** ✅ **COMPLETED** — `language_track` column added to DB (col 191 of 197)
 
 ---
 
@@ -105,7 +109,7 @@ db <- db |> mutate(
 **Primary H4 analysis:** High vs Low only. Consumer + RenewableEnergy run as a sensitivity check (pre-registered, not primary).  
 **Coverage:** 3,251/3,283 rows assigned (32 null rows where sasb_industry is blank).
 
-**Status:** ✅ **COMPLETED** — `impact_intensity` column added to DB (col 192 of 192)
+**Status:** ✅ **COMPLETED** — `impact_intensity` column added to DB (col 192 of 197)
 
 ---
 
@@ -160,7 +164,7 @@ es_h1 <- aggte(out_h1, type="dynamic", glist=c(2021, 2022, 2023), na.rm=TRUE)
 **What:** Extract `twse_ticker`, `fiscal_year`, `ln_total_assets`, `roa`, `leverage` from `twse-research-database_pre-nlp-repair.csv` for `fiscal_year ∈ {2016, 2017, 2018, 2019}`. Append to DB as pre-treatment rows (2020 was already 100% covered in DB). Do NOT populate NLP outcome variables for pre-2021 rows.
 
 **Result:**
-- **2,125 rows added** (FY 2016-2019) — DB now **5,408 rows × 192 cols, FY 2016–2024**
+- **2,125 rows added** (FY 2016-2019) — DB now **5,408 rows × 197 cols, FY 2016–2024**
 - Coverage: 2016=444/483 (92%), 2017=478/512 (93%), 2018=518/550 (94%), 2019=549/580 (95%)
 - `language_track='neither'` for all pre-2021 rows; `impact_intensity` derived from sasb_industry
 - **351/1,036 analytical-sample companies** have pre-treatment history to 2016
@@ -193,7 +197,7 @@ out_h1 <- att_gt(
   idname        = "twse_ticker",
   gname         = "gri_adoption_year",
   control_group = "notyettreated",
-  xformla       = ~ ln_total_assets + roa + standalone_sr,
+  xformla       = ~ ln_total_assets + roa + standalone_sr + independent_director_ratio,
   data          = db_did_full,   # ← db_did_full preserves 44 controls at t=2022
   est_method    = "dr",
   base_period   = "universal"
@@ -208,7 +212,7 @@ out_h2 <- att_gt(
   idname        = "twse_ticker",
   gname         = "gri_adoption_year",
   control_group = "notyettreated",
-  xformla       = ~ ln_total_assets + roa + board_approved + standalone_sr,
+  xformla       = ~ ln_total_assets + roa + board_approved + standalone_sr + independent_director_ratio,
   data          = db_did_full,   # ← same reason
   est_method    = "dr"
 )
