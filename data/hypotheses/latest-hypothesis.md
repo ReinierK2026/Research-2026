@@ -324,20 +324,27 @@ Positive — GRI 3 adoption is expected to increase ESG sentence density across 
 
 ## Pre-Registration Checklist (OSF — must complete before any att_gt() call)
 
-- [ ] Confirm `idname = "twse_ticker"` (not `company_id`) in all `att_gt()` calls
-- [ ] Exclude 2024 cohort from H1–H4 treatment and control pool — document rationale
-- [ ] Pre-specify `impact_intensity` derivation: High = {Resource, Infrastructure, Transportation, Minerals, Food}; Low = {Technology, Services, HealthCare, Financials}; Consumer + RenewableEnergy = sensitivity
-- [ ] Pre-specify `board_approved` and `independent_director_ratio` exclusion from covariate vector when base period = 2020 (independent_director_ratio from TEJ Board diversity starts 2021; not available for 2020 rows)
-- [ ] Confirm `process_quality_score` is 0–1 scale; document expected ATT as +0.05 to +0.15
-- [ ] Classify H3 as exploratory (no causal claim); primary outcome `has_any_assurance`
-- [ ] Register NLP supplementary stream (Stream F) with language-track stratification protocol and ESGLens exclusion
-- [ ] Register convergent validity check (NLP density vs `process_quality_score`) as a pre-analysis step
-- [ ] Pre-register zeros→NA data prep step for `n_material_topics_b` — link to cleaning script
-- [ ] Register `control_group = "notyettreated"` as the identification strategy; document control pool sizes per ATT cell
-- [ ] Pre-register ATT(g=2022, t=2023) and ATT(g=2023, t=2023) as **exploratory** — effective control pool = 3 companies only; do not include in primary aggregated ATT
-- [ ] Register Rambachan-Roth sensitivity analysis as robustness check
-- [ ] Register Stream B propensity score analysis — if adoption timing is predicted by observables (roc_auc > 0.70), pre-weight the CS21 estimator
-- [ ] Register H5 as blocked on TSMC proximity data; flag as supplementary pending external data
+> **OSF draft prepared:** `osf-preregistration_twse-materiality_2026-06-22.md` — upload to OSF before running any inferential test.
+
+- [x] Confirm `idname = "twse_ticker"` (not `company_id`) in all `att_gt()` calls
+- [x] Exclude 2024 cohort from H1–H4 treatment and control pool — db_did.csv generated with g=2024 excluded (307 companies, 323 rows)
+- [x] Pre-specify `impact_intensity` derivation: High = {Resource, Infrastructure, Transportation, Minerals, Food}; Low = {Technology, Services, HealthCare, Financials}; Consumer + RenewableEnergy = sensitivity — **locked in DB col `impact_intensity`**
+- [x] Pre-specify `board_approved` and `independent_director_ratio` exclusion from covariate vector when base period = 2020
+- [x] Confirm `process_quality_score` is 0–1 scale; expected ATT +0.05 to +0.15
+- [x] Classify H3 as exploratory (no causal claim); primary outcome `has_any_assurance`
+- [x] Register NLP supplementary stream (Stream F) with language-track stratification protocol and ESGLens exclusion
+- [x] Register convergent validity check (NLP density vs `process_quality_score`) as a pre-analysis step
+- [x] zeros→NA data prep for `n_material_topics_b` — Pass DB-03 complete (0 zeros remain in DiD window)
+- [x] Register `control_group = "notyettreated"` — control pool sizes documented in pre-reg §4
+- [x] ~~Pre-register ATT(g=2022, t=2023) as exploratory~~ → **✅ UPGRADED TO CONFIRMATORY** (NTT pool = 124, corrected 2026-06-22; prior figure of 3 was pre-DB-expansion)
+- [x] Register Rambachan-Roth sensitivity analysis as mandatory robustness check
+- [x] Register Stream B propensity score analysis — ROC-AUC > 0.70 → pre-weight CS21
+- [x] Register H5 as supplementary, blocked on TSMC proximity data
+- [x] `n_material_topics_a` — **dropped from primary analysis** (100% identical to `n_material_topics_b`, confirmed 2026-06-22); column retained in DB; document in footnote
+- [x] `board_esg_committee` — **already absent from DB** (dropped in prior restructure); confirmed 2026-06-22
+- [x] `sasb_industry` filled for all DiD window rows — **Pass DB-04** (37 rows, 20 tickers; 2026-06-22; 0 missing remaining)
+- [ ] **Upload pre-registration to OSF** → obtain DOI → record in osf-preregistration file
+- [ ] TEJ CGQ data check — if data for 2020–2024 obtainable in ordinal/continuous form, add as robustness covariate
 
 ---
 
