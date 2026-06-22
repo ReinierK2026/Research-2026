@@ -45,7 +45,7 @@
 - 2021: 342/488 files with GRI codes; 8 files with legacy G4 sector codes
 - 2022–2024: Extracted (see audit MDs for per-cohort statistics)
 
-**Matrix extraction** (materiality matrix image coordinates): `data/matrix-extraction/` — 2022–2024 partial; 2021 not started.
+**Matrix extraction** (materiality matrix image coordinates): `data/matrix-extraction/` — 2022–2024 partial; 2021 not started - and still unsure whether this will be completed, given the resources required. 
 
 ---
 
