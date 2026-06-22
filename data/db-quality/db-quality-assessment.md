@@ -490,4 +490,17 @@ Rationale for exclusion from primary spec: The CGE criteria include ESG/sustaina
 
 ---
 
-*Generated: 2026-06-10 | Last updated: 2026-06-22 (Pass DB-05: twse_cgq_score integrated; DB now 5,408 × 192; all DiD window action items complete; OSF pre-reg drafted and ready for upload)*
+---
+
+### Pass DB-06 — Assurance binary columns (2026-06-22)
+**Source:** TEJ_Big4.xlsx (financial audit quality) + existing `assurance_level`/`assurance_provider` columns  
+**Columns added:**
+- `has_any_assurance` (col 193): 1 if assurance_level ∈ {Limited, Reasonable}, else 0. 100% populated. Prevalence: 1,999/3,283 = 60.9% in DiD window.
+- `big4_assurance` (col 194): 1 if ESG assurance provider is PwC/EY/Deloitte/KPMG (資誠/安永/勤業眾信/安侯建業), else 0. 100% populated. Prevalence: 655/3,283 = 19.9%.
+- `big4_financial_auditor` (col 195): 1 if financial auditor is Big4 per TEJ annual audit data, else 0. 94.9% populated (168 rows blank = very recent listings). Prevalence: 2,895/3,283 = 88.1%.
+
+**DiD files regenerated:** db_did_full.csv (3,283 × 195), db_did.csv (2,960 × 195)
+
+---
+
+*Generated: 2026-06-10 | Last updated: 2026-06-22 (Pass DB-06: has_any_assurance + big4_assurance + big4_financial_auditor added; DB now 5,408 × 195; all pre-registration prep complete — only OSF upload remains)*
