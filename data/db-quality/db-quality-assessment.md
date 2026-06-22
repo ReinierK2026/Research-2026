@@ -329,20 +329,21 @@ Before OSF submission:
 |---|---|---|
 | ✅ #1 | Set `n_material_topics_b = NA` where value = 0 (original corpus) | **DONE** (Pass 87) |
 | ✅ #1b | GRI extraction quality refresh (bilingual union, gri_tables retired) | **DONE** (Pass 67) |
-| ✅ #2 | Set `n_material_topics_b = NA` for 162 zeros in 2020–2024 (162 nmb + 162 nma; backlog dry-run confirmed 0 recoverable codes; Pass DB-03) | **DONE** |
-| 🔴 #3 | Update OSF pre-registration text (all items in §8 above) | **PENDING** |
-| 🟠 #4 | Upgrade ATT(g=2022, t=2023) from exploratory to confirmatory in pre-reg | **PENDING** |
-| ✅ #5 | `independent_director_ratio` repopulated from TEJ Board diversity — now safe for specs (Pass DB-02) | **DONE** |
-| 🟡 #6 | Fill sasb_industry for 168 missing rows | PENDING |
-| 🟡 #7 | Drop `n_material_topics_a` (redundant) from regression code | PENDING |
-| 🟡 #8 | Exclude `board_esg_committee` from all analyses (empty column) | PENDING |
+| ✅ #2 | Set `n_material_topics_b = NA` for 162 zeros in 2020–2024 (Pass DB-03) | **DONE** |
+| ✅ #3 | OSF pre-registration text drafted | **DONE** (`osf-preregistration_twse-materiality_2026-06-22.md`) |
+| ✅ #4 | ATT(g=2022, t=2023) upgraded from exploratory to confirmatory | **DONE** (NTT pool = 124; pre-reg updated 2026-06-22) |
+| ✅ #5 | `independent_director_ratio` repopulated (Pass DB-02) | **DONE** |
+| ✅ #6 | Fill `sasb_industry` for missing rows | **DONE** (Pass DB-04: 37 rows, 20 tickers; 0 missing in DiD window) |
+| ✅ #7 | Drop `n_material_topics_a` from regression code | **DONE** — confirmed 100% identical to `n_material_topics_b` (r = 1.000); column retained in DB but not used as outcome; documented in pre-reg |
+| ✅ #8 | Exclude `board_esg_committee` from all analyses | **DONE** — column does not exist in current DB (already dropped); confirmed 2026-06-22 |
 | 🟡 #9 | Investigate 286 remaining zeros — are they new-company rows or re-introduced? | PENDING |
 | 🟡 #10 | Code TSMC proximity indicator for H5 (external data required) | PENDING |
-| ✅ #11 | `rd_intensity` patched: 85 zero-R&D rows filled; `rd_dummy` computed for 2022–2024 (Pass DB-01) | **DONE** |
-| 🟠 #12 | `tesg_score` unavailable post-2022 from TEJ — investigate TWSE CGQ score as time-varying alternative for 2020–2024 | PENDING |
-| 🟡 #13 | If TWSE CGQ not viable: use 2022 `tesg_score` as time-invariant pre-treatment control in primary spec | PENDING |
-| 🟡 #14 | Populate `sustainalytics_risk_score` and/or `msci_esg_rating` columns (subscriptions required) | PENDING |
-| ✅ #15 | Board diversity patch: 5 new cols + 3 updated cols from TEJ data; 2,774/2,856 rows (2021–2024) (Pass DB-02) | **DONE** |
+| ✅ #11 | `rd_intensity` patched: 85 zero-R&D rows filled; `rd_dummy` computed (Pass DB-01) | **DONE** |
+| ✅ #12 | TWSE CGQ investigation | **DONE** — see §9b below |
+| ✅ #13 | `tesg_score` post-2022 strategy | **DONE** — use 2022 value as time-invariant pre-treatment control in robustness specs; documented in pre-reg |
+| 🟡 #14 | Populate `sustainalytics_risk_score` and/or `msci_esg_rating` (subscriptions required) | PENDING |
+| ✅ #15 | Board diversity patch (Pass DB-02) | **DONE** |
+| 🔴 #16 | Upload OSF pre-registration to OSF and obtain DOI | **PENDING — last hard blocker before att_gt()** |
 
 
 ---
