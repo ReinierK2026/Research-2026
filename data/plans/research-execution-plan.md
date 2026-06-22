@@ -370,28 +370,46 @@ m_c3 <- feols(process_quality_score ~ years_since_adoption * impact_intensity +
 
 **Sample:** 2024 cross-section (primary); pooled 2021–2024 panel (robustness).
 
+**⚠️ Pre-computed columns (Pass DB-06) — do NOT re-derive in R:**
+- `has_any_assurance` (col 193): binary; 1 if `assurance_level ∈ {Limited, Reasonable}`; 60.9% in DiD window
+- `big4_assurance` (col 194): binary; 1 if Big4 ESG assurance provider (PwC/EY/Deloitte/KPMG Taiwan); 19.9%
+- `big4_financial_auditor` (col 195): binary; Big4 financial statement auditor; 88.1% — **include as control**
+- `has_reasonable_assurance`: derive in R from `assurance_level == "Reasonable"`; ~4.1%; appendix only
+
+**Severity ladder (pre-registered):**
+Level 0 = no assurance (39.1%); Level 1 = non-Big4 assurance (41.0%); Level 2 = Big4 assurance (19.9%)
+
 ```r
-db_2024 <- db_2024 |>
+db_2024 <- db |> filter(fiscal_year == 2024) |>
   mutate(
-    has_any_assurance  = if_else(assurance_level %in% c("Limited","Reasonable"), 1L, 0L),
-    has_reasonable     = if_else(assurance_level == "Reasonable", 1L, 0L)
+    years_since_adoption = 2024 - gri_adoption_year,
+    # has_any_assurance and big4_assurance are already in DB — no derivation needed
+    has_reasonable = if_else(assurance_level == "Reasonable", 1L, 0L)  # ~4.1%; appendix only
   )
 
-# Primary: any assurance (better powered; 65-67% have assurance in recent years)
+# Primary: any assurance (60.9% prevalence — well powered)
 m_d1 <- glm(has_any_assurance ~ years_since_adoption + ln_total_assets + roa +
-            sasb_industry + standalone_sr, data=db_2024, family=binomial)
-margins::margins(m_d1)  # marginal effects
+            sasb_industry + standalone_sr + big4_financial_auditor,
+            data=db_2024, family=binomial)
+margins::margins(m_d1)  # average marginal effects
 
-# Secondary: reasonable assurance (~5% prevalence — exploratory only)
-m_d2 <- glm(has_reasonable ~ years_since_adoption + ln_total_assets + roa +
-            sasb_industry, data=db_2024, family=binomial)
+# Secondary: Big4 assurance quality tier (19.9% prevalence)
+m_d2 <- glm(big4_assurance ~ years_since_adoption + ln_total_assets + roa +
+            sasb_industry + standalone_sr + big4_financial_auditor,
+            data=db_2024, family=binomial)
+
+# Exploratory (appendix only): reasonable assurance (~4.1% — severely underpowered)
+m_d3 <- glm(has_reasonable ~ years_since_adoption + ln_total_assets + roa +
+            sasb_industry + big4_financial_auditor,
+            data=db_2024, family=binomial)
+# Report ORs with wide CIs only; no inferential claims on this specification
 
 # Panel robustness (company FE logit)
-m_d3 <- feglm(has_any_assurance ~ years_since_adoption + controls | twse_ticker,
-              data=db, family=logit)
+m_d4 <- feglm(has_any_assurance ~ years_since_adoption + big4_financial_auditor | twse_ticker,
+              data=db_did_full, family=logit)
 ```
 
-**Expected output:** Odds ratio table; predicted probability plots by `years_since_adoption`; note on `has_reasonable` low power.
+**Expected output:** Odds ratio table (primary + secondary); predicted probability plots by `years_since_adoption`; severity ladder interpretation table; note on `has_reasonable` severely underpowered (~4.1% base rate).
 
 **Assign to:** data-analyst  
 **Depends on:** D4
