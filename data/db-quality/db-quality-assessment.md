@@ -340,3 +340,7 @@ Before OSF submission:
 ---
 
 *Generated: 2026-06-10 | Last updated: 2026-06-22 (data:explore-data — DB expanded to 5,408 rows / 1,226 cos / 192 cols / 2016–2024; NTT@t=2023 corrected 3→124; estimable panel 454 cos; 286 new zeros flagged; tesg_score gap documented; firm_age/rd_intensity added; gri_101/new_climate all-zero noted)*
+
+
+### Pass DB-02 — Board diversity patch (2026-06-22)
+See script log.
