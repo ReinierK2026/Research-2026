@@ -147,7 +147,7 @@ es_h1 <- aggte(out_h1, type="dynamic", glist=c(2021, 2022, 2023), na.rm=TRUE)
 
 **Status:** ✅ **COMPLETED** — both files saved in `data/`
 
-> **🔄 Regenerated 2026-06-11 (post Pass-93 GRI refresh):** Both files regenerated after the 2023 cohort GRI refresh updated `n_material_topics_b` (660/711, 92.8%), `mda_index` (710/711, 99.9%), `topic_depth_score` (711/711, 100.0%), and `gri_content_index_completeness` (576/711, 81.0%) for all 711 FY 2023 rows. Row counts **unchanged**: 3,283 (full) + 2,960 (core).
+> **🔄 Regenerated 2026-06-22 (post Pass DB-06):** Both files regenerated with 195 columns after Pass DB-06 added `twse_cgq_score`, `has_any_assurance`, `big4_assurance`, `big4_financial_auditor`. Row counts **unchanged**: db_did_full.csv = 3,283 × 195; db_did.csv = 2,960 × 195. ATT(g=2022, t=2023) confirmed at 124 NTT controls (CONFIRMATORY).
 >
 > ⚠️ **R loading note:** Both files use a 2-row header (row 1 = block labels, row 2 = column names). Load in R with `skip = 1`. `gri_adoption_year` is stored as float (`"2021.0"` etc.) — coerce before passing to `att_gt()`:
 > ```r
