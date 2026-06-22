@@ -202,8 +202,8 @@ Coverage is 59.3% overall because 2016–2019 rows have zero process_quality_sco
 
 Both `firm_age` and `rd_intensity` are ready for use in the primary covariate spec for 2020–2024.
 
-**`independent_director_ratio` — data pipeline break (confirmed):**
-0% coverage for 2022–2024. Do not include in any covariate specification — it will silently drop all post-treatment observations from the model.
+**`independent_director_ratio` — now populated (Pass DB-02):**
+Previously 0% coverage for 2022–2024 (data pipeline break). Recomputed as n_ind/n_dir from TEJ Board diversity data; now 2,791/2,856 (97.7%) for 2021–2024. Safe to include in covariate specs.
 
 **`tesg_score` — partial coverage (TEJ data unavailable post-2022):**
 
@@ -326,7 +326,7 @@ Before OSF submission:
 | 🔴 #2 | Set `n_material_topics_b = NA` for 286 zeros in newly-added rows | **PENDING** |
 | 🔴 #3 | Update OSF pre-registration text (all items in §8 above) | **PENDING** |
 | 🟠 #4 | Upgrade ATT(g=2022, t=2023) from exploratory to confirmatory in pre-reg | **PENDING** |
-| 🟠 #5 | Exclude `independent_director_ratio` from all covariate specs | **PENDING** |
+| ✅ #5 | `independent_director_ratio` repopulated from TEJ Board diversity — now safe for specs (Pass DB-02) | **DONE** |
 | 🟡 #6 | Fill sasb_industry for 168 missing rows | PENDING |
 | 🟡 #7 | Drop `n_material_topics_a` (redundant) from regression code | PENDING |
 | 🟡 #8 | Exclude `board_esg_committee` from all analyses (empty column) | PENDING |
@@ -336,11 +336,31 @@ Before OSF submission:
 | 🟠 #12 | `tesg_score` unavailable post-2022 from TEJ — investigate TWSE CGQ score as time-varying alternative for 2020–2024 | PENDING |
 | 🟡 #13 | If TWSE CGQ not viable: use 2022 `tesg_score` as time-invariant pre-treatment control in primary spec | PENDING |
 | 🟡 #14 | Populate `sustainalytics_risk_score` and/or `msci_esg_rating` columns (subscriptions required) | PENDING |
+| ✅ #15 | Board diversity patch: 5 new cols + 3 updated cols from TEJ data; 2,774/2,856 rows (2021–2024) (Pass DB-02) | **DONE** |
+
+
+---
+
+
+
+### Pass DB-02 — Board diversity patch (2026-06-22)
+**Source:** TEJ Board diversity.xlsx
+**Years patched:** 2021-2024 (Excel also covers 2025; excluded - not in DB)
+**Rows updated:** 2,774 / 2,856 (82 unmatched; 151 Bad Quality=Y rows excluded)
+
+Updated columns:
+- board_directors_n — board size (overwrites existing)
+- board_seats — kept in sync with board_directors_n
+- independent_director_ratio — recomputed as n_ind/n_dir (now 97.7% for 2021-2024)
+
+New columns added:
+- independent_directors_n — raw count of independent directors
+- female_directors_n — count of female directors (0 = no female directors, not missing)
+- female_director_pct — female directors as % of board
+- director_attendance_pct — board meeting attendance rate
+- director_training_pct — director training completion rate
+
 
 ---
 
 *Generated: 2026-06-10 | Last updated: 2026-06-22 (data:explore-data — DB expanded to 5,408 rows / 1,226 cos / 192 cols / 2016–2024; NTT@t=2023 corrected 3→124; estimable panel 454 cos; 286 new zeros flagged; tesg_score gap documented; firm_age/rd_intensity added; gri_101/new_climate all-zero noted)*
-
-
-### Pass DB-02 — Board diversity patch (2026-06-22)
-See script log.
