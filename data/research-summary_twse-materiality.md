@@ -543,7 +543,7 @@ Coverage is shown two ways: **NLP corpus** (1,042 companies with extracted text)
 
 ### Current Top-Ranked Hypothesis (H1 — Primary)
 
-> **GRI 3 adoption causes a net decrease in n_material_topics_b among TWSE companies.** Expected ATT: −2 to −5 topics relative to pre-adoption mean. Estimator: `att_gt()` Callaway-Sant'Anna (2021). Controls: ln_total_assets, roa, board_esg_committee, standalone_sr. Pre-registration on OSF required before estimation.
+> **GRI 3 adoption causes a net decrease in n_material_topics_b among TWSE companies.** Expected ATT: −2 to −5 topics relative to pre-adoption mean. Estimator: `att_gt()` Callaway-Sant'Anna (2021). Controls: ln_total_assets, roa, standalone_sr, independent_director_ratio. Note: `board_esg_committee` is **dropped** (column not in DB). Pre-registration on OSF required before estimation.
 
 *Falsification condition:* ATT positive or indistinguishable from zero → displacement hypothesis rejected.
 
