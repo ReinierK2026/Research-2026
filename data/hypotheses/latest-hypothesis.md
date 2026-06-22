@@ -2,6 +2,7 @@
 **Date:** 2026-06-10  
 **Supersedes:** hypothesis-generation_did-hypotheses_2026-05-22.md  
 **Status:** Pre-registration ready — six parallel analysis streams, NLP supplementary outcomes incorporated  
+**Updated:** 2026-06-22 (NTT pool t=2023 corrected; board diversity variables added; independent_director_ratio now usable; DB→197 cols)  
 **Agent:** research-coordinator (with hypothesis-generation input)
 
 ---
@@ -21,6 +22,23 @@
 | NLP models | Not in hypotheses | **Pre-registered supplementary stream (H2-NLP)** |
 | `idname` in att_gt() | company_id | **twse_ticker** |
 | H5 semiconductor n | 73 companies | **49 companies (current DB)** |
+
+---
+
+## Additional Update — 2026-06-22 (Pass DB-02)
+
+TEJ Board diversity data (2021–2024) integrated. New variables available for covariate specifications:
+
+| Variable | Coverage (2021–2024) | Notes |
+|---|---|---|
+| `independent_director_ratio` | 2,791/2,856 (97.7%) | **Was 0% for 2022–2024; now repopulated. Safe for primary spec.** |
+| `independent_directors_n` | 2,773/2,856 | Raw count; useful for robustness checks |
+| `female_director_pct` | 2,169/2,856 non-zero | Gender diversity; potential H4 moderator or robustness covariate |
+| `female_directors_n` | 2,774/2,856 | Raw count (0 = no female directors, not missing) |
+| `director_attendance_pct` | 2,774/2,856 | Board engagement proxy |
+| `director_training_pct` | 2,748/2,856 | Director capacity proxy |
+
+**Action for pre-registration:** Add `independent_director_ratio` to primary covariate vector (H1, H2, H4). Note: not available for 2020 pre-trend base — exclude when `base_period` includes 2020.
 
 ---
 
@@ -72,13 +90,13 @@ Streams A, C, D, E, and F are independent and can run in parallel after data pre
 | g=2022, t=2020 (pre-trend t−2) | 381 | 37 | 2023 cohort companies with 2020 data |
 | g=2022, t=2021 (pre-trend t−1) | 438 | 43 | 2023 cohort companies with 2021 data |
 | g=2022, t=2022 (treatment year) | ~~578~~ **442** | 44 | 2023 cohort companies with 2022 data |
-| g=2022, t=2023 (year +1) | 431 | ⚠️ **3** | g=2024 cohort: only 3 companies have any 2023 DB observation |
+| g=2022, t=2023 (year +1) | 431 | ✅ **124** | g=2023 cohort companies with 2023 data (corrected 2026-06-22; prior figure of 3 was pre-2016–2019 addition) |
 | g=2023, t=2022 (pre-trend t−1) | 39 | 4 | 2024 cohort companies with 2022 data |
-| g=2023, t=2023 (treatment year) | 41 | ⚠️ **3** | g=2024 cohort: only 3 companies have any 2023 DB observation |
+| g=2023, t=2023 (treatment year) | 41 | ✅ **124** | g=2023 cohort companies with 2023 data (corrected 2026-06-22) |
 
 > **Correction (2026-06-10):** The prior `treated=578` for g=2022, t=2022 was wrong — it counted all 593 g=2022 companies minus ~15 corpus-gap companies. The correct count is **442** estimable companies (those with ≥1 pre-treatment observation that also appear in 2022), which is what att_gt() actually uses.
 >
-> **⚠️ Critical — year +1 and g=2023 treatment year:** ATT(g=2022, t=2023) and ATT(g=2023, t=2023) each have only **3 effective controls** (the 3 g=2024 companies that happen to have a 2023 DB observation — 301 of the 307 g=2024 companies entered the panel only at their 2024 adoption year). These cells are barely estimable. **Pre-register both as exploratory** and do not include in the primary aggregated event-study ATT. The primary identified estimate is ATT(g=2022, t=2022) with n=44 controls.
+> **✅ Corrected (2026-06-22) — year +1 and g=2023 treatment year:** Prior figure of 3 controls was computed before the addition of 2016–2019 historical rows, which expanded the g=2023 cohort's panel presence. After DB expansion to 5,408 rows (2016–2024), the g=2023 cohort now has **124 companies** with 2023 data, making ATT(g=2022, t=2023) fully estimable and upgradeable from exploratory to **confirmatory**. ATT(g=2022, t=2022) with n=44 controls remains the primary identified estimate; ATT(g=2022, t=2023) with n=124 is the primary post-treatment effect. **Pre-register ATT(g=2022, t=2023) as confirmatory.**
 
 **Primary estimation sample:** g=2022 cohort. The study estimates the effect of 2022 GRI 3 adoption relative to the not-yet-adopted 2023 cohort.
 
@@ -101,8 +119,8 @@ Göttsche et al. (2025) demonstrate a displacement effect for SASB financial-mat
 | **Treatment indicator** | `post_gri3_it = 1` if `fiscal_year ≥ gri_adoption_year` |
 | **Population** | Estimable panel: 445 treated (2022 cohort), ~43 not-yet-treated controls (2023 cohort with pre-2022 data) |
 | **2024 cohort** | **Excluded** from H1–H4 estimation |
-| **Estimator** | `att_gt(yname="n_material_topics_b", tname="fiscal_year", idname="twse_ticker", gname="gri_adoption_year", control_group="notyettreated", xformla=~ln_total_assets+roa+board_approved+standalone_sr)` |
-| **Note on board_approved in 2020** | `board_approved` coverage is only 25% in 2020. Exclude from covariate vector when base period is 2020; use `xformla=~ln_total_assets+roa+standalone_sr` for t=2020 base-period comparisons |
+| **Estimator** | `att_gt(yname="n_material_topics_b", tname="fiscal_year", idname="twse_ticker", gname="gri_adoption_year", control_group="notyettreated", xformla=~ln_total_assets+roa+board_approved+standalone_sr+independent_director_ratio)` |
+| **Note on covariates in 2020** | `board_approved` coverage is only 25% in 2020; `independent_director_ratio` coverage for 2020 is 0% (TEJ board diversity data starts 2021). Exclude both from covariate vector when base period is 2020; use `xformla=~ln_total_assets+roa+standalone_sr` for t=2020 base-period comparisons |
 | **Expected sign** | **Negative ATT**: earlier adoption → reduction in `n_material_topics_b` |
 | **Expected magnitude** | −2 to −5 topics relative to pre-adoption mean (mean non-zero = 15.0, SD ≈ 7) |
 | **Pre-trend test** | Event-study via `aggte(type="dynamic")`; inspect t−1 coefficient (t−2 available only for subset of 2022 cohort companies with 2020 data) |
@@ -309,7 +327,7 @@ Positive — GRI 3 adoption is expected to increase ESG sentence density across 
 - [ ] Confirm `idname = "twse_ticker"` (not `company_id`) in all `att_gt()` calls
 - [ ] Exclude 2024 cohort from H1–H4 treatment and control pool — document rationale
 - [ ] Pre-specify `impact_intensity` derivation: High = {Resource, Infrastructure, Transportation, Minerals, Food}; Low = {Technology, Services, HealthCare, Financials}; Consumer + RenewableEnergy = sensitivity
-- [ ] Pre-specify `board_approved` exclusion from covariate vector when base period = 2020
+- [ ] Pre-specify `board_approved` and `independent_director_ratio` exclusion from covariate vector when base period = 2020 (independent_director_ratio from TEJ Board diversity starts 2021; not available for 2020 rows)
 - [ ] Confirm `process_quality_score` is 0–1 scale; document expected ATT as +0.05 to +0.15
 - [ ] Classify H3 as exploratory (no causal claim); primary outcome `has_any_assurance`
 - [ ] Register NLP supplementary stream (Stream F) with language-track stratification protocol and ESGLens exclusion
