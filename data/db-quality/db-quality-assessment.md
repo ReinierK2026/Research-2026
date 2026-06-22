@@ -1,6 +1,6 @@
 # DB Quality Assessment — GRI 3 Materiality DiD Study
 **Created:** 2026-06-10  
-**Last updated:** 2026-06-22  
+**Last updated:** 2026-06-22 (design notes + rd patch)  
 **File assessed:** twse-research-database.csv  
 **Purpose:** Evaluate readiness of the current DB against the requirements of H1–H5 (Callaway-Sant'Anna DiD)
 
@@ -20,7 +20,7 @@
 
 > **Note on company_id:** The `company_id` field is a ticker-year compound key (e.g., `1101_2024`), not a company identifier. Use `twse_ticker` as `idname` in `att_gt()`.
 
-> **⚠️ Historical years (2016–2019):** The DB now contains 2,125 historical rows. However, **`n_material_topics_b`, `process_quality_score`, `board_approved`, and `standalone_sr` are all 0 or null for 2016–2019** — these years have not been NLP-coded. They cannot be used as additional pre-treatment periods for the DiD. The effective pre-trend window remains **2020–2021**.
+> **ℹ️ Historical years (2016–2019) — by design:** The DB contains 2,125 rows for 2016–2019. **No NLP coding will be run for these years** — they exist solely to populate financial control variables (Block F: ln_total_assets, roa, leverage, rd_intensity, firm_age, etc.) for use as baseline controls. `n_material_topics_b`, `process_quality_score`, `board_approved`, and `standalone_sr` are all 0/null for 2016–2019; this is expected and correct. Zeros in `n_material_topics_b` for 2016–2019 are **design-intended placeholders**, not data errors. The effective DiD analysis window remains **2020–2024**, with pre-trend tests in **2020–2021** only.
 
 ### Panel balance by company
 
@@ -105,7 +105,9 @@ The effective study remains a comparison of the **2022 cohort vs 2023+2024 cohor
 | Valid (non-zero, non-null) | 2,997 (55.4%) |
 | Valid distribution | min=1, max=44, mean≈17.0, median=17 |
 
-> **⚠️ ACTION REQUIRED:** 286 zeros remain in the 2020–2024 rows (likely from the 190 newly-added companies not yet NLP-processed). These must be set to `NA` before `att_gt()`. Prior Pass 87 resolved zeros for the original 3,283 rows; newly added rows need the same treatment.
+> **⚠️ ACTION REQUIRED:** 286 zeros remain in the **2020–2024** rows (likely from the 190 newly-added companies not yet NLP-processed). These must be set to `NA` before `att_gt()`. Prior Pass 87 resolved zeros for the original 3,283 rows; newly added rows need the same treatment.
+
+> **✅ By design — 2016–2019 zeros:** Zeros in `n_material_topics_b` for fiscal years 2016–2019 are expected. No NLP will be run for historical years; those rows exist for financial controls only. Do not convert 2016–2019 zeros to NA — they are structural placeholders. When filtering to `fiscal_year >= 2020` for DiD, they are excluded automatically.
 
 Valid coverage by year (2020–2024):
 
@@ -189,22 +191,45 @@ Coverage is 59.3% overall because 2016–2019 rows have zero process_quality_sco
 
 **board_approved in 2020:** Only 25% coverage — exclude from covariate vector when using 2020 as pre-trend period. Use full spec for t=2021 onward only.
 
-**firm_age / rd_intensity:** New covariates available but at 54–61% coverage. Can be used in robustness regressions but not in primary spec where missingness could drop observations.
+**firm_age / rd_intensity — clarification (2026-06-22):** The 54–61% overall coverage figures were misleading because they included 2016–2019 rows where Block F financial data is not loaded (by design — NLP/financial data import only covers 2020+). In the **DiD-relevant window (2020–2024)**, coverage is:
+
+| Variable | 2020 | 2021 | 2022 | 2023 | 2024 |
+|---|---|---|---|---|---|
+| `firm_age` | 100% | 100% | 100% | 100% | 100% |
+| `rd_intensity` | 100% *(patched)* | 99% *(patched)* | 89% | 89% | 87% |
+
+**`rd_intensity` patch (2026-06-22, Pass DB-01):** Set to 0.0 for 85 rows where `rd_expense_ntd_thou` is null/0 but `revenue_ntd_thou` is present (these companies have no R&D). Also computed `rd_dummy` for 2022–2024 (was erroneously all-zero). Remaining 279 null rows have neither revenue nor rd_expense — they'll be dropped by missing `ln_total_assets`/`roa` anyway.
+
+Both `firm_age` and `rd_intensity` are ready for use in the primary covariate spec for 2020–2024.
 
 **`independent_director_ratio` — data pipeline break (confirmed):**
 0% coverage for 2022–2024. Do not include in any covariate specification — it will silently drop all post-treatment observations from the model.
 
-**`tesg_score` — partial coverage:**
+**`tesg_score` — partial coverage (TEJ data unavailable post-2022):**
 
 | Year | Coverage |
 |---|---|
 | 2020 | 426/427 (99.8%) |
 | 2021 | 487/491 (99.2%) |
 | 2022 | 629/632 (99.5%) |
-| 2023 | **0/711** |
-| 2024 | **0/1,022** |
+| 2023 | **0/711** ← TEJ does not provide data beyond 2022 |
+| 2024 | **0/1,022** ← TEJ does not provide data beyond 2022 |
 
-`tesg_score` is available for 2020–2022 only. Cannot be used as a covariate for post-2022 years. Suitable as a pre-treatment control variable (lagged value at t=2021) or for heterogeneity analysis in Stream F.
+TEJ has confirmed the TESG score series ends at 2022. The `msci_esg_rating` and `sustainalytics_risk_score` columns exist in the DB but are currently **0/5,408 non-null** — not yet populated.
+
+**Recommended approach — use `tesg_score` as a time-invariant baseline control:** Include the 2022 TESG score (last available year) as a firm-level pre-treatment characteristic in the covariate vector. This controls for baseline ESG sophistication without requiring panel variation. Defensible because treatment (GRI 3 adoption) occurs from 2022 onward.
+
+**Alternatives to explore for supplementing or replacing tesg_score:**
+
+| Alternative | Coverage | Availability | Notes |
+|---|---|---|---|
+| TWSE Corporate Governance Evaluation (CGQ score) | All TWSE-listed cos, annual | Public (TWSE/FSC website) | Free; Taiwan-specific; 2020-2024 available; strong CG dimension |
+| Sustainalytics Risk Score | Global + TWSE large caps | Subscription or scrape | Column already in DB (`sustainalytics_risk_score`) — needs data fetch |
+| MSCI ESG Rating | Global + some Taiwan coverage | Subscription | Column already in DB (`msci_esg_rating`) — needs data fetch; limited TWSE coverage |
+| CDP Score | Large Taiwanese disclosers only | Public (CDP) | Narrow coverage; not recommended as primary |
+| `tesg_score` (2022, time-invariant) | 629/632 for 2022 | Already in DB ✅ | **Recommended as interim solution** |
+
+**Priority action:** Investigate TWSE CGQ score as a freely-available, time-varying (2020–2024) alternative that would enable tesg_score to be replaced entirely rather than lagged.
 
 ---
 
@@ -307,7 +332,10 @@ Before OSF submission:
 | 🟡 #8 | Exclude `board_esg_committee` from all analyses (empty column) | PENDING |
 | 🟡 #9 | Investigate 286 remaining zeros — are they new-company rows or re-introduced? | PENDING |
 | 🟡 #10 | Code TSMC proximity indicator for H5 (external data required) | PENDING |
-| ℹ️ #11 | Note: `tesg_score` available 2020–2022 only; use as lagged pre-treatment control only | PENDING |
+| ✅ #11 | `rd_intensity` patched: 85 zero-R&D rows filled; `rd_dummy` computed for 2022–2024 (Pass DB-01) | **DONE** |
+| 🟠 #12 | `tesg_score` unavailable post-2022 from TEJ — investigate TWSE CGQ score as time-varying alternative for 2020–2024 | PENDING |
+| 🟡 #13 | If TWSE CGQ not viable: use 2022 `tesg_score` as time-invariant pre-treatment control in primary spec | PENDING |
+| 🟡 #14 | Populate `sustainalytics_risk_score` and/or `msci_esg_rating` columns (subscriptions required) | PENDING |
 
 ---
 
