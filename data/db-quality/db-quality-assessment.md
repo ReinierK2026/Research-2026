@@ -386,4 +386,60 @@ Final state: positive=3,121 | NA=2,287 (incl. 2016–2019 by-design NAs + 162 co
 
 ---
 
-*Generated: 2026-06-10 | Last updated: 2026-06-22 (design notes + rd patch + board diversity patch + zeros→NA — 162 zeros in n_material_topics_b/a converted to NA for 2020–2024; 0 zeros now remain in DiD window)*
+---
+
+### Pass DB-04 — sasb_industry fill for 20 missing tickers (2026-06-22)
+**Trigger:** 32 rows in DiD window had blank `sasb_industry` (20 unique tickers). These tickers also lacked `tse_industry_code` — recent listings not captured in the original sector lookup.
+
+**Method:** Company name + TWSE sector research. Assignments:
+
+| Ticker | Company | SASB assigned | Basis |
+|---|---|---|---|
+| 2254 | COPLUS | Transportation | Auto parts manufacturing |
+| 2258 | Foxtron | Transportation | EV/vehicle manufacturing (Foxconn spin-off) |
+| 2432 | AGT | Technology | Electronics testing |
+| 3150 | Syncomm | Technology | Wireless telecom equipment |
+| 3682 | APT | Technology | Electronics |
+| 3716 | Cenra Inc. | Technology | Precision electronics |
+| 6534 | CHBIO | HealthCare | Biotechnology |
+| 6645 | Kim Forest | Technology | ICT services |
+| 6771 | PHET | Technology | Electronics |
+| 6794 | UnicoCell Biomed | HealthCare | Biomedical devices |
+| 6854 | PlayNitride | Technology | Micro-LED displays |
+| 6902 | Gogolook | Services | SaaS anti-fraud / TrustTech |
+| 6924 | EIKEI-KY | Technology | Electronics / manufacturing |
+| 6949 | PELL BMT | HealthCare | Biomedical technology |
+| 6951 | Chin Hsin | Technology | Electronics |
+| 6955 | BONRAYBIO | HealthCare | Biotech / diagnostics |
+| 6969 | Transcene | HealthCare | Biotech / life sciences |
+| 6988 | Wellysun | HealthCare | Health / wellness |
+| 8162 | MSEC | Technology | Semiconductor equipment |
+| 8487 | ELTA | Technology | Defense electronics |
+
+**Impact_intensity** also updated for all 37 rows.
+**Result:** 0 missing `sasb_industry` in DiD window. db_did_full.csv and db_did.csv regenerated.
+
+---
+
+### §9b — TWSE CGQ Score Assessment (2026-06-22)
+
+**What it is:** TWSE Corporate Governance Evaluation (CGE), administered by the TWSE Corporate Governance Center (`cgc.twse.com.tw`). Annual evaluation covering all TWSE- and TPEx-listed companies. The 11th round (2024) covered 1,749 companies. From 2026 onward renamed "ESG Evaluation" with 75 indicators across E, S, G dimensions.
+
+**Data format:** Companies are ranked into 7 percentile bands (top 5%, 6–20%, 21–35%, 36–50%, 51–65%, 66–80%, 81–100%+). This is **ordinal, not continuous**.
+
+**Availability for 2020–2024:** Annual data available from the TWSE website and potentially from TEJ subscription. Years available: approximately 2014 onward (CGE started 2013).
+
+**Decision:**
+- **Do not use as a primary covariate** — ordinal band (1–7) rather than continuous score limits regression use; and it may be endogenous to the same governance improvements that drive GRI 3 adoption quality
+- **Viable as robustness covariate** if TEJ provides the data in numeric form — code as ordinal 1–7, include in robustness specification alongside `independent_director_ratio`
+- **Action needed:** Check TEJ data licence for CGE scores 2020–2024. If available, include as `twse_cge_band` (ordinal 1–7) in a robustness column
+- **Fallback if unavailable:** Use `tesg_score` (2022 value only) as a time-invariant pre-treatment governance quality control in robustness specifications; `independent_director_ratio` serves as the time-varying governance proxy
+
+**`tesg_score` coverage confirmed:**
+- 2020: 426/427, 2021: 487/491, 2022: 629/632 — good
+- 2023: 0/711, 2024: 0/1,022 — TEJ series ended
+- Use 2022 cross-section as pre-treatment snapshot in robustness specs
+
+---
+
+*Generated: 2026-06-10 | Last updated: 2026-06-22 (Pass DB-04: sasb_industry + impact_intensity patched for 20 tickers; OSF pre-reg drafted; CGQ assessment completed; n_material_topics_a confirmed redundant; board_esg_committee confirmed absent)*
