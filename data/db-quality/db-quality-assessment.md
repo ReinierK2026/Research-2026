@@ -421,24 +421,51 @@ Final state: positive=3,121 | NA=2,287 (incl. 2016–2019 by-design NAs + 162 co
 
 ---
 
-### §9b — TWSE CGQ Score Assessment (2026-06-22)
+### §9b — TWSE CGQ Score: Assessment and Integration (2026-06-22)
 
-**What it is:** TWSE Corporate Governance Evaluation (CGE), administered by the TWSE Corporate Governance Center (`cgc.twse.com.tw`). Annual evaluation covering all TWSE- and TPEx-listed companies. The 11th round (2024) covered 1,749 companies. From 2026 onward renamed "ESG Evaluation" with 75 indicators across E, S, G dimensions.
+**Source:** `TEJ_TWSECG.xlsx` — TWSE Corporate Governance Evaluation (CGE), administered by the TWSE Corporate Governance Center (`cgc.twse.com.tw`). Annual evaluation, 11th round (2024) covered 1,749 companies. From 2026 onward replaced by "ESG Evaluation" (E/S/G, 75 indicators).
 
-**Data format:** Companies are ranked into 7 percentile bands (top 5%, 6–20%, 21–35%, 36–50%, 51–65%, 66–80%, 81–100%+). This is **ordinal, not continuous**.
+**Numeric encoding in DB (`twse_cgq_score`):**
 
-**Availability for 2020–2024:** Annual data available from the TWSE website and potentially from TEJ subscription. Years available: approximately 2014 onward (CGE started 2013).
+| Score | Band | Grade |
+|---|---|---|
+| 7 | Top 5% | A+ |
+| 6 | 6%–20% | A |
+| 5 | 21%–35% | B |
+| 4 | 36%–50% | C |
+| 3 | 51%–65% | C- |
+| 2 | 66%–80% | D |
+| 1 | 81%–100% | D- |
+| 0 / blank | Not evaluated or insufficient data | — |
 
-**Decision:**
-- **Do not use as a primary covariate** — ordinal band (1–7) rather than continuous score limits regression use; and it may be endogenous to the same governance improvements that drive GRI 3 adoption quality
-- **Viable as robustness covariate** if TEJ provides the data in numeric form — code as ordinal 1–7, include in robustness specification alongside `independent_director_ratio`
-- **Action needed:** Check TEJ data licence for CGE scores 2020–2024. If available, include as `twse_cge_band` (ordinal 1–7) in a robustness column
-- **Fallback if unavailable:** Use `tesg_score` (2022 value only) as a time-invariant pre-treatment governance quality control in robustness specifications; `independent_director_ratio` serves as the time-varying governance proxy
+**Coverage in DiD window (2020–2024):**
 
-**`tesg_score` coverage confirmed:**
-- 2020: 426/427, 2021: 487/491, 2022: 629/632 — good
-- 2023: 0/711, 2024: 0/1,022 — TEJ series ended
-- Use 2022 cross-section as pre-treatment snapshot in robustness specs
+| Year | Rows | Coverage |
+|---|---|---|
+| 2020 | 416/427 | 97% |
+| 2021 | 469/491 | 96% |
+| 2022 | 606/632 | 96% |
+| 2023 | 678/711 | 95% |
+| 2024 | 953/1,022 | 93% |
+| **Total** | **3,122/3,283** | **95.1%** |
+
+**Score statistics (2020–2024 matched):** mean = 3.55, SD = 1.88, range = 1–7. Well-distributed across all bands.
+
+**Decision: Integrated as robustness covariate — NOT primary covariate.**
+
+Rationale for exclusion from primary spec: The CGE criteria include ESG/sustainability reporting indicators. Companies adopting GRI 3 may receive higher CGQ scores *because* of GRI 3 adoption, creating post-treatment contamination if used contemporaneously. This makes CGQ potentially endogenous to the treatment.
+
+**Recommended use in robustness specifications:**
+- Use **lagged CGQ score** (`twse_cgq_score` at t−1) as a pre-determined control — this pre-dates any GRI 3 effects for that year
+- Or use **2021 value** as a time-invariant pre-treatment baseline (all companies in the g=2022 cohort have 2021 CGQ before they adopt GRI 3 in 2022)
+- Include in robustness spec R6 alongside `independent_director_ratio`
+
+**`tesg_score` comparison:**
+- `tesg_score`: 2020=97%, 2021=99%, 2022=99%, **2023=0%, 2024=0%** — TEJ series ended
+- `twse_cgq_score`: **95%+ coverage all years 2020–2024** — strictly superior for our DiD window
+- `twse_cgq_score` is preferred for robustness; `tesg_score` limited to 2022 cross-section only
+
+**DB status:** ✅ Integrated as column 192 (`twse_cgq_score`). db_did_full.csv and db_did.csv regenerated (3,283 and 2,960 rows × 192 cols).
 
 ---
 
