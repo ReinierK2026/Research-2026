@@ -148,18 +148,18 @@ Panel: 2016–2024. Text data: 2021–2024. TEJ ESG scores: 2016–2022. GRI 3 t
 
 **Estimable ATT(g, t) pairs** (with non-zero control pools):
 - g=2021: ATT(2021,2021), ATT(2021,2022), ATT(2021,2023) — 3 post-treatment periods ✓
-- g=2022: ATT(2022,2022) **primary**; ATT(2022,2023) exploratory (3 controls)
-- g=2023: ATT(2023,2023) exploratory (3 controls)
+- g=2022: ATT(2022,2022) **primary** (44 controls); ATT(2022,2023) **CONFIRMATORY** (124 controls — upgraded 2026-06-22)
+- g=2023: ATT(2023,2023) **CONFIRMATORY** (124 controls — upgraded 2026-06-22)
 - g=2024: **no estimable ATTs** — cohort g=2024 (n=307) serves as controls for t≤2023 only
 
-**Effective analytical sample for H1**: The primary identified estimate is **ATT(g=2022, t=2022)** with 442 treated and 44 controls. Year-+1 estimates are exploratory.
+**Effective analytical sample for H1**: The primary identified estimate is **ATT(g=2022, t=2022)** with 442 treated and 44 controls. ATT(g=2022, t=2023) is the year+1 confirmatory cell (124 controls).
 
 **R implementation guidance**:
 - Use `control_group = "notyettreated"` (the only viable option; `nevertreated` has 0 companies)
 - Set estimation horizon to t=2023 maximum (or let `att_gt()` drop t=2024 automatically)
 - Report cohort g=2024 as "treatment occurred but unestimable — serves as control cohort"
 - `allow_unbalanced_panel = TRUE` to handle the 20 corpus-gap companies
-- The effective control pool at t=2023 is **3 companies** — pre-register those ATT cells as exploratory; primary inference rests on ATT(g=2022, t=2022) where n_controls=44
+- ATT(g=2022,t=2023) and ATT(g=2023,t=2023) are now fully powered (124 controls each) — pre-registered as **confirmatory** (corrected 2026-06-22 after DB expansion added 2016–2019 historical rows)
 
 ### Block B: Report Characteristics [High confidence | data-analyst | 2026-05-20/22]
 - All 5,408 company-year rows (post-restructure DB) have 100% coverage on: `gri_standard_version`, `gri_adoption_year`, `bilingual_report` (sourced from TEJ CSR Disclosure)
