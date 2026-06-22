@@ -552,8 +552,8 @@ Coverage is shown two ways: **NLP corpus** (1,042 companies with extracted text)
 | Hypothesis | Outcome | Expected ATT | Estimator | Status |
 |------------|---------|-------------|-----------|--------|
 | **H1** (primary) | n_material_topics_b | Negative (−2 to −5 topics) | CS21 att_gt() | Ready — pending OSF pre-reg |
-| **H2** | process_quality_score | Positive (+1–2 pts on 0–10 scale) | CS21 + TWFE robustness | Ready — pending OSF pre-reg |
-| **H3** | assurance_level (ordinal upgrade) | Positive (+8–15 pp Reasonable) | CS21 + Ordered logit | Ready — pending OSF pre-reg |
+| **H2** | process_quality_score | Positive (+0.05–0.15 on 0–1 scale) | CS21 + TWFE robustness | Ready — pending OSF pre-reg |
+| **H3** | `has_any_assurance` (primary); `big4_assurance` (secondary) | Positive association with years since adoption | Exploratory logistic regression (reclassified from DiD — ~5% base rate too low) | Pre-registered; can run before OSF upload |
 | **H4** | n_material_topics_b × industry_cat | Displacement varies by company type (conditional on subgroup selection) | Subsample CS21 | Conditional — requires industry subsample activation |
 | **H5** | process_quality_score × supply-chain proximity | Supply-chain-proximate firms: earlier adoption, +1.5 pts | CS21 interaction | Blocked — proximity coding requires external data |
 
