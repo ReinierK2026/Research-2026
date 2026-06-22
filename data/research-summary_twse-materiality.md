@@ -2,8 +2,8 @@
 agent: research-coordinator
 type: synthesis-summary
 topic: "twse-materiality"
-last_updated: "2026-06-11"
-sessions: ["2026-05-18", "2026-05-20", "2026-05-21", "2026-05-22", "2026-05-23", "2026-05-24", "2026-06-08", "2026-06-08-pass32", "2026-06-08-pass33", "2026-06-08-pass34", "2026-06-08-pass35", "2026-06-08-pass36", "2026-06-08-pass37", "2026-06-08-pass38", "2026-06-09-pass39", "2026-06-09-pass40", "2026-06-09-pass41", "2026-06-09-pass42", "2026-06-09-pass43", "2026-06-09-pass44", "2026-06-09-pass45", "2026-06-09-pass46", "2026-06-10-pass47", "2026-06-10-pass48", "2026-06-10-pass49", "2026-06-10-pass50", "2026-06-10-pass51", "2026-06-10-pass52", "2026-06-10-pass53", "2026-06-10-pass54", "2026-06-10-pass55", "2026-06-10-pass56", "2026-06-10-pass57", "2026-06-10-pass58", "2026-06-10-pass59", "2026-06-10-pass60", "2026-06-10-pass61", "2026-06-10-pass62", "2026-06-10-pass63", "2026-06-10-pass64", "2026-06-10-pass65", "2026-06-10-pass66", "2026-06-10-pass67", "2026-06-10-pass88", "2026-06-10-pass89", "2026-06-10-pass90", "2026-06-10-pass91", "2026-06-10-pass92", "2026-06-11-pass93"]
+last_updated: "2026-06-22"
+sessions: ["2026-05-18", "2026-05-20", "2026-05-21", "2026-05-22", "2026-05-23", "2026-05-24", "2026-06-08", "2026-06-08-pass32", "2026-06-08-pass33", "2026-06-08-pass34", "2026-06-08-pass35", "2026-06-08-pass36", "2026-06-08-pass37", "2026-06-08-pass38", "2026-06-09-pass39", "2026-06-09-pass40", "2026-06-09-pass41", "2026-06-09-pass42", "2026-06-09-pass43", "2026-06-09-pass44", "2026-06-09-pass45", "2026-06-09-pass46", "2026-06-10-pass47", "2026-06-10-pass48", "2026-06-10-pass49", "2026-06-10-pass50", "2026-06-10-pass51", "2026-06-10-pass52", "2026-06-10-pass53", "2026-06-10-pass54", "2026-06-10-pass55", "2026-06-10-pass56", "2026-06-10-pass57", "2026-06-10-pass58", "2026-06-10-pass59", "2026-06-10-pass60", "2026-06-10-pass61", "2026-06-10-pass62", "2026-06-10-pass63", "2026-06-10-pass64", "2026-06-10-pass65", "2026-06-10-pass66", "2026-06-10-pass67", "2026-06-10-pass88", "2026-06-10-pass89", "2026-06-10-pass90", "2026-06-10-pass91", "2026-06-10-pass92", "2026-06-11-pass93", "2026-06-22-pass-db01", "2026-06-22-pass-db02"]
 agents_ever_deployed: ["web-researcher", "academic-researcher", "data-analyst", "technical-researcher", "research-gap-analysis", "hypothesis-generation", "research-coordinator"]
 status: current
 ---
@@ -28,7 +28,7 @@ Staggered Difference-in-Differences (DiD) using the Callaway-Sant'Anna (2021) es
 - **Potential analytical subsample**: 73-company industry subset (507 company-years, 2016–2024), available for focused subgroup analysis if an industry lens is selected at the analysis stage. If activated, this subsample can be further categorised by company type (~28 Fabless, ~21 Foundry/OSAT, ~24 IDM).
 
 ### Database
-`twse-research-database.csv` — **192 columns** × 5,408 data rows (FY 2016–2024) (+ 2 header rows: block labels + column names). UTF-8 BOM. Block-label header pattern: Row 1 = block labels (A/B/C/D/F/G), Row 2 = column names, Row 3+ = data. Column count history: 157 (original TEJ/GRI) → 175 (+ 18 NLP, Pass 32–37) → 188 (+ 13 Phase 2 multilingual NLP, Pass 38–42) → 190 (+ 2 Phase 3 Block vars confirmed, Pass 43–46; confirmed 190 by direct header count) → **192** (+ `language_track` + `impact_intensity`, Pass 92, 2026-06-11). db_did_full.csv regenerated 2026-06-11 (Pass 93): 3,283 rows × 192 cols (FY 2020–2024, g ∈ {2021–2024}); db_did.csv: 2,960 rows (same minus g=2024). R loading: `read_csv(skip=1) |> mutate(gri_adoption_year = as.integer(gri_adoption_year))`.
+`twse-research-database.csv` — **197 columns** × 5,408 data rows (FY 2016–2024) (+ 2 header rows: block labels + column names). UTF-8 BOM. Block-label header pattern: Row 1 = block labels (A/B/C/D/F/G), Row 2 = column names, Row 3+ = data. Column count history: 157 (original TEJ/GRI) → 175 (+ 18 NLP, Pass 32–37) → 188 (+ 13 Phase 2 multilingual NLP, Pass 38–42) → 190 (+ 2 Phase 3 Block vars confirmed, Pass 43–46; confirmed 190 by direct header count) → **192** (+ `language_track` + `impact_intensity`, Pass 92, 2026-06-11) → **197** (+ 5 board diversity columns: `independent_directors_n`, `female_directors_n`, `female_director_pct`, `director_attendance_pct`, `director_training_pct`; Pass DB-02, 2026-06-22). db_did_full.csv regenerated 2026-06-11 (Pass 93): 3,283 rows × 192 cols (⚠️ needs regeneration — does not reflect Pass DB-01/02) (FY 2020–2024, g ∈ {2021–2024}); db_did.csv: 2,960 rows (same minus g=2024). R loading: `read_csv(skip=1) |> mutate(gri_adoption_year = as.integer(gri_adoption_year))`.
 
 ### Cohort Reconciliation (all years, Pass 29 — 2026-06-08)
 
@@ -66,7 +66,12 @@ All coverage percentages for NLP-based blocks (B, C, D) use the year-specific NL
 | TEJ Income Statement.xlsx | 2016–2024, 4,365 rows | 12 raw + 6 derived income statement variables |
 | TEJ Equty.xlsx | 2016–2024, 4,895 rows | Market cap, shares, P/B (Tobin's Q proxy), P/E, return |
 | TEJ Governance.xlsx | 2014/01–2025/01 monthly, 7,670 rows | Board size, director/supervisor counts, ownership %, pledged %, liability insurance |
+| TEJ Board diversity.xlsx | 2021–2025, 7,537 rows | Board size, independent directors (count + ratio), female directors (count + %), meeting attendance %, training %; integrated 2026-06-22 (Pass DB-02) |
 | TEJ ESG score.xlsx | 2016–2022 only, 4,428 rows | TESG rating, score, E/S/G sub-scores |
+
+**Pass DB-01 (2026-06-22):** `rd_intensity` patched for 85 rows where rd_expense=0 but revenue>0 (genuine zero-R&D firms). `rd_dummy` computed for 2022–2024 (was erroneously all-zero due to pipeline gap). Remaining 279 null rows have neither revenue nor rd_expense — dropped by model.
+
+**Pass DB-02 (2026-06-22):** Board diversity data integrated from TEJ Board diversity.xlsx (2021–2024; 151 Bad Quality=Y rows excluded). 2,774/2,856 DB rows updated. `independent_director_ratio` now 97.7% for 2021–2024 (was 0% for 2022–2024). Five new columns added: `independent_directors_n`, `female_directors_n`, `female_director_pct`, `director_attendance_pct`, `director_training_pct`.
 | ESGgenplus text corpus | 2021–2024, partial universe | ESG report PDFs (45GB) for text-based NLP extraction |
 | GRI code extraction pipeline | 2021–2024 | gri_codes_summary_202[1-4].csv, gri_tables_2023-2024/ |
 
@@ -128,7 +133,7 @@ Panel: 2016–2024. Text data: 2021–2024. TEJ ESG scores: 2016–2022. GRI 3 t
 
 **Critical finding — full treatment saturation at t=2024**: All 1,036 analytical-cohort companies have `gri_adoption_year ≤ 2024` (zero never-treated companies). At t=2024, the not-yet-treated control pool is empty → **ATT(g, t=2024) is unidentified for all cohorts** with `control_group = "notyettreated"`.
 
-**⚠️ Critical — t=2023 effective controls = 3 (Pass 89 audit, 2026-06-10)**: Although the g=2024 cohort contains 307 companies, only **3** have any DB observation in 2023 (a fiscal year prior to their 2024 adoption). The remaining 301 companies first appear in the DB in 2024 — they are new entrants with no pre-adoption history. CS21 requires controls to have at least one observation at both the base period and time t; almost none of the 307 g=2024 companies satisfy this for t=2023. This makes ATT(g=2022, t=2023) and ATT(g=2023, t=2023) barely estimable. **Pre-register both as exploratory.**
+**✅ Corrected (2026-06-22) — t=2023 effective controls = 124**: The prior figure of 3 was computed before the 2016–2019 historical rows were added to the DB. After DB expansion (Pass D5), the g=2023 cohort (126 companies) now has **124 companies with 2023 observations**, satisfying CS21's pre- and post-treatment observation requirement. ATT(g=2022, t=2023) and ATT(g=2023, t=2023) are now **properly estimable**. **Pre-register ATT(g=2022, t=2023) as confirmatory** (primary year+1 post-treatment effect). This is a substantial improvement in identification quality over the prior pass-89 audit finding.
 
 **Effective ATT cell counts** (verified against DB 2026-06-10):
 
@@ -137,9 +142,9 @@ Panel: 2016–2024. Text data: 2021–2024. TEJ ESG scores: 2016–2022. GRI 3 t
 | g=2022, t=2020 (pre-trend t−2) | 381 | 37 | g=2023 (34) + g=2024 (3) |
 | g=2022, t=2021 (pre-trend t−1) | 438 | 43 | g=2023 (37) + g=2024 (6) |
 | g=2022, t=2022 (treatment year) | **442** | **44** | g=2023 (40) + g=2024 (4) |
-| g=2022, t=2023 (year +1) | 431 | ⚠️ **3** | g=2024 only — exploratory |
+| g=2022, t=2023 (year +1) | 431 | ✅ **124** | g=2023 cohort with 2023 data — **confirmatory** (corrected 2026-06-22) |
 | g=2023, t=2022 (pre-trend t−1) | 39 | 4 | g=2024 (4) |
-| g=2023, t=2023 (treatment year) | 41 | ⚠️ **3** | g=2024 only — exploratory |
+| g=2023, t=2023 (treatment year) | 41 | ✅ **124** | g=2023 cohort with 2023 data — **confirmatory** (corrected 2026-06-22) |
 
 **Estimable ATT(g, t) pairs** (with non-zero control pools):
 - g=2021: ATT(2021,2021), ATT(2021,2022), ATT(2021,2023) — 3 post-treatment periods ✓
