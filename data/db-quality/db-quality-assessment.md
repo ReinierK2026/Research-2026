@@ -469,4 +469,17 @@ Rationale for exclusion from primary spec: The CGE criteria include ESG/sustaina
 
 ---
 
-*Generated: 2026-06-10 | Last updated: 2026-06-22 (Pass DB-04: sasb_industry + impact_intensity patched for 20 tickers; OSF pre-reg drafted; CGQ assessment completed; n_material_topics_a confirmed redundant; board_esg_committee confirmed absent)*
+---
+
+### Pass DB-05 — twse_cgq_score integration (2026-06-22)
+**Source:** `TEJ_TWSECG.xlsx` — TWSE Corporate Governance Evaluation, annual, ordinal 1–7 (7 = top 5%; 1 = bottom 20%; blank = not evaluated/insufficient data).  
+**Column added:** `twse_cgq_score` (col 192; block G_ESGRatings)  
+**Rows populated:** 4,674 / 5,408 (includes 2016–2019 historical rows where available)  
+**DiD window coverage:** 3,122 / 3,283 (95.1%); per-year: 2020=97%, 2021=96%, 2022=96%, 2023=95%, 2024=93%  
+**Score stats:** mean=3.55, SD=1.88, range=1–7 — good variation across the full ordinal scale  
+**Use:** Robustness covariate only (lagged t−1 or 2021 static value); NOT primary spec due to potential endogeneity with GRI adoption outcomes  
+**DiD files regenerated:** db_did_full.csv (3,283 × 192), db_did.csv (2,960 × 192)
+
+---
+
+*Generated: 2026-06-10 | Last updated: 2026-06-22 (Pass DB-05: twse_cgq_score integrated; DB now 5,408 × 192; all DiD window action items complete; OSF pre-reg drafted and ready for upload)*
