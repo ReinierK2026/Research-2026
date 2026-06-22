@@ -191,16 +191,26 @@ Null ATT on NLP density scores would suggest GRI 3 changes the structure of mate
 
 ### Operationalisation
 
+> **2026-06-22 update (Pass DB-06):** Three assurance binary columns pre-computed in DB — use directly; no R derivation needed.
+
+**Severity ladder (pre-specified):**
+- `has_any_assurance = 0`: No assurance (39.1% in DiD window)
+- `has_any_assurance = 1, big4_assurance = 0`: Non-Big4 assurance/BSI/SGS (41.0%)
+- `has_any_assurance = 1, big4_assurance = 1`: Big4 assurance/PwC/EY/Deloitte/KPMG (19.9%)
+
 | Element | Detail |
 |---|---|
-| **Primary outcome** | `has_any_assurance` = 1 if `assurance_level ∈ {Limited, Reasonable}`, 0 if None — better-powered binary |
-| **Secondary outcome** | `has_reasonable_assurance` = 1 if `assurance_level = Reasonable` — exploratory given low base rate |
+| **Primary outcome** | `has_any_assurance` — pre-computed binary in DB (col 193); 60.9% prevalence in DiD window; well-powered |
+| **Secondary outcome** | `big4_assurance` — pre-computed binary in DB (col 194); 19.9% prevalence; tests whether earlier adoption drives shift to higher-quality (Big4) assurance |
+| **Exploratory outcome** | `has_reasonable_assurance` = 1 if `assurance_level = Reasonable` (derived in R); ~4.1% prevalence — severely underpowered; report as appendix only |
 | **Sample** | 2024 cross-section (1,022 rows) for primary; pooled 2021–2024 panel for robustness |
 | **Treatment variable** | `years_since_adoption` = `fiscal_year − gri_adoption_year` (continuous; range 0–3 in 2024) |
-| **Estimator** | Logistic regression: `glm(has_any_assurance ~ years_since_adoption + ln_total_assets + roa + sasb_industry + standalone_sr, family=binomial)` |
+| **Primary estimator** | `glm(has_any_assurance ~ years_since_adoption + ln_total_assets + roa + sasb_industry + standalone_sr, family=binomial)` |
+| **Secondary estimator** | `glm(big4_assurance ~ years_since_adoption + ln_total_assets + roa + sasb_industry + standalone_sr, family=binomial)` |
 | **Panel robustness** | `feglm(has_any_assurance ~ years_since_adoption + controls | twse_ticker, family=logit)` — company FE logit on pooled panel |
 | **Inference** | Robust standard errors; report marginal effects at mean |
 | **Pre-registration note** | H3 is **exploratory/descriptive**. No causal claims. Do not interpret ORs as treatment effects. |
+| **Additional control** | `big4_financial_auditor` (col 195, 88.1% coverage) — financial audit quality control; include in robustness specifications for H3 |
 
 ---
 
