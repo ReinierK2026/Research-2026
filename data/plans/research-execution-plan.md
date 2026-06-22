@@ -86,7 +86,7 @@ db['language_track'] = np.select(conditions, ['bilingual','zh_only','en_only'], 
 **Populated indicator used:** `finbert_env_pct.notna()` for finbert; `bge_top1_topic.notna()` for bge.  
 **Reference counts (2021, verified):** bilingual=303 ✓, zh_only=183 ✓, en_only=4 ✓, neither=1 ✓
 
-**Status:** ✅ **COMPLETED** — `language_track` column added to DB (col 191 of 197)
+**Status:** ✅ **COMPLETED** — `language_track` column added to DB
 
 ---
 
@@ -109,7 +109,7 @@ db <- db |> mutate(
 **Primary H4 analysis:** High vs Low only. Consumer + RenewableEnergy run as a sensitivity check (pre-registered, not primary).  
 **Coverage:** 3,251/3,283 rows assigned (32 null rows where sasb_industry is blank).
 
-**Status:** ✅ **COMPLETED** — `impact_intensity` column added to DB (col 192 of 197)
+**Status:** ✅ **COMPLETED** — `impact_intensity` column added to DB
 
 ---
 
