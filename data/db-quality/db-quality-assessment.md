@@ -1,6 +1,6 @@
 # DB Quality Assessment — GRI 3 Materiality DiD Study
 **Created:** 2026-06-10  
-**Last updated:** 2026-06-22 (design notes + rd patch)  
+**Last updated:** 2026-06-22 (design notes + rd patch + board diversity patch)  
 **File assessed:** twse-research-database.csv  
 **Purpose:** Evaluate readiness of the current DB against the requirements of H1–H5 (Callaway-Sant'Anna DiD)
 
