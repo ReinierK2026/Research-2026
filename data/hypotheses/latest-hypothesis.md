@@ -353,8 +353,9 @@ Positive — GRI 3 adoption is expected to increase ESG sentence density across 
 - [x] `n_material_topics_a` — **dropped from primary analysis** (100% identical to `n_material_topics_b`, confirmed 2026-06-22); column retained in DB; document in footnote
 - [x] `board_esg_committee` — **already absent from DB** (dropped in prior restructure); confirmed 2026-06-22
 - [x] `sasb_industry` filled for all DiD window rows — **Pass DB-04** (37 rows, 20 tickers; 2026-06-22; 0 missing remaining)
+- [x] `twse_cgq_score` integrated (Pass DB-05) — robustness covariate; 95.1% DiD window coverage; ordinal 1–7; NOT primary spec (endogeneity risk with GRI adoption)
+- [x] H3 assurance columns pre-computed (Pass DB-06): `has_any_assurance` (primary; 60.9%), `big4_assurance` (secondary; 19.9%), `big4_financial_auditor` (control; 88.1%) — all in DB; no R derivation needed
 - [ ] **Upload pre-registration to OSF** → obtain DOI → record in osf-preregistration file
-- [ ] TEJ CGQ data check — if data for 2020–2024 obtainable in ordinal/continuous form, add as robustness covariate
 
 ---
 
