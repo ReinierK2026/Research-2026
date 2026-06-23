@@ -127,6 +127,53 @@ Triple-diff coefficient: **−0.907, not significant** — no significant hetero
 
 ---
 
+---
+
+## MPQI Composite — Construction and Validation (2026-06-23)
+
+`mpqi_composite` is the validated replacement for `process_quality_score` as the H2 primary outcome. It is constructed from items extracted from Block C (NLP/structural extraction) of the TWSE research database.
+
+### Dimensions and items
+
+| Dimension | Items | Formula | Scale |
+|---|---|---|---|
+| `mpqi_dim_gov` | g1, g3 | mean(g1, g3) / 2 | 0–1 |
+| `mpqi_dim_proc` | p1, p2, p3 | mean(p1, p2, p3) / 2 | 0–1 |
+| `mpqi_dim_stake` | s1, s2, s3 | mean(s1, s2, s3) / 2 *(s1 already 0–1)* | 0–1 |
+| `mpqi_dim_out` | o1, o2 | mean(o1, o2) / 2 | 0–1 |
+| **`mpqi_composite`** | All 10 items | Equal-weighted mean of 4 dims | **0–1** |
+
+All raw items are on a 0–2 scale and divided by 2 to produce 0–1; `mpqi_s1` is already 0–1 and used as-is.
+
+### Coverage (GRI3 era — primary analysis window)
+
+| Year | N firms with mpqi_composite |
+|---|---|
+| 2021 | 401 |
+| 2022 | 534 |
+| 2023 | 683 |
+| 2024 | 1,022 |
+| **Total** | **2,646** |
+
+### Validation statistics
+
+| Test | Value | Interpretation |
+|---|---|---|
+| Cronbach α (all 10 items) | **0.605** | Borderline acceptable; multidimensional formative construct |
+| α (governance dim) | 0.384 | Low — expected for 2-item scales |
+| α (process dim) | 0.220 | Low — items measure distinct sub-processes |
+| α (stakeholder dim) | **0.689** | Good |
+| α (output dim) | 0.245 | Low — items tap distinct outcomes |
+| r(mpqi_composite, Block C mpqi_score) | **+0.99** | ✅ Construct equivalence |
+| r(mpqi_composite, process_quality_score) | **+0.86** | ✅ Good convergent validity with prior measure |
+| r(mpqi_composite, twse_cgq_score) | −0.16 | Legitimacy substitution pattern |
+
+**Formative construct rationale:** Low within-dimension alphas are expected — MPQI items are distinct causal indicators of process quality (formative construct), not interchangeable reflections of a latent trait. This is the standard argument for composite indices in accounting/sustainability research.
+
+**Known structural issue:** `mpqi_p2` and `mpqi_o1` are highly correlated (r=0.809) despite being in different dimensions. Both appear to capture visualization quality (matrix display). Flagged as a limitation; report before CFA.
+
+---
+
 ## Stream B — Propensity Score & Covariate Balance
 
 **Sample:** 472 obs (435 g=2022, 37 g=2023) in 2021 pre-adoption cross-section.
