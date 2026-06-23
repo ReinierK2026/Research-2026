@@ -352,6 +352,7 @@ Streams B, C, D are **descriptive/exploratory** and are not blocked by OSF regis
 | Board diversity patch (Pass DB-02) | ✅ DONE |
 | `twse_cgq_score` integrated (Pass DB-05) | ✅ DONE (3,122/3,283 = 95.1%; ordinal 1–7; 2026-06-22) |
 | Assurance columns added (Pass DB-06) | ✅ DONE (`has_any_assurance` col 193; `big4_assurance` col 194; `big4_financial_auditor` col 195; 2026-06-22) |
+| Block E topic dynamics merged (Pass DB-07) | ✅ DONE (`jaccard_similarity` col 196; `topic_churn_rate` col 197; `topics_added_n` col 198; `topics_dropped_n` col 199; `net_topic_change` col 200; `topics_added_codes` col 201; `topics_dropped_codes` col 202; 1,313 rows FY 2022–2024; 2026-06-23) |
 | OSF pre-registration uploaded | 🔴 PENDING — last hard blocker |
 
 ---
