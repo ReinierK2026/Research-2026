@@ -109,7 +109,7 @@ This preregistration document must be reviewed by the PI and at least one co-aut
 
 **Checklist for internal review:**
 - [ ] All hypotheses match the hypothesis-generation file (`hypotheses/hypothesis-generation_did-hypotheses_2026-06-10.md`)
-- [ ] All variable names match the current database column names (DB-06; 195 cols)
+- [ ] All variable names match the current database column names (DB-07; 202 cols)
 - [ ] R code blocks are syntactically correct and refer to existing column names
 - [ ] Data exclusion rules in §2 and §6 are consistent
 - [ ] All robustness checks in §7 are feasible with the current dataset
