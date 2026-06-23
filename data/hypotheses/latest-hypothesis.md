@@ -273,7 +273,7 @@ Null heterogeneity (ATT not significantly different across industry groups) reje
 | Element | Detail |
 |---|---|
 | **Population** | 49 TWSE semiconductor companies (`semiconductor_cat = 1`) |
-| **Outcomes** | `gri_adoption_year` (earlier adoption), `process_quality_score` (higher quality post-adoption) |
+| **Outcomes** | `gri_adoption_year` (earlier adoption), `mpqi_composite` (higher quality post-adoption; replaces `process_quality_score`) |
 | **Treatment modifier** | TSMC proximity indicator (tier-1 supplier OR Hsinchu Science Park co-location) — **requires external data coding** (TSMC Supplier Sustainability Reports 2022–2024; HSP registry) |
 | **Estimator** | OLS cross-sectional on 2024 snapshot with proximity as main predictor (primary); CS21 interaction if sufficient variation exists |
 | **Controls** | `ln_total_assets`, `roa`, age of GRI reporting, `board_approved` |
@@ -348,7 +348,7 @@ Positive — GRI 3 adoption is expected to increase ESG sentence density across 
 | **H2-NLP** (supplementary) | F | Stratified by language track | ATT | `finbert_gov_density`, `bge_gov_density` | + (increase) | CS21 (stratified) |
 | **H3** (exploratory) | D | 2024 cross-section; pooled panel | Association | `has_any_assurance` | + (positive) | Logistic regression |
 | **H4** (heterogeneity) | A | High-impact vs Low-impact subsamples | ATT diff | `n_material_topics_b` | ATT(Low) < ATT(High) | Subsample CS21 |
-| **H5** (semiconductor) | A | 49 semi companies | ATT diff by proximity | `process_quality_score` | Proximate higher | OLS / CS21 interaction |
+| **H5** (semiconductor) | A | 49 semi companies | ATT diff by proximity | `mpqi_composite` (replaces `process_quality_score`) | Proximate higher | OLS / CS21 interaction |
 | **Stream B** | B | Full estimable panel | Covariate balance | `ln_total_assets, roa` pre-trends | Parallel trends test | OLS propensity + event-study |
 | **Stream C** | C | 2024 cross-section (1,022 rows) | Association | `process_quality_score`, `n_material_topics_b` | + / − by `years_since_adoption` | OLS / Poisson |
 | **Stream E** | E | 2022 cohort post-adoption (3 years) | Within-company dynamics | `process_quality_score`, `n_material_topics_b` | Learning curve trajectory | Panel OLS / FE |
