@@ -513,11 +513,16 @@ Streams B, C, and D are descriptive/exploratory and are not blocked by OSF regis
 - [ ] Convergent validity pre-check (r between `mpqi_composite` and NLP scores) specified as mandatory before any Stream F DiD; `process_quality_score` may be used as secondary reference for this check
 
 **Robustness**
-- [ ] R1 BJS imputation
-- [ ] R2 Wooldridge extended TWFE
-- [ ] R3 Rambachan-Roth HonestDiD (NON-NEGOTIABLE)
-- [ ] R4 Poisson/Hurdle for `n_material_topics_b`
-- [ ] R9 Bacon-Goodman decomposition
+- [ ] R1 BJS imputation (⚠️ requires R `didimputation` at submission — Python `did2s` vcov bug)
+- [x] R2 Wooldridge extended TWFE — H1: −1.80* (p=0.040); H2: +0.082** (p=0.004)
+- [x] R3 Rambachan-Roth HonestDiD — H1 robust at M=2.0 (ub=−0.006) (**NON-NEGOTIABLE; paper statement locked**)
+- [x] R4 Poisson/NegBin for `n_material_topics_b` — Panel TWFE IRR=0.906*; overdispersion confirmed D/df=3.69
+- [x] R5 H4 TWFE fallback — triple-diff ns (p=0.249); H4 exploratory
+- [x] R6 tesg_score_2022 covariate — ATT(t=0)=−7.80 (borderline p≈0.10); direction consistent
+- [x] R7 CGQ score lagged covariate — ATT(t=0)=−9.73* (p≈0.025); significant
+- [x] R8 nevertreated diagnostic — zero never-treated units confirmed; all-adopted universe documented
+- [x] R9 Bacon-Goodman decomposition — BG=−1.82 ≈ TWFE=−1.80; validates CS21 choice
+- [x] R10 Stream C with `sasb_industry` FE — industry effects don't explain cross-sectional pattern
 
 ---
 
