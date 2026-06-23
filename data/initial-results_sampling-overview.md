@@ -386,6 +386,28 @@ Only 1 event time estimable (g=2023 has 78 EN-only NTT companies — pre-trend p
 
 10. ✅ **D4 panel FE (2026-06-24)** — feglm OR=47.8 confirmed as incidental params bias (516/897 companies have no variation). D4b CRE logit: OR=2.858* [2.342, 3.488] — primary panel estimate (Python matches R exactly). D4a LPM TWFE: null within-company effect expected.
 
+### Robustness checks R1–R10 (all complete or reserved for submission)
+
+11. ✅ **R2 Wooldridge ETWFE (2026-06-24)** — H1 ATT(g=2022,t=2022)=−1.80* (p=0.040); H2 mpqi_composite +0.082** (p=0.004). Direction confirmed; magnitude smaller than CS21 due to treatment heterogeneity (see R9).
+
+12. ✅ **R3 HonestDiD (from R CSVs)** — H1 robust at M=2.0 (ub=−0.006). Paper statement: *"Robust to violations up to M=2.0 times the largest pre-trend difference."*
+
+13. ✅ **R4 Poisson/NegBin (2026-06-24)** — Panel Poisson TWFE: IRR=0.906* (p=0.027); overdispersion D/df=3.69 confirms NegBin appropriate for cross-section. Count-distributional robustness supports H1.
+
+14. ✅ **R5 TWFE triple-diff (from R CSV)** — coef=−0.907 (ns, p=0.249); H4 exploratory.
+
+15. ✅ **R6 tesg_score_2022 covariate (2026-06-24)** — ATT(t=0)=−7.80 (borderline, p≈0.10); direction consistent; borderline due to reduced N (2,406 vs 2,771 primary from tesg_score coverage gaps post-2022).
+
+16. ✅ **R7 lagged CGQ covariate (2026-06-24)** — ATT(t=0)=−9.73* (p≈0.025, significant); directionally consistent and significant with CGQ control.
+
+17. ✅ **R8 nevertreated diagnostic (2026-06-24)** — Confirms all-adopted universe; R `did` returns zero never-treated units. Python de-facto proxy ATT=−8.12 directionally consistent. Paper statement: *"Zero never-treated companies in TWSE universe; all identification from timing variation."*
+
+18. ✅ **R9 Bacon-Goodman (2026-06-24)** — BG exactly reconstructs TWFE (−1.82 ≈ −1.80). Both BG components negative (no sign reversal). TWFE attenuated vs CS21 by treatment heterogeneity. Validates CS21 as primary estimator.
+
+19. ✅ **R10 Stream C with sasb_industry FE (2026-06-24)** — n_material_topics_b: ns unchanged. mpqi_composite: −0.026** (negative cross-section reflects vintage-size confound, not contradiction of DiD). Industry effects do not explain the cross-sectional patterns.
+
+20. ⚠️ **R1 BJS imputation (pending submission)** — pyfixest.did2s available but vcov bug on unbalanced panels. Reserve for R `didimputation::did_imputation()` at submission. Expected to confirm direction.
+
 ---
 
 ## Output Files
