@@ -601,8 +601,13 @@ The following must be locked in the OSF pre-registration **before any att_gt() c
 
 ### NLP stream
 - [ ] ESGLens excluded from primary NLP analysis
-- [ ] Language-track stratification: FinBERT for bilingual EN reports; BGE-M3 for ZH-only reports; no pooling across models
-- [ ] Convergent validity pre-check (r between `process_quality_score` and NLP density scores) run before DiD on NLP outcomes
+- [x] **Convergent validity pre-check completed (2026-06-23 sampling run):**
+  - BGE-M3: `bge_mean_sim` r=0.331 ✅, `bge_top1_sim` r=0.276 ✅ — PASS
+  - XLM-R: `xlmr_esg_sentences_n` r=0.302 ✅ — PASS
+  - FinBERT: `finbert_gov_pct` r=0.112 ❌, `finbert_env_pct` r=−0.022 ❌ — FAIL
+- [ ] **Primary NLP outcomes (pre-register):** `bge_mean_sim`, `bge_top1_sim`, `bge_gov/env/soc_affinity`, `xlmr_esg_sentences_n`
+- [ ] **Appendix NLP outcomes:** `finbert_gov/env/soc_pct` (captures topic salience, not structural quality; report as complementary construct)
+- [ ] Language-track stratification: BGE-M3 for bilingual + zh_only; XLM-R for zh_only; FinBERT appendix for bilingual only; no cross-model pooling
 - [ ] NLP outcomes classified as supplementary / pre-registered exploratory alongside H2
 
 ### Robustness (pre-registered, not primary)
