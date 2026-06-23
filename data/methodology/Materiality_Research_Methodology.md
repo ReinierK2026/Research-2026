@@ -141,7 +141,7 @@ Three row sets serve distinct purposes:
 | TEJ_Big4.xlsx | 2020–2024 | `big4_assurance`, `has_any_assurance`, `big4_financial_auditor` (Pass DB-06) |
 | ESGgenplus PDF corpus | 2021–2024 | Source PDFs for NLP extraction; 1,042+ reports per year |
 | GRI extraction pipeline | 2021–2024 | `n_material_topics_b`, `gri_content_index_completeness` (via gri_codes_summary CSVs) |
-| Block C NLP extraction | 2020–2024 | `process_quality_score`, `board_approved`, `mat_section_found`, `dm_methodology_disclosed` |
+| Block C NLP extraction | 2020–2024 | `mpqi_composite`, `mpqi_dim_gov/proc/stake/out` (H2 primary; Pass DB-08); `process_quality_score` (legacy robustness); `board_approved`, `mat_section_found`, `dm_methodology_disclosed` |
 | Block E topic dynamics | 2022–2024 | `jaccard_similarity`, `topic_churn_rate`, `topics_added_n`, `topics_dropped_n`, `net_topic_change` (Pass DB-07) |
 
 ### 4.4 Sample construction
@@ -602,6 +602,7 @@ H3 is reclassified as exploratory logistic regression. The study does not claim 
 ---
 
 *Prepared: 2026-06-23*  
+*Last updated: 2026-06-23 (Pass DB-08: MPQI variables added; H2 primary outcome → mpqi_composite; 208 cols)*  
 *Agent: academic-researcher*  
-*DB version: twse-research-database.csv (Pass DB-07; 5,408 rows × 202 cols)*  
+*DB version: twse-research-database.csv (Pass DB-08; 5,408 rows × 208 cols)*  
 *Pre-registration DOI: PENDING*
