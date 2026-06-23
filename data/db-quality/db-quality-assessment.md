@@ -154,6 +154,7 @@ Pre-treatment coverage in estimable g=2022 panel:
 | Process | `mpqi_dim_proc` | 2,646 | 0.331 | 0.174 |
 | Stakeholder | `mpqi_dim_stake` | 3,220 | 0.711 | 0.231 |
 | Output | `mpqi_dim_out` | 3,282 | 0.488 | 0.256 |
+| GRI Conformance | `mpqi_dim_gri` | — | — | — |
 
 **Construction:** All raw items (0–2) divided by 2 to produce 0–1 scale; `mpqi_s1` already 0–1. `mpqi_composite` = equal-weighted mean of 4 dimension scores. Requires all 4 non-null. `mpqi_composite_3d` (robustness, ≥3 dims) covers 3,220 obs.
 
