@@ -683,10 +683,10 @@ gri_101_applied, gri_new_climate_energy_adopted, ifrs_s1_adopted, issb_s2_adopte
 
 ---
 
-*Last updated by: research-coordinator | Pass DB-06 | 2026-06-22*  
-*Covers: Passes 1–93 and DB-01–DB-06 across sessions (2026-05-18 through 2026-06-22)*  
+*Last updated by: research-coordinator | Pass DB-07 | 2026-06-23*  
+*Covers: Passes 1–93 and DB-01–DB-07 across sessions (2026-05-18 through 2026-06-23)*  
 *Next coordinator session trigger: OSF pre-registration upload → run DiD analysis scripts (R: att_gt())*  
 *Pending local runs: (1) XLMR 13-ticker re-run for 2021; (2) Phase 1 English NLP for 6770 (2021) and 1531/3447 (2020); (3) Phase 2 CN expansion for ~392 new 2022 files (EXCLUDE {1795, 3704, 9917, 2832, 3413, 3014, 3016}); (4) Phase 2 CN expansion for ~517 new 2023 files (EXCLUDE 17-ticker set) → phase3_2023.py re-run. All four pending items are Stream F only; do not block Streams A–E or OSF pre-registration.*  
 *Note: gri_tables_2023/ and gri_tables_2024/ are retired for n_material_topics_b purposes (Pass 67). gri_codes_summary is now authoritative for all GRI-derived variables.*  
-*CS21 design notes (Pass 89/91/92): estimable cohorts = 2021–2023 (n=729); g=2024 (n=307) serves as controls only; max estimation horizon = t=2023; primary identified estimate = ATT(g=2022, t=2022) with 442 treated and 44 controls; ATT(g=2022, t=2023) and ATT(g=2023, t=2023) are exploratory (3 controls each); use board_approved at t=2021 as pre-treatment covariate (Pass 90). Analytical file for CS21: `db_did_full.csv` with glist=c(2021,2022,2023) in att_gt() (Pass 92). R loading: `read_csv(skip=1) |> mutate(gri_adoption_year = as.integer(gri_adoption_year))`.*  
-*DB state (Pass 93): 5,408 rows × 192 cols (FY 2016–2024); analytical sample (FY≥2020): 3,283 rows; db_did_full.csv = 3,283 rows; db_did.csv = 2,960 rows.*
+*CS21 design notes (Pass 89/91/92): estimable cohorts = 2021–2023 (n=729); g=2024 (n=307) serves as controls only; max estimation horizon = t=2023; primary identified estimate = ATT(g=2022, t=2022) with 442 treated and 44 controls; ATT(g=2022, t=2023) CONFIRMATORY (124 controls); ATT(g=2023, t=2023) exploratory (3 controls); use board_approved at t=2021 as pre-treatment covariate (Pass 90). Analytical file for CS21: `db_did_full.csv` with glist=c(2021,2022,2023) in att_gt() (Pass 92). R loading: `read_csv(skip=1) |> mutate(gri_adoption_year = as.integer(gri_adoption_year))`.*  
+*DB state (Pass DB-07): 5,408 rows × 202 cols (FY 2016–2024); analytical sample (FY≥2020): 3,283 rows; db_did_full.csv = 3,283 × 202 cols; db_did.csv = 2,960 × 202 cols.*
