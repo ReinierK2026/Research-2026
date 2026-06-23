@@ -278,7 +278,7 @@ Null heterogeneity (ATT not significantly different across industry groups) reje
 | **Estimator** | OLS cross-sectional on 2024 snapshot with proximity as main predictor (primary); CS21 interaction if sufficient variation exists |
 | **Controls** | `ln_total_assets`, `roa`, age of GRI reporting, `board_approved` |
 | **Expected sign** | TSMC-proximate companies: earlier `gri_adoption_year`, higher post-treatment `process_quality_score` |
-| **Expected magnitude** | 1–2 year earlier adoption; +0.08–0.15 on `process_quality_score` (0–1 scale) |
+| **Expected magnitude** | 1–2 year earlier adoption; +0.05–0.10 on `mpqi_composite` (0–1 scale) |
 | **Status** | **Blocked on external data** — TSMC tier-1 supplier coding not yet done |
 
 ### Falsification condition
