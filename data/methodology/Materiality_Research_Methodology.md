@@ -527,8 +527,9 @@ The primary ATT cell (g=2022, t=2022) has **44 not-yet-treated controls**. This 
 ### 11.2 No never-treated companies
 Universal FSC mandate adoption eliminates the `nevertreated` control group. Identification rests entirely on timing variation. The parallel trends assumption — that 2022 and 2023 cohorts would have followed similar disclosure trajectories absent GRI 3 — is plausible but untestable. Stream B propensity score analysis provides the best available evidence for or against this assumption.
 
-### 11.3 Coverage gaps (NLP variables)
-- `process_quality_score`: 25% populated for FY 2020 (Block C extraction less comprehensive for pre-mandate corpus). Primary pre-trend test uses t=2021; t=2020 is a sensitivity check.
+### 11.3 Coverage gaps (NLP and process quality variables)
+- `mpqi_composite` (H2 primary): Coverage concentrated in GRI3 era; N=2,646 (2021–2024). Pre-2021 rows have thin/no Block C extraction — primary pre-trend test uses t=2021; t=2020 is a sensitivity check only.
+- `process_quality_score` (legacy robustness): 25% populated for FY 2020 (Block C extraction less comprehensive for pre-mandate corpus). Same pre-trend caveat as mpqi_composite.
 - `n_material_topics_b`: 10% blank in FY 2020 (image-embedded GRI indices, no GRI section in extracted text). 95% coverage across DiD window overall.
 - NLP density scores (Block D): 20 companies with corpus coverage gaps are automatically excluded from relevant ATT cells by `att_gt()`.
 
