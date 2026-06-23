@@ -345,7 +345,7 @@ Positive — GRI 3 adoption is expected to increase ESG sentence density across 
 |---|---|---|---|---|---|---|
 | **H1** (primary) | A | 445 treated, 43 controls | ATT | `n_material_topics_b` | − (decrease) | CS21 |
 | **H2** (structural) | A | 2,646 obs (GRI3 era); estimable DiD N same as H1 | ATT | `mpqi_composite` (0–1); `mpqi_dim_proc` as mechanism | + (increase; composite may attenuate) | CS21 + TWFE |
-| **H2-NLP** (supplementary) | F | Stratified by language track | ATT | `finbert_gov_density`, `bge_gov_density` | + (increase) | CS21 (stratified) |
+| **H2-NLP** (supplementary) | F | Stratified by language track | ATT | `finbert_gov_pct` (EN), `bge_mean_sim` (ZH; r=0.331 with mpqi_composite) | + (increase) | CS21 (stratified) |
 | **H3** (exploratory) | D | 2024 cross-section; pooled panel | Association | `has_any_assurance` | + (positive) | Logistic regression |
 | **H4** (heterogeneity) | A | High-impact vs Low-impact subsamples | ATT diff | `n_material_topics_b` | ATT(Low) < ATT(High) | Subsample CS21 |
 | **H5** (semiconductor) | A | 49 semi companies | ATT diff by proximity | `mpqi_composite` (replaces `process_quality_score`) | Proximate higher | OLS / CS21 interaction |
