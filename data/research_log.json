@@ -2535,5 +2535,48 @@
       "R10_industryFE": "n_material_topics_b: ns unchanged (coef=-0.26, p=0.50); mpqi_composite: -0.026** (negative XS reflects vintage-size confound)"
     },
     "notes": "All 10 pre-registered robustness checks verified or executed. Key methodological insights: (1) BG decomposition exactly reconstructs TWFE (-1.82≈-1.80), validating CS21 choice — TWFE underestimates displacement due to treatment heterogeneity, not sign reversal. (2) ETWFE direction consistent with CS21 but attenuated (explained by BG). (3) HonestDiD M=2.0 bound confirmed as the paper's mandatory sensitivity statement. (4) R6/R7 covariate robustness reduces sample size but maintains negative direction; R7 remains significant. (5) R10 cross-sectional negative mpqi pattern reflects adoption vintage × size confound (larger firms mandated first), not contradiction of DiD findings. R1 BJS reserved for R submission run. Methodology doc pre-reg checklist updated with all R1-R10 statuses and results."
+  },
+  {
+    "task_id": "pass-94-methodological-issues-triage",
+    "date": "2026-06-24",
+    "agent": "data-analyst",
+    "topic": "Methodological issues triage — Issues #3, #4, #5, #8",
+    "status": "completed",
+    "output_file": "findings/mpqi_p2_sensitivity.csv",
+    "variables_added": [
+      "mpqi_p2_clean (proposed; not yet in DB)"
+    ],
+    "notes": "Addressed 4 open methodological issues from sampling-overview issues table. #3, #4, #5 confirmed resolved (documented). #8 root cause identified: shared input matrix_shown in both mpqi_p2 and mpqi_o1 derivations. Fix: mpqi_p2_clean = scoring_method_disclosed only. Sensitivity analysis confirms fix resolves collinearity (r drops 0.862→0.049) with negligible composite impact (r_composite=0.993, mean_diff<0.008). DB revision required before submission.",
+    "results": {
+      "issue_3_AUC_0775": {
+        "status": "resolved",
+        "finding": "IPW-weighted ATT ≈ unweighted ATT; DR estimator absorbs size imbalance; AUC=0.775 reported as limitation"
+      },
+      "issue_4_H2_composite_null": {
+        "status": "resolved",
+        "finding": "Composition story confirmed: proc dim ATT=+0.059* and stakeholder_groups_n ATT=-2.07* cancel in composite"
+      },
+      "issue_5_H4_TWFE_null": {
+        "status": "resolved",
+        "finding": "H4 reclassified as exploratory; primary TWFE triple-diff null confirmed (R5)"
+      },
+      "issue_8_mpqi_collinearity": {
+        "status": "resolved_proposed_fix",
+        "root_cause": "matrix_shown appears in both p2 (p2=scoring_method_disclosed+matrix_shown) and o1 (o1=matrix_shown+matrix_axes_labeled)",
+        "r_matrix_shown_p2": 0.889,
+        "r_matrix_shown_o1": 0.964,
+        "r_p2_o1_original": 0.862,
+        "r_p2clean_o1": 0.049,
+        "r_composite_orig_clean": 0.993,
+        "mean_diff_composite": -0.008,
+        "pct_rows_changed_2024": 20.4,
+        "fix": "mpqi_p2_clean = scoring_method_disclosed only (0 or 2); remove matrix_shown from p2 derivation",
+        "sensitivity_csv": "findings/mpqi_p2_sensitivity.csv"
+      }
+    },
+    "files_updated": [
+      "findings/sampling-overview_all-streams_2026-06-23.md",
+      "data/research_log.json"
+    ]
   }
 ]
