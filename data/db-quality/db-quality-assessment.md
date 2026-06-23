@@ -546,23 +546,29 @@ Rationale for exclusion from primary spec: The CGE criteria include ESG/sustaina
 
 ### Pass DB-08 — MPQI variables integrated (2026-06-23)
 **Source:** Block C NLP/structural extractions — MPQI items (g1, g3, p1, p2, p3, s1, s2, s3, o1, o2)  
-**Columns added to master DB (Block MPQI):**
-- `mpqi_dim_gov` — governance dimension, mean(g1,g3)/2, range 0–1, N=3,282
-- `mpqi_dim_proc` — process dimension, mean(p1,p2,p3)/2, range 0–1, N=2,646
-- `mpqi_dim_stake` — stakeholder dimension, mean(s1,s2,s3)/2, range 0–1, N=3,220
-- `mpqi_dim_out` — output dimension, mean(o1,o2)/2, range 0–1, N=3,282
-- `mpqi_composite` — equal-weighted 4-dim composite (all non-null required), N=2,646, mean=0.516
-- `mpqi_composite_3d` — robustness composite (≥3 dims non-null), N=3,220, mean=0.511
+**Columns added to master DB (Pass DB-08; +20 cols total):**
+
+*Imputed financial variables (cols 203–206):*
+- `total_assets_imputed`, `net_income_imputed`, `firm_age_imputed`, `rd_expense_imputed`
+
+*Raw MPQI items (cols 207–216):*
+- `mpqi_g1`, `mpqi_p1`, `mpqi_p2`, `mpqi_p3`, `mpqi_s1`, `mpqi_s2`, `mpqi_s3`, `mpqi_o1`, `mpqi_g3`, `mpqi_o2`
+
+*MPQI dimensions (cols 217–221):*
+- `mpqi_dim_gov` (col 217) — governance dimension, mean(g1,g3)/2
+- `mpqi_dim_proc` (col 218) — process dimension, mean(p1,p2,p3)/2
+- `mpqi_dim_stake` (col 219) — stakeholder dimension, mean(s1,s2,s3)/2
+- `mpqi_dim_out` (col 220) — output dimension, mean(o1,o2)/2
+- `mpqi_dim_gri` (col 221) — GRI conformance dimension *(5th dimension; not in earlier documentation)*
+
+*MPQI composite (col 222):*
+- `mpqi_composite` — equal-weighted composite of dimensions
+
+**Note:** `mpqi_composite_3d` (robustness composite) is **not present** in the DB. References to it in earlier documentation are incorrect.
 
 **Validation:** r(mpqi_composite, Block C mpqi_score) = 0.99; r(mpqi_composite, process_quality_score) = 0.86  
-**H2 primary outcome change:** `mpqi_composite` replaces `process_quality_score`; PQS retained as robustness column  
+**H2 primary outcome change:** `mpqi_composite` (col 222) replaces `process_quality_score` (col 140); PQS retained as robustness column  
 **DB column count:** 202 (after Pass DB-07 Block E) + 20 (Pass DB-08) = **222 cols × 5,408 rows**
-
-Pass DB-08 breakdown (+20 cols):
-- Cols 203–206: 4 imputed financial variables (`total_assets_imputed`, `net_income_imputed`, `firm_age_imputed`, `rd_expense_imputed`)
-- Cols 207–216: 10 raw MPQI items (`mpqi_g1`, `mpqi_p1`, `mpqi_p2`, `mpqi_p3`, `mpqi_s1`, `mpqi_s2`, `mpqi_s3`, `mpqi_o1`, `mpqi_g3`, `mpqi_o2`)
-- Cols 217–221: 5 MPQI dimensions (`mpqi_dim_gov`, `mpqi_dim_proc`, `mpqi_dim_stake`, `mpqi_dim_out`, `mpqi_dim_gri`)
-- Col 222: `mpqi_composite`
 
 ---
 
