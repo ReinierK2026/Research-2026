@@ -301,13 +301,14 @@ Underpowered (57 events / N=465 after missings; ~5 events per predictor). Durati
 
 | # | Issue | Severity | Resolution |
 |---|---|---|---|
-| 1 | **g=2021 cohort (N=10)** produces numerical breakdown in all CS21 runs — massive SEs, implausible ATTs at longer horizons | High | Exclude from primary analysis; report as sensitivity |
-| 2 | **g=2024 has no pre-treatment period** in current panel (last year = 2024) | High | Exclude from CS21; include in cross-sectional only |
-| 3 | **Stream B AUC=0.775** — selection on firm size is substantial; DR estimator partially corrects but overlap assumption is stressed | High | Report AUC; note DR robustness; consider trimming extreme propensity weights |
-| 4 | **H2 discrepancy Python vs R** — Python finds +0.114 at t+1; R finds null at t=0 (different cohort window and estimator) | Medium | Reconcile in pre-reg: specify primary event-time window (t=0 through t+1) and primary estimator (R `did`) |
-| 5 | **H4 pre-trends for Low subsample** look noisy (t−2 = −6.4, large); only ~15 NTT controls per subsample | High | HonestDiD essential for H4; consider collapsing to binary triple-diff |
-| 6 | **D4 panel FE logit OR = 47.8** — incidental parameters bias in T=4 short panel | Medium | Flag explicitly; report as sign/direction only, not magnitude |
-| 7 | **HonestDiD vcov approximation** — diagonal SE² used due to V_analytical unavailability with unbalanced panel | Low | Use bootstrap vcov (bstrap=TRUE, biters=999) in final R run |
+| 1 | **g=2021 cohort (N=10)** produces numerical breakdown — excluded from primary via `glist=c(2022,2023)` | High | ✅ Resolved — g=2021 excluded from ATT estimation |
+| 2 | **g=2024 as NTT controls** — must stay in data (not filtered) but excluded from `glist` to avoid 1 pre-period problem | High | ✅ Resolved — filter removes only g=2021; g=2024 retained as controls; `glist=c(2022,2023)` |
+| 3 | **Stream B AUC=0.775** — selection on firm size; DR estimator partially corrects but overlap stressed | High | Report AUC; note DR robustness; IPW adds little with `est_method="reg"` correction already in place |
+| 4 | **H2 mpqi_composite composite null** — two opposing forces cancel; interpret as composition story | Medium | Framed as mechanism finding: proc dim ↑, stakeholder count ↓; both are theoretically interpretable |
+| 5 | **H4 primary TWFE null** — triple-diff coef = −0.907 ns; subsample CS21 exploratory only | High | Primary test remains TWFE; reclassify H4 as exploratory in pre-registration |
+| 6 | **D4 panel FE logit OR = 47.8** — incidental parameters bias in T=4 short panel | Medium | ✅ Resolved — replaced with Mundlak-Chamberlain CRE logit (D4b), OR=2.858*, avoids incidental params bias |
+| 7 | **HonestDiD vcov approximation** — diagonal SE² used due to V_analytical unavailability with unbalanced panel | Low | Use bootstrap vcov (`bstrap=TRUE, biters=999`) in final R run for paper |
+| 8 | **mpqi_p2–o1 collinearity** (r=0.809) — both items appear to capture visualization quality | Medium | Flag as limitation; resolve dimension assignment before CFA; report in measurement section |
 
 ### Technical issues (resolved)
 
