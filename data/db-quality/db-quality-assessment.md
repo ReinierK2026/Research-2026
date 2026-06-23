@@ -1,6 +1,6 @@
 # DB Quality Assessment — GRI 3 Materiality DiD Study
 **Created:** 2026-06-10  
-**Last updated:** 2026-06-22 (design notes + rd patch + board diversity patch + zeros→NA pass + sasb fill + CGQ assessment)  
+**Last updated:** 2026-06-23 (Pass DB-07: Block E Jaccard variables; Pass DB-08: MPQI variables; H2 primary outcome → mpqi_composite)  
 **File assessed:** twse-research-database.csv  
 **Purpose:** Evaluate readiness of the current DB against the requirements of H1–H5 (Callaway-Sant'Anna DiD)
 
