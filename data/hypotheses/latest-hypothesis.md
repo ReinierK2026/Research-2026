@@ -313,15 +313,17 @@ All NLP analyses must be run separately by language track. **Do not pool FinBERT
 
 ### Outcome variables
 
-| Variable | Definition | Track |
-|---|---|---|
-| `finbert_gov_density` | % sentences classified GOV by FinBERT-ESG-9 | EN |
-| `finbert_env_density` | % sentences classified ENV | EN |
-| `finbert_soc_density` | % sentences classified SOC | EN |
-| `bge_gov_density` | % sentences classified GOV by BGE-M3 | ZH |
-| `bge_env_density` | % sentences classified ENV by BGE-M3 | ZH |
-| `bge_soc_density` | % sentences classified SOC by BGE-M3 | ZH |
-| `climatebert_climate` | % sentences flagged as climate-relevant | EN |
+| Variable | Definition | Track | DB col name (corrected) |
+|---|---|---|---|
+| `finbert_gov_pct` | % sentences classified GOV by FinBERT-ESG-9 | EN | `finbert_gov_pct` *(was: finbert_gov_density)* |
+| `finbert_env_pct` | % sentences classified ENV | EN | `finbert_env_pct` *(was: finbert_env_density)* |
+| `finbert_soc_pct` | % sentences classified SOC | EN | `finbert_soc_pct` *(was: finbert_soc_density)* |
+| `bge_gov_affinity` | Governance content affinity score (cosine sim) by BGE-M3 | ZH | `bge_gov_affinity` *(was: bge_gov_density)* |
+| `bge_env_affinity` | Environmental content affinity score | ZH | `bge_env_affinity` *(was: bge_env_density)* |
+| `bge_soc_affinity` | Social content affinity score | ZH | `bge_soc_affinity` *(was: bge_soc_density)* |
+| `bge_mean_sim` | Mean similarity across all ESG topics | ZH/bilingual | `bge_mean_sim` ✅ (r=0.331 with mpqi_composite) |
+| `xlmr_esg_sentences_n` | Total ESG sentence count | ZH/bilingual | `xlmr_esg_sentences_n` ✅ (r=0.302 with mpqi_composite) |
+| `climatebert_climate` | % sentences flagged as climate-relevant | EN | `climatebert_climate` |
 
 ### Estimator
 
