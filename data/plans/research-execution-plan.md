@@ -123,7 +123,7 @@ db <- db |> mutate(
 >
 > Two files were created to address this:
 
-**`data/db_did.csv`** (2,960 rows × 195 cols) — g=2024 fully excluded  
+**`data/db_did.csv`** (2,960 rows × 202 cols) — g=2024 fully excluded  
 - Use for: CS21 primary estimates with `glist=c(2021, 2022)` if year+1 estimates are not needed  
 - Controls at t=2022: **40** (g=2023 companies only)  
 - Controls at t=2023: **0** (year+1 INESTIMABLE from this file)
