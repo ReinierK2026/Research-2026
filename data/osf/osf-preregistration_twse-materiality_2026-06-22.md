@@ -37,7 +37,7 @@ No individuals are recruited, contacted, or consented. All data are at the firm-
 
 **No sequential stopping rule applies to this study.**
 
-The dataset is fixed and fully collected prior to registration. `db_did.csv` (2,960 rows) and `db_did_full.csv` (3,283 rows) are constituted as of Pass DB-06 (2026-06-22). No further data collection will occur after registration. All analyses proceed on this frozen dataset.
+The dataset is fixed and fully collected prior to registration. `db_did.csv` (2,960 rows × 202 cols) and `db_did_full.csv` (3,283 rows × 202 cols) are constituted as of Pass DB-07 (2026-06-23). No further data collection will occur after registration. All analyses proceed on this frozen dataset.
 
 Any decision to exclude additional observations post-registration must be documented as a pre-specified deviation before the analysis is run (see §10 Deviations Policy).
 
