@@ -65,9 +65,9 @@ Overall ATT = **−8.51*** — GRI 3 adoption associated with approximately 8.5 
 
 ### H2: mpqi_composite — Materiality Process Quality Index
 
-> **2026-06-23:** `process_quality_score` replaced by `mpqi_composite`, a validated 4-dimension composite. See MPQI methodology section below.
+> **2026-06-23:** `process_quality_score` replaced by `mpqi_composite`, a validated 5-dimension composite. See MPQI methodology section below.
 
-**Primary outcome — mpqi_composite (equal-weighted 4-dimension composite):**
+**Primary outcome — mpqi_composite (equal-weighted 5-dimension composite):**
 
 | Event time | ATT | Significant |
 |---|---|---|
