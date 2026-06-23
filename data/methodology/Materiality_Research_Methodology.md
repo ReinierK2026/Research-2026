@@ -5,7 +5,7 @@ topic: "twse-materiality-did"
 version: "2026-06-23"
 supersedes: "Materiality_Research_Methodology.md (prior version)"
 status: canonical
-db_version: "Pass DB-08 | 5,408 rows × 208 cols"
+db_version: "Pass DB-08 | 5,408 rows × 222 cols"
 ---
 
 # Research Methodology — GRI 3 Materiality Disclosure and Staggered DiD
@@ -105,7 +105,7 @@ The `control_group = "nevertreated"` option returns zero control units and must 
 |---|---|
 | File | `twse-research-database.csv` |
 | Rows (company-years, data) | **5,408** (FY 2016–2024) + 2 header rows |
-| Columns | **208** (Pass DB-08; MPQI variables added 2026-06-23) |
+| Columns | **222** (Pass DB-08; MPQI variables added 2026-06-23) |
 | Companies | 1,226 unique `twse_ticker` values |
 | Panel structure | Unbalanced |
 | Encoding | UTF-8-sig BOM |
