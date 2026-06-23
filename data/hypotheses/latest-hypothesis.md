@@ -17,7 +17,7 @@
 | Control group | Not-yet-treated or never-treated | **Not-yet-treated only: ~43 companies (2023 cohort)** |
 | Control group size | Large (868+ companies) | **~43–44 companies for dominant 2022 cohort** |
 | `process_quality_score` scale | 0–10 | **0–1 (corrected); now superseded** |
-| H2 primary outcome | `process_quality_score` | **`mpqi_composite` (2026-06-23); 4-dim validated composite, r=0.86 with PQS** |
+| H2 primary outcome | `process_quality_score` | **`mpqi_composite` (2026-06-23); 5-dim validated composite (incl. mpqi_dim_gri), r=0.86 with PQS** |
 | H2 mechanism sub-hypothesis | (none) | **`mpqi_dim_proc` pre-specified; ATT=+0.059*, t+1=+0.079*** |
 | H2 expected ATT | +1–2 points | **+0.05–0.10 composite; composition story: proc ↑, stakeholder count ↓** |
 | H3 (assurance) | CS21 DiD | **Reclassified: exploratory logistic regression** |
