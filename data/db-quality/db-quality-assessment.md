@@ -140,7 +140,7 @@ Pre-treatment coverage in estimable g=2022 panel:
 | Metric | Value |
 |---|---|
 | Non-null (GRI3 era, 2021–2024) | **2,646** |
-| Scale | 0–1 (equal-weighted mean of 4 dimensions) |
+| Scale | 0–1 (equal-weighted mean of 5 dimensions) |
 | Mean | 0.516 |
 | SD | 0.156 |
 | r(mpqi_composite, `mpqi_score` Block C) | +0.99 ✅ |
