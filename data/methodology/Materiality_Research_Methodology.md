@@ -604,7 +604,7 @@ H3 is reclassified as exploratory logistic regression. The study does not claim 
 ---
 
 *Prepared: 2026-06-23*  
-*Last updated: 2026-06-23 (Pass DB-08: MPQI variables added; H2 primary outcome → mpqi_composite; 208 cols)*  
+*Last updated: 2026-06-23 (Pass DB-08: MPQI variables added; H2 primary outcome → mpqi_composite; 222 cols; mpqi_dim_gri confirmed as 5th dimension; mpqi_composite_3d absent from DB)*  
 *Agent: academic-researcher*  
-*DB version: twse-research-database.csv (Pass DB-08; 5,408 rows × 208 cols)*  
+*DB version: twse-research-database.csv (Pass DB-08; 5,408 rows × 222 cols)*  
 *Pre-registration DOI: PENDING*
