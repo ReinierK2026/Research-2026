@@ -437,7 +437,7 @@ All robustness checks must be run and reported regardless of significance direct
 
 | Stream | Estimator | Primary outcomes | Pre-registration required? | Notes |
 |---|---|---|---|---|
-| **A — Primary DiD** | CS21 `att_gt()` | H1 (`n_material_topics_b`), H2 (`process_quality_score`), H4 (subsample) | **YES** | Hard-blocked on OSF upload |
+| **A — Primary DiD** | CS21 `att_gt()` | H1 (`n_material_topics_b`), H2 (`mpqi_composite` + `mpqi_dim_proc` mechanism), H4 (subsample) | **YES** | Hard-blocked on OSF upload |
 | **B — Parallel trends validation** | Propensity score OLS | Covariate balance, adoption timing predictability | No | Informs Stream A narrative; run first |
 | **C — Cross-sectional intensity** | OLS / Poisson | `process_quality_score`, `n_material_topics_b` by `years_since_adoption` in 2024 | No | Descriptive; complements Stream A |
 | **D — H3 assurance** | Logistic regression | `has_any_assurance`, `big4_assurance` | No (exploratory) | Can run before OSF upload |
