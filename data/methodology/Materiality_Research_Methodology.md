@@ -105,7 +105,7 @@ The `control_group = "nevertreated"` option returns zero control units and must 
 |---|---|
 | File | `twse-research-database.csv` |
 | Rows (company-years, data) | **5,408** (FY 2016–2024) + 2 header rows |
-| Columns | **202** (Pass DB-07; Block E Jaccard variables added 2026-06-23) |
+| Columns | **208** (Pass DB-08; MPQI variables added 2026-06-23) |
 | Companies | 1,226 unique `twse_ticker` values |
 | Panel structure | Unbalanced |
 | Encoding | UTF-8-sig BOM |
