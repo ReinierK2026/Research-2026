@@ -157,12 +157,14 @@ See dedicated NLP Supplementary Stream (Stream F) below for full specification. 
 
 | Outcome | Model | Track | Interpretation |
 |---|---|---|---|
-| `finbert_gov_density` | FinBERT-ESG-9 | EN (bilingual companies) | Proportion of sentences classified as Governance |
-| `finbert_env_density` | FinBERT-ESG-9 | EN (bilingual companies) | Proportion classified as Environmental |
-| `finbert_soc_density` | FinBERT-ESG-9 | EN (bilingual companies) | Proportion classified as Social |
-| `bge_gov_density` | BGE-M3 | ZH (ZH-only + bilingual) | Governance content density, multilingual |
-| `bge_env_density` | BGE-M3 | ZH (ZH-only + bilingual) | Environmental content density |
-| `bge_soc_density` | BGE-M3 | ZH (ZH-only + bilingual) | Social content density |
+| `finbert_gov_pct` | FinBERT-ESG-9 | EN (bilingual companies) | Proportion of sentences classified as Governance |
+| `finbert_env_pct` | FinBERT-ESG-9 | EN (bilingual companies) | Proportion classified as Environmental |
+| `finbert_soc_pct` | FinBERT-ESG-9 | EN (bilingual companies) | Proportion classified as Social |
+| `bge_gov_affinity` | BGE-M3 | ZH (ZH-only + bilingual) | Governance content affinity score (cosine sim) |
+| `bge_env_affinity` | BGE-M3 | ZH (ZH-only + bilingual) | Environmental content affinity score |
+| `bge_soc_affinity` | BGE-M3 | ZH (ZH-only + bilingual) | Social content affinity score |
+| `bge_mean_sim` | BGE-M3 | ZH/bilingual | Mean similarity across all ESG topics (r=0.33 with PQS) |
+| `xlmr_esg_sentences_n` | XLM-R | ZH/bilingual | Total ESG sentence count (r=0.30 with PQS) |
 
 **Exclusion:** ESGLens is excluded from primary NLP analysis (systematic GOV over-classification: 57% GOV share vs expected ~33%). May be reported in an appendix with explicit bias caveat.
 
