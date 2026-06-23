@@ -5,7 +5,7 @@ topic: "twse-materiality-did"
 version: "2026-06-23"
 supersedes: "Materiality_Research_Methodology.md (prior version)"
 status: canonical
-db_version: "Pass DB-07 | 5,408 rows × 202 cols"
+db_version: "Pass DB-08 | 5,408 rows × 208 cols"
 ---
 
 # Research Methodology — GRI 3 Materiality Disclosure and Staggered DiD
