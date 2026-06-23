@@ -293,25 +293,38 @@ OR=2.858 confirmed in both R and Python (exact match). Avoids incidental paramet
 
 ---
 
-## Stream F — NLP Convergent Validity
+## Stream F — NLP DiD (CS21) and Convergent Validity
 
-**Column naming correction applied:** `finbert_gov_density` → `finbert_gov_pct`; `bge_gov_density` → `bge_gov_affinity`. Execution plan and hypothesis document updated.
-
-**Coverage (DiD window 2021–2024):**
-- finbert_gov_pct: bilingual 100%, EN-only 100%, ZH-only ~0% (expected — FinBERT is EN-only)
-- bge_gov_affinity: bilingual 100%, ZH-only 100%, EN-only 53% (partial EN coverage)
+> **2026-06-24 update:** CS21 DiD executed with `bge_mean_sim` and `xlmr_esg_sentences_n` (both r≥0.20 with PQS). FinBERT moved to appendix (near-zero 2020 coverage; parallel trends untestable).
 
 **Convergent validity r(PQS, NLP) — 2024 cross-section:**
 
-| NLP measure | r | n | Meets r≥0.20 threshold |
-|---|---|---|---|
-| finbert_gov_pct | 0.112 | 662 | ❌ |
-| finbert_env_pct | −0.022 | 662 | ❌ |
-| bge_top1_sim | 0.276 | 359 | ✅ |
-| bge_mean_sim | 0.331 | 359 | ✅ |
-| xlmr_esg_sentences_n | 0.302 | 359 | ✅ |
+| NLP measure | r | n | Meets r≥0.20 threshold | DiD status |
+|---|---|---|---|---|
+| finbert_gov_pct | 0.112 | 662 | ❌ | Appendix only |
+| finbert_env_pct | −0.022 | 662 | ❌ | Appendix only |
+| bge_top1_sim | 0.276 | 359 | ✅ | Exploratory |
+| bge_mean_sim | 0.331 | 359 | ✅ | **Primary NLP** |
+| xlmr_esg_sentences_n | 0.302 | 359 | ✅ | Secondary (underpowered) |
 
-**Key finding:** BGE-M3 similarity scores meet the pre-registered convergent validity threshold (r≥0.20). FinBERT topic percentages do not. This suggests FinBERT captures a different dimension (topic salience in EN text) than the structural process quality checklist. BGE-M3 measures are the stronger NLP proxy for PQS and should be used as the primary NLP outcomes in Stream F analysis.
+### bge_mean_sim CS21 (ZH/bilingual track, N=1,687, biters=999)
+
+| Event time | ATT | SE | 95% Simult. Band | Sig? |
+|---|---|---|---|---|
+| −2 | −0.007 | 0.011 | [−0.027, +0.014] | ns ✅ |
+| −1 | +0.019 | 0.015 | [−0.011, +0.050] | ns ✅ |
+| **0** | **+0.079** | **0.030** | **[+0.021, +0.137]** | **Yes ✅** |
+| +1 | +0.011 | 0.107 | [−0.198, +0.221] | ns |
+
+**Key finding:** GRI 3 adoption increases BGE-M3 semantic governance affinity by +0.079 units at the adoption year for ZH and bilingual reporters. Pre-trends clean. This is convergent NLP evidence supporting H2's process formalisation mechanism (mpqi_dim_proc also positive and significant at t=0/+1).
+
+### xlmr_esg_sentences_n CS21 (EN/bilingual, N=1,157)
+
+Only 1 event time estimable (g=2023 has 78 EN-only NTT companies — pre-trend period inestimable). ATT(t=0) = −36.50, SE=28.97 (ns). **Underpowered — exploratory note only; no inference.**
+
+### FinBERT (appendix only)
+
+2020 coverage: 2 observations for EN/bilingual track — parallel trends assumption untestable for DiD. Moved to appendix. FinBERT cross-sectional r=0.112 with PQS does not meet pre-registered r≥0.20 threshold. Cross-sectional correlation against mpqi_composite (r=0.218 in 2024 only) is borderline and should not be used to override the pre-registered threshold.
 
 ---
 
