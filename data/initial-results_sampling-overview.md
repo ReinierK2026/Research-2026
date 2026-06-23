@@ -408,6 +408,18 @@ Only 1 event time estimable (g=2023 has 78 EN-only NTT companies — pre-trend p
 
 20. ⚠️ **R1 BJS imputation (pending submission)** — pyfixest.did2s available but vcov bug on unbalanced panels. Reserve for R `didimputation::did_imputation()` at submission. Expected to confirm direction.
 
+21. ✅ **mpqi_p2 sensitivity + IPW check (2026-06-24)**
+
+    *mpqi_p2–o1 collinearity fix (Issue #8):* Root cause is shared input `matrix_shown` in both p2 and o1 derivations (r(matrix_shown, p2)=0.889; r(matrix_shown, o1)=0.964). Proposed fix: redefine `mpqi_p2_clean = scoring_method_disclosed` only (0 if absent, 2 if disclosed). Results across years 2021–2024 (N=490–1022):
+    - r(p2_clean, o1): 0.049 to −0.092 (collinearity fully resolved)
+    - r(composite_orig, composite_clean): 0.984–0.993 (composite essentially unchanged)
+    - Mean composite difference: −0.002 to −0.008 (< 1% of 0–1 scale)
+    - r(dim_proc_orig, dim_proc_clean): 0.85–0.95 (H2 CS21 direction unaffected)
+    - Rows affected: 17–23% per year, shifting by ±1/18 ≈ ±0.056
+    - Interpretation: firms showing a matrix but not disclosing scoring criteria get p2: 1→0 (correct — they didn't disclose methodology); firms disclosing criteria without a matrix get p2: 1→2 (correct — full text disclosure). Fix pre-registered before CFA. DB revision and re-run of H2 CS21 required at submission.
+
+    *Stream B IPW check (Issue #3):* IPW-weighted CS21 ATT ≈ unweighted ATT (DR estimator with outcome regression already absorbs size imbalance). AUC=0.775 reported as limitation; overlap assumption stressed but DR robustness confirmed.
+
 ---
 
 ## Output Files
