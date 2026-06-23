@@ -112,7 +112,7 @@ The `control_group = "nevertreated"` option returns zero control units and must 
 | Header format | Row 1 = block labels (A/B/C/D/E/F/G); Row 2 = column names; Row 3+ = data |
 | R loading | `read_csv(skip=1) \|> mutate(across(c(gri_adoption_year, fiscal_year), as.integer))` |
 
-**Column count history:** 157 (original) → 175 (+18 NLP Phase 1) → 188 (+13 NLP Phase 2) → 190 (+2 Phase 3) → 192 (+language_track, impact_intensity) → 195 (+twse_cgq_score, has_any_assurance, big4_assurance, big4_financial_auditor) → 202 (+7 Block E: jaccard_similarity, topic_churn_rate, topics_added_n, topics_dropped_n, net_topic_change, topics_added_codes, topics_dropped_codes; Pass DB-07) → **208** (+6 MPQI: mpqi_dim_gov, mpqi_dim_proc, mpqi_dim_stake, mpqi_dim_out, mpqi_composite, mpqi_composite_3d; Pass DB-08; 2026-06-23)
+**Column count history:** 157 (original) → 175 (+18 NLP Phase 1) → 188 (+13 NLP Phase 2) → 190 (+2 Phase 3) → 192 (+language_track, impact_intensity) → 195 (+twse_cgq_score, has_any_assurance, big4_assurance, big4_financial_auditor) → 202 (+7 Block E: jaccard_similarity, topic_churn_rate, topics_added_n, topics_dropped_n, net_topic_change, topics_added_codes, topics_dropped_codes; Pass DB-07) → **222** (+20 Pass DB-08: 4 imputed financials [cols 203–206], 10 raw MPQI items [cols 207–216], 5 MPQI dimensions [cols 217–221: mpqi_dim_gov, mpqi_dim_proc, mpqi_dim_stake, mpqi_dim_out, mpqi_dim_gri], 1 composite [col 222: mpqi_composite]; 2026-06-23)
 
 ### 4.2 Analytical row sets
 
@@ -121,8 +121,8 @@ Three row sets serve distinct purposes:
 | Set | File | Rows | Years | Purpose |
 |---|---|---|---|---|
 | **Master DB** | `twse-research-database.csv` | 5,408 | 2016–2024 | Source of truth; all passes applied here |
-| **DiD window (full)** | `data/db_did_full.csv` | **3,283 × 208** | 2020–2024 | Primary analytical file; all cohorts retained; g=2024 contributes controls |
-| **DiD core** | `data/db_did.csv` | **2,960 × 208** | 2020–2024 | g=2024 excluded entirely; use only with `glist=c(2021,2022)` |
+| **DiD window (full)** | `data/db_did_full.csv` | **3,283 × 222** | 2020–2024 | Primary analytical file; all cohorts retained; g=2024 contributes controls |
+| **DiD core** | `data/db_did.csv` | **2,960 × 222** | 2020–2024 | g=2024 excluded entirely; use only with `glist=c(2021,2022)` |
 
 **Critical:** Use `db_did_full.csv` as the primary analytical file for all `att_gt()` calls. `db_did.csv` loses 4 control companies and makes ATT(g=2022,t=2023) inestimable from that file.
 
