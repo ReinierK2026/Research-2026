@@ -340,7 +340,7 @@ Coverage concentrated in 2022–2024. Pre-trend years (2020–2021) are sparse. 
 | **H3** | assurance_level (Reasonable) | ~454 | 43–44 | 🔴 ~5% base rate; severely underpowered |
 | **H3 alt** | has_any_assurance | ~454 | 43–44 | 🟢 ~60% prevalence; much better powered |
 | **H4** | n_mat_topics × sasb_industry | High=182, Low=216 | ~15–30 each | 🟠 Subsample thins control pool further |
-| **H5** | process_quality_score (semis) | 49 companies | n/a | 🟡 n=49 not 73; no TSMC proximity data |
+| **H5** | mpqi_composite (semis) | 49 companies | n/a | 🟡 n=49 not 73; no TSMC proximity data |
 
 ---
 
@@ -352,7 +352,7 @@ Before OSF submission:
 
 2. **Year +1 effect:** Upgrade ATT(g=2022, t=2023) from exploratory to **pre-registered confirmatory** — NTT pool now 124 (was 3). Remove the prior "exploratory" caveat.
 
-3. **process_quality_score scale:** Replace "0–10 scale, +1–2 points" with "0–1 normalized scale; expected magnitude: +0.05 to +0.15."
+3. **H2 primary outcome:** ✅ Changed from `process_quality_score` → `mpqi_composite` (2026-06-23, Pass DB-08). Update pre-registration: primary outcome = `mpqi_composite` (0–1 scale); mechanism sub-hypothesis = `mpqi_dim_proc` (expected ATT +0.05–0.08). `process_quality_score` retained as robustness specification only.
 
 4. **H3 primary outcome:** Demote "Reasonable assurance" to exploratory; register `has_any_assurance` (binary: Limited OR Reasonable vs None) as the primary H3 outcome.
 
