@@ -243,7 +243,7 @@ All raw items are on a 0–2 scale and divided by 2; `mpqi_s1` is already 0–1 
 
 **Known structural issue:** `mpqi_p2` and `mpqi_o1` are highly correlated (r=0.809) despite being in different dimensions (Process vs Output). Both appear to capture visualization quality (matrix display). Dimension assignment should be resolved before confirmatory factor analysis; report as a limitation.
 
-**Analytical pre-treatment coverage caveat:** `mpqi_composite` requires all 4 dimensions; coverage for pre-GRI3 years (2020) is thin because Block C extraction was less comprehensive for the pre-mandate corpus. The primary pre-trend test uses t=2021 as the baseline; t=2020 provides an additional (sensitivity) pre-trend test where coverage permits.
+**Analytical pre-treatment coverage caveat:** `mpqi_composite` requires all 5 dimensions; coverage for pre-GRI3 years (2020) is thin because Block C extraction was less comprehensive for the pre-mandate corpus. The primary pre-trend test uses t=2021 as the baseline; t=2020 provides an additional (sensitivity) pre-trend test where coverage permits.
 
 #### H3 — Assurance variables (pre-computed binary; Pass DB-06)
 
