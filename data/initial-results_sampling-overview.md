@@ -27,6 +27,10 @@ last_updated: 2026-06-23 (mpqi_composite replaces process_quality_score; 2 pre-p
 | C1: cross-sectional quality | OLS (Python) | Positive ✓ | Yes | Cross-section caveat | **Directionally consistent** |
 | C2: assurance count Poisson | GLM (Python) | Negative | No (p=0.51) | — | **Null** |
 | E: within-company dynamics | FE OLS (Python) | Positive ✓ | Yes (both) | — | **Supported** |
+| Stream F: bge_mean_sim (ZH/bilingual) | CS21 (Python, biters=999) | Positive ✓ | Yes (ATT=+0.079* at t=0) | Pre-trends clean ✅ | **Supported — convergent NLP evidence** |
+| Stream F: xlmr_esg_sentences_n | CS21 (Python) | Negative (ns) | No | No pre-trend testable | **Underpowered — exploratory** |
+| D3c: has_quality_assurance | Logit (Python) | Positive ✓ | Yes (OR=1.913*) | EPV=33.4 | **Supported — new collapsed indicator** |
+| D4b: CRE logit panel | Mundlak-Chamberlain | Positive ✓ | Yes (OR=2.858*) | No incidental params bias | **Primary panel H3 estimate** |
 
 ---
 
