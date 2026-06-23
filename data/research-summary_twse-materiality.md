@@ -81,6 +81,8 @@ All coverage percentages for NLP-based blocks (B, C, D) use the year-specific NL
 
 **Pass DB-06 (2026-06-22):** Assurance columns added from `TEJ_Big4.xlsx`. Three new columns: `has_any_assurance` (col 193; binary; 60.9% in DiD window), `big4_assurance` (col 194; binary; Big4 Taiwan ESG providers: 資誠聯合/安永聯合/勤業眾信聯合/安侯建業聯合; 19.9% in DiD window), `big4_financial_auditor` (col 195; binary; financial statement auditor; 88.1% in DiD window). Severity ladder: Level 0 = no assurance (39.1%); Level 1 = non-Big4 assurance (41.0%); Level 2 = Big4 assurance (19.9%). H3 primary outcome: `has_any_assurance`. db_did_full.csv and db_did.csv regenerated (3,283 × 195 and 2,960 × 195 respectively).
 
+**Pass DB-07 (2026-06-23):** Block E topic dynamics merged from `data/quality/block_e_topic_dynamics.csv`. Seven new columns (cols 196–202, block label "E"): `jaccard_similarity` (renamed from `topic_stability_index` in source; intersection/union of GRI topic codes across consecutive years), `topic_churn_rate` (= 1 − jaccard_similarity), `topics_added_n`, `topics_dropped_n`, `net_topic_change`, `topics_added_codes`, `topics_dropped_codes`. Coverage: 1,313 rows filled (259 FY2022, 468 FY2023, 586 FY2024; 0 for FY2020/2021 — requires two consecutive years by construction). 640 unique tickers with at least one year. db_did_full.csv = 3,283 × 202 cols; db_did.csv = 2,960 × 202 cols. Backup created: `twse-research-database_pre-db07.csv` (195 cols).
+
 | ESGgenplus text corpus | 2021–2024, partial universe | ESG report PDFs (45GB) for text-based NLP extraction |
 | GRI code extraction pipeline | 2021–2024 | gri_codes_summary_202[1-4].csv, gri_tables_2023-2024/ |
 
