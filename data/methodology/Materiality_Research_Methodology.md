@@ -200,13 +200,14 @@ Count of GRI 3-3 disclosure entries per company-year, derived from `gri_codes_su
 
 | Dimension | Column | Items | Formula | Scale |
 |---|---|---|---|---|
-| Governance | `mpqi_dim_gov` | g1, g3 | mean(g1, g3) / 2 | 0–1 |
-| Process | `mpqi_dim_proc` | p1, p2, p3 | mean(p1, p2, p3) / 2 | 0–1 |
-| Stakeholder | `mpqi_dim_stake` | s1, s2, s3 | mean(s1, s2, s3) / 2 *(s1 already 0–1)* | 0–1 |
-| Output | `mpqi_dim_out` | o1, o2 | mean(o1, o2) / 2 | 0–1 |
-| **Composite** | **`mpqi_composite`** | All 10 items | Equal-weighted mean of 4 dims | **0–1** |
+| Governance | `mpqi_dim_gov` (col 217) | g1, g3 | mean(g1, g3) / 2 | 0–1 |
+| Process | `mpqi_dim_proc` (col 218) | p1, p2, p3 | mean(p1, p2, p3) / 2 | 0–1 |
+| Stakeholder | `mpqi_dim_stake` (col 219) | s1, s2, s3 | mean(s1, s2, s3) / 2 *(s1 already 0–1)* | 0–1 |
+| Output | `mpqi_dim_out` (col 220) | o1, o2 | mean(o1, o2) / 2 | 0–1 |
+| GRI Conformance | `mpqi_dim_gri` (col 221) | — | GRI conformance indicators | 0–1 |
+| **Composite** | **`mpqi_composite`** (col 222) | All 10 items | Equal-weighted mean of 5 dims | **0–1** |
 
-All raw items are on a 0–2 scale and divided by 2; `mpqi_s1` is already 0–1 and used as-is. `mpqi_composite` requires all 4 dimensions to be non-null; `mpqi_composite_3d` (robustness) requires ≥3 dimensions non-null.
+All raw items are on a 0–2 scale and divided by 2; `mpqi_s1` is already 0–1 and used as-is. `mpqi_composite` requires all 5 dimensions to be non-null. Note: `mpqi_composite_3d` is **not present** in the DB — references to it in earlier documentation are incorrect.
 
 **Coverage (GRI3 era — primary analysis window):**
 
