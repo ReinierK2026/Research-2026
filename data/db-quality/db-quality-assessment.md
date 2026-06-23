@@ -556,8 +556,8 @@ Rationale for exclusion from primary spec: The CGE criteria include ESG/sustaina
 
 **Validation:** r(mpqi_composite, Block C mpqi_score) = 0.99; r(mpqi_composite, process_quality_score) = 0.86  
 **H2 primary outcome change:** `mpqi_composite` replaces `process_quality_score`; PQS retained as robustness column  
-**DB column count:** 202 (previous 195 + 6 MPQI + 1 mpqi_o2) → **202 cols × 5,408 rows**
+**DB column count:** 202 (after Pass DB-07 Block E) + 6 MPQI = **208 cols × 5,408 rows**
 
 ---
 
-*Generated: 2026-06-10 | Last updated: 2026-06-23 (Pass DB-08: MPQI variables integrated; mpqi_composite replaces process_quality_score as H2 primary outcome; H2 composition story documented)*
+*Generated: 2026-06-10 | Last updated: 2026-06-23 (Pass DB-07: Block E Jaccard/topic-dynamics vars, 202 cols; Pass DB-08: MPQI variables, 208 cols; mpqi_composite replaces process_quality_score as H2 primary; H2 composition story documented)*
