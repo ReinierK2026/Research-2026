@@ -494,36 +494,61 @@ cor_check <- db_2024 |>
 
 ### CS21 NLP estimation (stratified)
 
-```r
-# EN track — bilingual companies only
-db_en <- db_did |> filter(language_track == "bilingual")
+> **Updated 2026-06-23:** Primary outcomes are now BGE-M3 and XLM-R measures (passed convergent validity). FinBERT moved to appendix. Run order: (1) primary BGE-M3 / XLM-R DiD, (2) appendix FinBERT DiD.
 
-out_nlp_gov_en <- att_gt(
-  yname         = "finbert_gov_pct",      # ✅ corrected: was finbert_gov_density
+```r
+# ── PRIMARY: BGE-M3 track (bilingual + zh_only) ───────────────────────────
+# bge_mean_sim and bge_top1_sim available for both tracks; preferred primary outcomes
+db_bge <- db_did |> filter(language_track %in% c("bilingual", "zh_only"))
+
+out_nlp_bge_mean <- att_gt(
+  yname         = "bge_mean_sim",           # PRIMARY — r=0.331 with PQS ✅
   tname         = "fiscal_year",
   idname        = "twse_ticker",
   gname         = "gri_adoption_year",
   control_group = "notyettreated",
-  xformla       = ~ ln_total_assets + roa + standalone_sr,
-  data          = db_en,
-  est_method    = "dr"
+  xformla       = ~ ln_total_assets + roa,  # scaled in practice
+  data          = db_bge,
+  est_method    = "dr",
+  bstrap        = TRUE, biters = 999
 )
-# Repeat for finbert_env_pct, finbert_soc_pct, climatebert_climate_pct
-# Note: bge_mean_sim and xlmr_esg_sentences_n also available for bilingual track
+# Repeat for: bge_top1_sim, bge_gov_affinity, bge_env_affinity, bge_soc_affinity
 
-# ZH track — zh_only companies only
+# ── PRIMARY: XLM-R sentence count (zh_only) ──────────────────────────────
 db_zh <- db_did |> filter(language_track == "zh_only")
 
-out_nlp_gov_zh <- att_gt(
-  yname = "bge_gov_affinity",   # ✅ corrected: was bge_gov_density
-  ...,
-  data  = db_zh
+out_nlp_xlmr_n <- att_gt(
+  yname         = "xlmr_esg_sentences_n",   # PRIMARY — r=0.302 with PQS ✅
+  tname         = "fiscal_year",
+  idname        = "twse_ticker",
+  gname         = "gri_adoption_year",
+  control_group = "notyettreated",
+  xformla       = ~ ln_total_assets + roa,
+  data          = db_zh,
+  est_method    = "dr",
+  bstrap        = TRUE, biters = 999
 )
-# Repeat for bge_env_affinity, bge_soc_affinity
-# xlmr_env_pct / xlmr_gov_pct also available for zh_only track as secondary
+
+# ── APPENDIX: FinBERT (bilingual EN only) ─────────────────────────────────
+# r(finbert_gov_pct, PQS) = 0.112 — FAILS r≥0.20 threshold.
+# Run for completeness; report in appendix as "content salience" measure distinct from PQS.
+db_en <- db_did |> filter(language_track == "bilingual")
+
+out_nlp_finbert_gov <- att_gt(
+  yname         = "finbert_gov_pct",        # APPENDIX — r=0.112 with PQS
+  tname         = "fiscal_year",
+  idname        = "twse_ticker",
+  gname         = "gri_adoption_year",
+  control_group = "notyettreated",
+  xformla       = ~ ln_total_assets + roa,
+  data          = db_en,
+  est_method    = "dr",
+  bstrap        = TRUE, biters = 999
+)
+# Repeat for: finbert_env_pct, finbert_soc_pct (all appendix)
 ```
 
-**Critical constraint:** Never pool FinBERT and BGE-M3 results. Report EN and ZH NLP results in separate tables. State explicitly that cross-model comparisons are not valid (r_GOV = −0.017 on same bilingual documents).
+**Critical constraint:** Never pool FinBERT and BGE-M3 results. Report EN and ZH NLP results in separate tables. State explicitly that cross-model comparisons are not valid (r_GOV(FinBERT, BGE) = −0.017 on same bilingual documents). In the manuscript, describe FinBERT and BGE-M3 as measuring complementary constructs: *topic salience* (FinBERT) vs *semantic depth* (BGE-M3).
 
 **Expected outputs:**
 - ATT event-study plots for each NLP density score, by language track
