@@ -585,7 +585,7 @@ gri_101_applied, gri_new_climate_energy_adopted, ifrs_s1_adopted, issb_s2_adopte
 - Block B extended: bilingual_report, report_language, word_count_total, page_count
 - Block C: mat_section_found, process_quality_score, board_approved, scoring_method_disclosed, dm_methodology_disclosed, stakeholder_groups_n, engagement_methods_n, process_steps_n, mda_index, visualization_format, ai_tool_disclosed
 - Block D: topics_total_n, topics_env_n, topics_soc_n, topics_gov_n, n_material_topics_a, n_material_topics_b, canonical_codes_str, sasb_tcsc_topics_n
-- Block E: jaccard_similarity, churn_rate, topics_added_n, topics_dropped_n, net_topic_change (via block_e_topic_dynamics.csv)
+- Block E: `jaccard_similarity`, `topic_churn_rate`, `topics_added_n`, `topics_dropped_n`, `net_topic_change`, `topics_added_codes`, `topics_dropped_codes` — merged into main DB (Pass DB-07, cols 196–202; source: block_e_topic_dynamics.csv; 1,313 rows × FY 2022–2024)
 - Block F balance sheet: 22 raw + total_debt_ntd_thou, ln_total_assets, leverage, debt_ratio, current_ratio, working_capital_ntd_thou (3 updated)
 - Block F income: 12 raw + gross_margin, operating_margin, net_profit_margin (3 updated: roa, rd_intensity, revenue_growth)
 - Block F equity: shares_outstanding_thou, pe_ratio_tej, pb_ratio_tej, price_sales_ratio, dividend_yield_pct, annual_stock_return_pct, market_segment (2 updated: market_cap_ntd_thou, tobins_q)
@@ -679,6 +679,7 @@ gri_101_applied, gri_new_climate_energy_adopted, ifrs_s1_adopted, issb_s2_adopte
 | 2026-06-22 | coordinator | DB-04 | **sasb_industry fill**: 20 tickers (37 DiD window rows) assigned via web research + company name analysis. sasb_industry now 100% complete for DiD window. |
 | 2026-06-22 | coordinator | DB-05 | **TWSE CGQ score integrated** from TEJ_TWSECG.xlsx: `twse_cgq_score` col 191; ordinal 1–7; 3,122/3,283 DiD rows (95.1%). Robustness-only covariate (endogeneity risk). |
 | 2026-06-22 | coordinator | DB-06 | **Assurance columns added** from TEJ_Big4.xlsx: `has_any_assurance` (col 193; 60.9%), `big4_assurance` (col 194; 19.9%), `big4_financial_auditor` (col 195; 88.1%). H3 severity ladder operationalised. db_did_full.csv = 3,283 × 195; db_did.csv = 2,960 × 195. ATT(g=2022,t=2023) upgraded to CONFIRMATORY (124 controls). OSF pre-registration finalized — upload is last remaining blocker. |
+| 2026-06-23 | coordinator | DB-07 | **Block E topic dynamics merged** from block_e_topic_dynamics.csv: 7 new cols (196–202): `jaccard_similarity` (renamed from topic_stability_index; confirmed = intersection/union), `topic_churn_rate`, `topics_added_n`, `topics_dropped_n`, `net_topic_change`, `topics_added_codes`, `topics_dropped_codes`. Coverage: 1,313 rows (259/2022 + 468/2023 + 586/2024; 640 unique tickers). DB now 5,408 × 202 cols. db_did_full.csv = 3,283 × 202; db_did.csv = 2,960 × 202. Backup: twse-research-database_pre-db07.csv (195 cols). Methodology document rewritten from scratch (Materiality_Research_Methodology_2026-06-23.md). |
 
 ---
 
