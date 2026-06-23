@@ -131,23 +131,60 @@ Pre-treatment coverage in estimable g=2022 panel:
 
 ---
 
-### H2 — process_quality_score (quality upgrade)
+### H2 — mpqi_composite (quality upgrade) — updated 2026-06-23
+
+> `process_quality_score` superseded by `mpqi_composite` as the H2 primary outcome. See below for full assessment. `process_quality_score` retained in DB as robustness variable (r=0.86 with mpqi_composite).
+
+**mpqi_composite — Materiality Process Quality Index:**
 
 | Metric | Value |
 |---|---|
-| Non-null (DiD window 2020–24) | 3,208 / 3,283 **(98%)** ✅ |
-| Non-zero (DiD window 2020–24) | 3,173 / 3,283 **(97%)** |
-| **Scale** | **0–1 (not 0–10 as in hypothesis doc)** |
-| min | 0.000 |
-| max | 1.000 |
-| mean | 0.413 |
-| median | 0.400 |
+| Non-null (GRI3 era, 2021–2024) | **2,646** |
+| Scale | 0–1 (equal-weighted mean of 4 dimensions) |
+| Mean | 0.516 |
+| SD | 0.156 |
+| r(mpqi_composite, `mpqi_score` Block C) | +0.99 ✅ |
+| r(mpqi_composite, `process_quality_score`) | +0.86 ✅ |
 
-Coverage is 98% in the DiD window. The previously-quoted 59.3% figure was computed against 5,408 total rows (including 2,125 historical rows with no text extraction by design). Pre-treatment years: 2020=25% non-null (Block C sparse in 2020), 2021–2024=97–100%.
+**Dimension coverage:**
 
-**Scale discrepancy:** hypothesis document specifies "0–10 composite scale" with "+1–2 points" expected magnitude. Actual scale is 0–1; expected DiD coefficient: **+0.05 to +0.15**.
+| Dimension | Column | N | Mean | SD |
+|---|---|---|---|---|
+| Governance | `mpqi_dim_gov` | 3,282 | 0.470 | 0.321 |
+| Process | `mpqi_dim_proc` | 2,646 | 0.331 | 0.174 |
+| Stakeholder | `mpqi_dim_stake` | 3,220 | 0.711 | 0.231 |
+| Output | `mpqi_dim_out` | 3,282 | 0.488 | 0.256 |
 
-**Severity:** 🟢 — coverage excellent in DiD window; scale corrected in hypothesis doc.
+**Construction:** All raw items (0–2) divided by 2 to produce 0–1 scale; `mpqi_s1` already 0–1. `mpqi_composite` = equal-weighted mean of 4 dimension scores. Requires all 4 non-null. `mpqi_composite_3d` (robustness, ≥3 dims) covers 3,220 obs.
+
+**Reliability:** Cronbach α = 0.605 (all 10 items) — borderline acceptable; defended as formative construct. Dimension-level α: gov=0.384, proc=0.220, stake=0.689, out=0.245. Low sub-dimension alphas expected for formative index.
+
+**H2 composition finding (sampling run 2026-06-23):** CS21 ATT on `mpqi_composite` = +0.109 (null). Composite null reflects two opposing forces:
+- `mpqi_dim_proc`: ATT=+0.059* (overall), +0.079* at t+1 [CI: 0.057, 0.101] — process formalisation improves
+- `stakeholder_groups_n`: ATT=−2.07* (overall), −2.60* at t+1 — stakeholder breadth compresses
+
+**Interpretation:** GRI 3 adoption formalises process documentation (proc dim ↑) while rationalising stakeholder engagement breadth (↓). Both effects are theoretically consistent with the compliance-cost mechanism from H1. The composite null is an artifact of opposite-signed components, not evidence of no effect.
+
+**Known structural issue:** `mpqi_p2` and `mpqi_o1` are highly correlated (r=0.809) across dimensions (Process vs Output). Both appear to capture visualization quality. Resolve dimension assignment before CFA. Report as limitation.
+
+**2020 pre-trend caveat:** Coverage for pre-GRI3 years is thin (Block C extraction less comprehensive pre-mandate). Primary pre-trend test uses t=2021; t=2020 is sensitivity only.
+
+**Severity:** 🟢 — coverage excellent in GRI3 era (N=2,646 with all 4 dims); composite validated; composition finding documented.
+
+---
+
+**process_quality_score (legacy — retained as robustness):**
+
+| Metric | Value |
+|---|---|
+| Non-null (DiD window 2020–24) | 3,208 / 3,283 (98%) |
+| Scale | 0–1 |
+| Mean | 0.413 |
+| r with mpqi_composite | +0.86 |
+
+Low correlation with stated components (r=0.39 with manual component sum) — construction provenance unclear. Retained in DB; use as robustness check only; do not treat as primary H2 outcome.
+
+**Severity:** 🟡 — valid coverage but superseded by mpqi_composite.
 
 ---
 
