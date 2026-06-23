@@ -160,13 +160,16 @@ GRI 3 mandates four specific process steps: stakeholder identification, impact i
 
 **MPQI construction summary:**
 
-| Dimension | Items | Formula |
-|---|---|---|
-| Governance (`mpqi_dim_gov`) | g1, g3 | mean/2 |
-| Process (`mpqi_dim_proc`) | p1, p2, p3 | mean/2 |
-| Stakeholder (`mpqi_dim_stake`) | s1, s2, s3 | mean/2 |
-| Output (`mpqi_dim_out`) | o1, o2 | mean/2 |
-| **Composite (`mpqi_composite`)** | All 10 | Equal-weighted mean of 4 dims |
+| Dimension | DB Col | Items | Formula |
+|---|---|---|---|
+| Governance (`mpqi_dim_gov`) | 217 | g1, g3 | mean/2 |
+| Process (`mpqi_dim_proc`) | 218 | p1, p2, p3 | mean/2 |
+| Stakeholder (`mpqi_dim_stake`) | 219 | s1, s2, s3 | mean/2 |
+| Output (`mpqi_dim_out`) | 220 | o1, o2 | mean/2 |
+| GRI Conformance (`mpqi_dim_gri`) | 221 | — | GRI conformance indicators |
+| **Composite (`mpqi_composite`)** | **222** | All 10 | Equal-weighted mean of 5 dims |
+
+Note: `mpqi_composite_3d` is **not present** in the DB — any prior references to it are incorrect.
 
 Cronbach α=0.605 (all items); r(mpqi_composite, Block C mpqi_score)=0.99; r(mpqi_composite, process_quality_score)=0.86. Formative construct — low within-dimension α expected and theoretically justified.
 
