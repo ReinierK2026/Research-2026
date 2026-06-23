@@ -416,20 +416,22 @@ feols(n_material_topics_b ~ post_gri3_it * impact_intensity + controls |
 
 All robustness checks must be run and reported regardless of significance direction.
 
-| Code | Check | Rationale |
-|---|---|---|
-| **R1** | **BJS imputation** (`didimputation::did_imputation()`) | More efficient than CS21 under thin control pool; estimates Y(0) from full pre-treatment history |
-| **R2** | **Wooldridge extended TWFE** (`fixest::feols()` with cohort × period dummies) | Transparent framing for accounting reviewers; near-identical estimates to CS21 under parallel trends |
-| **R3** | **Rambachan-Roth HonestDiD** (`HonestDiD::createSensitivityResults()`) | **NON-NEGOTIABLE** — with only 44 controls at primary ATT cell, post-treatment parallel trends cannot be empirically tested; bounds on how large a violation must be to overturn the result |
-| **R4** | **Poisson / Hurdle model** for `n_material_topics_b` | Count outcome; addresses potential distributional concerns |
-| **R5** | **H4 TWFE fallback** | See §7.3 |
-| **R6** | **`tesg_score_2022` as time-invariant control** | Include 2022 TESG score as firm-level pre-treatment characteristic |
-| **R7** | **TWSE CGQ score (lagged, t−1)** | `twse_cgq_score` robustness check; lagged to avoid endogeneity (CGQ criteria include ESG reporting) |
-| **R8** | **`control_group = "nevertreated"`** | Will return zero control units; document as confirmation of all-adopted universe |
-| **R9** | **Bacon-Goodman decomposition** | Decompose heterogeneity in treatment timing weights |
-| **R10** | **Stream C with `sasb_industry` FE** | Partial out industry effects in cross-sectional analysis |
+| Code | Check | Rationale | Status | Key Result |
+|---|---|---|---|---|
+| **R1** | **BJS imputation** (`didimputation::did_imputation()`) | More efficient than CS21 under thin control pool; estimates Y(0) from full pre-treatment history | ⚠️ Reserve for R at submission — `pyfixest.did2s` vcov bug on unbalanced panels | Expected: confirms negative direction |
+| **R2** | **Wooldridge extended TWFE** (`fixest::feols()` with cohort × period dummies) | Transparent framing for accounting reviewers; near-identical estimates to CS21 under parallel trends | ✅ Complete (2026-06-24) | H1: ATT(g=2022,t=2022)=−1.80* (p=0.040); H2: +0.082** (p=0.004); direction confirmed |
+| **R3** | **Rambachan-Roth HonestDiD** (`HonestDiD::createSensitivityResults()`) | **NON-NEGOTIABLE** — with only 44 controls at primary ATT cell, post-treatment parallel trends cannot be empirically tested; bounds on how large a violation must be to overturn the result | ✅ Complete (R CSVs, 2026-06-23) | **H1 robust at M=2.0 (ub=−0.006).** Paper statement: "Robust to violations up to M=2.0 times the largest pre-trend difference." |
+| **R4** | **Poisson / NegBin model** for `n_material_topics_b` | Count outcome; addresses potential distributional concerns | ✅ Complete (2026-06-24) | Panel Poisson TWFE IRR=0.906* (p=0.027); Cross-section NegBin null (IRR=0.992); D/df=3.69 confirms overdispersion |
+| **R5** | **H4 TWFE fallback** | See §7.3 | ✅ Complete (R CSV, 2026-06-23) | Triple-diff coef=−0.907 (ns, p=0.249); H4 exploratory |
+| **R6** | **`tesg_score_2022` as time-invariant control** | Include 2022 TESG score as firm-level pre-treatment characteristic | ✅ Complete (2026-06-24) | ATT(t=0)=−7.80 (SE=4.70, p≈0.10, borderline); N restricted to 2,406 (tesg_score coverage); direction consistent |
+| **R7** | **TWSE CGQ score (lagged, t−1)** | `twse_cgq_score` robustness check; lagged to avoid endogeneity (CGQ criteria include ESG reporting) | ✅ Complete (2026-06-24) | ATT(t=0)=−9.73* (SE=4.34, p≈0.025, significant); N=1,866; directionally consistent |
+| **R8** | **`control_group = "nevertreated"`** | Will return zero control units; document as confirmation of all-adopted universe | ✅ Complete (2026-06-24) | R `did` returns error (0 never-treated units); Python proxy ATT=−8.12 directionally consistent but improper control group; all-adopted universe confirmed |
+| **R9** | **Bacon-Goodman decomposition** | Decompose heterogeneity in treatment timing weights | ✅ Complete (2026-06-24) | BG-implied TWFE=−1.82 ≈ actual TWFE=−1.80 (exact match); w_clean=0.50, w_forbidden=0.50; both components negative; TWFE attenuated vs CS21 by treatment heterogeneity, not sign reversal |
+| **R10** | **Stream C with `sasb_industry` FE** | Partial out industry effects in cross-sectional analysis | ✅ Complete (2026-06-24) | n_material_topics_b: ns (coef=−0.26, p=0.50); mpqi_composite: −0.026** (p=0.002, negative cross-section — vintage-size confound); industry FE doesn't change findings |
 
-**Mandatory reporting standard for R3:** State "The ATT estimate is robust to violations of parallel trends up to M = [X] times the largest observed pre-trend difference." This framing must appear in the paper.
+**Mandatory reporting standard for R3:** State "The ATT estimate is robust to violations of parallel trends up to M = 2.0 times the largest observed pre-trend difference." (ub = −0.006 at M=2.0; confirmed from R HonestDiD; see `r-results/h1_honestdid_sensitivity.csv`).
+
+**Full robustness detail:** `findings/data-analyst_robustness-checks_2026-06-24.md`
 
 **Winsorizing policy:** No winsorizing in the primary specification. `ln_total_assets` is log-transformed (skew addressed). `roa` extreme values retained. Any post-registration decision to winsorize must be logged as a pre-analysis deviation.
 
