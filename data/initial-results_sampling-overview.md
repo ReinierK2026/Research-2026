@@ -422,5 +422,9 @@ Only 1 event time estimable (g=2023 has 78 EN-only NTT companies — pre-trend p
 | h3_d2_big4_assurance_firth.csv | findings/r-results/ |
 | h3_d3_reasonable_assurance_firth_appendix.csv | findings/r-results/ |
 | h3_d4_panel_fe_logit.csv | findings/r-results/ |
+| h4_twfe_triple_diff.csv | findings/r-results/ |
+| h4_low/high_honestdid_sensitivity.csv | findings/r-results/ |
 | data-analyst_stream-sampling_2026-06-23.md | findings/ |
+| data-analyst_confirmatory-run_2026-06-24.md | findings/ |
+| **data-analyst_robustness-checks_2026-06-24.md** | findings/ |
 | sampling-overview_all-streams_2026-06-23.md | findings/ (this file) |
