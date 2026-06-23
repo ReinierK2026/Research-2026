@@ -156,7 +156,7 @@ Pre-treatment coverage in estimable g=2022 panel:
 | Output | `mpqi_dim_out` | 3,282 | 0.488 | 0.256 |
 | GRI Conformance | `mpqi_dim_gri` | — | — | — |
 
-**Construction:** All raw items (0–2) divided by 2 to produce 0–1 scale; `mpqi_s1` already 0–1. `mpqi_composite` = equal-weighted mean of 4 dimension scores. Requires all 4 non-null. `mpqi_composite_3d` (robustness, ≥3 dims) covers 3,220 obs.
+**Construction:** All raw items (0–2) divided by 2 to produce 0–1 scale; `mpqi_s1` already 0–1. `mpqi_composite` = equal-weighted mean of 5 dimension scores (gov, proc, stake, out, gri). Requires all 5 non-null. Note: `mpqi_composite_3d` is **not present** in the DB — references to it in earlier documentation are incorrect.
 
 **Reliability:** Cronbach α = 0.605 (all 10 items) — borderline acceptable; defended as formative construct. Dimension-level α: gov=0.384, proc=0.220, stake=0.689, out=0.245. Low sub-dimension alphas expected for formative index.
 
@@ -170,7 +170,7 @@ Pre-treatment coverage in estimable g=2022 panel:
 
 **2020 pre-trend caveat:** Coverage for pre-GRI3 years is thin (Block C extraction less comprehensive pre-mandate). Primary pre-trend test uses t=2021; t=2020 is sensitivity only.
 
-**Severity:** 🟢 — coverage excellent in GRI3 era (N=2,646 with all 4 dims); composite validated; composition finding documented.
+**Severity:** 🟢 — coverage excellent in GRI3 era (N=2,646 with all 5 dims); composite validated; composition finding documented.
 
 ---
 
