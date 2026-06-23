@@ -137,13 +137,14 @@ Triple-diff coefficient: **−0.907, not significant** — no significant hetero
 
 | Dimension | Items | Formula | Scale |
 |---|---|---|---|
-| `mpqi_dim_gov` | g1, g3 | mean(g1, g3) / 2 | 0–1 |
-| `mpqi_dim_proc` | p1, p2, p3 | mean(p1, p2, p3) / 2 | 0–1 |
-| `mpqi_dim_stake` | s1, s2, s3 | mean(s1, s2, s3) / 2 *(s1 already 0–1)* | 0–1 |
-| `mpqi_dim_out` | o1, o2 | mean(o1, o2) / 2 | 0–1 |
-| **`mpqi_composite`** | All 10 items | Equal-weighted mean of 4 dims | **0–1** |
+| `mpqi_dim_gov` (col 217) | g1, g3 | mean(g1, g3) / 2 | 0–1 |
+| `mpqi_dim_proc` (col 218) | p1, p2, p3 | mean(p1, p2, p3) / 2 | 0–1 |
+| `mpqi_dim_stake` (col 219) | s1, s2, s3 | mean(s1, s2, s3) / 2 *(s1 already 0–1)* | 0–1 |
+| `mpqi_dim_out` (col 220) | o1, o2 | mean(o1, o2) / 2 | 0–1 |
+| `mpqi_dim_gri` (col 221) | — | GRI conformance indicators | 0–1 |
+| **`mpqi_composite`** (col 222) | All 10 items | Equal-weighted mean of 5 dims | **0–1** |
 
-All raw items are on a 0–2 scale and divided by 2 to produce 0–1; `mpqi_s1` is already 0–1 and used as-is.
+All raw items are on a 0–2 scale and divided by 2 to produce 0–1; `mpqi_s1` is already 0–1 and used as-is. Note: `mpqi_composite_3d` is **not present** in the DB.
 
 ### Coverage (GRI3 era — primary analysis window)
 
