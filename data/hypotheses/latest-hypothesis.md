@@ -327,7 +327,7 @@ All NLP analyses must be run separately by language track. **Do not pool FinBERT
 
 ### Estimator
 
-Same CS21 framework as H2: `att_gt(yname="finbert_gov_density", tname="fiscal_year", idname="twse_ticker", gname="gri_adoption_year", control_group="notyettreated", xformla=~ln_total_assets+roa+standalone_sr)`
+Same CS21 framework as H2: `att_gt(yname="finbert_gov_pct", tname="fiscal_year", idname="twse_ticker", gname="gri_adoption_year", control_group="notyettreated", xformla=~ln_total_assets+roa+standalone_sr)` *(column name corrected from `finbert_gov_density`; use `bge_mean_sim` for ZH track — highest convergent validity with mpqi_composite, r=0.331)*
 
 **Stratify runs by language_track** — run EN models on bilingual company-years only; run ZH models on ZH-only company-years only. Report results in separate tables; do not aggregate across tracks.
 
