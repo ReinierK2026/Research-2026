@@ -605,6 +605,7 @@ Once data preparation tasks D1–D4 are complete and pre-registration is filed, 
 
 ---
 
-*Generated: research-coordinator | 2026-06-10*  
+*Generated: research-coordinator | 2026-06-10 | Last updated: 2026-06-22 (Pass DB-06)*  
+*DB state: 5,408 rows × 195 cols | db_did_full: 3,283 × 195 | db_did: 2,960 × 195*  
 *Hypothesis doc: hypotheses/hypothesis-generation_did-hypotheses_2026-06-10.md*  
-*Methodology doc: Materiality_Research_Methodology.md (updated June 10, 2026)*
+*Methodology doc: Materiality_Research_Methodology.md (outside connected folder — update manually)*
