@@ -149,6 +149,8 @@ es_h1 <- aggte(out_h1, type="dynamic", glist=c(2021, 2022, 2023), na.rm=TRUE)
 
 > **🔄 Regenerated 2026-06-22 (post Pass DB-06):** Both files regenerated with 195 columns after Pass DB-06 added `twse_cgq_score`, `has_any_assurance`, `big4_assurance`, `big4_financial_auditor`. Row counts **unchanged**: db_did_full.csv = 3,283 × 195; db_did.csv = 2,960 × 195. ATT(g=2022, t=2023) confirmed at 124 NTT controls (CONFIRMATORY).
 >
+> **🔄 Regenerated 2026-06-23 (post Pass DB-07):** Both files regenerated with **202 columns** after Pass DB-07 merged Block E topic dynamics (7 new cols: `jaccard_similarity`, `topic_churn_rate`, `topics_added_n`, `topics_dropped_n`, `net_topic_change`, `topics_added_codes`, `topics_dropped_codes`; cols 196–202). Row counts **unchanged**: db_did_full.csv = 3,283 × 202; db_did.csv = 2,960 × 202.
+>
 > ⚠️ **R loading note:** Both files use a 2-row header (row 1 = block labels, row 2 = column names). Load in R with `skip = 1`. `gri_adoption_year` is stored as float (`"2021.0"` etc.) — coerce before passing to `att_gt()`:
 > ```r
 > library(readr)
@@ -164,7 +166,7 @@ es_h1 <- aggte(out_h1, type="dynamic", glist=c(2021, 2022, 2023), na.rm=TRUE)
 **What:** Extract `twse_ticker`, `fiscal_year`, `ln_total_assets`, `roa`, `leverage` from `twse-research-database_pre-nlp-repair.csv` for `fiscal_year ∈ {2016, 2017, 2018, 2019}`. Append to DB as pre-treatment rows (2020 was already 100% covered in DB). Do NOT populate NLP outcome variables for pre-2021 rows.
 
 **Result:**
-- **2,125 rows added** (FY 2016-2019) — DB now **5,408 rows × 195 cols (as of Pass DB-06), FY 2016–2024**
+- **2,125 rows added** (FY 2016-2019) — DB now **5,408 rows × 202 cols (as of Pass DB-07), FY 2016–2024**
 - Coverage: 2016=444/483 (92%), 2017=478/512 (93%), 2018=518/550 (94%), 2019=549/580 (95%)
 - `language_track='neither'` for all pre-2021 rows; `impact_intensity` derived from sasb_industry
 - **351/1,036 analytical-sample companies** have pre-treatment history to 2016
