@@ -126,7 +126,7 @@ Three row sets serve distinct purposes:
 
 **Critical:** Use `db_did_full.csv` as the primary analytical file for all `att_gt()` calls. `db_did.csv` loses 4 control companies and makes ATT(g=2022,t=2023) inestimable from that file.
 
-**Historical rows (2016–2019):** 2,125 rows exist in the master DB for pre-mandate years. These rows contain only financial control variables (Block F); `n_material_topics_b`, `process_quality_score`, and all NLP variables are blank by design. They are excluded from the DiD window files and serve only as pre-treatment baseline data for Stream B propensity score analysis.
+**Historical rows (2016–2019):** 2,125 rows exist in the master DB for pre-mandate years. These rows contain only financial control variables (Block F); `n_material_topics_b`, `mpqi_composite`, `process_quality_score`, and all NLP variables are blank by design. They are excluded from the DiD window files and serve only as pre-treatment baseline data for Stream B propensity score analysis.
 
 ### 4.3 Data sources
 
