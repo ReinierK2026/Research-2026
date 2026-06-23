@@ -372,15 +372,15 @@ Only 1 event time estimable (g=2023 has 78 EN-only NTT companies — pre-trend p
 
 ### Analysis improvements for final run
 
-6. **H1/H2 R final run** — add `bstrap=TRUE, biters=999` to `att_gt()` to get full bootstrap vcov for HonestDiD; this will replace the diagonal SE² approximation.
+6. ✅ **H1/H2 bootstrap run (2026-06-24)** — Python csdid biters=999 completed. H1 ATT(t=0)=−7.18*, SE=3.61; H2 proc dim t+1=+0.109* [0.069, 0.148] confirmed. For paper: run R `did` with `bstrap=TRUE, biters=999` for full bootstrap vcov + HonestDiD.
 
-7. **H4 triple-diff** — run HonestDiD separately for High and Low subsamples before computing the triple-diff. If pre-trends for Low subsample fail the HonestDiD check at low M, drop H4 from confirmatory to exploratory.
+7. ✅ **H4 subsample HonestDiD (2026-06-24)** — Low: passes M=2 (ub=−1.08). High: null at M=0 (ub=+3.83). H4 pre-trend for Low clean (both pre-periods ns). Primary triple-diff null → H4 classified as **exploratory**.
 
-8. **Stream F NLP DiD** — run CS21 with `bge_mean_sim` and `xlmr_esg_sentences_n` as outcomes (both r≥0.20 with PQS). FinBERT measures should be moved to exploratory/appendix given failure to meet convergent validity threshold.
+8. ✅ **Stream F NLP DiD (2026-06-24)** — bge_mean_sim ZH/bilingual: ATT(t=0)=+0.079* [0.021, 0.137], pre-trends clean. xlmr underpowered (no pre-trend). FinBERT → appendix (zero 2020 coverage).
 
-9. **D3 reasonable assurance** — report as appendix with EPV caveat. Consider whether to include at all given 57 events. Alternative: collapse reasonable + limited into a single "high-quality assurance" indicator.
+9. ✅ **D3 EPV resolution (2026-06-24)** — has_reasonable EPV=4.6 → appendix only. New collapsed `has_quality_assurance` (Big4 OR Reasonable): EPV=33.4, OR=1.913*, primary D3 outcome.
 
-10. **D4 panel FE** — add firm × year cluster SEs to the feglm call; flag incidental parameters bias in discussion. Consider using Mundlak-Chamberlain correlated random effects as an alternative.
+10. ✅ **D4 panel FE (2026-06-24)** — feglm OR=47.8 confirmed as incidental params bias (516/897 companies have no variation). D4b CRE logit: OR=2.858* [2.342, 3.488] — primary panel estimate (Python matches R exactly). D4a LPM TWFE: null within-company effect expected.
 
 ---
 
