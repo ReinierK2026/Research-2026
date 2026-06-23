@@ -458,4 +458,4 @@ Any deviation from this pre-registered plan must be documented in a post-registr
 
 *Prepared: 2026-06-22*  
 *OSF registration DOI: PENDING*  
-*Data version: twse-research-database.csv (Pass DB-06; 5,408 rows × 195 cols)*
+*Data version: twse-research-database.csv (Pass DB-07; 5,408 rows × 202 cols)*
