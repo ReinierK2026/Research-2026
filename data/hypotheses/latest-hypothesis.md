@@ -16,8 +16,10 @@
 | Cohorts in primary analysis | 2021–2024 | **2022 + 2023 only; 2024 cohort excluded** |
 | Control group | Not-yet-treated or never-treated | **Not-yet-treated only: ~43 companies (2023 cohort)** |
 | Control group size | Large (868+ companies) | **~43–44 companies for dominant 2022 cohort** |
-| `process_quality_score` scale | 0–10 | **0–1 (corrected)** |
-| `process_quality_score` expected ATT | +1–2 points | **+0.05 to +0.15** |
+| `process_quality_score` scale | 0–10 | **0–1 (corrected); now superseded** |
+| H2 primary outcome | `process_quality_score` | **`mpqi_composite` (2026-06-23); 4-dim validated composite, r=0.86 with PQS** |
+| H2 mechanism sub-hypothesis | (none) | **`mpqi_dim_proc` pre-specified; ATT=+0.059*, t+1=+0.079*** |
+| H2 expected ATT | +1–2 points | **+0.05–0.10 composite; composition story: proc ↑, stakeholder count ↓** |
 | H3 (assurance) | CS21 DiD | **Reclassified: exploratory logistic regression** |
 | NLP models | Not in hypotheses | **Pre-registered supplementary stream (H2-NLP)** |
 | `idname` in att_gt() | company_id | **twse_ticker** |
@@ -359,7 +361,7 @@ Positive — GRI 3 adoption is expected to increase ESG sentence density across 
 - [x] Exclude 2024 cohort from H1–H4 treatment and control pool — db_did.csv generated with g=2024 excluded (307 companies, 323 rows)
 - [x] Pre-specify `impact_intensity` derivation: High = {Resource, Infrastructure, Transportation, Minerals, Food}; Low = {Technology, Services, HealthCare, Financials}; Consumer + RenewableEnergy = sensitivity — **locked in DB col `impact_intensity`**
 - [x] Pre-specify `board_approved` and `independent_director_ratio` exclusion from covariate vector when base period = 2020
-- [x] Confirm `process_quality_score` is 0–1 scale; expected ATT +0.05 to +0.15
+- [x] **H2 primary outcome changed to `mpqi_composite`** (2026-06-23; replaces `process_quality_score`); scale 0–1; expected composite ATT +0.05 to +0.10; `mpqi_dim_proc` pre-specified as mechanism sub-hypothesis (expected ATT +0.05 to +0.08); note composition story: composite may be null if proc ↑ and stakeholder count ↓ cancel
 - [x] Classify H3 as exploratory (no causal claim); primary outcome `has_any_assurance`
 - [x] Register NLP supplementary stream (Stream F) with language-track stratification protocol and ESGLens exclusion
 - [x] Register convergent validity check (NLP density vs `process_quality_score`) as a pre-analysis step
