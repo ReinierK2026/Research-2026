@@ -454,15 +454,21 @@ fe_e3_zh <- feols(bge_gov_density ~ years_post | twse_ticker,
 
 **Purpose:** Test whether GRI 3 adoption changes the substantive ESG content density of materiality disclosures, using pre-registered NLP models as supplementary outcome measures for H2.
 
-### Model selection (pre-registered)
+### Model selection (updated 2026-06-23 — post convergent validity check)
 
-| Model | Track | Status | Rationale |
-|---|---|---|---|
-| FinBERT-ESG-9 | EN (bilingual) | ✅ Primary | Reasonable E/S/G proportions on TWSE reports |
-| BGE-M3 | ZH (zh_only + bilingual) | ✅ Primary | Best-performing multilingual model |
-| XLM-RoBERTa-XNLI | ZH | ✅ Secondary | Cross-lingual NLI; ENV/GOV binary useful |
-| ClimateBERT | EN | ✅ Secondary | ENV dimension only |
-| ESGLens SBERT | EN | ❌ Excluded | 57% GOV share — systematic training bias |
+> **⚠️ ROLE REASSIGNMENT based on sampling-run convergent validity results (r vs PQS, 2024 cross-section, n=359–662):**
+> - BGE-M3 (`bge_mean_sim` r=0.331; `bge_top1_sim` r=0.276) and XLM-R (`xlmr_esg_sentences_n` r=0.302) PASS the pre-registered r≥0.20 threshold.
+> - FinBERT (`finbert_gov_pct` r=0.112; `finbert_env_pct` r=−0.022) FAIL the threshold — capturing a different dimension (topic salience in EN text) than the structural PQS.
+> - FinBERT measures **demoted to appendix/exploratory**. BGE-M3 mean similarity and XLM-R sentence count **promoted to primary NLP outcomes**.
+
+| Model | Track | Status | r(PQS) | Rationale |
+|---|---|---|---|---|
+| BGE-M3 (`bge_mean_sim`) | ZH + bilingual | ✅ **PRIMARY** | 0.331 | Passes convergent validity threshold; multilingual |
+| BGE-M3 (`bge_top1_sim`, `bge_gov/env/soc_affinity`) | ZH + bilingual | ✅ **PRIMARY** | 0.276 | Same model; granular topic-level measures |
+| XLM-RoBERTa-XNLI (`xlmr_esg_sentences_n`) | ZH | ✅ **PRIMARY** | 0.302 | Passes threshold; sentence-count proxy for depth |
+| FinBERT-ESG-9 (`finbert_gov/env/soc_pct`) | EN (bilingual) | 📎 **APPENDIX** | 0.01–0.11 | Fails r≥0.20; reports topic salience, not structural quality |
+| ClimateBERT | EN | ✅ Secondary | — | ENV dimension only; not yet validity-checked |
+| ESGLens SBERT | EN | ❌ Excluded | — | 57% GOV share — systematic training bias |
 
 ### Pre-analysis convergent validity check
 
