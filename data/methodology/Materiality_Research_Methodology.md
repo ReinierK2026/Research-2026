@@ -506,7 +506,7 @@ Streams B, C, and D are descriptive/exploratory and are not blocked by OSF regis
 **NLP stream**
 - [ ] ESGLens excluded from primary NLP analysis
 - [ ] Language-track stratification rule documented
-- [ ] Convergent validity pre-check (r between `process_quality_score` and NLP scores) specified as mandatory before any Stream F DiD
+- [ ] Convergent validity pre-check (r between `mpqi_composite` and NLP scores) specified as mandatory before any Stream F DiD; `process_quality_score` may be used as secondary reference for this check
 
 **Robustness**
 - [ ] R1 BJS imputation
