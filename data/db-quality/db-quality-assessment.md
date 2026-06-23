@@ -556,7 +556,13 @@ Rationale for exclusion from primary spec: The CGE criteria include ESG/sustaina
 
 **Validation:** r(mpqi_composite, Block C mpqi_score) = 0.99; r(mpqi_composite, process_quality_score) = 0.86  
 **H2 primary outcome change:** `mpqi_composite` replaces `process_quality_score`; PQS retained as robustness column  
-**DB column count:** 202 (after Pass DB-07 Block E) + 6 MPQI = **208 cols × 5,408 rows**
+**DB column count:** 202 (after Pass DB-07 Block E) + 20 (Pass DB-08) = **222 cols × 5,408 rows**
+
+Pass DB-08 breakdown (+20 cols):
+- Cols 203–206: 4 imputed financial variables (`total_assets_imputed`, `net_income_imputed`, `firm_age_imputed`, `rd_expense_imputed`)
+- Cols 207–216: 10 raw MPQI items (`mpqi_g1`, `mpqi_p1`, `mpqi_p2`, `mpqi_p3`, `mpqi_s1`, `mpqi_s2`, `mpqi_s3`, `mpqi_o1`, `mpqi_g3`, `mpqi_o2`)
+- Cols 217–221: 5 MPQI dimensions (`mpqi_dim_gov`, `mpqi_dim_proc`, `mpqi_dim_stake`, `mpqi_dim_out`, `mpqi_dim_gri`)
+- Col 222: `mpqi_composite`
 
 ---
 
