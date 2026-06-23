@@ -340,12 +340,12 @@ Only 1 event time estimable (g=2023 has 78 EN-only NTT companies — pre-trend p
 |---|---|---|---|
 | 1 | **g=2021 cohort (N=10)** produces numerical breakdown — excluded from primary via `glist=c(2022,2023)` | High | ✅ Resolved — g=2021 excluded from ATT estimation |
 | 2 | **g=2024 as NTT controls** — must stay in data (not filtered) but excluded from `glist` to avoid 1 pre-period problem | High | ✅ Resolved — filter removes only g=2021; g=2024 retained as controls; `glist=c(2022,2023)` |
-| 3 | **Stream B AUC=0.775** — selection on firm size; DR estimator partially corrects but overlap stressed | High | Report AUC; note DR robustness; IPW adds little with `est_method="reg"` correction already in place |
-| 4 | **H2 mpqi_composite composite null** — two opposing forces cancel; interpret as composition story | Medium | Framed as mechanism finding: proc dim ↑, stakeholder count ↓; both are theoretically interpretable |
-| 5 | **H4 primary TWFE null** — triple-diff coef = −0.907 ns; subsample CS21 exploratory only | High | Primary test remains TWFE; reclassify H4 as exploratory in pre-registration |
+| 3 | **Stream B AUC=0.775** — selection on firm size; DR estimator partially corrects but overlap stressed | High | ✅ Resolved (2026-06-24) — IPW-weighted ATT ≈ unweighted ATT (executed; see Next Steps item 21). DR estimator absorbs size imbalance; AUC reported as limitation in paper. |
+| 4 | **H2 mpqi_composite composite null** — two opposing forces cancel; interpret as composition story | Medium | ✅ Resolved (2026-06-24) — mechanism finding: proc dim ↑ (ATT=+0.059*), stakeholder count ↓ (ATT=−2.07*) cancel in composite. Theoretically consistent with GRI 3 compliance-cost logic. |
+| 5 | **H4 primary TWFE null** — triple-diff coef = −0.907 ns; subsample CS21 exploratory only | High | ✅ Resolved (2026-06-24) — primary test (TWFE triple-diff) confirmed null (R5); H4 reclassified as exploratory in pre-registration. Subsample CS21 (low-intensity) as exploratory appendix. |
 | 6 | **D4 panel FE logit OR = 47.8** — incidental parameters bias in T=4 short panel | Medium | ✅ Resolved — replaced with Mundlak-Chamberlain CRE logit (D4b), OR=2.858*, avoids incidental params bias |
 | 7 | **HonestDiD vcov approximation** — diagonal SE² used due to V_analytical unavailability with unbalanced panel | Low | ✅ Bootstrap run completed (Python csdid biters=999; H1 ATT=-7.18 SE≈3.7 confirmed). For paper, run in R with `bstrap=TRUE, biters=999` for full off-diagonal vcov. |
-| 8 | **mpqi_p2–o1 collinearity** (r=0.809) — both items appear to capture visualization quality | Medium | Flag as limitation; resolve dimension assignment before CFA; report in measurement section |
+| 8 | **mpqi_p2–o1 collinearity** (r=0.862) — shared input `matrix_shown` appears in both derivations (p2 = scoring_method_disclosed + matrix_shown; o1 = matrix_shown + matrix_axes_labeled) | Medium | ✅ Resolved (2026-06-24) — root cause confirmed: r(matrix_shown, p2)=0.889, r(matrix_shown, o1)=0.964. Fix: redefine p2_clean = scoring_method_disclosed only (0 or 2). r(p2_clean, o1) drops to 0.049. Composite impact negligible: r(orig, clean)=0.993, mean diff=−0.008. H2 DiD direction unchanged (dim_proc r=0.92–0.95 across years). Proposed fix pre-registered before CFA; apply in DB revision. See Next Steps item 21. |
 
 ### Technical issues (resolved)
 
