@@ -336,7 +336,7 @@ Coverage concentrated in 2022–2024. Pre-trend years (2020–2021) are sparse. 
 | Hypothesis | Outcome | Estimable n (g=2022 treated) | NTT Controls | Severity |
 |---|---|---|---|---|
 | **H1** | n_material_topics_b | 578 (t=2022) / 577 (t=2023) | 44 @ t=2022; **124 @ t=2023** ✅ | 🟢 95% coverage in DiD window; zeros→NA complete (Pass DB-03) |
-| **H2** | process_quality_score | ~454 | 43–44 | 🟡 Scale wrong in hypothesis doc (0–1 not 0–10) |
+| **H2** | mpqi_composite (replaces PQS) | 2,646 (GRI3 era) | 43–44 | 🟢 N=2,646 with all 4 dims; validated (r=0.99 with Block C); composition story documented |
 | **H3** | assurance_level (Reasonable) | ~454 | 43–44 | 🔴 ~5% base rate; severely underpowered |
 | **H3 alt** | has_any_assurance | ~454 | 43–44 | 🟢 ~60% prevalence; much better powered |
 | **H4** | n_mat_topics × sasb_industry | High=182, Low=216 | ~15–30 each | 🟠 Subsample thins control pool further |
