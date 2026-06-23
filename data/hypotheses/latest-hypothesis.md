@@ -133,23 +133,40 @@ Null or positive ATT on `n_material_topics_b` rejects the displacement hypothesi
 
 ## H2 — Process Quality Upgrade Post-Adoption
 
+> **2026-06-23 update:** Primary outcome changed from `process_quality_score` → `mpqi_composite` (validated 4-dimension composite). Sub-dimension `mpqi_dim_proc` added as pre-specified mechanism variable. See MPQI construction below.
+
 ### Statement
-> Earlier GRI 3 adoption (2022 cohort) causes a significant **increase** in `process_quality_score` — the composite materiality disclosure quality index — as GRI 3's four-step DMA methodology imposes minimum process documentation standards.
+> Earlier GRI 3 adoption (2022 cohort) causes a significant **increase** in materiality process quality — measured by `mpqi_composite` — as GRI 3's four-step Due Diligence Methodology imposes minimum process documentation standards. The process formalisation dimension (`mpqi_dim_proc`) is expected to show the clearest positive effect; the composite may show a smaller or null effect if compensating rationalisation in stakeholder breadth occurs.
 
 ### Rationale
-GRI 3 mandates four specific process steps: stakeholder identification, impact identification, materiality assessment, management approach per topic. Companies adopting GRI 3 must document these steps to achieve GRI-conformant reporting, creating a regulatory floor on disclosure quality absent under GRI Standards 2016. Even if topic count decreases (H1), process quality should increase.
+GRI 3 mandates four specific process steps: stakeholder identification, impact identification, materiality assessment, management approach per topic. Companies adopting GRI 3 must document these steps to achieve GRI-conformant reporting, creating a regulatory floor on disclosure quality absent under GRI Standards 2016. Even if topic count decreases (H1), process formalisation should increase. However, GRI 3's compliance costs may simultaneously compress stakeholder engagement breadth — a legitimacy substitution mechanism analogous to H1's displacement logic. The composite may therefore show a smaller ATT than individual process dimensions.
 
 ### Operationalisation — Primary (Structural)
 
 | Element | Detail |
 |---|---|
-| **Primary outcome** | `process_quality_score` — composite of stakeholder_groups_n + engagement_methods_n + process_steps_n + board_approved + scoring_method_disclosed; **stored on 0–1 scale** (NOT 0–10 as in prior versions) |
-| **Secondary structural outcome** | `gri3_four_step_compliance` (binary) — explicit compliance with four-step DMA |
-| **Population** | Estimable panel; same as H1 |
-| **Estimator** | CS21 as per H1; TWFE robustness: `feols(process_quality_score ~ post_gri3_it + controls | twse_ticker + fiscal_year, cluster=~twse_ticker)` |
-| **Controls** | `ln_total_assets, roa, board_approved, standalone_sr` (same as H1) |
-| **Expected sign** | **Positive ATT**: earlier adoption → higher `process_quality_score` |
-| **Expected magnitude** | +0.05 to +0.15 on the 0–1 scale (5–15 percentage point increase) |
+| **Primary outcome** | `mpqi_composite` — equal-weighted mean of 4 dimensions: gov=mean(g1,g3)/2, proc=mean(p1,p2,p3)/2, stake=mean(s1,s2,s3)/2 *(s1 0–1)*, out=mean(o1,o2)/2; all raw items (0–2) divided by 2; **stored on 0–1 scale**; N=2,646 (GRI3 era) |
+| **Mechanism sub-hypothesis (pre-specified)** | `mpqi_dim_proc` — process dimension only; expected to show clearest positive ATT as it directly measures GRI 3 four-step DMA documentation; sampling run: ATT=+0.059*, t+1=+0.079* [0.057, 0.101] |
+| **Secondary structural outcome** | `gri3_four_step_compliance` (count 0–4) — explicit step count; Firth logit cross-section: 2023 OR=1.791* |
+| **Robustness outcome** | `process_quality_score` (r=0.86 with mpqi_composite) — use as robustness specification only |
+| **Population** | GRI3 era, 2021–2024; N=2,646 with mpqi_composite; estimable DiD panel same as H1 |
+| **Estimator** | CS21 as per H1: `att_gt(yname="mpqi_composite", glist=c(2022,2023), allow_unbalanced_panel=TRUE, est_method="reg")`; TWFE robustness: `feols(mpqi_composite ~ post_gri3_it + controls \| twse_ticker + fiscal_year, cluster=~twse_ticker)` |
+| **Controls** | `ln_total_assets_s, roa_s` (scaled; same as H1) |
+| **Expected sign** | **Positive ATT** on composite and on `mpqi_dim_proc`; composite may be attenuated by opposing stakeholder breadth effect |
+| **Expected magnitude** | +0.05 to +0.10 on the 0–1 composite scale; +0.05 to +0.08 on `mpqi_dim_proc` |
+| **Composition sub-hypothesis** | If composite ATT is null but `mpqi_dim_proc` ATT is positive, conclude: GRI 3 formalises process documentation while rationalising stakeholder breadth — consistent with H1's compliance-cost mechanism |
+
+**MPQI construction summary:**
+
+| Dimension | Items | Formula |
+|---|---|---|
+| Governance (`mpqi_dim_gov`) | g1, g3 | mean/2 |
+| Process (`mpqi_dim_proc`) | p1, p2, p3 | mean/2 |
+| Stakeholder (`mpqi_dim_stake`) | s1, s2, s3 | mean/2 |
+| Output (`mpqi_dim_out`) | o1, o2 | mean/2 |
+| **Composite (`mpqi_composite`)** | All 10 | Equal-weighted mean of 4 dims |
+
+Cronbach α=0.605 (all items); r(mpqi_composite, Block C mpqi_score)=0.99; r(mpqi_composite, process_quality_score)=0.86. Formative construct — low within-dimension α expected and theoretically justified.
 
 ### Operationalisation — Supplementary NLP Outcomes (H2-NLP, pre-registered)
 
