@@ -330,7 +330,7 @@ Same CS21 framework as H2: `att_gt(yname="finbert_gov_density", tname="fiscal_ye
 **Stratify runs by language_track** — run EN models on bilingual company-years only; run ZH models on ZH-only company-years only. Report results in separate tables; do not aggregate across tracks.
 
 ### Convergent validity pre-check (before pre-registration of NLP outcomes)
-Run Pearson correlation between `process_quality_score` and each NLP density score for the 2024 cross-section. If r < 0.05 for all NLP measures, the NLP pipeline is not capturing the same construct as the structural process quality measure — report divergence as a finding (structural compliance ≠ substantive content depth), not a failure.
+Run Pearson correlation between `mpqi_composite` (primary) and each NLP density score for the 2024 cross-section. `process_quality_score` may be used as secondary reference. Sampling run results (2026-06-23): `bge_mean_sim` r=0.331 ✅, `xlmr_esg_sentences_n` r=0.302 ✅, `finbert_gov_pct` r=0.112 ❌ (below 0.20 threshold). If r < 0.05 for all NLP measures, report divergence as a finding (structural compliance ≠ substantive content depth), not a failure.
 
 ### Expected sign
 Positive — GRI 3 adoption is expected to increase ESG sentence density across dimensions as reports become more topically comprehensive under the DMA framework. GOV dimension may show the clearest effect (GRI 3's management approach requirements are governance-heavy).
