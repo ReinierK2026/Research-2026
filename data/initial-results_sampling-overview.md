@@ -240,22 +240,41 @@ All raw items are on a 0–2 scale and divided by 2 to produce 0–1; `mpqi_s1` 
 
 **Key finding:** Duration effect remains strong for Big4 specifically (OR=1.90). Firms already using Big4 for financial audit are 5× more likely to use Big4 for sustainability assurance — strong audit relationship spillover. FullAssur sector coefficient shrinks from 37.8 (D1) to 15.3 (D2), suggesting Financials/Food achieve assurance broadly but not always via Big4.
 
-### D3 — has_reasonable (appendix, EPV ≈ 4)
+### D3 — has_reasonable_assurance (appendix only, EPV = 4.6)
 
-| Predictor | OR | p |
-|---|---|---|
-| years_since_adoption | 1.577 | 0.515 |
-| ln_total_assets | 2.099 | <0.001 |
+**Updated 2026-06-24:** EPV = 4.6 (23 events after NA removal). Wald CIs unreliable, convergence issues. No inferential claims. Relegated to appendix.
 
-Underpowered (57 events / N=465 after missings; ~5 events per predictor). Duration effect not detected. Size remains significant. **Wald CIs only; no inferential claims.**
+**New D3c — has_quality_assurance (Big4 OR Reasonable) — EPV = 33.4:**
 
-### D4 — Panel FE Logit Robustness (feglm, pooled 2021–2024)
+| Predictor | OR | p | Note |
+|---|---|---|---|
+| **years_since_adoption** | **1.913** | **<0.001** | Primary collapsed D3 |
+| ln_total_assets | 1.483 | 0.002 | — |
+| big4_financial_auditor | 2.982 | 0.024 | — |
 
-| Predictor | Coef (log-odds) | SE | z | p |
-|---|---|---|---|---|
-| years_since_adoption | 3.867 | 0.835 | 4.63 | <0.001 |
+`has_quality_assurance` = 1 if `big4_assurance`=1 OR `assurance_level`="Reasonable" (events=167, EPV=33.4). Standard logit appropriate at this EPV. **Key finding: 1.9× higher odds of high-quality assurance per additional year under GRI 3.** Directionally consistent with D1/D2 but targets the upper tier.
 
-**Implied OR = 47.8** — implausibly large. This reflects the incidental parameters problem in short-panel logit (T=4 years, many firm FEs). Coefficient is directionally consistent with D1/D2 but should not be interpreted at face value. Report as robustness evidence of direction only; flag the Neyman-Scott bias explicitly.
+### D4 — Panel FE Logit Robustness (updated 2026-06-24)
+
+**D4 feglm: OR=47.8 — incidental parameters bias artifact. Do not report as primary.**
+- Root cause confirmed: 516/897 panel companies (57.5%) have zero within-period variation in `has_any_assurance`. These perfectly-predicted observations inflate the firm FE logit coefficient via Neyman-Scott bias.
+- **Flag explicitly in paper; replace with D4b as primary panel estimate.**
+
+**D4a: LPM TWFE (pyfixest, cluster SEs by firm):**
+
+| Variable | Coef | SE (CRV1) | p |
+|---|---|---|---|
+| years_since_adoption | −0.009 | 0.044 | 0.843 |
+
+Null within-company effect — expected. FE absorbs 516 invariant companies; remaining variation not systematically driven by years since adoption conditional on firm FE.
+
+**D4b: Mundlak-Chamberlain CRE Logit (primary panel estimate):**
+
+| Parameter | OR | 95% CI | p |
+|---|---|---|---|
+| **years_since_adoption** | **2.858** | **[2.342, 3.488]** | **<0.001** |
+
+OR=2.858 confirmed in both R and Python (exact match). Avoids incidental parameters bias. **Primary panel robustness result for H3.**
 
 ---
 
