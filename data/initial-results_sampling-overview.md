@@ -2,6 +2,7 @@
 date: 2026-06-23
 status: exploratory — pre-OSF, NOT for inference
 scope: All streams A–F + R HonestDiD + R logistf
+last_updated: 2026-06-23 (mpqi_composite replaces process_quality_score; 2 pre-periods unlocked)
 ---
 
 # GRI 3 Materiality DiD — Sampling Run: Full Findings Overview
@@ -14,12 +15,15 @@ scope: All streams A–F + R HonestDiD + R logistf
 
 | Hypothesis | Test | Direction | Significant | Robust | Status |
 |---|---|---|---|---|---|
-| H1: topic displacement | CS21 DiD (Python + R) | Negative ✓ | Yes (e=0) | HonestDiD M=2 ✅ | **Supported** |
-| H2: process quality ↑ | CS21 DiD (Python) | Positive ✓ | At t+1 only | Null at M=0 ❌ | **Weakly supported / lagged** |
-| H2 (R replication) | CS21 reg (R) | Negative ✗ | No | Null | **Not supported in R run** |
-| H3: assurance uptake ↑ | Firth logit (R) | Positive ✓ | Yes (D1, D2) | — | **Supported** |
-| H3a: panel FE robustness | feglm (R) | Positive ✓ | Yes | — | **Supported (caution: large OR)** |
-| H4: heterogeneity by intensity | Triple-diff (Python) | Wrong direction | Unstable | Pre-trends noisy | **Not supported / underpowered** |
+| H1: topic displacement | CS21 DiD (R, 4 event times) | Negative ✓ | Yes (e=0, ATT=−8.51) | HonestDiD M=2 ✅ (ub=−0.006) | **Supported** |
+| H2: mpqi_composite ↑ | CS21 DiD (R, mpqi_composite) | Positive | No — null composite | Null at M=0 ❌ | **Null composite = composition story** |
+| H2 mechanism: mpqi_dim_proc | CS21 sub-dimension (R) | Positive ✓ | Yes (ATT=+0.059*) | t+1=+0.079* [0.057, 0.101] | **Supported (process dim only)** |
+| H2 opposing: stakeholder_groups_n | CS21 component (R) | Negative | Yes (ATT=−2.07*) | t+1=−2.60* | **Rationalisation finding** |
+| H3: assurance uptake ↑ | Firth logit (R) | Positive ✓ | Yes (D1 OR=2.671*, D2 OR=1.901*) | D4b Mundlak OR=2.858* | **Supported** |
+| H3 panel robustness | Mundlak-Chamberlain CRE (R) | Positive ✓ | Yes (OR=2.858*) | Avoids incidental params bias | **Supported** |
+| H4: heterogeneity by intensity | TWFE triple-diff (R) | ns (coef=−0.907) | No | Primary test null | **Not supported (primary)** |
+| H4 Low subsample | CS21 subsample (R) | Negative | Yes (ATT=−13.82*) | HonestDiD M=2 robust | **Supported (exploratory)** |
+| H4 High subsample | CS21 subsample (R) | Negative | No (ATT=−10.62, ns) | Null at M=0 | **Not significant** |
 | C1: cross-sectional quality | OLS (Python) | Positive ✓ | Yes | Cross-section caveat | **Directionally consistent** |
 | C2: assurance count Poisson | GLM (Python) | Negative | No (p=0.51) | — | **Null** |
 | E: within-company dynamics | FE OLS (Python) | Positive ✓ | Yes (both) | — | **Supported** |
