@@ -16,7 +16,7 @@
 | Unique companies (twse_ticker) | **1,226** *(was 1,036)* |
 | Fiscal years covered | **2016–2024** *(was 2020–2024)* |
 | Panel balance | **Unbalanced** — see below |
-| **Total columns** | **195** *(Pass DB-06; +3 assurance cols)* (Block A: identifiers 13; B: GRI process 17; C: materiality 32; D: NLP outputs × 4 models 36; F: financials 81; G: ESG ratings 14; derived/new cols 8) |
+| **Total columns** | **208** *(Pass DB-08; latest)* — history: 195 (DB-06) → 202 (+7 Block E, DB-07) → **208** (+6 MPQI, DB-08) |
 
 > **Note on company_id:** The `company_id` field is a ticker-year compound key (e.g., `1101_2024`), not a company identifier. Use `twse_ticker` as `idname` in `att_gt()`.
 
