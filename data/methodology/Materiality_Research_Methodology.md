@@ -59,7 +59,7 @@ The primary estimator is the **Callaway-Sant'Anna (2021) group-time average trea
 
 ```r
 att_gt(
-  yname         = "n_material_topics_b",     # or process_quality_score for H2
+  yname         = "n_material_topics_b",     # or mpqi_composite for H2
   tname         = "fiscal_year",
   idname        = "twse_ticker",             # NOT company_id
   gname         = "gri_adoption_year",
@@ -557,7 +557,12 @@ H3 is reclassified as exploratory logistic regression. The study does not claim 
 | B | `gri_standard_version` | String | Version tag | — | ✅ |
 | B | `standalone_sr` | Binary | Covariate | — | ✅ |
 | C | `n_material_topics_b` | Count | H1 outcome | — | ✅ |
-| C | `process_quality_score` | Continuous 0–1 | H2 outcome | — | ✅ |
+| C | `mpqi_composite` | Continuous 0–1 | **H2 primary outcome** (replaces `process_quality_score`) | — | ✅ (2026-06-23) |
+| C | `mpqi_dim_gov` | Continuous 0–1 | H2 governance dimension | — | ✅ (2026-06-23) |
+| C | `mpqi_dim_proc` | Continuous 0–1 | H2 process dimension (mechanism variable) | — | ✅ (2026-06-23) |
+| C | `mpqi_dim_stake` | Continuous 0–1 | H2 stakeholder dimension | — | ✅ (2026-06-23) |
+| C | `mpqi_dim_out` | Continuous 0–1 | H2 output dimension | — | ✅ (2026-06-23) |
+| C | `process_quality_score` | Continuous 0–1 | H2 legacy — retain as robustness; r=0.86 with mpqi_composite | — | 🟡 Superseded |
 | C | `has_any_assurance` | Binary | H3 primary outcome | 193 | ✅ |
 | C | `big4_assurance` | Binary | H3 secondary outcome | 194 | ✅ |
 | C | `big4_financial_auditor` | Binary | H3 control | 195 | ✅ |
