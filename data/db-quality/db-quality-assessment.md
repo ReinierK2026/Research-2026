@@ -573,4 +573,4 @@ Rationale for exclusion from primary spec: The CGE criteria include ESG/sustaina
 
 ---
 
-*Generated: 2026-06-10 | Last updated: 2026-06-23 (Pass DB-07: Block E Jaccard/topic-dynamics vars, 202 cols; Pass DB-08: MPQI variables, 208 cols; mpqi_composite replaces process_quality_score as H2 primary; H2 composition story documented)*
+*Generated: 2026-06-10 | Last updated: 2026-06-23 (Pass DB-07: Block E Jaccard/topic-dynamics vars, 202 cols; Pass DB-08: MPQI variables, 222 cols; mpqi_composite replaces process_quality_score as H2 primary; H2 composition story documented; mpqi_dim_gri 5th dimension confirmed; mpqi_composite_3d absent from DB)*
