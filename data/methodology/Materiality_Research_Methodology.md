@@ -192,18 +192,57 @@ Count of GRI 3-3 disclosure entries per company-year, derived from `gri_codes_su
 
 **`n_material_topics_a` is identical to `n_material_topics_b`** (Pearson r = 1.000, confirmed 2026-06-22). Both derive from the same `gri_codes_summary` source. Drop `n_material_topics_a` from regressions; retain in DB as a redundant alias; use as robustness check to confirm identical results.
 
-#### H2 — `process_quality_score` (continuous 0–1)
-Composite materiality process quality index constructed from five sub-indicators extracted via regex and NLP from ESG report text: `stakeholder_groups_n`, `engagement_methods_n`, `process_steps_n`, `board_approved`, `scoring_method_disclosed`. Stored on a **0–1 scale** (not 0–10 as in earlier document versions).
+#### H2 — `mpqi_composite` — Materiality Process Quality Index (updated 2026-06-23)
 
-| Metric | DiD window (2020–2024) |
-|---|---|
-| Non-null | 3,208 / 3,283 (98%) |
-| Non-zero | 3,173 / 3,283 (97%) |
-| Distribution | min=0, max=1, mean=0.413, median=0.400 |
-| Pre-trend coverage (2020) | ~25% (Block C sparse in 2020) |
-| Pre-trend coverage (2021+) | 97–100% |
+`mpqi_composite` is the primary H2 outcome variable, replacing `process_quality_score`. It is a validated, equal-weighted composite of four materiality process quality dimensions constructed from Block C NLP/structural extractions.
 
-**2020 pre-trend caveat:** `process_quality_score` is only 25% populated for FY 2020, reflecting that the Block C text extraction pipeline was less comprehensive for the pre-mandate corpus. The primary pre-trend test uses t=2021 as the baseline period; t=2020 is a secondary (sensitivity) pre-trend test.
+**Construction:**
+
+| Dimension | Column | Items | Formula | Scale |
+|---|---|---|---|---|
+| Governance | `mpqi_dim_gov` | g1, g3 | mean(g1, g3) / 2 | 0–1 |
+| Process | `mpqi_dim_proc` | p1, p2, p3 | mean(p1, p2, p3) / 2 | 0–1 |
+| Stakeholder | `mpqi_dim_stake` | s1, s2, s3 | mean(s1, s2, s3) / 2 *(s1 already 0–1)* | 0–1 |
+| Output | `mpqi_dim_out` | o1, o2 | mean(o1, o2) / 2 | 0–1 |
+| **Composite** | **`mpqi_composite`** | All 10 items | Equal-weighted mean of 4 dims | **0–1** |
+
+All raw items are on a 0–2 scale and divided by 2; `mpqi_s1` is already 0–1 and used as-is. `mpqi_composite` requires all 4 dimensions to be non-null; `mpqi_composite_3d` (robustness) requires ≥3 dimensions non-null.
+
+**Coverage (GRI3 era — primary analysis window):**
+
+| Year | N (mpqi_composite) | Mean | SD |
+|---|---|---|---|
+| 2021 | 401 | — | — |
+| 2022 | 534 | — | — |
+| 2023 | 683 | — | — |
+| 2024 | 1,022 | — | — |
+| **Total** | **2,646** | **0.516** | **0.156** |
+
+| Dimension | N | Mean | SD |
+|---|---|---|---|
+| `mpqi_dim_gov` | 3,282 | 0.470 | 0.321 |
+| `mpqi_dim_proc` | 2,646 | 0.331 | 0.174 |
+| `mpqi_dim_stake` | 3,220 | 0.711 | 0.231 |
+| `mpqi_dim_out` | 3,282 | 0.488 | 0.256 |
+
+**Reliability and validity:**
+
+| Test | Value | Interpretation |
+|---|---|---|
+| Cronbach α (all 10 items) | **0.605** | Borderline acceptable; formative construct expected to show lower α |
+| α (governance dim, g1/g3) | 0.384 | Low — 2-item scales inherently noisy |
+| α (process dim, p1/p2/p3) | 0.220 | Low — items measure distinct sub-processes |
+| α (stakeholder dim, s1/s2/s3) | **0.689** | Good |
+| α (output dim, o1/o2) | 0.245 | Low |
+| r(mpqi_composite, Block C `mpqi_score`) | **+0.99** | ✅ Construct equivalence confirmed |
+| r(mpqi_composite, `process_quality_score`) | **+0.86** | ✅ Good convergent validity |
+| r(mpqi_composite, `twse_cgq_score`) | −0.16 | Legitimacy substitution pattern (theoretically expected) |
+
+**Formative construct justification:** Low within-dimension alphas are expected. MPQI is a formative index where items are distinct causal indicators of process quality — not interchangeable reflections of a single latent trait. This framing is standard for composite disclosure quality indices in accounting and sustainability research (cf. disclosure quality indices in voluntary disclosure literature).
+
+**Known structural issue:** `mpqi_p2` and `mpqi_o1` are highly correlated (r=0.809) despite being in different dimensions (Process vs Output). Both appear to capture visualization quality (matrix display). Dimension assignment should be resolved before confirmatory factor analysis; report as a limitation.
+
+**Analytical pre-treatment coverage caveat:** `mpqi_composite` requires all 4 dimensions; coverage for pre-GRI3 years (2020) is thin because Block C extraction was less comprehensive for the pre-mandate corpus. The primary pre-trend test uses t=2021 as the baseline; t=2020 provides an additional (sensitivity) pre-trend test where coverage permits.
 
 #### H3 — Assurance variables (pre-computed binary; Pass DB-06)
 
