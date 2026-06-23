@@ -135,7 +135,7 @@ Null or positive ATT on `n_material_topics_b` rejects the displacement hypothesi
 
 ## H2 — Process Quality Upgrade Post-Adoption
 
-> **2026-06-23 update:** Primary outcome changed from `process_quality_score` → `mpqi_composite` (validated 4-dimension composite). Sub-dimension `mpqi_dim_proc` added as pre-specified mechanism variable. See MPQI construction below.
+> **2026-06-23 update:** Primary outcome changed from `process_quality_score` → `mpqi_composite` (validated 5-dimension composite; cols 217–222 in DB). Sub-dimension `mpqi_dim_proc` added as pre-specified mechanism variable. See MPQI construction below.
 
 ### Statement
 > Earlier GRI 3 adoption (2022 cohort) causes a significant **increase** in materiality process quality — measured by `mpqi_composite` — as GRI 3's four-step Due Diligence Methodology imposes minimum process documentation standards. The process formalisation dimension (`mpqi_dim_proc`) is expected to show the clearest positive effect; the composite may show a smaller or null effect if compensating rationalisation in stakeholder breadth occurs.
@@ -147,7 +147,7 @@ GRI 3 mandates four specific process steps: stakeholder identification, impact i
 
 | Element | Detail |
 |---|---|
-| **Primary outcome** | `mpqi_composite` — equal-weighted mean of 4 dimensions: gov=mean(g1,g3)/2, proc=mean(p1,p2,p3)/2, stake=mean(s1,s2,s3)/2 *(s1 0–1)*, out=mean(o1,o2)/2; all raw items (0–2) divided by 2; **stored on 0–1 scale**; N=2,646 (GRI3 era) |
+| **Primary outcome** | `mpqi_composite` (col 222) — equal-weighted mean of 5 dimensions: gov=mean(g1,g3)/2, proc=mean(p1,p2,p3)/2, stake=mean(s1,s2,s3)/2 *(s1 0–1)*, out=mean(o1,o2)/2, gri=GRI conformance; all raw items (0–2) divided by 2; **stored on 0–1 scale**; N=2,646 (GRI3 era) |
 | **Mechanism sub-hypothesis (pre-specified)** | `mpqi_dim_proc` — process dimension only; expected to show clearest positive ATT as it directly measures GRI 3 four-step DMA documentation; sampling run: ATT=+0.059*, t+1=+0.079* [0.057, 0.101] |
 | **Secondary structural outcome** | `gri3_four_step_compliance` (count 0–4) — explicit step count; Firth logit cross-section: 2023 OR=1.791* |
 | **Robustness outcome** | `process_quality_score` (r=0.86 with mpqi_composite) — use as robustness specification only |
