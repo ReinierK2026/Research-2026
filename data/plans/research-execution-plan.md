@@ -469,12 +469,18 @@ fe_e3_zh <- feols(bge_gov_density ~ years_post | twse_ticker,
 Before running any DiD on NLP outcomes, compute Pearson r between `process_quality_score` and each NLP density score for the 2024 cross-section:
 
 ```r
+# ✅ CORRECTED 2026-06-23: actual DB column names (verified against db_did_full.csv)
+# FinBERT outputs: _pct suffix (proportion of sentences per ESG category)
+# BGE-M3 outputs: _affinity suffix (cosine similarity to topic anchor)
+# XLM-R outputs: _pct suffix (same as FinBERT convention)
 cor_check <- db_2024 |>
   summarise(
-    r_pqs_finbert_gov = cor(process_quality_score, finbert_gov_density, use="complete.obs"),
-    r_pqs_bge_gov     = cor(process_quality_score, bge_gov_density,     use="complete.obs"),
-    r_pqs_finbert_env = cor(process_quality_score, finbert_env_density, use="complete.obs"),
-    r_pqs_bge_env     = cor(process_quality_score, bge_env_density,     use="complete.obs")
+    r_pqs_finbert_gov = cor(process_quality_score, finbert_gov_pct,    use="complete.obs"),
+    r_pqs_bge_gov     = cor(process_quality_score, bge_gov_affinity,   use="complete.obs"),
+    r_pqs_finbert_env = cor(process_quality_score, finbert_env_pct,    use="complete.obs"),
+    r_pqs_bge_env     = cor(process_quality_score, bge_env_affinity,   use="complete.obs"),
+    r_pqs_bge_mean    = cor(process_quality_score, bge_mean_sim,       use="complete.obs"),
+    r_pqs_xlmr_esg_n  = cor(process_quality_score, xlmr_esg_sentences_n, use="complete.obs")
   )
 ```
 
