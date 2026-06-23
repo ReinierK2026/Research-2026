@@ -1,4 +1,4 @@
-# OSF Execution Plan
+# Research Execution Plan
 **Study:** Does Mandatory GRI 3 Adoption Change Materiality Disclosure Quality? Evidence from Taiwan's Staggered ESG Reporting Reform  
 **Last updated:** 2026-06-23  
 **Maintained by:** Research Coordinator Agent
