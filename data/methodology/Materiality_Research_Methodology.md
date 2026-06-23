@@ -141,7 +141,8 @@ Three row sets serve distinct purposes:
 | TEJ_Big4.xlsx | 2020–2024 | `big4_assurance`, `has_any_assurance`, `big4_financial_auditor` (Pass DB-06) |
 | ESGgenplus PDF corpus | 2021–2024 | Source PDFs for NLP extraction; 1,042+ reports per year |
 | GRI extraction pipeline | 2021–2024 | `n_material_topics_b`, `gri_content_index_completeness` (via gri_codes_summary CSVs) |
-| Block C NLP extraction | 2020–2024 | `mpqi_composite`, `mpqi_dim_gov/proc/stake/out` (H2 primary; Pass DB-08); `process_quality_score` (legacy robustness); `board_approved`, `mat_section_found`, `dm_methodology_disclosed` |
+| Block C NLP extraction | 2020–2024 | 10 raw MPQI items (mpqi_g1, mpqi_p1, mpqi_p2, mpqi_p3, mpqi_s1, mpqi_s2, mpqi_s3, mpqi_o1, mpqi_g3, mpqi_o2; cols 207–216); 5 MPQI dimensions (`mpqi_dim_gov`, `mpqi_dim_proc`, `mpqi_dim_stake`, `mpqi_dim_out`, `mpqi_dim_gri`; cols 217–221); `mpqi_composite` (col 222; H2 primary; Pass DB-08); `process_quality_score` (legacy robustness); `board_approved`, `mat_section_found`, `dm_methodology_disclosed` |
+| Imputed financials | 2016–2024 | `total_assets_imputed`, `net_income_imputed`, `firm_age_imputed`, `rd_expense_imputed` (cols 203–206; Pass DB-08) |
 | Block E topic dynamics | 2022–2024 | `jaccard_similarity`, `topic_churn_rate`, `topics_added_n`, `topics_dropped_n`, `net_topic_change` (Pass DB-07) |
 
 ### 4.4 Sample construction
@@ -494,7 +495,7 @@ Streams B, C, and D are descriptive/exploratory and are not blocked by OSF regis
 - [x] `twse_cgq_score` integrated (Pass DB-05; robustness only)
 - [x] Assurance columns pre-computed (Pass DB-06; `has_any_assurance`, `big4_assurance`, `big4_financial_auditor`)
 - [x] Block E Jaccard variables merged (Pass DB-07; `jaccard_similarity` etc.; cols 196–202)
-- [x] MPQI variables integrated (Pass DB-08; `mpqi_composite`, `mpqi_dim_proc` etc.; cols 203–208; H2 primary outcome updated)
+- [x] MPQI variables integrated (Pass DB-08; 4 imputed financials cols 203–206; 10 raw MPQI items cols 207–216; 5 MPQI dimensions cols 217–221 [incl. `mpqi_dim_gri`]; `mpqi_composite` col 222; H2 primary outcome updated; total 222 cols)
 - [ ] OSF pre-registration uploaded (last remaining blocker)
 
 **Hypotheses**
