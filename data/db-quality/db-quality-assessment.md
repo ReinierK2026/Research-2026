@@ -390,7 +390,7 @@ Before OSF submission:
 | 🟡 #14 | Populate `sustainalytics_risk_score` and/or `msci_esg_rating` (subscriptions required) | PENDING |
 | ✅ #15 | Board diversity patch (Pass DB-02) | **DONE** |
 | ✅ #17 | Block E Jaccard/topic-dynamics variables integrated (Pass DB-07) | **DONE** — 7 cols added (cols 196–202); db_did_full/db_did regenerated |
-| ✅ #18 | MPQI variables integrated (Pass DB-08) | **DONE** — 6 cols added (cols 203–208); H2 primary outcome → mpqi_composite |
+| ✅ #18 | MPQI variables integrated (Pass DB-08) | **DONE** — 20 cols added (cols 203–222); H2 primary outcome → mpqi_composite |
 | 🔴 #16 | Upload OSF pre-registration to OSF and obtain DOI | **PENDING — last hard blocker before att_gt()** |
 
 
