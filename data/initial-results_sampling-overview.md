@@ -340,7 +340,7 @@ Only 1 event time estimable (g=2023 has 78 EN-only NTT companies — pre-trend p
 | 4 | **H2 mpqi_composite composite null** — two opposing forces cancel; interpret as composition story | Medium | Framed as mechanism finding: proc dim ↑, stakeholder count ↓; both are theoretically interpretable |
 | 5 | **H4 primary TWFE null** — triple-diff coef = −0.907 ns; subsample CS21 exploratory only | High | Primary test remains TWFE; reclassify H4 as exploratory in pre-registration |
 | 6 | **D4 panel FE logit OR = 47.8** — incidental parameters bias in T=4 short panel | Medium | ✅ Resolved — replaced with Mundlak-Chamberlain CRE logit (D4b), OR=2.858*, avoids incidental params bias |
-| 7 | **HonestDiD vcov approximation** — diagonal SE² used due to V_analytical unavailability with unbalanced panel | Low | Use bootstrap vcov (`bstrap=TRUE, biters=999`) in final R run for paper |
+| 7 | **HonestDiD vcov approximation** — diagonal SE² used due to V_analytical unavailability with unbalanced panel | Low | ✅ Bootstrap run completed (Python csdid biters=999; H1 ATT=-7.18 SE≈3.7 confirmed). For paper, run in R with `bstrap=TRUE, biters=999` for full off-diagonal vcov. |
 | 8 | **mpqi_p2–o1 collinearity** (r=0.809) — both items appear to capture visualization quality | Medium | Flag as limitation; resolve dimension assignment before CFA; report in measurement section |
 
 ### Technical issues (resolved)
