@@ -492,7 +492,8 @@ Streams B, C, and D are descriptive/exploratory and are not blocked by OSF regis
 - [x] `sasb_industry` 100% populated in DiD window (Pass DB-04)
 - [x] `twse_cgq_score` integrated (Pass DB-05; robustness only)
 - [x] Assurance columns pre-computed (Pass DB-06; `has_any_assurance`, `big4_assurance`, `big4_financial_auditor`)
-- [x] Block E Jaccard variables merged (Pass DB-07; `jaccard_similarity` etc.)
+- [x] Block E Jaccard variables merged (Pass DB-07; `jaccard_similarity` etc.; cols 196–202)
+- [x] MPQI variables integrated (Pass DB-08; `mpqi_composite`, `mpqi_dim_proc` etc.; cols 203–208; H2 primary outcome updated)
 - [ ] OSF pre-registration uploaded (last remaining blocker)
 
 **Hypotheses**
