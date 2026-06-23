@@ -490,12 +490,12 @@ Coverage is shown two ways: **NLP corpus** (1,042 companies with extracted text)
 
 ## Comparisons & Metrics
 
-### Database State (current — Pass DB-06, 2026-06-22)
+### Database State (current — Pass DB-07, 2026-06-23)
 - Rows: **5,408** (data) + 2 header rows (FY 2016–2024)
-- Columns: **195** (Pass DB-06: +`twse_cgq_score`, +`has_any_assurance`, +`big4_assurance`, +`big4_financial_auditor`)
+- Columns: **202** (Pass DB-07: +7 Block E topic dynamics cols 196–202)
 - Encoding: UTF-8-sig BOM
 - Full universe: 2,091 unique companies × 2016–2024
-- Analytical sample (FY ≥ 2020): 3,283 rows; db_did_full.csv = 3,283 × 195 cols; db_did.csv = 2,960 × 195 cols (g=2024 excluded)
+- Analytical sample (FY ≥ 2020): 3,283 rows; db_did_full.csv = 3,283 × 202 cols; db_did.csv = 2,960 × 202 cols (g=2024 excluded)
 - 73-company industry subsample embedded within: 507 rows (available for subgroup analysis)
 
 ### Database State (prior — Pass 93, 2026-06-11)
