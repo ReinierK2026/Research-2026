@@ -493,7 +493,7 @@ cor_check <- db_2024 |>
 db_en <- db_did |> filter(language_track == "bilingual")
 
 out_nlp_gov_en <- att_gt(
-  yname         = "finbert_gov_density",
+  yname         = "finbert_gov_pct",      # ✅ corrected: was finbert_gov_density
   tname         = "fiscal_year",
   idname        = "twse_ticker",
   gname         = "gri_adoption_year",
@@ -502,17 +502,19 @@ out_nlp_gov_en <- att_gt(
   data          = db_en,
   est_method    = "dr"
 )
-# Repeat for finbert_env_density, finbert_soc_density, climatebert_climate
+# Repeat for finbert_env_pct, finbert_soc_pct, climatebert_climate_pct
+# Note: bge_mean_sim and xlmr_esg_sentences_n also available for bilingual track
 
 # ZH track — zh_only companies only
 db_zh <- db_did |> filter(language_track == "zh_only")
 
 out_nlp_gov_zh <- att_gt(
-  yname = "bge_gov_density",
+  yname = "bge_gov_affinity",   # ✅ corrected: was bge_gov_density
   ...,
   data  = db_zh
 )
-# Repeat for bge_env_density, bge_soc_density
+# Repeat for bge_env_affinity, bge_soc_affinity
+# xlmr_env_pct / xlmr_gov_pct also available for zh_only track as secondary
 ```
 
 **Critical constraint:** Never pool FinBERT and BGE-M3 results. Report EN and ZH NLP results in separate tables. State explicitly that cross-model comparisons are not valid (r_GOV = −0.017 on same bilingual documents).
