@@ -2543,10 +2543,8 @@
     "topic": "Methodological issues triage — Issues #3, #4, #5, #8",
     "status": "completed",
     "output_file": "findings/mpqi_p2_sensitivity.csv",
-    "variables_added": [
-      "mpqi_p2_clean (proposed; not yet in DB)"
-    ],
-    "notes": "Addressed 4 open methodological issues from sampling-overview issues table. #3, #4, #5 confirmed resolved (documented). #8 root cause identified: shared input matrix_shown in both mpqi_p2 and mpqi_o1 derivations. Fix: mpqi_p2_clean = scoring_method_disclosed only. Sensitivity analysis confirms fix resolves collinearity (r drops 0.862→0.049) with negligible composite impact (r_composite=0.993, mean_diff<0.008). DB revision required before submission.",
+    "variables_added": [],
+    "notes": "Addressed 4 open methodological issues from sampling-overview issues table. #3, #4, #5 confirmed resolved (documented). #8 (mpqi_p2-o1 collinearity, r=0.809): already resolved by design decision (2026-06-23) — o1 excluded from final 9-item MPQI and consolidated into p2 ('visualization quality'). Both items capture the same visualization construct; collinearity is expected and explained, not a remaining limitation. Reference: academic-researcher_mpqi-full-results_2026-06-23.md Step 1. Issue table updated to reflect this explanation.",
     "results": {
       "issue_3_AUC_0775": {
         "status": "resolved",
@@ -2561,17 +2559,11 @@
         "finding": "H4 reclassified as exploratory; primary TWFE triple-diff null confirmed (R5)"
       },
       "issue_8_mpqi_collinearity": {
-        "status": "resolved_proposed_fix",
-        "root_cause": "matrix_shown appears in both p2 (p2=scoring_method_disclosed+matrix_shown) and o1 (o1=matrix_shown+matrix_axes_labeled)",
-        "r_matrix_shown_p2": 0.889,
-        "r_matrix_shown_o1": 0.964,
-        "r_p2_o1_original": 0.862,
-        "r_p2clean_o1": 0.049,
-        "r_composite_orig_clean": 0.993,
-        "mean_diff_composite": -0.008,
-        "pct_rows_changed_2024": 20.4,
-        "fix": "mpqi_p2_clean = scoring_method_disclosed only (0 or 2); remove matrix_shown from p2 derivation",
-        "sensitivity_csv": "findings/mpqi_p2_sensitivity.csv"
+        "status": "explained_by_design",
+        "resolution": "o1 excluded from 9-item MPQI and consolidated into p2 (2026-06-23 decision)",
+        "rationale": "Both p2 and o1 measure visualization quality; collinearity is expected and explained",
+        "reference": "academic-researcher_mpqi-full-results_2026-06-23.md Step 1",
+        "no_db_revision_needed": true
       }
     },
     "files_updated": [
