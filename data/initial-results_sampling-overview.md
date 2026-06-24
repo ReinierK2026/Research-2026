@@ -40,16 +40,18 @@ last_updated: 2026-06-23 (mpqi_composite replaces process_quality_score; 2 pre-p
 
 ### H1: n_material_topics_b (breadth of material topics)
 
-**R run (Outcome Regression, g=2022/2023 cohorts, g=2024 as NTT controls):**
+**R run (Outcome Regression, bstrap=TRUE biters=999, g=2022/2023 cohorts, g=2024 as NTT controls, N=2,847):**
 
-| Event time | ATT | SE | Significant |
-|---|---|---|---|
-| −2 | small | — | No ✅ (pre-trend clean) |
-| −1 | −1.240 | 1.72 | No ✅ |
-| **0** | **−8.510** | ~4.3 | **Yes*** |
-| +1 | negative | — | consistent |
+| Event time | ATT | SE | 95% Simult. Band | Significant |
+|---|---|---|---|---|
+| −2 | −0.702 | 0.801 | [−2.294, 0.890] | No ✅ (pre-trend clean) |
+| −1 | −3.498 | 4.983 | [−13.402, 6.406] | No ✅ |
+| **0** | **−8.623** | 3.907 | **[−16.387, −0.859]** | **Yes*** |
+| +1 | −5.420 | 40.111 | [−85.137, 74.298] | No (uninformative — thin g=2023 controls at τ=+1) |
 
-Overall ATT = **−8.51*** — GRI 3 adoption associated with approximately 8.5 fewer material topics at adoption year.
+Overall ATT = **−8.62*** — GRI 3 adoption associated with approximately 8.6 fewer material topics at adoption year.
+
+**H1 Robustness (firm_age_s added to xformla):** ATT(τ=0) = −9.54* [−17.78, −1.30], SE=4.19. Direction and significance confirmed. Only 3 event times estimable (τ=+1 dropped in robustness model). Primary estimate preferred.
 
 **HonestDiD (R — FLCI, DeltaSD; 2 pre-periods now available):**
 
