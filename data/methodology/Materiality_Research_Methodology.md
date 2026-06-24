@@ -301,9 +301,9 @@ This exclusion is pre-registered and must be applied consistently across all H1�
 | `ln_total_assets` | Log of total assets (NTD thousands) | 92% (3,004/3,283) | TEJ Balance Sheet; December FY end |
 | `roa` | Return on assets (net income / total assets) | 92% (3,004/3,283) | Same source |
 | `standalone_sr` | 1 if company publishes a standalone sustainability report (vs integrated) | 100% | TEJ CSR Disclosure |
-| `independent_director_ratio` | Independent directors / total board seats | 98% (2021–2024); 0% (2020) | TEJ Board Diversity (Pass DB-02) |
+| `independent_director_ratio` | Independent directors / total board seats | 98% (2021–2024); 0% (2020) | TEJ Board Diversity (Pass DB-02); **note:** ticker 2636 has `independent_director_ratio = 3.0` — confirmed TEJ data entry error (`board_directors_n = 1`; ratio physically impossible). Row excluded from covariate-complete analytical sample. |
 | `board_approved` | 1 if board formally approved ESG report | 90%; 25% in 2020 | Block C extraction; exclude from 2020 base period |
-| `firm_age` | Fiscal year − TWSE listing year | 100% | Governance file |
+| `firm_age` | Fiscal year − TWSE listing year | 100% | Governance file; **note:** 9 tickers have `firm_age = −1` (newly listed in the filing year; listing year = fiscal year). Treated as valid data — these companies are newly TWSE-listed and their GRI 3 adoption timing is correctly captured. |
 
 **Robustness covariates (not in primary spec):**
 - `tesg_score` (2022 value, time-invariant pre-treatment baseline): 629/632 for 2022 companies ✅
