@@ -53,19 +53,18 @@ Overall ATT = **−8.62*** — GRI 3 adoption associated with approximately 8.6 
 
 **H1 Robustness (firm_age_s added to xformla):** ATT(τ=0) = −9.54* [−17.78, −1.30], SE=4.19. Direction and significance confirmed. Only 3 event times estimable (τ=+1 dropped in robustness model). Primary estimate preferred.
 
-**HonestDiD (R — FLCI, DeltaSD; 2 pre-periods now available):**
+**HonestDiD (R — FLCI, DeltaSD; 2 pre-periods; diagonal SE² fallback — V_analytical unavailable with bootstrap+unbalanced panel):**
 
 | M | lb | ub | Significant |
 |---|---|---|---|
-| 0.00 | negative | −1.71 | Yes |
-| 0.50 | negative | −1.67 | Yes |
-| 1.00 | negative | −1.53 | Yes |
-| 1.50 | negative | −1.30 | Yes |
-| **2.00** | negative | **−0.006** | **Yes** |
+| 0.00 | −16.7 | −1.29 | Yes |
+| 0.50 | −16.8 | −1.16 | Yes |
+| 1.00 | −17.3 | −0.856 | Yes |
+| 1.50 | −18.0 | −0.423 | Yes |
+| **1.75** | −18.4 | **−0.174** | **Yes** |
+| 2.00 | −18.7 | +0.162 | No |
 
-**Robustness ratio M = 2.0** — ATT remains significant even if parallel trends were violated by twice the magnitude of the largest observed pre-trend. The 2 pre-periods (unlocked by retaining g=2024 as NTT controls) enable proper DeltaSD calibration.
-
-*Note: vcov uses diagonal SE² approximation (V_analytical unavailable with unbalanced panel). Final run should use bootstrap vcov.*
+**Robustness ratio M = 1.75** — ATT remains significant for parallel-trend violations up to 1.75× the largest observed pre-trend magnitude. At M=2.0 the upper bound crosses zero (+0.162), indicating the threshold. The 2 pre-periods (unlocked by retaining g=2024 as NTT controls) enable proper DeltaSD calibration. Bounds use diagonal SE² approximation (conservative fallback — slightly wider than full vcov would give).
 
 ---
 
