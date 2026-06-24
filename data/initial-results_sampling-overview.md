@@ -391,7 +391,7 @@ Only 1 event time estimable (g=2023 has 78 EN-only NTT companies — pre-trend p
 
 11. ✅ **R2 Wooldridge ETWFE (2026-06-24)** — H1 ATT(g=2022,t=2022)=−1.80* (p=0.040); H2 mpqi_composite +0.082** (p=0.004). Direction confirmed; magnitude smaller than CS21 due to treatment heterogeneity (see R9).
 
-12. ✅ **R3 HonestDiD (from R CSVs)** — H1 robust at M=2.0 (ub=−0.006). Paper statement: *"Robust to violations up to M=2.0 times the largest pre-trend difference."*
+12. ✅ **R3 HonestDiD (from R CSVs, updated 2026-06-24)** — H1 robust at M=1.75 (ub=−0.174); M=2.0 no longer significant (ub=+0.162). Updated with new bootstrap run (2636 DB fix, N=2,847). Paper statement: *"Robust to violations up to M=1.75 times the largest pre-trend difference."*
 
 13. ✅ **R4 Poisson/NegBin (2026-06-24)** — Panel Poisson TWFE: IRR=0.906* (p=0.027); overdispersion D/df=3.69 confirms NegBin appropriate for cross-section. Count-distributional robustness supports H1.
 
