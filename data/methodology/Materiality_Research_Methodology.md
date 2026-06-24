@@ -429,7 +429,7 @@ All robustness checks must be run and reported regardless of significance direct
 | **R9** | **Bacon-Goodman decomposition** | Decompose heterogeneity in treatment timing weights | ✅ Complete (2026-06-24) | BG-implied TWFE=−1.82 ≈ actual TWFE=−1.80 (exact match); w_clean=0.50, w_forbidden=0.50; both components negative; TWFE attenuated vs CS21 by treatment heterogeneity, not sign reversal |
 | **R10** | **Stream C with `sasb_industry` FE** | Partial out industry effects in cross-sectional analysis | ✅ Complete (2026-06-24) | n_material_topics_b: ns (coef=−0.26, p=0.50); mpqi_composite: −0.026** (p=0.002, negative cross-section — vintage-size confound); industry FE doesn't change findings |
 
-**Mandatory reporting standard for R3:** State "The ATT estimate is robust to violations of parallel trends up to M = 2.0 times the largest observed pre-trend difference." (ub = −0.006 at M=2.0; confirmed from R HonestDiD; see `r-results/h1_honestdid_sensitivity.csv`).
+**Mandatory reporting standard for R3:** State "The ATT estimate is robust to violations of parallel trends up to M = 1.75 times the largest observed pre-trend difference." (ub = −0.174 at M=1.75; M=2.0 ub=+0.162 not significant; confirmed from R HonestDiD; see `r-results/h1_honestdid_sensitivity.csv`).
 
 **Full robustness detail:** `findings/data-analyst_robustness-checks_2026-06-24.md`
 
@@ -515,7 +515,7 @@ Streams B, C, and D are descriptive/exploratory and are not blocked by OSF regis
 **Robustness**
 - [ ] R1 BJS imputation (⚠️ requires R `didimputation` at submission — Python `did2s` vcov bug)
 - [x] R2 Wooldridge extended TWFE — H1: −1.80* (p=0.040); H2: +0.082** (p=0.004)
-- [x] R3 Rambachan-Roth HonestDiD — H1 robust at M=2.0 (ub=−0.006) (**NON-NEGOTIABLE; paper statement locked**)
+- [x] R3 Rambachan-Roth HonestDiD — H1 robust at M=1.75 (ub=−0.174); M=2.0 ub=+0.162 not significant (**NON-NEGOTIABLE; paper statement locked**)
 - [x] R4 Poisson/NegBin for `n_material_topics_b` — Panel TWFE IRR=0.906*; overdispersion confirmed D/df=3.69
 - [x] R5 H4 TWFE fallback — triple-diff ns (p=0.249); H4 exploratory
 - [x] R6 tesg_score_2022 covariate — ATT(t=0)=−7.80 (borderline p≈0.10); direction consistent
