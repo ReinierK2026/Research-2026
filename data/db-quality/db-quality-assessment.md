@@ -252,6 +252,10 @@ Three pre-computed binary columns now in DB (cols 193–195):
 
 Both `firm_age` and `rd_intensity` are ready for use in the primary covariate spec for 2020–2024.
 
+**`firm_age` anomaly — 9 tickers with `firm_age = −1` (discovered 2026-06-24):** Nine tickers have `firm_age = −1`, meaning their TWSE listing year equals fiscal_year + 1 (i.e., they were listed the year *after* the filing year). These are newly listed companies whose first ESG report was filed in their pre-listing year. **Treated as valid data** — listing year and filing year differ by one calendar year for very recent listings; GRI 3 adoption timing is correctly captured. These rows do not require exclusion. Coverage remains reported as 100% (3,275/3,283; 8 rows have genuine nulls).
+
+**`independent_director_ratio` anomaly — ticker 2636 with `independent_director_ratio = 3.0` (discovered 2026-06-24):** Ticker 2636 has `independent_director_ratio = 3.0`, which is physically impossible (maximum = 1.0). Root cause: `board_directors_n = 1` in the TEJ source — a TEJ data entry error for this company-year. This row is automatically excluded from the covariate-complete analytical sample (the ratio value causes it to be an outlier that drops out of the 92% coverage). **No correction applied to DB**; the row is excluded by missingness propagation in the analytical pipeline. Flag as a known TEJ source error in the paper's data footnote.
+
 **`independent_director_ratio` — now populated (Pass DB-02):**
 Previously 0% coverage for 2022–2024 (data pipeline break). Recomputed as n_ind/n_dir from TEJ Board diversity data; now 2,791/2,856 (97.7%) for 2021–2024. Safe to include in covariate specs.
 
