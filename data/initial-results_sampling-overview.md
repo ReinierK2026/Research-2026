@@ -15,7 +15,7 @@ last_updated: 2026-06-23 (mpqi_composite replaces process_quality_score; 2 pre-p
 
 | Hypothesis | Test | Direction | Significant | Robust | Status |
 |---|---|---|---|---|---|
-| H1: topic displacement | CS21 DiD (R, 4 event times) | Negative ✓ | Yes (e=0, ATT=−8.51) | HonestDiD M=2 ✅ (ub=−0.006) | **Supported** |
+| H1: topic displacement | CS21 DiD (R, 4 event times) | Negative ✓ | Yes (e=0, ATT=−8.62) | HonestDiD M=1.75 ✅ (ub=−0.174) | **Supported** |
 | H2: mpqi_composite ↑ | CS21 DiD (R, mpqi_composite) | Positive | No — null composite | Null at M=0 ❌ | **Null composite = composition story** |
 | H2 mechanism: mpqi_dim_proc | CS21 sub-dimension (R) | Positive ✓ | Yes (ATT=+0.059*) | t+1=+0.079* [0.057, 0.101] | **Supported (process dim only)** |
 | H2 opposing: stakeholder_groups_n | CS21 component (R) | Negative | Yes (ATT=−2.07*) | t+1=−2.60* | **Rationalisation finding** |
