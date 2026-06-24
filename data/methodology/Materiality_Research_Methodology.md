@@ -339,7 +339,7 @@ Coverage: 3,251/3,283 rows assigned (32 null = missing `sasb_industry`). Consume
 
 | Hypothesis | Outcome variable | Expected sign | Expected magnitude | Estimator | Status |
 |---|---|---|---|---|---|
-| **H1** | `n_material_topics_b` | **Negative ATT** | −2 to −5 topics (mean pre-adoption ≈ 15.0); sampling run: ATT=−8.51* | CS21 `att_gt()` | Confirmatory — pending OSF |
+| **H1** | `n_material_topics_b` | **Negative ATT** | −2 to −5 topics (mean pre-adoption ≈ 15.0); final R run: ATT=−8.62* (SE=3.907) | CS21 `att_gt()` | Confirmatory — pending OSF |
 | **H2** | `mpqi_composite` (replaces `process_quality_score`) | **Positive ATT** | +0.05 to +0.10 on 0–1 scale; sampling composite null; `mpqi_dim_proc` ATT=+0.059* | CS21 `att_gt()` | Confirmatory — pending OSF; framing revised to mechanism finding |
 | **H3 (primary)** | `has_any_assurance` | **Positive association** | ORs with `years_since_adoption` | Logistic regression | Exploratory (reclassified from DiD) |
 | **H3 (secondary)** | `big4_assurance` | **Positive association** | ORs | Logistic regression | Exploratory |
